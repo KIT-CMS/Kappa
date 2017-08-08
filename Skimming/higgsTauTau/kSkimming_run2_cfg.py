@@ -35,7 +35,7 @@ options.register('nickname', '', VarParsing.multiplicity.singleton, VarParsing.v
 options.register('testfile', '', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Path for a testfile. If no test file is given, nickname is used to get a test file with xrootd.')
 options.register('maxevents', -1, VarParsing.multiplicity.singleton, VarParsing.varType.int, 'maxevents. -1 for all events. Default: -1')
 options.register('outputfilename', 'kappaTuple.root', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Filename for the Outputfile')
-options.register('mode', 'testsuite', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Mode to run. Options: ["testuite" (Default), "local", "crab", "gc"]')
+options.register('mode', 'testsuite', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Mode to run. Options: ["testuite" (Default), "local", "crab"]. Grid-Control is automatically determined.')
 options.register('preselect', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'apply preselection at CMSSW level on leptons. Never preselect on SM Higgs samples')
 options.register('dumpPython', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'write cmsRun config to dumpPython.py')
 options.parseArguments()
@@ -585,15 +585,11 @@ if __name__ == "__main__" or __name__ == "kSkimming_run2_cfg":
 			)
 
 	# GC job-submission?
-	elif options.mode == "gc":
-		if  str("@NICK@")[0] != '@':
+	elif str("@NICK@")[0] != '@':
 			process = getBaseConfig(
 				nickname="@NICK@",
 				outputfilename="kappaTuple.root"
 				)
-		else:
-			print "Configuration error found. The mode was set to 'gc' but the nickname has not properly been replaced"
-			sys.exit(1)
 
 	# Kappa test suite (cmsRun with NO extra options, i.e. testsuite mode)
 	# to create new testfiles edit make_testfile.py and run it with cmsRun

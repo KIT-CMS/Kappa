@@ -167,7 +167,7 @@ class SkimManagerBase:
 	def individualized_crab_cfg(self, akt_nick, config):
 		config.General.requestName = akt_nick[:100]
 		config.Data.inputDBS = self.skimdataset[akt_nick].get("inputDBS", 'global')
-		config.JobType.pyCfgParams = [str('globalTag=%s'%globalTag), 'kappaTag=KAPPA_2_1_0', str('nickname=%s'%(akt_nick)), str('outputfilename=kappa_%s.root'%(akt_nick)), 'testsuite=False']
+		config.JobType.pyCfgParams = [str('nickname=%s'%(akt_nick)), str('outputfilename=kappa_%s.root'%(akt_nick)), 'mode=crab']
 		config.Data.unitsPerJob = self.files_per_job(akt_nick)
 		config.Data.inputDataset = self.skimdataset[akt_nick]['dbs']
 		config.Data.ignoreLocality = self.skimdataset[akt_nick].get("ignoreLocality", True) ## i have very good experince with this option, but feel free to change it (maybe also add larger default black list for this, or start with a whitlist
