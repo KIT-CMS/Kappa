@@ -29,10 +29,10 @@ git cms-addpkg DataFormats/METReco
 #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2#Recipe_for_regular_users_for_747
 #https://twiki.cern.ch/twiki/bin/view/CMS/MultivariateElectronIdentificationRun2#Recipes_for_747_Spring15_MVA_tra
 #"git cms-merge-topic ikrav:egm_id_747_v2
-git clone https://github.com/artus-analysis/TauRefit.git VertexRefit/TauRefit
+git clone https://github.com/KIT-CMS/TauRefit.git VertexRefit/TauRefit
 
 #Check out Kappa
-git clone https://github.com/KappaAnalysis/Kappa.git -b ${KAPPA_BRANCH}
+git clone https://github.com/KIT-CMS/Kappa.git -b ${KAPPA_BRANCH}
 
 scram b -v -j 4 || {
       echo "The ${CMSSW_BASE} with Kappa could not be built"
