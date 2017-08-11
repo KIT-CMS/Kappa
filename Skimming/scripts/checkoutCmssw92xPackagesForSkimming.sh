@@ -50,7 +50,7 @@ cd $CMSSW_BASE/src
 #
 #cd $CMSSW_BASE/src
 #sed "/import\ switchJetCollection/a from\ RecoMET\.METProducers\.METSignificanceParams_cfi\ import\ METSignificanceParams_Data" PhysicsTools/PatUtils/python/tools/runMETCorrectionsAndUncertainties.py -i
-#git clone https://github.com/artus-analysis/TauRefit.git VertexRefit/TauRefit
+#git clone https://github.com/KIT-CMS/TauRefit.git VertexRefit/TauRefit
 #fetch xml files for Egamma Id from private repository
 #git clone https://github.com/ikrav/RecoEgamma-ElectronIdentification.git tempData/RecoEgamma/ElectronIdentification/data
 #cd $CMSSW_BASE/src/tempData/RecoEgamma/ElectronIdentification/data
@@ -63,6 +63,6 @@ cd $CMSSW_BASE/src
 ##Remove the .git folder as it is not needed and contains a lot of useless data
 #rm -rf RecoEgamma/ElectronIdentification/data/.git
 #Check out Kappa
-git clone https://github.com/KappaAnalysis/Kappa.git -b ${KAPPA_BRANCH}
+git clone https://github.com/KIT-CMS/Kappa.git -b ${KAPPA_BRANCH}
 
 scram b -j 4

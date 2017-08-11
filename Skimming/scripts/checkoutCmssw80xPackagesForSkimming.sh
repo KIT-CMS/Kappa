@@ -48,7 +48,7 @@ cd $CMSSW_BASE/src/RecoMET/METPUSubtraction/data
 wget https://github.com/macewindu009/MetTools/raw/nicobranch/MVAMET/weightfiles/weightfile.root
 
 cd $CMSSW_BASE/src
-#git clone https://github.com/artus-analysis/TauRefit.git VertexRefit/TauRefit
+#git clone https://github.com/KIT-CMS/TauRefit.git VertexRefit/TauRefit
 #fetch xml files for Egamma Id from private repository
 git clone https://github.com/ikrav/RecoEgamma-ElectronIdentification.git tempData/RecoEgamma/ElectronIdentification/data
 cd $CMSSW_BASE/src/tempData/RecoEgamma/ElectronIdentification/data
@@ -73,7 +73,7 @@ sed -i "/produces<edm::PtrVector<reco::Muon>>/a \	  produces<bool>();" RecoMET/M
 sed -i "/iEvent.put(std::move(out),/a \	iEvent.put(std::auto_ptr<bool>(new bool(found)));" RecoMET/METFilters/plugins/BadGlobalMuonTagger.cc
 sed "/import\ switchJetCollection/a from\ RecoMET\.METProducers\.METSignificanceParams_cfi\ import\ METSignificanceParams_Data" PhysicsTools/PatUtils/python/tools/runMETCorrectionsAndUncertainties.py -i
 #Check out Kappa
-git clone https://github.com/KappaAnalysis/Kappa.git -b ${KAPPA_BRANCH}
+git clone https://github.com/KIT-CMS/Kappa.git -b ${KAPPA_BRANCH}
 
 scram b -v -j 4 || {
       echo "The ${CMSSW_BASE} with Kappa could not be built"
