@@ -69,7 +69,7 @@ public:
 	{
 		for (size_t j = 0; j < tagOfIds.size(); ++j)
 		{
-			electronMetadata->idNames.push_back(this->tagOfIds[j].label());
+			electronMetadata->idNames.push_back(this->tagOfIds[j].label()+":"+this->tagOfIds[j].instance());
 		}
 		return KBaseMultiLVProducer<edm::View<pat::Electron>, KElectrons>::onLumi(lumiBlock, setup);
 	}
