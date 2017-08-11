@@ -24,11 +24,11 @@
 // MC data
 struct KGenInfo_Product
 {
-	typedef KLumiInfo typeLumi;
+	typedef KGenLumiInfo typeLumi;
 	typedef KGenRunInfo typeRun;
 	typedef KGenEventInfo typeEvent;
 	static const std::string idRun() { return "KGenRunInfo"; };
-	static const std::string idLumi() { return "KLumiInfo"; };
+	static const std::string idLumi() { return "KGenLumiInfo"; };
 	static const std::string idEvent() { return "KGenEventInfo"; };
 };
 

@@ -40,6 +40,13 @@ struct KLumiInfo
 	std::vector<std::string> hltNames;      //< names of the HLT triggers
 };
 
+// currently equivalent to KLumiInfo
+struct KGenLumiInfo : public KLumiInfo 
+{
+        virtual ~KGenLumiInfo() {};
+};
+
+
 
 struct KGenRunInfo
 {

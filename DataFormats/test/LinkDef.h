@@ -199,6 +199,8 @@
 
 #pragma link C++ struct KGenLumiInfo+;
 
+#pragma link C++ struct KGenLumiInfo+;
+
 #pragma link C++ struct KDataLumiInfo+;
 
 #pragma link C++ struct KElectronMetadata+;
