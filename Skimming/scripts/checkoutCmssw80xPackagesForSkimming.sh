@@ -48,7 +48,7 @@ cd $CMSSW_BASE/src/RecoMET/METPUSubtraction/data
 wget https://github.com/macewindu009/MetTools/raw/nicobranch/MVAMET/weightfiles/weightfile.root
 
 cd $CMSSW_BASE/src
-git clone https://github.com/artus-analysis/TauRefit.git VertexRefit/TauRefit
+#git clone https://github.com/artus-analysis/TauRefit.git VertexRefit/TauRefit
 #fetch xml files for Egamma Id from private repository
 git clone https://github.com/ikrav/RecoEgamma-ElectronIdentification.git tempData/RecoEgamma/ElectronIdentification/data
 cd $CMSSW_BASE/src/tempData/RecoEgamma/ElectronIdentification/data
