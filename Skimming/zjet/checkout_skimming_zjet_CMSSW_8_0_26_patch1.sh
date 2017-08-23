@@ -65,10 +65,10 @@ sed "/import\ switchJetCollection/a from\ RecoMET\.METProducers\.METSignificance
 # -- get some modules directly from github
 
 # Kappa
-git clone https://github.com/KappaAnalysis/Kappa.git
+git clone https://github.com/KIT-CMS/Kappa.git
 
 # TauRefit (needed by Kappa)
-git clone https://github.com/artus-analysis/TauRefit.git VertexRefit/TauRefit
+git clone https://github.com/KIT-CMS/TauRefit.git VertexRefit/TauRefit
 
 # Jet Toolbox
 git clone https://github.com/cms-jet/JetToolbox.git JMEAnalysis/JetToolbox --branch jetToolbox_80X

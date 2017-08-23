@@ -103,7 +103,7 @@ def main(args):
 		print "Test all default configs in these branches:", ", ".join(args[1:])
 		for b in args[1:]:
 			print "Test branch '%s':" % b
-			cmd = ['git', 'clone', '-b', branch, 'https://github.com/KappaAnalysis/Kappa.git', 'Kappa_%s' % branch]
+			cmd = ['git', 'clone', '-b', branch, 'https://github.com/KIT-CMS/Kappa.git', 'Kappa_%s' % branch]
 			kappaPath = os.path.abspath('./Kappa_%s' % branch)
 			print " ".join(cmd)
 			subprocess.Popen(cmd).wait()
@@ -746,7 +746,7 @@ def writeHTML(branches, allOK):
 		'time': time.time(),
 		'date': time.strftime('%Y-%m-%d – %H:%M:%S'),
 	}
-	repo = "https://github.com/KappaAnalysis/Kappa"
+	repo = "https://github.com/KIT-CMS/Kappa"
 
 	def getStatus(result, previous=100):
 		if result == 100:
@@ -760,8 +760,8 @@ def writeHTML(branches, allOK):
 	 <div class="head"><h1>Kappa Test Results</h1></div>
 	 <div>
 	 <h2>General Information</h2> <p>Date: {date}<span id="timeago"></span>, run time: {runtime}</p>
-	 <p>This page is a result of the <a href="https://github.com/KappaAnalysis/Kappa/blob/master/DataFormats/test/test.py">test.py</a> script,
-	 which is run regularly to test <a href="https://github.com/KappaAnalysis/Kappa">Kappa</a>.</p>
+	 <p>This page is a result of the <a href="https://github.com/KIT-CMS/Kappa/blob/master/DataFormats/test/test.py">test.py</a> script,
+	 which is run regularly to test <a href="https://github.com/KIT-CMS/Kappa">Kappa</a>.</p>
 
 	 <div class="result {cls}">Kappa is {status}</div>
 

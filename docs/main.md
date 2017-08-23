@@ -1,6 +1,6 @@
 # κappa {#mainpage}
 
-[![Build Status](https://travis-ci.org/KappaAnalysis/Kappa.svg)](https://travis-ci.org/KappaAnalysis/Kappa)
+[![Build Status](https://travis-ci.org/KIT-CMS/Kappa.svg)](https://travis-ci.org/KIT-CMS/Kappa)
 
 CMSSW based tests: [results](http://www-ekp.physik.uni-karlsruhe.de/~fcolombo/kappa/test/current/result.html)
 
@@ -47,7 +47,7 @@ setup CMSSW (tested versions: 5.3.14, 5.3.23, 7.0.9, 7.2.2):
 
 checkout Kappa and compile it:
 
-    git clone https://github.com/KappaAnalysis/Kappa.git
+    git clone https://github.com/KIT-CMS/Kappa.git
     scram b
 
 
@@ -101,8 +101,8 @@ Several tools are available to check the skimming process and the skim files (tb
 
 Checkout:
 
-    git clone https://github.com/KappaAnalysis/Kappa.git
-    git clone https://github.com/KappaAnalysis/KappaTools.git
+    git clone https://github.com/KIT-CMS/Kappa.git
+    git clone https://github.com/KIT-CMS/KappaTools.git
 
 Compile:
 
@@ -111,9 +111,9 @@ Compile:
 
 More detailed descriptions for the use of Kappa in an analysis are given
 in the repositories that are based on Kappa:
-[Artus](https://github.com/artus-analysis/Artus),
-[KIT Higgs Analysis](https://github.com/cms-analysis/HiggsAnalysis-KITHiggsToTauTau),
-[Excalibur (Z+Jet and Calibration)](https://github.com/dhaitz/Excalibur),
+[Artus](https://github.com/KIT-CMS/Artus),
+[KIT Higgs Analysis](https://github.com/KIT-CMS/KITHiggsToTauTau),
+[Excalibur (Z+Jet and Calibration)](https://github.com/KIT-CMS/Excalibur),
 [JetAnalysis](https://github.com/claria/JetAnalysis).
 
 
@@ -209,7 +209,7 @@ Changes in Kappa 2.0 {#main-changes}
 
 The changes can be seen using this command:
 ``git log --oneline 71f3f8e..333adc6``
-or in the [change log](https://github.com/KappaAnalysis/Kappa/compare/71f3f8e...333adc6).
+or in the [change log](https://github.com/KIT-CMS/Kappa/compare/71f3f8e...333adc6).
 
 - **Changes in Lorentz vector definitions**:
 
@@ -256,21 +256,21 @@ or in the [change log](https://github.com/KappaAnalysis/Kappa/compare/71f3f8e...
   KGenParticle, KGenPhoton, KGenTau, KPFCandidate,  
 
   - KParticle (new)
-  - KGenEventInfo ([26b6863](https://github.com/KappaAnalysis/Kappa/commit/26b6863))
-  - KEventInfo ([2738bb3](https://github.com/KappaAnalysis/Kappa/commit/2738bb3))
-  - KVertex ([06f30d4](https://github.com/KappaAnalysis/Kappa/commit/06f30d4))
-  - KTriggerObject ([4be2b0f](https://github.com/KappaAnalysis/Kappa/commit/4be2b0f))
-  - KParticle ([41df988](https://github.com/KappaAnalysis/Kappa/commit/41df988))
-  - KMET ([845b3e3](https://github.com/KappaAnalysis/Kappa/commit/845b3e3))
-  - KJets ([0ba7640](https://github.com/KappaAnalysis/Kappa/commit/0ba7640))
-  - KBasicJet ([ab8740d](https://github.com/KappaAnalysis/Kappa/commit/ab8740d))
-  - KCaloJet ([93d17b3](https://github.com/KappaAnalysis/Kappa/commit/93d17b3))
-  - KTrack ([395bd6a](https://github.com/KappaAnalysis/Kappa/commit/395bd6a))
-  - KLepton ([4e91541](https://github.com/KappaAnalysis/Kappa/commit/4e91541))
-  - KTau ([be117c2](https://github.com/KappaAnalysis/Kappa/commit/be117c2))
-  - KBasicTau ([feb768d](https://github.com/KappaAnalysis/Kappa/commit/feb768d))
-  - KMuon ([4173b91](https://github.com/KappaAnalysis/Kappa/commit/4173b91))
-  - KElectron ([b33bbd2](https://github.com/KappaAnalysis/Kappa/commit/b33bbd2))
+  - KGenEventInfo ([26b6863](https://github.com/KIT-CMS/Kappa/commit/26b6863))
+  - KEventInfo ([2738bb3](https://github.com/KIT-CMS/Kappa/commit/2738bb3))
+  - KVertex ([06f30d4](https://github.com/KIT-CMS/Kappa/commit/06f30d4))
+  - KTriggerObject ([4be2b0f](https://github.com/KIT-CMS/Kappa/commit/4be2b0f))
+  - KParticle ([41df988](https://github.com/KIT-CMS/Kappa/commit/41df988))
+  - KMET ([845b3e3](https://github.com/KIT-CMS/Kappa/commit/845b3e3))
+  - KJets ([0ba7640](https://github.com/KIT-CMS/Kappa/commit/0ba7640))
+  - KBasicJet ([ab8740d](https://github.com/KIT-CMS/Kappa/commit/ab8740d))
+  - KCaloJet ([93d17b3](https://github.com/KIT-CMS/Kappa/commit/93d17b3))
+  - KTrack ([395bd6a](https://github.com/KIT-CMS/Kappa/commit/395bd6a))
+  - KLepton ([4e91541](https://github.com/KIT-CMS/Kappa/commit/4e91541))
+  - KTau ([be117c2](https://github.com/KIT-CMS/Kappa/commit/be117c2))
+  - KBasicTau ([feb768d](https://github.com/KIT-CMS/Kappa/commit/feb768d))
+  - KMuon ([4173b91](https://github.com/KIT-CMS/Kappa/commit/4173b91))
+  - KElectron ([b33bbd2](https://github.com/KIT-CMS/Kappa/commit/b33bbd2))
   - Documentation of all dataformats
 
 
@@ -294,38 +294,38 @@ or in the [change log](https://github.com/KappaAnalysis/Kappa/compare/71f3f8e...
 
 ## Important files to look at
 
-### [DataFormats](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats)
+### [DataFormats](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats)
 Data formats for objects that can be skimmed with Kappa
-   * [DataFormats/interface](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats/interface)
+   * [DataFormats/interface](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats/interface)
    * the file names and class names tell you the object it defines according to the [naming scheme](#naming-scheme-main-naming)
    * these are the variables and functions you can use in the analysis
        * many classes come with functions that can combine information of the variables
-   * [DataFormats/src/classes.UP](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats/src/classes.UP)
+   * [DataFormats/src/classes.UP](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats/src/classes.UP)
        * be sure to run classes.UP whenever you change the data format to keep the information for dictionaries in sync
-   * [DataFormats/test/KDebug.cpp](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats/test/KDebug.cpp)
+   * [DataFormats/test/KDebug.cpp](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats/test/KDebug.cpp)
        * add debug information for all added or changed objects here
        * this will enable you to print out debug info later in the analysis: `cout << muon;`
 
-### [Producers](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Producers)
+### [Producers](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Producers)
 
 The actual code that runs while skimming
-   * [Producers/interface/README](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Producers/interface/README) (todo: get this up-to-date, perhaps graphically)
+   * [Producers/interface/README](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Producers/interface/README) (todo: get this up-to-date, perhaps graphically)
       * classes hierarchy of Producers, you should know this when writing producers
       * WP = with provenance
       * some objects exist once per event (KBaseMultiProducers produce them; like beam spot, MET)
       * some objects can exist multiple times per event (KBaseMultiVectorProducers produce them; like primary vertices or hits)
       * some objects can exist multiple times and are Lorentz vectors (KBaseMultiLVProducers produce them; like muons, jets, taus, etc.)
-   * [Producers/python/KTuple_cff.py](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Producers/python/KTuple_cff.py)
+   * [Producers/python/KTuple_cff.py](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Producers/python/KTuple_cff.py)
       * default settings for Kappa and its Producers
       * all those can be changed in your skim config
-   * [Producers/src/KTuple.cc](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Producers/src/KTuple.cc)
+   * [Producers/src/KTuple.cc](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Producers/src/KTuple.cc)
       * the EDAnalyzer, this is the starting point of processing with Kappa
 
-### [Skimming](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Skimming)
+### [Skimming](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Skimming)
 Configuration files. Most of them are outdated – be careful and look at the CMSSW versions and the modification date.
 
 Here, the default settings are overwritten for special analyses and use cases.
-   * [Skimming/skim_tutorial_53x.py](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Skimming/skim_tutorial_53x.py)
+   * [Skimming/skim_tutorial_53x.py](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Skimming/skim_tutorial_53x.py)
        * an example config that should run with 5.3.9, it needs some extra packages that should be listed here or in this config, to be done)
 
 ## Adding/Changing Objects
@@ -338,22 +338,22 @@ Recompiling regenerates the dictionaries and makes the new definition available.
 
 ### Adding a new object
 To add a new object to Kappa, it needs:
-  * a data format in [DataFormats/interface](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats/interface) (header only, please stick to the [naming scheme](#main-naming).)
+  * a data format in [DataFormats/interface](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats/interface) (header only, please stick to the [naming scheme](#main-naming).)
       * if it can occur multiple times, a typedef for a std::vector by appending 's' (plural).
-  * a producer in [Producers](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Producers) (it makes sense to look at a similar object first)
-  * a default config in [Producers/python/KTuple_cff.py](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Producers/python/KTuple_cff.py)
-  * debug output in [DataFormats/test/KDebug.cpp](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats/test/KDebug.cpp)
-  * an entry in [Producers/src/KTuple.cc](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/Producers/src/KTuple.cc)
-  * an entry in [DataFormats/src/classes.h](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats/src/classes.h)
-      * run [DataFormats/src/classes.UP](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats/src/classes.UP) afterwards (from within its directory)
-  * the corresponding lines in [DataFormats/test/LinkDef.h](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/DataFormats/test/LinkDef.h)
-  * the documentation in [docs/objects.md](https://github.com/KappaAnalysis/Kappa/tree/dictchanges/docs/objects.md)
+  * a producer in [Producers](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Producers) (it makes sense to look at a similar object first)
+  * a default config in [Producers/python/KTuple_cff.py](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Producers/python/KTuple_cff.py)
+  * debug output in [DataFormats/test/KDebug.cpp](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats/test/KDebug.cpp)
+  * an entry in [Producers/src/KTuple.cc](https://github.com/KIT-CMS/Kappa/tree/dictchanges/Producers/src/KTuple.cc)
+  * an entry in [DataFormats/src/classes.h](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats/src/classes.h)
+      * run [DataFormats/src/classes.UP](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats/src/classes.UP) afterwards (from within its directory)
+  * the corresponding lines in [DataFormats/test/LinkDef.h](https://github.com/KIT-CMS/Kappa/tree/dictchanges/DataFormats/test/LinkDef.h)
+  * the documentation in [docs/objects.md](https://github.com/KIT-CMS/Kappa/tree/dictchanges/docs/objects.md)
 
 
 ### Kappa test suite
 
 The functionality of this framework is regularly checked by the
-[Kappa test script](https://github.com/KappaAnalysis/Kappa/tree/development/DataFormats/test/test.py)
+[Kappa test script](https://github.com/KIT-CMS/Kappa/tree/development/DataFormats/test/test.py)
 as described [here](https://indico.cern.ch/event/371827/contribution/0/material/slides/0.pdf "Indico Meeting").
 The results are presented on
 [this webpage](http://www-ekp.physik.uni-karlsruhe.de/~fcolombo/kappa/test/current/result.html "Kappa test result").
@@ -394,8 +394,8 @@ Testing policy:
   user.
 ________________________________________________________________________________
 
-[KIT]:      http://www.ekp.kit.edu "Institut für Experimentelle Kernphysik"
-[code]:     https://github.com/KappaAnalysis/Kappa.git "github"
+[KIT]:      http://www.etp.kit.edu "Institut für Experimentelle Teilchenphysik"
+[code]:     https://github.com/KIT-CMS/Kappa.git "github"
 [CMSSW]:    https://github.com/cms-sw/cmssw "CMSSW on github"
 [CMS Wiki]: https://twiki.cern.ch/twiki/bin/viewauth/CMS/WebHome "CMS twiki"
 [Workbook]: https://twiki.cern.ch/twiki/bin/viewauth/CMS/OnlineWB "CMS Workbook"

@@ -169,7 +169,7 @@ echo "# ================= #"
 echo "# Download checkout script for Kappa"
 echo "# ================= #"
     mkdir -p /home/build && cd /home/build
-    curl -O https://raw.githubusercontent.com/KappaAnalysis/Kappa/${KAPPA_BRANCH}/Skimming/scripts/${CHECKOUTSCRIPT}
+    curl -O https://raw.githubusercontent.com/KIT-CMS/Kappa/${KAPPA_BRANCH}/Skimming/scripts/${CHECKOUTSCRIPT}
     chmod +x ${CHECKOUTSCRIPT}
     cat ${CHECKOUTSCRIPT}
     set -x
