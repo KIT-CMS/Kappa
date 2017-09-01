@@ -40,10 +40,17 @@ struct KLumiInfo
 	std::vector<std::string> hltNames;      //< names of the HLT triggers
 };
 
-
-struct KGenLumiInfo : public KLumiInfo
+// currently equivalent to KLumiInfo
+struct KGenLumiInfo : public KLumiInfo 
 {
-	virtual ~KGenLumiInfo() {};
+        virtual ~KGenLumiInfo() {};
+};
+
+
+
+struct KGenRunInfo
+{
+	virtual ~KGenRunInfo() {};
 
 	double filterEff;              //< generator filter efficiency
 	double xSectionExt;            //< external process cross section

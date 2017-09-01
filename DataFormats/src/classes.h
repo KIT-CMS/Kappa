@@ -101,6 +101,7 @@ namespace
 		KVertexSummary dict_KVertexSummary;
 		KLumiInfo dict_KLumiInfo;
 		KGenLumiInfo dict_KGenLumiInfo;
+		KGenRunInfo dict_KGenRunInfo;
 		KDataLumiInfo dict_KDataLumiInfo;
 		KElectronMetadata dict_KElectronMetadata;
 		KFilterMetadata dict_KFilterMetadata;

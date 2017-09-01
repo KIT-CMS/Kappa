@@ -49,6 +49,7 @@ std::ostream &operator<<(std::ostream &os, const KMuonTriggerCandidate &cand);
 std::ostream &operator<<(std::ostream &os, const KProvenance &p);
 std::ostream &operator<<(std::ostream &os, const KLumiInfo &info);
 std::ostream &operator<<(std::ostream &os, const KGenLumiInfo &info);
+std::ostream &operator<<(std::ostream &os, const KGenRunInfo &info);
 std::ostream &operator<<(std::ostream &os, const KDataLumiInfo &info);
 std::ostream &operator<<(std::ostream &os, const KEventInfo &i);
 std::ostream &operator<<(std::ostream &os, const KTauMetadata &m);

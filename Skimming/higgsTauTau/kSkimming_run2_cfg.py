@@ -31,23 +31,20 @@ import Kappa.Skimming.tools as tools
 
 from FWCore.ParameterSet.VarParsing import VarParsing
 options = VarParsing('python')
-options.register('globalTag', '76X_mcRun2_asymptotic_RunIIFall15DR76_v1', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'GlobalTag')
-options.register('kappaTag', 'KAPPA_2_0_0', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'KappaTag')
-options.register('nickname', 'SUSYGluGluToHToTauTauM160_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Dataset Nickname')
-options.register('testfile', '', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Path for a testfile')
+options.register('nickname', '', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Dataset Nickname')
+options.register('testfile', '', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Path for a testfile. If no test file is given, nickname is used to get a test file with xrootd.')
 options.register('maxevents', -1, VarParsing.multiplicity.singleton, VarParsing.varType.int, 'maxevents. -1 for all events. Default: -1')
-options.register('outputfilename', '', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Filename for the Outputfile')
-options.register('testsuite', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'Run the Kappa test suite. Default: True')
+options.register('outputfilename', 'kappaTuple.root', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Filename for the Outputfile')
+options.register('mode', 'testsuite', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Mode to run. Options: ["testuite" (Default), "local", "crab"]. Grid-Control is automatically determined.')
 options.register('preselect', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'apply preselection at CMSSW level on leptons. Never preselect on SM Higgs samples')
 options.register('dumpPython', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'write cmsRun config to dumpPython.py')
 options.parseArguments()
 
-def getBaseConfig( globaltag= 'START70_V7::All',
-	testfile=cms.untracked.vstring(""),
-	maxevents=50,
-	nickname = 'SUSYGluGluToHToTauTauM160_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8',
-	kappaTag = 'Kappa_2_0_0',
-	outputfilename = ''):
+def getBaseConfig( 
+	nickname,
+	testfile=False, # false if not given, string otherwise
+	maxevents=-1,
+	outputfilename = 'kappaTuple.root'):
 
 	from Kappa.Skimming.KSkimming_template_cfg import process
 	## ------------------------------------------------------------------------
@@ -92,7 +89,7 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 
 	# Configure Kappa
 	if testfile:
-		process.source.fileNames      = testfile
+		process.source.fileNames      = cms.untracked.vstring("%s"%testfile)
 	else:
 		process.source 			  = cms.Source('PoolSource', fileNames=cms.untracked.vstring())
 	process.maxEvents.input	      = maxevents
@@ -100,9 +97,11 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 	# uncomment the following option to select only running on certain luminosity blocks. Use only for debugging
 	# process.source.lumisToProcess  = cms.untracked.VLuminosityBlockRange("1:500-1:1000")
 	process.kappaTuple.profile    = cms.bool(True)
-	if not globaltag.lower() == 'auto' :
-		process.GlobalTag.globaltag   = globaltag
-		print "GT (overwritten):", process.GlobalTag.globaltag
+
+	
+	globaltag = datasetsHelper.getGlobalTag(nickname)
+	print "Global Tag:", globaltag
+	process.GlobalTag.globaltag = globaltag
 
 	## ------------------------------------------------------------------------
 
@@ -113,9 +112,10 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 
 	data = datasetsHelper.isData(nickname)
 	isEmbedded = datasetsHelper.isEmbedded(nickname)
-	print nickname
+	print "nickname:", nickname
+
 	#####miniaod = datasetsHelper.isMiniaod(nickname) not used anymore, since everything is MiniAOD now
-	process.kappaTuple.TreeInfo.parameters= datasetsHelper.getTreeInfo(nickname, globaltag, kappaTag)
+	process.kappaTuple.TreeInfo.parameters= datasetsHelper.getTreeInfo(nickname)
 
 	## ------------------------------------------------------------------------
 
@@ -198,12 +198,6 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 		process.kappaTuple.GenParticles.genParticles.src = cms.InputTag("prunedGenParticles")
 		process.kappaTuple.GenTaus.genTaus.src = cms.InputTag("prunedGenParticles")
 		
-		if ("HToTauTau" in nickname) or ("H2JetsToTauTau" in nickname):
-			process.kappaTuple.active += cms.vstring('LHE')
-			process.kappaTuple.LHE.whitelist = cms.vstring('source')
-			process.kappaTuple.LHE.rename = cms.vstring('source => LHEafter')
-			if tools.is_above_cmssw_version([7, 6]):
-				process.kappaTuple.LHE.LHEafter = cms.PSet(src=cms.InputTag("externalLHEProducer"))
 
 	# write out for all processes where available
 	process.kappaTuple.Info.lheWeightNames = cms.vstring(".*")
@@ -262,7 +256,6 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 	process.load("Kappa.Skimming.KMuons_miniAOD_cff")
 	process.kappaTuple.Muons.muons.src = cms.InputTag(muons)
 	process.kappaTuple.Muons.muons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
-	process.kappaTuple.Muons.muons.srcMuonIsolationPF = cms.InputTag("")
 	process.kappaTuple.Muons.use03ConeForPfIso = cms.bool(True)
 	process.kappaTuple.Muons.doPfIsolation = cms.bool(False)
 	for src in [ "muPFIsoDepositCharged", "muPFIsoDepositChargedAll", "muPFIsoDepositNeutral", "muPFIsoDepositGamma", "muPFIsoDepositPU"]:
@@ -285,7 +278,7 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 	process.kappaTuple.Electrons.srcIds = cms.string("standalone")
 
 	if tools.is_above_cmssw_version([8]):
-		process.kappaTuple.Electrons.ids = cms.vstring(
+		process.kappaTuple.Electrons.ids = cms.VInputTag(
 			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
 			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose",
 			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium",
@@ -293,7 +286,7 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 			"electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"
 			)
 	else:
-		process.kappaTuple.Electrons.ids = cms.vstring(
+		process.kappaTuple.Electrons.ids = cms.VInputTag(
 			"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
 			"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-loose",
 			"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-medium",
@@ -443,38 +436,38 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 		process.kappaTuple.PatJets.puppiJets = cms.PSet(src=cms.InputTag(jetCollectionPuppi))
 
 	## Refitted Vertices collection
-	process.kappaTuple.active += cms.vstring('RefitVertex')
-	process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
-	process.load("VertexRefit.TauRefit.AdvancedRefitVertexProducer_cfi")
-	
-	if tools.is_above_cmssw_version([7,6]) and not tools.is_above_cmssw_version([9]):
-		process.AdvancedRefitVertexBSProducer.srcElectrons = cms.InputTag(electrons)
-		process.AdvancedRefitVertexBSProducer.srcMuons = cms.InputTag(muons)
-		process.AdvancedRefitVertexBSProducer.srcTaus = cms.InputTag(taus)
-		process.AdvancedRefitVertexBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
-		process.p *= (process.AdvancedRefitVertexBS)
+	#process.kappaTuple.active += cms.vstring('RefitVertex')
+	#process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
+	#process.load("VertexRefit.TauRefit.AdvancedRefitVertexProducer_cfi")
+	#
+	#if tools.is_above_cmssw_version([7,6]) and not tools.is_above_cmssw_version([9]):
+	#	process.AdvancedRefitVertexBSProducer.srcElectrons = cms.InputTag(electrons)
+	#	process.AdvancedRefitVertexBSProducer.srcMuons = cms.InputTag(muons)
+	#	process.AdvancedRefitVertexBSProducer.srcTaus = cms.InputTag(taus)
+	#	process.AdvancedRefitVertexBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
+	#	process.p *= (process.AdvancedRefitVertexBS)
 
-	process.AdvancedRefitVertexNoBSProducer.srcElectrons = cms.InputTag(electrons)
-	process.AdvancedRefitVertexNoBSProducer.srcMuons = cms.InputTag(muons)
-	process.AdvancedRefitVertexNoBSProducer.srcTaus = cms.InputTag(taus)
-	process.AdvancedRefitVertexNoBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
-	process.p *= (process.AdvancedRefitVertexNoBS)
+	#process.AdvancedRefitVertexNoBSProducer.srcElectrons = cms.InputTag(electrons)
+	#process.AdvancedRefitVertexNoBSProducer.srcMuons = cms.InputTag(muons)
+	#process.AdvancedRefitVertexNoBSProducer.srcTaus = cms.InputTag(taus)
+	#process.AdvancedRefitVertexNoBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
+	#process.p *= (process.AdvancedRefitVertexNoBS)
 
-	process.kappaTuple.RefitVertex.whitelist = cms.vstring('AdvancedRefitVertexBS', 'AdvancedRefitVertexNoBS')
+	#process.kappaTuple.RefitVertex.whitelist = cms.vstring('AdvancedRefitVertexBS', 'AdvancedRefitVertexNoBS')
 
-	if tools.is_above_cmssw_version([7,6]) and not tools.is_above_cmssw_version([9]):
-		process.kappaTuple.RefitVertex.AdvancedRefittedVerticesBS = cms.PSet(src=cms.InputTag("AdvancedRefitVertexBSProducer"))
-		process.AdvancedRefitVertexBSProducer.srcElectrons = cms.InputTag(electrons)
-		process.AdvancedRefitVertexBSProducer.srcMuons = cms.InputTag(muons)
-		process.AdvancedRefitVertexBSProducer.srcTaus = cms.InputTag(taus)
-		process.AdvancedRefitVertexBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
+	#if tools.is_above_cmssw_version([7,6]) and not tools.is_above_cmssw_version([9]):
+	#	process.kappaTuple.RefitVertex.AdvancedRefittedVerticesBS = cms.PSet(src=cms.InputTag("AdvancedRefitVertexBSProducer"))
+	#	process.AdvancedRefitVertexBSProducer.srcElectrons = cms.InputTag(electrons)
+	#	process.AdvancedRefitVertexBSProducer.srcMuons = cms.InputTag(muons)
+	#	process.AdvancedRefitVertexBSProducer.srcTaus = cms.InputTag(taus)
+	#	process.AdvancedRefitVertexBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
 
-	if tools.is_above_cmssw_version([7,6]):
-		process.kappaTuple.RefitVertex.AdvancedRefittedVerticesNoBS = cms.PSet(src=cms.InputTag("AdvancedRefitVertexNoBSProducer"))
-		process.AdvancedRefitVertexNoBSProducer.srcElectrons = cms.InputTag(electrons)
-		process.AdvancedRefitVertexNoBSProducer.srcMuons = cms.InputTag(muons)
-		process.AdvancedRefitVertexNoBSProducer.srcTaus = cms.InputTag(taus)
-		process.AdvancedRefitVertexNoBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
+	#if tools.is_above_cmssw_version([7,6]):
+	#	process.kappaTuple.RefitVertex.AdvancedRefittedVerticesNoBS = cms.PSet(src=cms.InputTag("AdvancedRefitVertexNoBSProducer"))
+	#	process.AdvancedRefitVertexNoBSProducer.srcElectrons = cms.InputTag(electrons)
+	#	process.AdvancedRefitVertexNoBSProducer.srcMuons = cms.InputTag(muons)
+	#	process.AdvancedRefitVertexNoBSProducer.srcTaus = cms.InputTag(taus)
+	#	process.AdvancedRefitVertexNoBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
 
 
 	## Standard MET and GenMet from pat::MET
@@ -570,50 +563,54 @@ def getBaseConfig( globaltag= 'START70_V7::All',
 
 if __name__ == "__main__" or __name__ == "kSkimming_run2_cfg":
 
-	# test with user-defined input file
-	if options.testfile:
-		print 'read from testfile '+str(options.testfile)
+	# local testing with user-defined input file
+	if options.mode == "local":
+		if options.testfile == '': # get testfile from DBS
+			testfile = datasetsHelper.get_testfile_for_nick(options.nickname)
+		else:
+			testfile = options.testfile
+		print 'read from testfile '+str(testfile)
 		process = getBaseConfig(
-			globaltag=options.globalTag,
 			nickname=options.nickname,
-			kappaTag=options.kappaTag,
-			testfile=cms.untracked.vstring("%s"%options.testfile),
-			maxevents=options.maxevents,
-			outputfilename=options.outputfilename
+			testfile=testfile,
+			outputfilename=options.outputfilename,
+			maxevents=options.maxevents
 			)
 
 	# CRAB job-submission
-	elif options.outputfilename:
+	elif options.mode == "crab":
 		process = getBaseConfig(
-			globaltag=options.globalTag,
 			nickname=options.nickname,
-			kappaTag=options.kappaTag,
-			maxevents=options.maxevents,
 			outputfilename=options.outputfilename
 			)
 
 	# GC job-submission?
-	elif  str("@NICK@")[0] != '@':
-		process = getBaseConfig(
-			globaltag="@GLOBALTAG@",
-			nickname="@NICK@",
-			outputfilename="kappaTuple.root"
-			)
+	elif str("@NICK@")[0] != '@':
+			process = getBaseConfig(
+				nickname="@NICK@",
+				outputfilename="kappaTuple.root"
+				)
 
-	# Kappa test suite (cmsRun with NO extra options)
-	else:
-		testPaths = ['/storage/b/fs6-mirror/fcolombo/kappatest/input', '/nfs/dust/cms/user/fcolombo/kappatest/input', '/home/short']
-		testPath = [p for p in testPaths if os.path.exists(p)][0]
-		if tools.is_above_cmssw_version([8]):
-			process = getBaseConfig(
-				globaltag="80X_mcRun2_asymptotic_2016_v3",
-				testfile=cms.untracked.vstring("file:%s/"%testPath + (testPath == '/home/short')*"short_" + "SUSYGluGluToHToTauTau_M-160_spring16_miniAOD.root"),
-				nickname='SUSYGluGluToHToTauTauM160_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_pythia8',
-				outputfilename="kappaTuple.root"
-				)
+	# Kappa test suite (cmsRun with NO extra options, i.e. testsuite mode)
+	# to create new testfiles edit make_testfile.py and run it with cmsRun
+	elif options.mode == "testsuite":
+		cernbox_path = "https://cernbox.cern.ch/index.php/s/AqIrGNDGdygdvhU/download?path=%2Fnew&files=" # path to "new" folder within Olena's CernBox
+
+		if tools.is_cmssw_version([9,2]):
+			test_nick = "SingleElectron_Run2017B_23Jun2017v1_13TeV_MINIAOD"
+		elif tools.is_cmssw_version([8,0]):
+			test_nick='SUSYGluGluToHToTauTauM160_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_pythia8'
+		elif tools.is_cmssw_version([7,6]):
+			test_nick='SUSYGluGluToHToTauTauM160_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8'
 		else:
-			process = getBaseConfig(
-				globaltag=options.globalTag,
-				testfile=cms.untracked.vstring("file:%s/"%testPath + (testPath == '/home/short')*"short_" + "SUSYGluGluToHToTauTau_M-160_fall15_miniAOD.root"),
-				outputfilename="kappaTuple.root"
-				)
+			print "There is not yet a valid CMSSW test available for this CMSSW release. Please edit kSkimming_run2_cfg.py correspondingly."
+			sys.exit(1)
+		testfile=tools.download_rootfile(cernbox_path, test_nick)
+		process = getBaseConfig(
+			testfile=testfile,
+			nickname=test_nick,
+			maxevents=100
+			)
+	else:
+		print "Invalid mode selected: " + options.mode
+		sys.exit(1)

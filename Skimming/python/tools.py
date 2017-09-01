@@ -115,3 +115,27 @@ def is_above_cmssw_version(version_to_test):
 			return True
 	return True
 
+def is_cmssw_version(version_to_test):
+	cmssw_version_number = get_cmssw_version_number()
+	split_cmssw_version = [int(i) for i in cmssw_version_number.split("_")[0:3]]
+	for index in range(len(version_to_test)):
+		if(version_to_test[index] != split_cmssw_version[index]):
+			return False
+	return True
+
+def is_compatible_cmssw_version(version_to_test): # test if a MC file is compatible with the CMSSW release currently running. Requieres exactly three numbers in a list as input
+	cmssw_version_number = get_cmssw_version_number()
+	split_cmssw_version = [int(i) for i in cmssw_version_number.split("_")[0:3]]
+	for index in range(len(version_to_test[0:1])):
+		if(version_to_test[index] != split_cmssw_version[index]):
+			return False
+	if(version_to_test[2] >= split_cmssw_version[index]):
+		return True
+	return True
+
+def download_rootfile(path, filename): # download a rootfile from http/https and return a valid local absolute path to it
+	import urllib
+	url = path + filename + ".root"
+	urllib.urlretrieve(url, filename + ".root")
+	import os
+	return "file://%s"%os.path.abspath("%s.root"%filename)
