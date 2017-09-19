@@ -96,6 +96,13 @@ def getBaseConfig(
 	process.kappaTuple.verbose    = cms.int32(0)
 	# uncomment the following option to select only running on certain luminosity blocks. Use only for debugging
 	# process.source.lumisToProcess  = cms.untracked.VLuminosityBlockRange("1:500-1:1000")
+        #
+        # For the following dataset: /SingleMuon/Run2017C-PromptReco-v1/MINIAOD
+        # Event run: 299368 lumi: 83 event: 56418140 stream: 0
+        # A crash in the KMuonProducer is triggered, having a vertex, that cannot properly be used.
+        # It seems to be an event with a cosmic muon (use edmPickEvents.py and cmsShow on the corresponding RECO file)
+        # To check it, use the following single event processing option:
+        # process.source.eventsToProcess  = cms.untracked.VEventRange("299368:56418140-299368:56418140")
 	process.kappaTuple.profile    = cms.bool(True)
 
 	
