@@ -151,14 +151,23 @@ public:
 		if (in.globalTrack().isNonnull())
 			KTrackProducer::fillTrack(*in.globalTrack(), out.globalTrack);
 
-		reco::Vertex vtx = VertexHandle->at(0);
-		if (in.muonBestTrack().isNonnull()) // && &vtx != NULL) TODO
-		{
-			/// ID var from the bestTrack which is not saved entirely
-			out.dxy = in.bestTrack()->dxy(vtx.position()); //dxy from vertex should be using IPTools (e.g. like PAT)
-			out.dz = in.bestTrack()->dz(vtx.position());
-			out.relBestTrkErr = in.bestTrack()->pt() > 0 ? in.bestTrack()->ptError() / in.bestTrack()->pt() : -1;
-		}
+                if (VertexHandle->size() > 0)
+                {
+                        reco::Vertex vtx = VertexHandle->at(0);
+                        if (in.muonBestTrack().isNonnull()) // && &vtx != NULL) TODO
+                        {
+                                /// ID var from the bestTrack which is not saved entirely
+                                out.dxy = in.bestTrack()->dxy(vtx.position()); //dxy from vertex should be using IPTools (e.g. like PAT)
+                                out.dz = in.bestTrack()->dz(vtx.position());
+                                out.relBestTrkErr = in.bestTrack()->pt() > 0 ? in.bestTrack()->ptError() / in.bestTrack()->pt() : -1;
+                        }
+                }
+                else
+                {
+                        out.dxy = 99999.0;
+                        out.dz = 99999.0;
+                        out.relBestTrkErr = -1;
+                }
 		// propagated values of eta and phi
 		out.eta_propagated = -1000.;
 		out.phi_propagated = -1000.;
@@ -294,13 +303,17 @@ public:
 		out.ids = KLeptonId::ANY;
 		out.ids |= (muon::isLooseMuon(in)      << KLeptonId::LOOSE);
 		out.ids |= (isMediumMuon               << KLeptonId::MEDIUM);
-		out.ids |= (muon::isTightMuon(in, vtx) << KLeptonId::TIGHT);
-		out.ids |= (muon::isSoftMuon(in, vtx)  << KLeptonId::SOFT);
+                if (VertexHandle->size() > 0)
+                {
+                        reco::Vertex vtx = VertexHandle->at(0);
+                        out.ids |= (muon::isTightMuon(in, vtx) << KLeptonId::TIGHT);
+                        out.ids |= (muon::isSoftMuon(in, vtx)  << KLeptonId::SOFT);
 #if CMSSW_MAJOR_VERSION == 5 && CMSSW_MINOR_VERSION < 15
-		out.ids |= (muon::isHighPtMuon(in, vtx, reco::improvedTuneP) << KLeptonId::HIGHPT);
+                        out.ids |= (muon::isHighPtMuon(in, vtx, reco::improvedTuneP) << KLeptonId::HIGHPT);
 #else
-		out.ids |= (muon::isHighPtMuon(in, vtx) << KLeptonId::HIGHPT);
+                        out.ids |= (muon::isHighPtMuon(in, vtx) << KLeptonId::HIGHPT);
 #endif
+                }
 		assert((out.ids & 145) == 0); // 145 = 0b10010001, these bits should be zero
 	}
 
