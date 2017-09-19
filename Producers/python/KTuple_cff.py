@@ -331,7 +331,7 @@ kappaTupleDefaultsBlock = cms.PSet(
 	),
 
 	Muons = cms.PSet(kappaNoCut, kappaNoRegEx,
-			vertexcollection = cms.InputTag("goodOfflinePrimaryVertices"),
+			vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices"),
 			isoValInputTags = cms.VInputTag(
 				cms.InputTag('muPFIsoValueChargedAll04PFIso'),
 				cms.InputTag('muPFIsoValueGamma04PFIso'),
@@ -462,7 +462,7 @@ kappaTupleDefaultsBlock = cms.PSet(
 		srcIds = cms.string("pat"),
 		allConversions = cms.InputTag("allConversions"),
 		offlineBeamSpot = cms.InputTag("offlineBeamSpot"),
-		vertexcollection = cms.InputTag("goodOfflinePrimaryVertices"),
+		vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices"),
 		rhoIsoInputTag = cms.InputTag("kt6PFJetsForIsolation", "rho"),
 		isoValInputTags = cms.VInputTag(
 				cms.InputTag('elPFIsoValueChargedAll04PFIdPFIso'),
@@ -562,7 +562,7 @@ kappaTupleDefaultsBlock = cms.PSet(
 			floatDiscrWhitelist = cms.vstring("hpsPFTau.*raw.*", "hpsPFTau.*Raw.*", "hpsPFTauMVA.*"),
 			floatDiscrBlacklist = cms.vstring("^shrinkingCone.*", ".*PFlow$"),
 			tauDiscrProcessName = cms.string("KAPPA"),
-			vertexcollection = cms.InputTag("goodOfflinePrimaryVertices"),
+			vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices"),
 		),
 	),
 

@@ -30,7 +30,7 @@ if (cmssw_version_number.startswith("7_4")):
 
 ## pf candidate configuration for everything but CHS jets
 pfPileUpIso.PFCandidates        = 'particleFlow'
-pfPileUpIso.Vertices            = 'goodOfflinePrimaryVertices'
+pfPileUpIso.Vertices            = 'offlineSlimmedPrimaryVertices'
 pfPileUpIso.checkClosestZVertex = True
 pfNoPileUpIso.bottomCollection  = 'particleFlow'
 
@@ -41,7 +41,7 @@ pfNoPileUpPhotons 	        = pfAllPhotons.clone()
 pfPileUpChargedHadrons	        = pfAllChargedHadrons.clone(src = 'pfPileUpIso')
 
 ## pf candidate configuration for CHS jets
-pfPileUp.Vertices               = 'goodOfflinePrimaryVertices'
+pfPileUp.Vertices               = 'offlineSlimmedPrimaryVertices'
 pfPileUp.checkClosestZVertex    = False
 
 ## ------------------------------------------------------------------------
@@ -50,16 +50,12 @@ pfPileUp.checkClosestZVertex    = False
 ## run this to produce only those pf candidate collections that should go
 ## into the KappaTuple and nothing more
 makeKappaPFCandidates = cms.Sequence(
-    goodOfflinePrimaryVertices *
-    goodOfflinePrimaryVertexEvents *
     pfParticleSelectionSequence
     )
 
 ## run this to run the full PFBRECO sequence, which is needed e.g. for CHS
 ## jets ()
 makePFBRECO = cms.Sequence(
-    goodOfflinePrimaryVertices *
-    goodOfflinePrimaryVertexEvents *
     PFBRECO
     )
 

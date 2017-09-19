@@ -128,15 +128,15 @@ def getBaseConfig(
 	# save primary vertex
 	process.kappaTuple.active += cms.vstring('VertexSummary') # save VertexSummary
 
-	process.load("Kappa.Skimming.KVertices_cff")
-	process.goodOfflinePrimaryVertices.src = cms.InputTag('offlineSlimmedPrimaryVertices')
-	process.p *= ( process.makeVertexes )
+	#process.load("Kappa.Skimming.KVertices_cff")
+	#process.goodOfflinePrimaryVertices.src = cms.InputTag('offlineSlimmedPrimaryVertices')
+	#process.p *= ( process.makeVertexes )
 	
-	process.kappaTuple.VertexSummary.whitelist = cms.vstring('offlineSlimmedPrimaryVertices')  # save VertexSummary
-	process.kappaTuple.VertexSummary.rename = cms.vstring('offlineSlimmedPrimaryVertices => goodOfflinePrimaryVerticesSummary')
+	#process.kappaTuple.VertexSummary.whitelist = cms.vstring('offlineSlimmedPrimaryVertices')  # save VertexSummary
+	#process.kappaTuple.VertexSummary.rename = cms.vstring('offlineSlimmedPrimaryVertices => goodOfflinePrimaryVerticesSummary')
 
-	if tools.is_above_cmssw_version([7,6]):
-		process.kappaTuple.VertexSummary.goodOfflinePrimaryVerticesSummary = cms.PSet(src=cms.InputTag("offlineSlimmedPrimaryVertices"))
+	#if tools.is_above_cmssw_version([7,6]):
+	#	process.kappaTuple.VertexSummary.goodOfflinePrimaryVerticesSummary = cms.PSet(src=cms.InputTag("offlineSlimmedPrimaryVertices"))
 
 	process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
 

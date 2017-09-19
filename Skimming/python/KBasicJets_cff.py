@@ -19,7 +19,7 @@ ak5PFJets.srcPVs = cms.InputTag('goodOfflinePrimaryVertices')
 
 ## CHS Jets with the NoPU sequence
 from CommonTools.ParticleFlow.PFBRECO_cff import *
-pfPileUp.Vertices = cms.InputTag('goodOfflinePrimaryVertices')
+pfPileUp.Vertices = cms.InputTag('offlineSlimmedPrimaryVertices')
 pfPileUp.checkClosestZVertex = cms.bool(False)
 ak5PFJetsCHS = ak5PFJets.clone( src = cms.InputTag('pfNoPileUp') )
 
@@ -27,7 +27,6 @@ ak5PFJetsCHS = ak5PFJets.clone( src = cms.InputTag('pfNoPileUp') )
 ## ------------------------------------------------------------------------
 ## Build basic sequences
 makePfCHS = cms.Sequence(
-    goodOfflinePrimaryVertices *
     PFBRECO
     )
 

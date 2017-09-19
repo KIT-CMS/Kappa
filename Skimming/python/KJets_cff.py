@@ -6,12 +6,12 @@ import FWCore.ParameterSet.Config as cms
 
 ## ------------------------------------------------------------------------
 ## Create ak5 jets from all pf candidates and from pfNoPileUp candidates
-##  - note that this requires that goodOfflinePrimaryVertices and PFBRECO
+##  - note that this requires that offlineSlimmedPrimaryVertices and PFBRECO
 ##    has been run beforehand. e.g. using the sequence makePFBRECO from
 ##    KPFCandidates_cff.py
 from RecoJets.JetProducers.ak5PFJets_cfi import ak5PFJets
 
-ak5PFJets.srcPVs = cms.InputTag('goodOfflinePrimaryVertices')
+ak5PFJets.srcPVs = cms.InputTag('offlineSlimmedPrimaryVertices')
 ak5PFJetsCHS = ak5PFJets.clone( src = cms.InputTag('pfNoPileUp') )
 
 ## ------------------------------------------------------------------------
@@ -275,12 +275,12 @@ ak5PFCHSPuJetMva = pileupJetIdProducerChs.clone(
 ## ------------------------------------------------------------------------
 ## Definition of sequences
 
-## run this to create ak5PF jets from goodOfflinePrimaryVertices collection 
+## run this to create ak5PF jets from offlineSlimmedPrimaryVertices collection 
 makePFJets = cms.Sequence(
     ak5PFJets
     )
 
-## run this to create ak5PF CHS jets from goodOfflinePrimaryVertices
+## run this to create ak5PF CHS jets from offlineSlimmedPrimaryVertices
 ## collection 
 makePFJetsCHS = cms.Sequence(
     ak5PFJetsCHS

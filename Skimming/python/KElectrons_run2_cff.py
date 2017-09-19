@@ -50,7 +50,7 @@ patElectrons.embedPflowPreshowerClusters   = False
 patElectrons.embedPFCandidate              = False
 patElectrons.embedTrack                    = False
 patElectrons.embedRecHits                  = False
-patElectrons.embedHighLevelSelection.pvSrc = "goodOfflinePrimaryVertices"
+patElectrons.embedHighLevelSelection.pvSrc = "offlineSlimmedPrimaryVertices"
 
 
 ## Set up electron ID (VID framework)
