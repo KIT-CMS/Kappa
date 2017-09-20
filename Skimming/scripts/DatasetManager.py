@@ -174,7 +174,10 @@ class DataSetManagerBase:
 			return ""
 		else:
 			startpos = details.find("ext")
-			return details[startpos:]
+                        if int(startpos) > 0:
+                            return details[startpos:]
+                        else:
+                            return ""
 
 	def set_n_events_files(self, new_entry):
 		new_entry["n_events_generated"]    = "-1"
