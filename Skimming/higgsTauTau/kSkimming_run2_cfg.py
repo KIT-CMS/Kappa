@@ -96,6 +96,7 @@ def getBaseConfig(
 	process.kappaTuple.verbose    = cms.int32(0)
 	# uncomment the following option to select only running on certain luminosity blocks. Use only for debugging
 	# process.source.lumisToProcess  = cms.untracked.VLuminosityBlockRange("1:500-1:1000")
+        process.source.eventsToProcess  = cms.untracked.VEventRange("299368:56418140-299368:56418140")
 	process.kappaTuple.profile    = cms.bool(True)
 
 	
@@ -132,11 +133,11 @@ def getBaseConfig(
 	#process.goodOfflinePrimaryVertices.src = cms.InputTag('offlineSlimmedPrimaryVertices')
 	#process.p *= ( process.makeVertexes )
 	
-	#process.kappaTuple.VertexSummary.whitelist = cms.vstring('offlineSlimmedPrimaryVertices')  # save VertexSummary
-	#process.kappaTuple.VertexSummary.rename = cms.vstring('offlineSlimmedPrimaryVertices => goodOfflinePrimaryVerticesSummary')
+	process.kappaTuple.VertexSummary.whitelist = cms.vstring('offlineSlimmedPrimaryVertices')  # save VertexSummary
+	process.kappaTuple.VertexSummary.rename = cms.vstring('offlineSlimmedPrimaryVertices => goodOfflinePrimaryVerticesSummary')
 
-	#if tools.is_above_cmssw_version([7,6]):
-	#	process.kappaTuple.VertexSummary.goodOfflinePrimaryVerticesSummary = cms.PSet(src=cms.InputTag("offlineSlimmedPrimaryVertices"))
+	if tools.is_above_cmssw_version([7,6]):
+		process.kappaTuple.VertexSummary.goodOfflinePrimaryVerticesSummary = cms.PSet(src=cms.InputTag("offlineSlimmedPrimaryVertices"))
 
 	process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
 
