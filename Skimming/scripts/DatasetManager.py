@@ -174,8 +174,7 @@ class DataSetManagerBase:
 			return ""
 		else:
 			startpos = details.find("ext")
-			endpos = details.rfind("-v")
-			return details[startpos:endpos]
+			return details[startpos:]
 
 	def set_n_events_files(self, new_entry):
 		new_entry["n_events_generated"]    = "-1"
