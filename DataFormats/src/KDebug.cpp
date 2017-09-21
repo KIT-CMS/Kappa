@@ -365,6 +365,12 @@ std::ostream &operator<<(std::ostream &os, const KGenRunInfo &info)
 	return os;
 }
 
+std::ostream &operator<<(std::ostream &os, const KGenLumiInfo &info)
+{
+	os << static_cast<const KLumiInfo>(info) << std::endl;
+	return os;
+}
+
 std::ostream &operator<<(std::ostream &os, const KDataLumiInfo &info)
 {
 	os << static_cast<const KLumiInfo>(info) << std::endl;
