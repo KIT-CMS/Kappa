@@ -69,7 +69,11 @@ class datasetsHelperTwopz:
 		nick += sample_dict["format"].replace("_", "") + ("" if (sample_dict["data"]) else "_")
 		nick += sample_dict["generator"].replace("_", "")
 		nick += ("_" + sample_dict["extension"] if sample_dict["extension"] != "" else "")
-		return nick
+                version_part = ""
+                if sample_dict["extension"] != "" and sample_dict["version"] != "": version_part = "-" + sample_dict["version"]
+                elif sample_dict["version"] != "": version_part = "_" + sample_dict["version"]
+                nick += version_part
+                return nick
 
 	def convert_dict_to_nickorder(self):
 		"""Use the Nickname as key identifier,since all later analyse steps do so (artus, harryplotter) """

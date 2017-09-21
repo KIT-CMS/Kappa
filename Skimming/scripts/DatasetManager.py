@@ -174,10 +174,15 @@ class DataSetManagerBase:
 			return ""
 		else:
 			startpos = details.find("ext")
-                        if int(startpos) > 0:
-                            return details[startpos:]
-                        else:
-                            return ""
+                        endpos = details.find("-v")
+                        return details[startpos:endpos]
+
+        def get_version(self, details, data=False):
+                if data:
+                        return ""
+                else:
+                        startpos = details.rfind("v")
+                        return details[startpos:]
 
 	def set_n_events_files(self, new_entry):
 		new_entry["n_events_generated"]    = "-1"
@@ -236,6 +241,7 @@ class DataSetManagerBase:
 			new_entry["process"]   = self.get_process(pd_name)
 			new_entry["format"]    = self.get_format(filetype)
 			new_entry["extension"] = self.get_extension(details,data=new_entry["data"] )
+                        new_entry["version"] = self.get_version(details,data=new_entry["data"])
 			nick_name = self.dataset.make_nickname(new_entry)
 		self.set_n_events_files(new_entry)   
 		self.dataset[nick_name] = new_entry
