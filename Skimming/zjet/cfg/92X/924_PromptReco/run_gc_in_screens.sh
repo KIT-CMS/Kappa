@@ -7,9 +7,9 @@
 # filename does not contain the substring "base".
 
 # create the session name from the current directory name
-SESSION="XkappaSkim_$(pwd | rev | cut -d"/" -f1,2 | rev | tr \"/\" \"_\")"
+SESSION="kappaSkim_$(pwd | rev | cut -d"/" -f1,2 | rev | tr \"/\" \"_\")"
 
-screen -list | grep -q "$SESSION" && echo "Failed: session named '$SESSION' already exists.\n\nTo reattach, run: screen -r $SESSION"
+screen -list | grep -q "$SESSION" && echo "Failed: session named '$SESSION' already exists. To reattach, run: screen -r $SESSION" && exit 1
 
 # open a new named screen session (collection of "tabs") in the background
 screen -dmS "$SESSION"
