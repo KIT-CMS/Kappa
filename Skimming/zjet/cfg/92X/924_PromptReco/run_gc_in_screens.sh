@@ -23,7 +23,7 @@ for skimConfig in *_gc.conf; do
         echo "Skipping config '$skimConfig' because file contains 'base'..."
     else
         # in every tab, source the user's bashrc, the scram environment and run grid-control with the respective skim config
-        screen -S "$SESSION" -X screen bash -c "exec bash --init-file <(echo \"source \"$HOME/.bashrc\"; export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch; source $VO_CMS_SW_DIR/cmsset_default.sh; eval \\\`scramv1 runtime -sh\\\`; echo go.py $skimConfig\")"
+        screen -S "$SESSION" -X screen bash -c "exec bash --init-file <(echo \"source \"$HOME/.bashrc\"; export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch; source $VO_CMS_SW_DIR/cmsset_default.sh; eval \\\`scramv1 runtime -sh\\\`; go.py $skimConfig\")"
         echo "Opened grid-control with config '$skimConfig' in new screen tab in session '$SESSION'"
     fi
 done
