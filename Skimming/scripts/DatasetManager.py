@@ -177,8 +177,8 @@ class DataSetManagerBase:
                         endpos = details.find("-v")
                         return details[startpos:endpos]
 
-        def get_version(self, details, data=False):
-                if data:
+        def get_version(self, details, data=False, embedded=False):
+                if data and not embedded:
                         return ""
                 else:
                         startpos = details.rfind("v")
@@ -241,7 +241,7 @@ class DataSetManagerBase:
 			new_entry["process"]   = self.get_process(pd_name)
 			new_entry["format"]    = self.get_format(filetype)
 			new_entry["extension"] = self.get_extension(details,data=new_entry["data"] )
-                        new_entry["version"] = self.get_version(details,data=new_entry["data"])
+                        new_entry["version"] = self.get_version(details,data=new_entry["data"],embedded=new_entry.get("embedded",False))
 			nick_name = self.dataset.make_nickname(new_entry)
 		self.set_n_events_files(new_entry)   
 		self.dataset[nick_name] = new_entry
