@@ -5118,7 +5118,7 @@
     "version": "", 
     "xsec": 821.9
   }, 
-  "Embedding2017B_ElMuFinalState_imputDoubleMuminiAODv1_13TeV_USER_v1": {
+  "Embedding2017B_ElMuFinalState_imputDoubleMuminiAODv1_13TeV_USER": {
     "campaign": "ElMuFinalState", 
     "data": true, 
     "dbs": "/EmbeddingRun2017B/ElMuFinalState-imputDoubleMu_miniAOD-v1/USER", 
