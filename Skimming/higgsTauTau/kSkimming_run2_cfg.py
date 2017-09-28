@@ -436,41 +436,6 @@ def getBaseConfig(
 		process.kappaTuple.PatJets.ak4PF = cms.PSet(src=cms.InputTag(jetCollection))
 		process.kappaTuple.PatJets.puppiJets = cms.PSet(src=cms.InputTag(jetCollectionPuppi))
 
-	## Refitted Vertices collection
-	#process.kappaTuple.active += cms.vstring('RefitVertex')
-	#process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
-	#process.load("VertexRefit.TauRefit.AdvancedRefitVertexProducer_cfi")
-	#
-	#if tools.is_above_cmssw_version([7,6]) and not tools.is_above_cmssw_version([9]):
-	#	process.AdvancedRefitVertexBSProducer.srcElectrons = cms.InputTag(electrons)
-	#	process.AdvancedRefitVertexBSProducer.srcMuons = cms.InputTag(muons)
-	#	process.AdvancedRefitVertexBSProducer.srcTaus = cms.InputTag(taus)
-	#	process.AdvancedRefitVertexBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
-	#	process.p *= (process.AdvancedRefitVertexBS)
-
-	#process.AdvancedRefitVertexNoBSProducer.srcElectrons = cms.InputTag(electrons)
-	#process.AdvancedRefitVertexNoBSProducer.srcMuons = cms.InputTag(muons)
-	#process.AdvancedRefitVertexNoBSProducer.srcTaus = cms.InputTag(taus)
-	#process.AdvancedRefitVertexNoBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
-	#process.p *= (process.AdvancedRefitVertexNoBS)
-
-	#process.kappaTuple.RefitVertex.whitelist = cms.vstring('AdvancedRefitVertexBS', 'AdvancedRefitVertexNoBS')
-
-	#if tools.is_above_cmssw_version([7,6]) and not tools.is_above_cmssw_version([9]):
-	#	process.kappaTuple.RefitVertex.AdvancedRefittedVerticesBS = cms.PSet(src=cms.InputTag("AdvancedRefitVertexBSProducer"))
-	#	process.AdvancedRefitVertexBSProducer.srcElectrons = cms.InputTag(electrons)
-	#	process.AdvancedRefitVertexBSProducer.srcMuons = cms.InputTag(muons)
-	#	process.AdvancedRefitVertexBSProducer.srcTaus = cms.InputTag(taus)
-	#	process.AdvancedRefitVertexBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
-
-	#if tools.is_above_cmssw_version([7,6]):
-	#	process.kappaTuple.RefitVertex.AdvancedRefittedVerticesNoBS = cms.PSet(src=cms.InputTag("AdvancedRefitVertexNoBSProducer"))
-	#	process.AdvancedRefitVertexNoBSProducer.srcElectrons = cms.InputTag(electrons)
-	#	process.AdvancedRefitVertexNoBSProducer.srcMuons = cms.InputTag(muons)
-	#	process.AdvancedRefitVertexNoBSProducer.srcTaus = cms.InputTag(taus)
-	#	process.AdvancedRefitVertexNoBSProducer.srcLeptons = cms.VInputTag(electrons, muons, taus)
-
-
 	## Standard MET and GenMet from pat::MET
 	process.kappaTuple.active += cms.vstring('PatMET')
 	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETs"))

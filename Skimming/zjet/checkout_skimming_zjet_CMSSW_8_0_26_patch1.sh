@@ -67,9 +67,6 @@ sed "/import\ switchJetCollection/a from\ RecoMET\.METProducers\.METSignificance
 # Kappa
 git clone https://github.com/KIT-CMS/Kappa.git
 
-# TauRefit (needed by Kappa)
-git clone https://github.com/KIT-CMS/TauRefit.git VertexRefit/TauRefit
-
 # Jet Toolbox
 git clone https://github.com/cms-jet/JetToolbox.git JMEAnalysis/JetToolbox --branch jetToolbox_80X
 

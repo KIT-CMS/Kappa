@@ -62,16 +62,6 @@ struct KVertex
 typedef std::vector<KVertex> KVertices;
 
 
-struct KRefitVertex : public KVertex
-{
-	virtual ~KRefitVertex() {};
-
-	std::size_t leptonSelectionHash;
-
-};
-typedef std::vector<KRefitVertex> KRefitVertices;
-
-
 struct KVertexSummary
 {
 	virtual ~KVertexSummary() {};

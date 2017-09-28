@@ -181,10 +181,6 @@
 #pragma link C++ class std::vector<KVertex>+;
 #pragma link C++ typedef KVertices;
 
-#pragma link C++ struct KRefitVertex+;
-#pragma link C++ class std::vector<KRefitVertex>+;
-#pragma link C++ typedef KRefitVertices;
-
 #pragma link C++ struct KFilterSummary+;
 
 #pragma link C++ struct KHCALNoiseSummary+;

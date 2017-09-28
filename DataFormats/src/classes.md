@@ -59,7 +59,6 @@ Plural forms are standard vectors of the classes with singular class names.
 + KTrack                 KTracks
 + KTriggerObjects
 + KVertex                KVertices
-+ KRefitVertex           KRefitVertices
 
 ### Summaries
 + KFilterSummary
