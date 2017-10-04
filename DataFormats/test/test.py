@@ -216,7 +216,7 @@ def parseConfigs(configs, kappaCommentIdentifier='Kappa test:', addPrint=False):
 		Example from skim_tutorial1:
 			# Kappa test: CMSSW 5.3.22, 7.4.14
 			# Kappa test: scram arch slc6_amd64_gcc472, slc6_amd64_gcc491
-			# Kappa test: checkout script scripts/checkoutDummy.sh, scripts/checkoutTauRefit.sh
+			# Kappa test: checkout script scripts/checkoutDummy.sh
 
 		Here config - is the kSkimming_*_cfg.py files
 	"""
