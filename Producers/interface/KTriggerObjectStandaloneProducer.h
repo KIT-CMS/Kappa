@@ -81,9 +81,16 @@ public:
 		event.getByToken(this->metFilterBitsToken_, metFilterBits);
 		// preselect met filters
 		metFilterNames_ = event.triggerNames(*metFilterBits);
+                if (verbosity > 0)
+                {
+                    std::cout << "Input Tag for MetFilter: label = '" << metFilterBits_.label() << "' instance = '" <<  metFilterBits_.instance() << "' process = '" << metFilterBits_.process() << std::endl;
+                    std::cout << "Met Filter Collection size: " << metFilterBits->size() << std::endl;
+                }
 		for(size_t i = 0; i < metFilterBits->size(); i++)
 		{
 			std::string metFilterName = metFilterNames_.triggerName(i);
+                        if (verbosity > 0)
+                            std::cout << "Met Filter Name: " << metFilterName << std::endl;
 			if(metFilterName.find("Flag") != std::string::npos)
 				selectedMetFilters_.push_back(i);
 		}

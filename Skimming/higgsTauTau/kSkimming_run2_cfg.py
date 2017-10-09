@@ -121,18 +121,15 @@ def getBaseConfig(
 	## ------------------------------------------------------------------------
 
 	# General configuration
-	if tools.is_above_cmssw_version([7,4]):
-		process.kappaTuple.Info.pileUpInfoSource = cms.InputTag("slimmedAddPileupInfo")
-	if isSignal:
+	if tools.is_above_cmssw_version([7,4]) and not data and not isEmbedded:
+		process.kappaTuple.Info.pileUpInfoSource = cms.InputTag("slimmedAddPileupInfo","","PAT")
+	if not tools.is_above_cmssw_version([9]):
+            if isSignal:
 		process.kappaTuple.Info.lheSource = cms.InputTag("source")
 
 	# save primary vertex
 	process.kappaTuple.active += cms.vstring('VertexSummary') # save VertexSummary
 
-	#process.load("Kappa.Skimming.KVertices_cff")
-	#process.goodOfflinePrimaryVertices.src = cms.InputTag('offlineSlimmedPrimaryVertices')
-	#process.p *= ( process.makeVertexes )
-	
 	process.kappaTuple.VertexSummary.whitelist = cms.vstring('offlineSlimmedPrimaryVertices')  # save VertexSummary
 	process.kappaTuple.VertexSummary.rename = cms.vstring('offlineSlimmedPrimaryVertices => goodOfflinePrimaryVerticesSummary')
 
@@ -159,7 +156,6 @@ def getBaseConfig(
 			#switch on tagging mode:
 			process.badGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
 			process.cloneGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
-
 			process.kappaTuple.TriggerObjectStandalone.metfilterbitslist = cms.vstring("BadChargedCandidateFilter", "BadPFMuonFilter", "badGlobalMuonTaggerMAOD", "cloneGlobalMuonTaggerMAOD")
 		else:
 			process.kappaTuple.TriggerObjectStandalone.metfilterbitslist = cms.vstring("BadChargedCandidateFilter","BadPFMuonFilter")
@@ -172,12 +168,15 @@ def getBaseConfig(
 	elif data:
 		if tools.is_above_cmssw_version([9]):
 			process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "HLT")
-			#process.kappaTuple.TriggerObjectStandalone.bits = cms.InputTag("TriggerResults", "", "RECO")
+                        process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO") # take last process used in production for data
 		elif "03Feb2017" in str(process.kappaTuple.TreeInfo.parameters.scenario):
 			process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 		else:
 			process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
 			process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "RECO")
+        else:
+                process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT") # take last process used in production for mc
+
 	if not isEmbedded and "Spring16" in str(process.kappaTuple.TreeInfo.parameters.campaign):
 		# adds for each HLT Trigger wich contains "Tau" or "tau" in the name a Filter object named "l1extratauccolltection"
 		process.kappaTuple.TriggerObjectStandalone.l1extratauJetSource = cms.untracked.InputTag("l1extraParticles","IsoTau","RECO")
