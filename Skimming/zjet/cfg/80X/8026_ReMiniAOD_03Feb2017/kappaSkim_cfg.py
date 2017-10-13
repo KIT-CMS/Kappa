@@ -328,7 +328,7 @@ process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJet
 
 # -- electron IDs
 process.kappaTuple.Electrons.srcIds = cms.string("standalone");
-process.kappaTuple.Electrons.ids = cms.vstring(
+process.kappaTuple.Electrons.ids = cms.VInputTag(
     "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
     "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose",
     "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium",
@@ -473,7 +473,7 @@ process.path *= (process.packedPFCandidatesCHS)
 # If you only want to re-correct for JEC and get the proper uncertainties for the default MET
 runMetCorAndUncFromMiniAOD(process,
                            isData=options.isData,
-                           pfCandColl='packedPFCandidates',  # TODO: use 'packedPFCandidatesCHS'?
+                           pfCandColl='packedPFCandidatesCHS',  # TODO: use 'packedPFCandidatesCHS'?
                            recoMetFromPFCs=True)
 
 ## If you would like to re-cluster both jets and met and get the proper uncertainties
