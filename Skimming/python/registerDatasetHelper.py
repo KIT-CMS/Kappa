@@ -294,7 +294,8 @@ def get_sample_by_nick(nickname, expect_n_results = 1):
 	}
         if len(split_nick) > 5:
 		query["extension"] = ("^"+re.sub("(-|)v\d","",split_nick[6])+"$" if (len(split_nick[6]) > 2) else "")
-                query["version"] = ("^"+re.search("v\d",split_nick[6]).group(0)+"$")
+                if "Summer17" in nickname:
+                    query["version"] = ("^"+re.search("v\d",split_nick[6]).group(0)+"$")
 
 	#query_nick, sample = query_result(query)
 	if(expect_n_results == 1):
