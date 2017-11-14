@@ -5282,7 +5282,8 @@
     "n_events_generated": "5027895", 
     "n_files": "7153", 
     "process": "Embedding2017D", 
-    "scenario": "imputDoubleMu_miniAODv1"
+    "scenario": "imputDoubleMu_miniAODv1", 
+    "version": ""
   }, 
   "Embedding2017D_ElTauFinalState_imputDoubleMuminiAODv1_13TeV_USER": {
     "campaign": "ElTauFinalState", 
@@ -5298,7 +5299,8 @@
     "n_events_generated": "3291059", 
     "n_files": "6903", 
     "process": "Embedding2017D", 
-    "scenario": "imputDoubleMu_miniAODv1"
+    "scenario": "imputDoubleMu_miniAODv1", 
+    "version": ""
   }, 
   "Embedding2017D_MuTauFinalState_imputDoubleMuminiAODv1_13TeV_USER": {
     "campaign": "MuTauFinalState", 
@@ -5314,7 +5316,8 @@
     "n_events_generated": "3607503", 
     "n_files": "7017", 
     "process": "Embedding2017D", 
-    "scenario": "imputDoubleMu_miniAODv1"
+    "scenario": "imputDoubleMu_miniAODv1", 
+    "version": ""
   }, 
   "Embedding2017D_TauTauFinalState_imputDoubleMuminiAODv1_13TeV_USER": {
     "campaign": "TauTauFinalState", 
@@ -5330,7 +5333,8 @@
     "n_events_generated": "1009025", 
     "n_files": "6306", 
     "process": "Embedding2017D", 
-    "scenario": "imputDoubleMu_miniAODv1"
+    "scenario": "imputDoubleMu_miniAODv1", 
+    "version": ""
   }, 
   "EmbeddingMCRunIISummer16DR80_ElMuFinalState_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8": {
     "Moriond17": [
