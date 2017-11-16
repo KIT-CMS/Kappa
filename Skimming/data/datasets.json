@@ -15113,6 +15113,7 @@
     "extension": "ext1", 
     "format": "MINIAOD", 
     "generator": "powheg-pythia8", 
+    "generatorWeight": 1.0, 
     "globalTag": "92X_upgrade2017_realistic_v14", 
     "inputDBS": "global", 
     "n_events_generated": "35560928", 
