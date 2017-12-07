@@ -43,7 +43,7 @@ class SkimManagerBase:
 				"srm" : "srm://grid-srm.physik.rwth-aachen.de:8443/srm/managerv2\?SFN=/pnfs/physik.rwth-aachen.de/cms/",
 				"xrootd" : "root://grid-vo-cms.physik.rwth-aachen.de:1094/",
 			},
-			"T1_DE_KIT" : {
+			"T1_DE_KIT_Disk" : {
 				"dcap" : "root://cmsxrootd-kit.gridka.de:1094/", # no dcap known, therefore xrootd placeholder
 				"srm" : "srm://cmssrm-kit.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/cms/disk-only/",
 				"xrootd" : "root://cmsxrootd-kit.gridka.de:1094/",
