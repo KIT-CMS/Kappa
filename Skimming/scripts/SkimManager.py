@@ -43,7 +43,7 @@ class SkimManagerBase:
 				"srm" : "srm://grid-srm.physik.rwth-aachen.de:8443/srm/managerv2\?SFN=/pnfs/physik.rwth-aachen.de/cms/",
 				"xrootd" : "root://grid-vo-cms.physik.rwth-aachen.de:1094/",
 			},
-			"T3_DE_KIT" : {
+			"T1_DE_KIT" : {
 				"dcap" : "root://cmsxrootd-kit.gridka.de:1094/", # no dcap known, therefore xrootd placeholder
 				"srm" : "srm://cmssrm-kit.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/cms/disk-only/",
 				"xrootd" : "root://cmsxrootd-kit.gridka.de:1094/",
@@ -617,6 +617,26 @@ class SkimManagerBase:
 			elif self.skimdataset[dataset]["GCSKIM_STATUS"] == "LISTED":
 				self.skimdataset[dataset]["GCSKIM_STATUS"] = "COMPLETED"
 
+        def check_filelist(self,filelist_folder = None,inputfile = None):
+            if filelist_folder and inputfile:
+                database = json.loads(open(inputfile,"r").read())
+                for fl in os.listdir(filelist_folder):
+                    number_of_lines = sum(1 for l in open(os.path.join(filelist_folder,fl)))
+                    dataset = fl.replace(".txt","")
+                    number_of_files = int(database[dataset]["n_files"])
+                    info_string = "Dataset: "+dataset+" number of files: "+str(number_of_files)+" number of lines "+str(number_of_lines)+"\033[0m"
+                    prefix = "\033[92m"
+                    if number_of_lines != number_of_files:
+                        if number_of_lines == 0:
+                            prefix = "\033[91m"
+                        else:
+                            prefix = "\033[93m"
+                    print prefix+info_string
+
+            else:
+                print "No filelist folder or no database input given. Aborting."
+
+
 ########## Further general helper functions
 
 	@classmethod
@@ -691,6 +711,7 @@ if __name__ == "__main__":
 	
 	parser.add_argument("--create-filelist", action='store_true', default=False, dest = "create_filelist", help="")
 	parser.add_argument("--reset-filelist", action='store_true', default=False, dest = "reset_filelist", help="")
+	parser.add_argument("--check-filelist", default=None, dest = "check_filelist", help="")
 	
 	parser.add_argument("-f", "--force", action='store_true', default=False, dest="force", help="Force current action (e.g. creation of filelists).")
 
@@ -745,6 +766,10 @@ if __name__ == "__main__":
 	if args.reset_filelist:
 		SKM.reset_filelist()
 		SKM.save_dataset()
+		exit()
+
+	if args.check_filelist:
+		SKM.check_filelist(args.check_filelist,args.inputfile)
 		exit()
 
 	if args.resubmit_with_gc:
