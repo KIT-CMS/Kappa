@@ -135,6 +135,7 @@ class SkimManagerBase:
 			self.skimdataset[akt_nick]['outLFNDirBase'] = config.Data.outLFNDirBase
 			self.skimdataset[akt_nick]['storageSite'] = config.Site.storageSite
 			self.skimdataset[akt_nick]["crab_name"] = "crab_"+config.General.requestName
+                        self.skimdataset[akt_nick]["blacklisted_crab_sites"] = config.Site.blacklist
 
 			submit_dict = {"config" : config, "proxy" : self.voms_proxy}
 			process_queue = Queue()
@@ -291,6 +292,10 @@ class SkimManagerBase:
 					pass
 		print "Try to resubmit", len(datasets_to_resubmit), "tasks"
 		for dataset in datasets_to_resubmit:
+                        blacklisted_sites = self.skimdataset[dataset.replace("crab_","")].get("blacklisted_crab_sites",[]) + argument_dict.get("siteblacklist","").split(",")
+                        self.skimdataset[dataset.replace("crab_","")]["blacklisted_crab_sites"] = list(set(blacklisted_sites))
+                        argument_dict["siteblacklist"] = ",".join(self.skimdataset[dataset.replace("crab_","")].get("blacklisted_crab_sites"))
+                        print argument_dict["siteblacklist"]
 			process_queue = Queue()
 			print "Resubmission for", dataset
 			argument_dict["dir"] = os.path.join(self.workdir, str(dataset))
@@ -756,6 +761,7 @@ if __name__ == "__main__":
 
 	if args.resubmit:
 		SKM.resubmit_failed(argument_dict=ast.literal_eval(args.resubmit))
+                SKM.save_dataset()
 		exit()
 
 	if args.create_filelist:
