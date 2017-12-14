@@ -47,7 +47,7 @@ git cms-addpkg PhysicsTools/PatUtils
 # -- apply CMSSW modifications, backports, etc. (user code)
 
 # Tau POG backport of tauID to CMSSW_8_0_26_patch1
-git cms-merge-topic -u cms-tau-pog:CMSSW_8_0_X_tau-pog_miniAOD-backport-tauID
+git cms-merge-topic -u cms-tau-pog:CMSSW_8_0_X_tau-pog_tauIDOnMiniAOD-legacy-backport-81X
 
 # https://github.com/cms-sw/cmssw/pull/16174#pullrequestreview-5167487
 # Fix for Puppi MET and MET significance compatibility between AOD and miniAOD (80X)
