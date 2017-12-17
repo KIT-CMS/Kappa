@@ -443,6 +443,8 @@ if not options.isData:
 if not options.isData:
     process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
     process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
+
+    # GenJet flavor recipe from https://twiki.cern.ch/twiki/bin/view/Main/BackportNewFlavourDefCMSSW8
     # Select the genpartons to be used for flavour info 
     process.patJetPartons = cms.EDProducer('HadronAndPartonSelector',
                                            src = cms.InputTag("generator"),
@@ -468,6 +470,7 @@ if not options.isData:
                                                   jetSrc = cms.InputTag("slimmedJets"),
                                                   jetFlavourInfos = cms.InputTag("ak4CHSJetFlavourInfos")
                                                   )
+    # end of GenJet flavor recipe
 
 # PileupDensity producer
 process.kappaTuple.active += cms.vstring('PileupDensity')
