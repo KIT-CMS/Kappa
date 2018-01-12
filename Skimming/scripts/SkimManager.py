@@ -293,7 +293,8 @@ class SkimManagerBase:
 		print "Try to resubmit", len(datasets_to_resubmit), "tasks"
 		for dataset in datasets_to_resubmit:
                         blacklisted_sites_from_dict = argument_dict.get("siteblacklist","").split(",")
-                        blacklisted_sites_from_dict.remove("")
+                        if "" in blacklisted_sites_from_dict:
+                            blacklisted_sites_from_dict.remove("")
                         blacklisted_sites = self.skimdataset[dataset.replace("crab_","")].get("blacklisted_crab_sites",[]) + blacklisted_sites_from_dict
                         self.skimdataset[dataset.replace("crab_","")]["blacklisted_crab_sites"] = list(set(blacklisted_sites))
                         argument_dict["siteblacklist"] = ",".join(self.skimdataset[dataset.replace("crab_","")].get("blacklisted_crab_sites"))
