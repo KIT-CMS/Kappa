@@ -481,7 +481,7 @@ process.path *= (process.packedPFCandidatesCHS)
 # If you only want to re-correct for JEC and get the proper uncertainties for the default MET
 runMetCorAndUncFromMiniAOD(process,
                            isData=options.isData,
-                           pfCandColl='packedPFCandidates',  # TODO: use 'packedPFCandidatesCHS'?
+                           pfCandColl='packedPFCandidatesCHS',
                            recoMetFromPFCs=True)
 
 ## If you would like to re-cluster both jets and met and get the proper uncertainties
