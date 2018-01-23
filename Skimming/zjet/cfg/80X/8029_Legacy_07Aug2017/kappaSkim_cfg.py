@@ -31,7 +31,7 @@ register_option('isData',
                 type_=bool,
                 description="True if sample is data, False if Monte Carlo (default: True)")
 register_option('globalTag',
-                default='80X_dataRun2_2016SeptRepro_v7',
+                default='82X_dataRun2_2016SeptRepro_v7',
                 type_=str,
                 description='Global tag')
 register_option('reportEvery',
@@ -74,7 +74,7 @@ if os.getenv("GC_VERSION"):
     options.reportEvery = int(max(1, 10**(round(math.log(__MAX_EVENTS__)/math.log(10))-1)))
 
     # temporary; gc later sets process.source.fileNames directly!
-    options.inputFiles = "__FILE_NAMES__".split(',')
+    options.inputFiles = [__FILE_NAMES__]
 
 
 ########################
@@ -170,9 +170,9 @@ process.kappaOut = cms.Sequence(process.kappaTuple)
 # -- configure KAPPA trigger object
 process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
 
-# CMSSW 80X -> trigger object is 'selectedPatTrigger'
+# CMSSW 92X -> trigger object is 'slimmedPatTrigger'
 process.kappaTuple.TriggerObjectStandalone.triggerObjects = cms.PSet(
-    src=cms.InputTag("selectedPatTrigger")
+    src=cms.InputTag("slimmedPatTrigger")
 )
 
 # read in trigger results from 'HLT' process
@@ -182,8 +182,8 @@ process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "HLT")
 # TODO: flag pending deletion
 process.kappaTuple.Info.overrideHLTCheck = cms.untracked.bool(True)
 
-# read in MET filter bits from PAT trigger object (for reminiAOD)
-process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
+## read in MET filter bits from RECO/PAT trigger object (use RECO for PromptReco)
+process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
 
 
 # write out HLT information for trigger names matching regex
@@ -336,6 +336,8 @@ process.kappaTuple.Electrons.ids = cms.VInputTag(
     "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"
 )
 
+
+
 # -- call the default KAPPA electron setup routine
 setupElectrons(process, "slimmedElectrons")
 
@@ -367,8 +369,8 @@ for _jet_algo_radius in ('ak4', 'ak8'):
 
         # calculate and evaluate PUJetID only for ak4CHS jets (TODO: do we need this?)
         _do_PUJetID = False
-        if _jet_algo_radius == 'ak4' and _PU_method == "CHS":
-            _do_PUJetID = True
+        #if _jet_algo_radius == 'ak4' and _PU_method == "CHS":
+        #    _do_PUJetID = True
 
         # create jet sequence with jet toolbox
         jetToolbox(process,
@@ -440,37 +442,10 @@ process.kappaTuple.active += cms.vstring('PatJets')
 if not options.isData:
     process.kappaTuple.active += cms.vstring('LV')
 
-if not options.isData:
-    process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
-    process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
-
-    # GenJet flavor recipe from https://twiki.cern.ch/twiki/bin/view/Main/BackportNewFlavourDefCMSSW8
-    # Select the genpartons to be used for flavour info 
-    process.patJetPartons = cms.EDProducer('HadronAndPartonSelector',
-                                           src = cms.InputTag("generator"),
-                                           particles = cms.InputTag("prunedGenParticles"),
-                                           partonMode = cms.string("Auto"),
-                                           fullChainPhysPartons = cms.bool(True)
-                                           )
-    # Create the jet:flavour mapping using your jets and selected genpartons 
-    process.ak4CHSJetFlavourInfos = cms.EDProducer("JetFlavourClustering",
-                                                   jets = cms.InputTag("slimmedJets"),
-                                                   bHadrons = cms.InputTag("patJetPartons","bHadrons"),
-                                                   cHadrons = cms.InputTag("patJetPartons","cHadrons"),
-                                                   partons = cms.InputTag("patJetPartons","physicsPartons"),
-                                                   leptons = cms.InputTag("patJetPartons","leptons"),
-                                                   jetAlgorithm = cms.string("AntiKt"),
-                                                   rParam = cms.double(0.4), # Must match the parameter of the input jets
-                                                   ghostRescaling = cms.double(1e-18),
-                                                   relPtTolerance = cms.double(5), # large as we are dealing with calibrated jets
-                                                   hadronFlavourHasPriority = cms.bool(False)
-                                                   )
-    # This updates our slimmedJets - must use same collection you gave to the JetFlavourClustering module! 
-    process.updateFlavAK4CHSJets = cms.EDProducer("UpdatePatJetFlavourInfo",
-                                                  jetSrc = cms.InputTag("slimmedJets"),
-                                                  jetFlavourInfos = cms.InputTag("ak4CHSJetFlavourInfos")
-                                                  )
-    # end of GenJet flavor recipe
+# TODO: these lines don't seem to do anything -> delete?
+#if not options.isData:
+#    process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
+#    process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
 
 # PileupDensity producer
 process.kappaTuple.active += cms.vstring('PileupDensity')
@@ -488,6 +463,11 @@ process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll =>
 from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
 
 # create collection of PF candidates likely coming from the primary vertex
+process.packedPFCandidatesCHSNotFromPV = cms.EDFilter('CandPtrSelector',
+    src = cms.InputTag('packedPFCandidates'),
+    cut = cms.string('fromPV==0')  # only loose selection (0)
+)
+process.path *= (process.packedPFCandidatesCHSNotFromPV)
 process.packedPFCandidatesCHS = cms.EDFilter('CandPtrSelector',
     src = cms.InputTag('packedPFCandidates'),
     cut = cms.string('fromPV() > 0')  # only loose selection (0)
@@ -501,7 +481,7 @@ process.path *= (process.packedPFCandidatesCHS)
 # If you only want to re-correct for JEC and get the proper uncertainties for the default MET
 runMetCorAndUncFromMiniAOD(process,
                            isData=options.isData,
-                           pfCandColl='packedPFCandidatesCHS',  # TODO: use 'packedPFCandidatesCHS'?
+                           pfCandColl='packedPFCandidatesCHS',
                            recoMetFromPFCs=True)
 
 ## If you would like to re-cluster both jets and met and get the proper uncertainties
@@ -514,35 +494,7 @@ runMetCorAndUncFromMiniAOD(process,
 #                           )
 
 
-# -- apply E/Gamma gain switch fix
-
-if options.isData:
-    # Now you are creating the e/g corrected MET on top of the bad muon corrected MET (on re-miniaod)
-
-    from PhysicsTools.PatUtils.tools.corMETFromMuonAndEG import corMETFromMuonAndEG
-
-    corMETFromMuonAndEG(process,
-                    pfCandCollection="", #not needed
-                    electronCollection="slimmedElectronsBeforeGSFix",
-                    photonCollection="slimmedPhotonsBeforeGSFix",
-                    corElectronCollection="slimmedElectrons",
-                    corPhotonCollection="slimmedPhotons",
-                    allMETEGCorrected=True,
-                    muCorrection=False,
-                    eGCorrection=True,
-                    runOnMiniAOD=True,
-                    postfix="MuEGClean"
-                    )
-    
-    process.path *= process.fullPatMetSequence
-    
-    process.slimmedMETsMuEGClean = process.slimmedMETs.clone(
-            src = cms.InputTag('patPFMetT1MuEGClean'),
-            rawVariation = cms.InputTag('patPFMetRawMuEGClean'),
-            t1Uncertainties = cms.InputTag('patPFMetT1%sMuEGClean')
-    )
-    del process.slimmedMETsMuEGClean.caloMET    
-
+# TODO: make sure this works for MC sample under 92X
 if not options.isData:
     # Now you are creating the bad muon corrected MET
     process.load('RecoMET.METFilters.badGlobalMuonTaggersMiniAOD_cff')
@@ -583,24 +535,21 @@ if not options.isData:
     #)
 
 
-process.path *= process.slimmedMETsMuEGClean
+    process.path *= process.slimmedMETsMuEGClean
 
 
 # wire CHS MET
-process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETsMuEGClean"),
+process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETs"),
                                             uncorrected=cms.bool(True))
 
 if options.isData:
     # in data: wire PF (CHS-uncorrected) MET to PAT 'slimmedMETsMuEGClean'
     # (which corrects for E/Gamma issue)
-    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETsMuEGClean", "", "PAT"),
+    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "RECO"),
                                                uncorrected=cms.bool(True))
-    # in data: wire PF (CHS-uncorrected) MET obtained without E/Gamma+Muons fix to separate collection
-    process.kappaTuple.PatMET.metUncleaned = cms.PSet(src=cms.InputTag("slimmedMETsUncorrected"),
-                                                      uncorrected = cms.bool(True))
 else:
     # in MC: wire PF (CHS-uncorrected) MET to PAT 'slimmedMETs'
-    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "PAT"),
+    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "RECO"),
                                                uncorrected = cms.bool(True))
 
 # this should be OK: 'slimmedMETsPuppi' is in miniAOD
