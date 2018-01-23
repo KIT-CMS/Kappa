@@ -1,6 +1,4 @@
-# Kappa test: CMSSW 8.0.26
-# Kappa test: scram arch slc6_amd64_gcc530
-# Kappa test: output skim_8026_jtb_reminiAOD_remastered_KappaOut.root
+# Kappa test: CMSSW 8.0.29
 
 import math
 import os
@@ -31,7 +29,7 @@ register_option('isData',
                 type_=bool,
                 description="True if sample is data, False if Monte Carlo (default: True)")
 register_option('globalTag',
-                default='82X_dataRun2_2016SeptRepro_v7',
+                default='80X_dataRun2_2016SeptRepro_v7',
                 type_=str,
                 description='Global tag')
 register_option('reportEvery',
@@ -170,9 +168,9 @@ process.kappaOut = cms.Sequence(process.kappaTuple)
 # -- configure KAPPA trigger object
 process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
 
-# CMSSW 92X -> trigger object is 'slimmedPatTrigger'
+# CMSSW 80X -> trigger object is 'selectedPatTrigger'
 process.kappaTuple.TriggerObjectStandalone.triggerObjects = cms.PSet(
-    src=cms.InputTag("slimmedPatTrigger")
+    src=cms.InputTag("selectedPatTrigger")
 )
 
 # read in trigger results from 'HLT' process
@@ -182,8 +180,8 @@ process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "HLT")
 # TODO: flag pending deletion
 process.kappaTuple.Info.overrideHLTCheck = cms.untracked.bool(True)
 
-## read in MET filter bits from RECO/PAT trigger object (use RECO for PromptReco)
-process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
+# read in MET filter bits from RECO/PAT trigger object (use RECO for PromptReco)
+process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 
 
 # write out HLT information for trigger names matching regex
@@ -442,10 +440,41 @@ process.kappaTuple.active += cms.vstring('PatJets')
 if not options.isData:
     process.kappaTuple.active += cms.vstring('LV')
 
-# TODO: these lines don't seem to do anything -> delete?
-#if not options.isData:
-#    process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
-#    process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
+    process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
+    process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
+
+# GenJet flavor recipe from https://twiki.cern.ch/twiki/bin/view/Main/BackportNewFlavourDefCMSSW8
+if not options.isData:
+
+    # ! TODO: this section probably doesn't work yet
+    #         -> need to replace 'slimmedJets' collection with our reclustered jets...
+
+    # Select the genpartons to be used for flavour info
+    process.patJetPartons = cms.EDProducer('HadronAndPartonSelector',
+                                           src = cms.InputTag("generator"),
+                                           particles = cms.InputTag("prunedGenParticles"),
+                                           partonMode = cms.string("Auto"),
+                                           fullChainPhysPartons = cms.bool(True)
+                                           )
+    # Create the jet:flavour mapping using your jets and selected genpartons
+    process.ak4CHSJetFlavourInfos = cms.EDProducer("JetFlavourClustering",
+                                                   jets = cms.InputTag("slimmedJets"),
+                                                   bHadrons = cms.InputTag("patJetPartons","bHadrons"),
+                                                   cHadrons = cms.InputTag("patJetPartons","cHadrons"),
+                                                   partons = cms.InputTag("patJetPartons","physicsPartons"),
+                                                   leptons = cms.InputTag("patJetPartons","leptons"),
+                                                   jetAlgorithm = cms.string("AntiKt"),
+                                                   rParam = cms.double(0.4), # Must match the parameter of the input jets
+                                                   ghostRescaling = cms.double(1e-18),
+                                                   relPtTolerance = cms.double(5), # large as we are dealing with calibrated jets
+                                                   hadronFlavourHasPriority = cms.bool(False)
+                                                   )
+    # This updates our slimmedJets - must use same collection you gave to the JetFlavourClustering module!
+    process.updateFlavAK4CHSJets = cms.EDProducer("UpdatePatJetFlavourInfo",
+                                                  jetSrc = cms.InputTag("slimmedJets"),
+                                                  jetFlavourInfos = cms.InputTag("ak4CHSJetFlavourInfos")
+                                                  )
+    # end of GenJet flavor recipe
 
 # PileupDensity producer
 process.kappaTuple.active += cms.vstring('PileupDensity')
@@ -494,8 +523,10 @@ runMetCorAndUncFromMiniAOD(process,
 #                           )
 
 
-# TODO: make sure this works for MC sample under 92X
 if not options.isData:
+
+    # ! NOTE: This probably won't work for Summer16 MC
+
     # Now you are creating the bad muon corrected MET
     process.load('RecoMET.METFilters.badGlobalMuonTaggersMiniAOD_cff')
     process.badGlobalMuonTaggerMAOD.taggingMode = cms.bool(True)
@@ -542,15 +573,9 @@ if not options.isData:
 process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETs"),
                                             uncorrected=cms.bool(True))
 
-if options.isData:
-    # in data: wire PF (CHS-uncorrected) MET to PAT 'slimmedMETsMuEGClean'
-    # (which corrects for E/Gamma issue)
-    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "RECO"),
-                                               uncorrected=cms.bool(True))
-else:
-    # in MC: wire PF (CHS-uncorrected) MET to PAT 'slimmedMETs'
-    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "RECO"),
-                                               uncorrected = cms.bool(True))
+# wire PF MET to MET from RECO process (TODO: check this)
+process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "RECO"),
+                                           uncorrected=cms.bool(True))
 
 # this should be OK: 'slimmedMETsPuppi' is in miniAOD
 process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"),
