@@ -293,8 +293,10 @@ class SkimManagerBase:
 		print "Try to resubmit", len(datasets_to_resubmit), "tasks"
 		for dataset in datasets_to_resubmit:
                         blacklisted_sites_from_dict = argument_dict.get("siteblacklist","").split(",")
-                        if "" in blacklisted_sites_from_dict:
-                            blacklisted_sites_from_dict.remove("")
+                        try:
+							blacklisted_sites_from_dict.remove("")
+                        except:
+							pass
                         blacklisted_sites = self.skimdataset[dataset.replace("crab_","")].get("blacklisted_crab_sites",[]) + blacklisted_sites_from_dict
                         self.skimdataset[dataset.replace("crab_","")]["blacklisted_crab_sites"] = list(set(blacklisted_sites))
                         argument_dict["siteblacklist"] = ",".join(self.skimdataset[dataset.replace("crab_","")].get("blacklisted_crab_sites"))
@@ -404,7 +406,7 @@ class SkimManagerBase:
 		cfg_dict['global']["workdir create"] = 'True '
 
 		cfg_dict['jobs'] = {}
-		cfg_dict['jobs']['in flight'] = '50'
+		cfg_dict['jobs']['in flight'] = '500'
 		cfg_dict['jobs']['wall time'] = '06:00:00'
 		cfg_dict['jobs']['memory'] = '5000'
 		cfg_dict['jobs']['max retry'] = '3'
@@ -566,6 +568,7 @@ class SkimManagerBase:
 				n_jobs_info = os.path.join(self.workdir, dataset[:100], "params.map.gz")
 				if os.path.exists(n_jobs_info):
 					print "Getting GC file list for", dataset
+					print skim_path+'/'+dataset+'.txt'
 					filelist = open(skim_path+'/'+dataset+'.txt', 'w')
 					n_gc_jobs = int(gzip.open(n_jobs_info, 'r').read())
 					done_jobs = 0

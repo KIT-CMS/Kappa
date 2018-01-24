@@ -15323,6 +15323,23 @@
     "version": "v3", 
     "xsec": 831.76
   }, 
+  "TTTo2L2Nu_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_powheg-pythia8_v2": {
+    "campaign": "RunIIFall17MiniAOD", 
+    "data": false, 
+    "dbs": "/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIIFall17MiniAOD-94X_mc2017_realistic_v10-v2/MINIAODSIM", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "powheg-pythia8", 
+    "globalTag": "94X_mc2017_realistic_v10", 
+    "inputDBS": "global", 
+    "n_events_generated": "8705576", 
+    "n_files": "164", 
+    "process": "TTTo2L2Nu", 
+    "scenario": "94X", 
+    "version": "v2", 
+    "xsec": 87.3
+  }, 
   "TTTo2L2Nu_RunIISpring16MiniAODv2_PUSpring16_13TeV_MINIAOD_powheg-pythia8": {
     "Moriond17": [
       "MC_Spring16", 
@@ -18269,7 +18286,7 @@
     "scenario": "PU25nsData2015v1", 
     "version": "", 
     "xsec": 61526.7
-  }, 
+  },  
   "WJetsToLNu_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_amcatnlo-pythia8": {
     "Moriond17": [
       "MC_Spring16_v1"
@@ -18585,6 +18602,23 @@
     "scenario": "PUMoriond17", 
     "version": "", 
     "xsec": 49.997
+  }, 
+  "WW_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_pythia8_v1": {
+    "campaign": "RunIIFall17MiniAOD", 
+    "data": false, 
+    "dbs": "/WW_TuneCP5_13TeV-pythia8/RunIIFall17MiniAOD-94X_mc2017_realistic_v10-v1/MINIAODSIM", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "pythia8", 
+    "globalTag": "94X_mc2017_realistic_v10", 
+    "inputDBS": "global", 
+    "n_events_generated": "7547722", 
+    "n_files": "114", 
+    "process": "WW", 
+    "scenario": "94X", 
+    "version": "v1", 
+    "xsec": 63.21
   }, 
   "WW_RunIISummer17MiniAOD_92X_13TeV_MINIAOD_pythia8_v2": {
     "campaign": "RunIISummer17MiniAOD", 
@@ -19023,6 +19057,23 @@
     "scenario": "PUMoriond17", 
     "version": "", 
     "xsec": 1.0
+  }, 
+  "WZ_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_pythia8_v1": {
+    "campaign": "RunIIFall17MiniAOD", 
+    "data": false, 
+    "dbs": "/WZ_TuneCP5_13TeV-pythia8/RunIIFall17MiniAOD-94X_mc2017_realistic_v10-v1/MINIAODSIM", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "pythia8", 
+    "globalTag": "94X_mc2017_realistic_v10", 
+    "inputDBS": "global", 
+    "n_events_generated": "3928630", 
+    "n_files": "73", 
+    "process": "WZ", 
+    "scenario": "94X", 
+    "version": "v1", 
+    "xsec": 22.82
   }, 
   "WZ_RunIISummer17MiniAOD_92X_13TeV_MINIAOD_pythia8_v2": {
     "campaign": "RunIISummer17MiniAOD", 
@@ -19949,6 +20000,23 @@
     "version": "", 
     "xsec": 1.212
   }, 
+  "ZZTo4L_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_powheg-pythia8_v2": {
+    "campaign": "RunIIFall17MiniAOD", 
+    "data": false, 
+    "dbs": "/ZZTo4L_13TeV_powheg_pythia8/RunIIFall17MiniAOD-94X_mc2017_realistic_v10-v2/MINIAODSIM", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "powheg-pythia8", 
+    "globalTag": "94X_mc2017_realistic_v10", 
+    "inputDBS": "global", 
+    "n_events_generated": "6960289", 
+    "n_files": "204", 
+    "process": "ZZTo4L", 
+    "scenario": "94X", 
+    "version": "v2", 
+    "xsec": 1.212
+  }, 
   "ZZTo4L_RunIISpring16MiniAODv2reHLT_PUSpring16RAWAODSIM_13TeV_MINIAOD_amcatnlo-pythia8": {
     "Moriond17": [
       "MC_Spring16", 
@@ -20012,6 +20080,23 @@
     "scenario": "PUMoriond17", 
     "version": "", 
     "xsec": 1.256
+  }, 
+  "ZZ_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_pythia8_v1": {
+    "campaign": "RunIIFall17MiniAOD", 
+    "data": false, 
+    "dbs": "/ZZ_TuneCP5_13TeV-pythia8/RunIIFall17MiniAOD-94X_mc2017_realistic_v10-v1/MINIAODSIM", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "pythia8", 
+    "globalTag": "94X_mc2017_realistic_v10", 
+    "inputDBS": "global", 
+    "n_events_generated": "1949768", 
+    "n_files": "47", 
+    "process": "ZZ", 
+    "scenario": "94X", 
+    "version": "v1", 
+    "xsec": 10.32
   }, 
   "ZZ_RunIISummer17MiniAOD_92X_13TeV_MINIAOD_pythia8_v2": {
     "campaign": "RunIISummer17MiniAOD", 
