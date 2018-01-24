@@ -29,7 +29,7 @@ register_option('isData',
                 type_=bool,
                 description="True if sample is data, False if Monte Carlo (default: True)")
 register_option('globalTag',
-                default='80X_dataRun2_2016SeptRepro_v7',
+                default='80X_dataRun2_2016LegacyRepro_v4',
                 type_=str,
                 description='Global tag')
 register_option('reportEvery',
@@ -181,7 +181,7 @@ process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "HLT")
 process.kappaTuple.Info.overrideHLTCheck = cms.untracked.bool(True)
 
 # read in MET filter bits from RECO/PAT trigger object (use RECO for PromptReco)
-process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
+process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
 
 
 # write out HLT information for trigger names matching regex
@@ -567,14 +567,17 @@ if not options.isData:
 
 
     process.path *= process.slimmedMETsMuEGClean
+    process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETsMuEGClean"),
+                                            uncorrected=cms.bool(True))
 
 
 # wire CHS MET
-process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETs"),
+if options.isData:
+    process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETs"),
                                             uncorrected=cms.bool(True))
 
 # wire PF MET to MET from RECO process (TODO: check this)
-process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "RECO"),
+process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "PAT"),
                                            uncorrected=cms.bool(True))
 
 # this should be OK: 'slimmedMETsPuppi' is in miniAOD
