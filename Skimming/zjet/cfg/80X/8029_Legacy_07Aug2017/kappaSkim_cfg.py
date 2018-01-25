@@ -567,17 +567,18 @@ if not options.isData:
 
 
     process.path *= process.slimmedMETsMuEGClean
+    # wire CHS MET
     process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETsMuEGClean"),
                                             uncorrected=cms.bool(True))
-
-
-# wire CHS MET
-if options.isData:
+    # wire PF MET to MET from PAT process (for Summer16 MC)
+    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "PAT"),
+                                           uncorrected=cms.bool(True))
+else:
+    # wire CHS MET
     process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETs"),
                                             uncorrected=cms.bool(True))
-
-# wire PF MET to MET from RECO process (TODO: check this)
-process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "PAT"),
+    # wire PF MET to MET from RECO process (for legacy data)
+    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "RECO"),
                                            uncorrected=cms.bool(True))
 
 # this should be OK: 'slimmedMETsPuppi' is in miniAOD
