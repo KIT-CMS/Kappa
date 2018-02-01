@@ -1150,6 +1150,23 @@
     "version": "", 
     "xsec": 5765.4
   }, 
+  "DYJetsToLLM50_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_amcatnlo-pythia8_v1": {
+    "campaign": "RunIIFall17MiniAOD", 
+    "data": false, 
+    "dbs": "/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17MiniAOD-94X_mc2017_realistic_v10-v1/MINIAODSIM", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "amcatnlo-pythia8", 
+    "globalTag": "94X_mc2017_realistic_v10", 
+    "inputDBS": "global", 
+    "n_events_generated": "26923935", 
+    "n_files": "372", 
+    "process": "DYJetsToLL_M50", 
+    "scenario": "94X", 
+    "version": "v1", 
+    "xsec": 5765.4
+  }, 
   "DYJetsToLLM50_RunIIFall17MiniAOD_RECOSIMstep_13TeV_MINIAOD_madgraph-pythia8_v1": {
     "campaign": "RunIIFall17MiniAOD", 
     "data": false, 
@@ -18286,7 +18303,7 @@
     "scenario": "PU25nsData2015v1", 
     "version": "", 
     "xsec": 61526.7
-  },  
+  }, 
   "WJetsToLNu_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_amcatnlo-pythia8": {
     "Moriond17": [
       "MC_Spring16_v1"
