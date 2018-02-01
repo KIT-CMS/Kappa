@@ -278,7 +278,7 @@ def getBaseConfig(
 	from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
 	process.kappaTuple.Electrons.srcIds = cms.string("standalone")
 
-	if tools.is_above_cmssw_version([9,2]):
+	if tools.is_above_cmssw_version([9,4]):
 		process.kappaTuple.Electrons.ids = cms.VInputTag(
 			"egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
 			"egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose",
