@@ -191,7 +191,7 @@ process.kappaTuple.Info.hltWhitelist = cms.vstring(
     # single muon triggers, e.g. HLT_Mu50_v1
     "^HLT_(Iso)?(Tk)?Mu[0-9]+(_eta2p1|_TrkIsoVVL)?_v[0-9]+$",
     # double muon triggers, e.g. HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v1
-    "^HLT_Mu[0-9]+(_TrkIsoVVL)?_(Tk)?Mu[0-9]+(_TrkIsoVVL)?(_DZ)?_v[0-9]+$",
+    "^HLT_Mu[0-9]+(_TrkIsoVVL)?_(Tk)?Mu[0-9]+(_TrkIsoVVL)?(_DZ)?(_Mass[0-9p]+)?_v[0-9]+$",
     # double electrons trigger
     "^HLT_Ele[0-9]+_Ele[0-9]+(_CaloIdL)?(_TrackIdL)?(_IsoVL)?(_DZ)?_v[0-9]+$",
 )
@@ -329,11 +329,17 @@ process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJet
 process.kappaTuple.Electrons.srcIds = cms.string("standalone");
 process.kappaTuple.Electrons.ids = cms.VInputTag(
     # cut-based VIDs
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-Preliminary-veto",
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-Preliminary-loose",
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-Preliminary-medium",
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-Preliminary-tight",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-tight",
     # MVA VIDs
+    "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90",
+    "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp80",
+    "egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wpLoose",
+    "egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp90",
+    "egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp80",
+    "egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wpLoose",
     "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values",
     "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values",
     # also skim older 80X IDs for comparison
