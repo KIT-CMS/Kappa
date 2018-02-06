@@ -33,7 +33,16 @@ git cms-init
 
 # -- apply CMSSW modifications, backports, etc. (user code)
 
-# (none yet)
+# - preliminary Fall17 electron IDs from EGamma
+
+# cut-based
+git cms-merge-topic lsoffi:CMSSW_9_4_0_pre3_TnP
+
+# MVA IDs
+git cms-merge-topic guitargeek:ElectronID_MVA2017_940pre3
+
+# - Fall17 electron IDs need some additional data
+git clone --branch CMSSW_9_4_0_pre3_TnP https://github.com/lsoffi/RecoEgamma-ElectronIdentification.git $CMSSW_BASE/external/$SCRAM_ARCH/data/RecoEgamma/ElectronIdentification/data
 
 # -- get some modules directly from github
 
