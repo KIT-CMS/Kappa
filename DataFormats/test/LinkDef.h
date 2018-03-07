@@ -163,6 +163,10 @@
 #pragma link C++ class std::vector<KTau>+;
 #pragma link C++ typedef KTaus;
 
+#pragma link C++ struct KL1Tau+;
+#pragma link C++ class std::vector<KL1Tau>+;
+#pragma link C++ typedef KL1Taus;
+
 #pragma link C++ struct KExtendedTau+;
 #pragma link C++ class std::vector<KExtendedTau>+;
 #pragma link C++ typedef KExtendedTaus;

@@ -571,6 +571,11 @@ kappaTupleDefaultsBlock = cms.PSet(
 		),
 	),
 
+	L1Taus = cms.PSet(kappaNoCut,kappaNoRegEx,
+		input = cms.InputTag("caloStage2Digis","Tau","RECO"),
+		src = cms.InputTag("caloStage2Digis","Tau","RECO")
+	),
+
 	#ExtendedTaus = cms.PSet(kappaNoCut, kappaNoRegEx,
 	#	taus = cms.PSet(
 	#		src = cms.InputTag("hpsPFTauProducer"),

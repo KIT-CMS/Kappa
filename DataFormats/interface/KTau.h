@@ -56,6 +56,17 @@ struct KBasicTau : public KLepton
 };
 typedef std::vector<KBasicTau> KBasicTaus;
 
+/// Kappa L1 Tau format for L1 Seeds of Taus
+/**  Kappa L1 Tau format for L1 Seeds of Taus */
+struct KL1Tau : public KLV
+{
+    virtual ~KL1Tau() {};
+
+    bool hwIso;
+
+};
+
+typedef std::vector<KL1Tau> KL1Taus;
 
 /// Kappa Tau data format
 /** copy from DataFormats/TauReco/interface/PFTau.h */
@@ -136,5 +147,4 @@ struct KExtendedTau : public KTau
 	KLVs superClusterEndcapCandidates;
 };
 typedef std::vector<KExtendedTau> KExtendedTaus;
-
 #endif

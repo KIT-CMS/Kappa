@@ -193,7 +193,7 @@ std::ostream &operator<<(std::ostream &os, const KBasicTau &tau)
 {
 	os << static_cast<const KLepton>(tau) << std::endl;
 	os << "\tdecayMode=" << tau.decayMode << " emFraction=" << tau.emFraction << std::endl;
-	for (size_t i = 0; i < tau.floatDiscriminators.size(); ++i)
+	for(size_t i = 0; i < tau.floatDiscriminators.size(); ++i)
 		os << tau.floatDiscriminators[i] << ", ";
 	os << "\tIDs=" << std::bitset<64>(tau.binaryDiscriminators);
 	return os;
@@ -207,6 +207,11 @@ std::ostream &operator<<(std::ostream &os, const KTau &tau)
 	os << " nGamma=" << tau.gammaCandidates.size();
 	os << " key=" << tau.tauKey;
 	return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const KL1Tau &tau)
+{
+	return os << static_cast<const KLV>(tau) << " is isolated? " << tau.hwIso;
 }
 
 std::ostream &operator<<(std::ostream &os, const KExtendedTau &tau)
@@ -353,7 +358,7 @@ std::ostream &operator<<(std::ostream &os, const KLumiInfo &info)
 		return os << "\nHLT prescales corrupted!" << std::endl;
 	if (info.hltNames.size() > 0)
 		os << "\n\tHLTs(prescale)=";
-	for (size_t i = 0; i < info.hltNames.size(); ++i)
+	for(size_t i = 0; i < info.hltNames.size(); ++i)
 		os << info.hltNames[i] << "(" << info.hltPrescales[i] << "), ";
 	return os;
 }
@@ -388,7 +393,7 @@ std::ostream &operator<<(std::ostream &os, const KEventInfo &i)
 	os << " minWght=" << i.minVisPtFilterWeight << std::endl;
 	os << "\tTrigger: L1=" << std::bitset<64>(i.bitsL1) << std::endl;
 	os << "\t        HLT=";
-	for (size_t index = 0; index < i.bitsHLT.size(); index++)
+	for(size_t index = 0; index < i.bitsHLT.size(); index++)
 		os << (i.bitsHLT[index]);
 	os << std::endl;
 	return os;
@@ -396,7 +401,7 @@ std::ostream &operator<<(std::ostream &os, const KEventInfo &i)
 
 std::ostream &operator<<(std::ostream &os, const KTauMetadata &m)
 {
-	for (std::vector<std::string>::const_iterator it = m.binaryDiscriminatorNames.begin(); it != m.binaryDiscriminatorNames.end(); ++it)
+	for(std::vector<std::string>::const_iterator it = m.binaryDiscriminatorNames.begin(); it != m.binaryDiscriminatorNames.end(); ++it)
 		os << "tau discriminator (binary): " << *it << std::endl;
 	for (std::vector<std::string>::const_iterator it = m.floatDiscriminatorNames.begin(); it != m.floatDiscriminatorNames.end(); ++it)
 		os << "tau discriminator (float):  " << *it << std::endl;
@@ -462,7 +467,7 @@ std::ostream &operator<<(std::ostream &os, const KGenEventInfo &i)
 
 std::ostream &displayHLT(std::ostream &os, const KLumiInfo &metaLumi, const KEventInfo &metaEvent)
 {
-	for (size_t hltIdx = 0; hltIdx < metaLumi.hltNames.size(); ++hltIdx)
+	for(size_t hltIdx = 0; hltIdx < metaLumi.hltNames.size(); ++hltIdx)
 		if (metaEvent.bitsHLT[hltIdx])
 			os << hltIdx << ":" << metaLumi.hltNames[hltIdx] << "(" << metaLumi.hltPrescales[hltIdx] << ")" << " ";
 	os << std::endl;
