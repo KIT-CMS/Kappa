@@ -409,7 +409,6 @@ def getBaseConfig(
 		#"byVVTightIsolationMVArun2v1DBdR03oldDMwLT",
 		)
 	process.kappaTuple.active += cms.vstring('L1Taus')
-	process.kappaTuple.L1Taus.verbose = cms.int32(1)
 	if tools.is_above_cmssw_version([8,0,20]):
 		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
 			"rerunDiscriminationByIsolationMVAOldDMrun2v1raw",
