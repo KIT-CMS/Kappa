@@ -33,10 +33,18 @@ public:
                         n_l1taus++;
                 }
                 output.reserve(n_l1taus);
+                if (this->verbosity > 0)
+                {
+                        std::cout << "Number of l1 taus in this event: " << n_l1taus << std::endl;
+                }
                 for (l1t::TauBxCollection::const_iterator bx0TauIt = input.begin(0); bx0TauIt != input.end(0) ; bx0TauIt++)
                 {
                         SingleOutputType out;
                         out.p4 = (*bx0TauIt).p4();
+                        if (this->verbosity > 0)
+                        {
+                                std::cout << "\t 4-vector of l1 tau: " << out.p4 << std::endl;
+                        }
                         out.hwIso = (*bx0TauIt).hwIso();
                         output.push_back(out);
                 }
