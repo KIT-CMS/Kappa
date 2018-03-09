@@ -41,11 +41,11 @@ public:
                 {
                         SingleOutputType out;
                         out.p4 = (*bx0TauIt).p4();
+                        out.hwIso = (*bx0TauIt).hwIso();
                         if (this->verbosity > 0)
                         {
-                                std::cout << "\t 4-vector of l1 tau: " << out.p4 << std::endl;
+                                std::cout << "\t 4-vector of l1 tau: " << out.p4 << ", hardware iso: (input) " << (*bx0TauIt).hwIso() << " (output) " << out.hwIso << std::endl;
                         }
-                        out.hwIso = (*bx0TauIt).hwIso();
                         output.push_back(out);
                 }
         }
