@@ -21,7 +21,7 @@ public:
         {
         }
 
-        virtual void clearProduct(typename KBaseMultiProducer<l1t::TauBxCollection, KL1Taus>::OutputType &output) { output.resize(0); }
+        virtual void clearProduct(typename KBaseMultiProducer<l1t::TauBxCollection, KL1Taus>::OutputType &output) { output.clear(); }
 
         virtual void fillProduct(const typename KBaseMultiProducer<l1t::TauBxCollection, KL1Taus>::InputType &input,
                 typename KBaseMultiProducer<l1t::TauBxCollection, KL1Taus>::OutputType &output,
