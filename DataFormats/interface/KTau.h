@@ -58,11 +58,14 @@ typedef std::vector<KBasicTau> KBasicTaus;
 
 /// Kappa L1 Tau format for L1 Seeds of Taus
 /**  Kappa L1 Tau format for L1 Seeds of Taus */
+// CMSSW DataFormats reference:
+// https://github.com/cms-sw/cmssw/blob/CMSSW_9_4_X/DataFormats/L1Trigger/interface/L1Candidate.h
+// https://github.com/cms-sw/cmssw/blob/CMSSW_9_4_X/DataFormats/L1Trigger/interface/Tau.h
 struct KL1Tau : public KLV
 {
     virtual ~KL1Tau() {};
 
-    bool hwIso;
+    bool hwIso; // hardware iso: although stored as 'int' in MINIAOD, enough to have it as boolean in Kappa, since relevant check is hwIso() > 0 in CMSSW analyses.
 
 };
 
