@@ -1,6 +1,5 @@
-//- Copyright (c) 2010 - All Rights Reserved
-//-  * Fred Stober <stober@cern.ch>
-//-  * Manuel Zeise <zeise@cern.ch>
+//- Copyright (c) 2018 - All Rights Reserved
+//-  * Artur Gottmann  <artur.gottmann@cern.ch>
 
 #ifndef KAPPA_L1TAUPRODUCER_H
 #define KAPPA_L1TAUPRODUCER_H
