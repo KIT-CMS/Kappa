@@ -465,7 +465,7 @@ std::ostream &displayHLT(std::ostream &os, const KLumiInfo &metaLumi, const KEve
 	for (size_t hltIdx = 0; hltIdx < metaLumi.hltNames.size(); ++hltIdx)
 		if (metaEvent.bitsHLT[hltIdx])
 			os << hltIdx << ":" << metaLumi.hltNames[hltIdx] << "(" << metaLumi.hltPrescales[hltIdx] << ")" << " ";
-		os << std::endl;
+	os << std::endl;
 	return os;
 }
 
