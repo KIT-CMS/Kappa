@@ -88,7 +88,8 @@ struct KJet : public KBasicJet
 
 	std::vector<float> tags;            //< float value tags (b-tag, etc.)
 	unsigned int binaryIds;             //< binary value tags (PU jet ID, etc.)
-	int flavour;
+	int hadronFlavour; // needed for b-tagging in 13 TeV data: https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation#Useful_Tools
+	int partonFlavour;
 	bool genMatch;
 
 	float getTag(const std::string& name, const KJetMetadata *jetmetadata, bool check = true) const
