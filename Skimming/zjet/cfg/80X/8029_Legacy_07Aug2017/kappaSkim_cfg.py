@@ -325,6 +325,7 @@ process.kappaTuple.Electrons.vertexcollection = cms.InputTag("offlineSlimmedPrim
 process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJets", "rho")
 
 # -- electron IDs
+process.load("RecoEgamma/ElectronIdentification/ElectronIDValueMapProducer_cfi")
 process.kappaTuple.Electrons.srcIds = cms.string("standalone");
 process.kappaTuple.Electrons.ids = cms.VInputTag(
     "egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
@@ -334,10 +335,86 @@ process.kappaTuple.Electrons.ids = cms.VInputTag(
     "electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"
 )
 
+# -- apply regression correction?
+# https://twiki.cern.ch/twiki/bin/view/CMS/EGMRegression
 
+# to allow reading regression weights from the database
+from EgammaAnalysis.ElectronTools.regressionWeights_cfi import regressionWeights
+process = regressionWeights(process)
 
-# -- call the default KAPPA electron setup routine
-setupElectrons(process, "slimmedElectrons")
+## add regression sequence to path
+process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
+process.path += process.regressionApplication
+
+# -- apply electron scale correction (on data) or energy smearing (on MC)
+# https://twiki.cern.ch/twiki/bin/view/CMS/EGMSmearer
+
+# In order to avoid annoying crashes please add the following selector to the
+# electrons before the calibrated collection is produced (in the meantime we
+# are providing a protection in the calibrator itself):
+process.electronsForScaleSmearing = cms.EDFilter('PATElectronSelector',
+              src=cms.InputTag('slimmedElectrons'),
+              cut=cms.string("pt>5 && abs(superCluster.eta)<2.5")
+)
+process.path += process.electronsForScaleSmearing
+
+# apply scale/smearing
+# note: the following needs 'git cms-merge-topic cms-egamma:EGM_gain_v1'
+_egamma_smearing_file = "EgammaAnalysis/ElectronTools/data/ScalesSmearings/Legacy2016_07Aug2017_ele_unc"
+process.calibratedPatElectrons = cms.EDProducer("CalibratedPatElectronProducerRun2",
+    # input collections
+    electrons = cms.InputTag('electronsForScaleSmearing'),
+    gbrForestName = cms.vstring(
+        'electron_eb_ECALTRK_lowpt', 'electron_eb_ECALTRK',
+        'electron_ee_ECALTRK_lowpt', 'electron_ee_ECALTRK',
+        'electron_eb_ECALTRK_lowpt_var', 'electron_eb_ECALTRK_var',
+        'electron_ee_ECALTRK_lowpt_var', 'electron_ee_ECALTRK_var'
+    ),
+
+    # if isMC is true, MC smearing is applied
+    # if isMC is false, data corrections are applied
+    isMC = cms.bool(not options.isData),
+    autoDataType = cms.bool(True),
+
+    # set to True to get special "fake" smearing for synchronization.
+    # (*don't* use in production, *only* for synchronization)
+    isSynchronization = cms.bool(False),
+    # file containing corrections
+    correctionFile = cms.string(_egamma_smearing_file),
+    recHitCollectionEB = cms.InputTag('reducedEgamma:reducedEBRecHits'),
+    recHitCollectionEE = cms.InputTag('reducedEgamma:reducedEERecHits')
+)
+
+# -- need random number generator for smearing
+process.load('Configuration.StandardSequences.Services_cff')
+process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService",
+    calibratedPatElectrons=cms.PSet(
+        # seed is from TWiki example. TODO: use a different seed?
+        initialSeed=cms.untracked.uint32(81),
+        engineName=cms.untracked.string('TRandom3'),
+    )
+)
+
+process.path += process.calibratedPatElectrons
+
+# selection criteria for ensuring well-defined VIDs
+process.selectedElectrons = cms.EDFilter("PATElectronSelector",
+    src = cms.InputTag("calibratedPatElectrons"),
+    cut = cms.string("pt>5 && abs(eta)")
+)
+
+process.path += process.selectedElectrons
+
+# -- call the KAPPA electron setup routine with calibrated collection
+_electron_tag = "selectedElectrons"
+setupElectrons(process, _electron_tag)
+
+process.egmGsfElectronIDs.physicsObjectSrc = cms.InputTag(_electron_tag)
+process.electronIDValueMapProducer.srcMiniAOD = cms.InputTag(_electron_tag)
+process.electronRegressionValueMapProducer.srcMiniAOD = cms.InputTag(_electron_tag)
+process.electronMVAValueMapProducer.srcMiniAOD = cms.InputTag(_electron_tag)
+process.kappaTuple.Electrons.electrons.src = _electron_tag
+
 
 # -- add to process
 process.path *= (process.makeKappaElectrons)
@@ -648,13 +725,10 @@ if options.edmOut:  # only for testing
             [
                 'drop *',
                 'keep *_ak4PFJets_*_*',
-                'keep *_selectedPatJetsAK4PF_*_*',
                 'keep *_ak4PFJetsCHS_*_*',
-                'keep *_selectedPatJetsAK4PFCHS_*_*',
-                'keep *_chs_*_*',
-                'keep *_packedPFCandidates_*_*',
-                'keep *_packedPFCandidatesCHSNotFromPV_*_*',
-                'keep *_packedPFCandidatesCHS_*_*',
+                'keep *_slimmedElectrons_*_*',
+                'keep *_calibratedPatElectrons_*_*',
+                'keep *_selectedElectrons_*_*',
                 # add other collections you want to write out here
             ]
         )
