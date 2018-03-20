@@ -6,10 +6,16 @@
 # analysis:       JEC
 # description:    derivation of L3Residual corrections with Z+Jets data
 # CMSSW version:  CMSSW_8_0_29
-# created:        2017-12-15
+# created:        2018-03-20
 
 
 _CMSSW_VERSION="CMSSW_8_0_29"
+_CMSSW_SCRAM_SUFFIX=""
+
+_CMSSW_DIR="${_CMSSW_VERSION}"
+if [ "${_CMSSW_SCRAM_SUFFIX}" != "" ]; then
+    _CMSSW_DIR="${_CMSSW_DIR}_${_CMSSW_SCRAM_SUFFIX}"
+fi
 
 # checkout workflow
 # =================
@@ -22,18 +28,16 @@ if [ -z "${CMS_PATH}" ]; then
     echo "[INFO] Have you done `source /cvmfs/cms.cern.ch/cmsset_default.sh`?"
 fi
 
-
-
 # -- initialization
 
 # create a CMSSW working directory
-echo "[INFO] Can create working area '${_CMSSW_VERSION}'?"
-if [ -d "${_CMSSW_VERSION}" ]; then
-    echo "[ERROR] Cannot create working area '${_CMSSW_VERSION}': directory already exists!"
+echo "[INFO] Can create working area '${_CMSSW_DIR}'?"
+if [ -d "${_CMSSW_DIR}" ]; then
+    echo "[ERROR] Cannot create working area '${_CMSSW_DIR}': directory already exists!"
 fi
-scramv1 project CMSSW "${_CMSSW_VERSION}"
+scramv1 project -n "${_CMSSW_DIR}" CMSSW "${_CMSSW_VERSION}"
 
-cd "${_CMSSW_VERSION}/src"
+cd "${_CMSSW_DIR}/src"
 eval `scramv1 runtime -sh`
 
 # initialize git repository from CMSSW
@@ -61,6 +65,14 @@ git cms-sparse-checkout "${_CMSSW_VERSION}" "${_foreign_repo}/${_foreign_ref}"
 git read-tree -mu HEAD
 git checkout "from-${_CMSSW_VERSION}"
 git merge "${_foreign_repo}/${_foreign_ref}" --no-ff -m "Merged ${_foreign_ref} from repository ${_foreign_repo} (done by Kappa checkout script)"
+
+# https://twiki.cern.ch/twiki/bin/viewauth/CMS/EGMRegression
+# updated E/Gamma energy regression
+git cms-merge-topic cms-egamma:EGM_gain_v1
+# updated E/Gamma scale/smearing correction
+(cd $CMSSW_BASE/src/EgammaAnalysis/ElectronTools/data && \
+    git clone -b Legacy2016_v1 https://github.com/ECALELFS/ScalesSmearings.git && \
+    cd $CMSSW_BASE/src) || (echo "[ERROR] Falied to apply E/Gamma updates." && exit 1)
 
 # -- get some modules directly from github
 
