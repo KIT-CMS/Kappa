@@ -74,6 +74,10 @@ git cms-merge-topic cms-egamma:EGM_gain_v1
     git clone -b Legacy2016_v1 https://github.com/ECALELFS/ScalesSmearings.git && \
     cd $CMSSW_BASE/src) || (echo "[ERROR] Falied to apply E/Gamma updates." && exit 1)
 
+# https://twiki.cern.ch/twiki/bin/view/Main/BackportNewFlavourDefCMSSW8
+# updated jet flavor definition (for MC)
+git cms-merge-topic raggleton:Backport_JetFlavour
+
 # -- get some modules directly from github
 
 # Kappa

@@ -480,9 +480,22 @@ for _jet_algo_radius in ('ak4', 'ak8'):
 ######################
 
 from Kappa.Skimming.KPatJets_miniAOD_cff import setup_PatJets
-patJets = setup_PatJets(process, options.isData)
 
 # -- set up PAT jets
+
+# make sure all hadrons and partons are available
+if not options.isData:
+   # Select the genpartons to be used for flavour info
+    process.patJetPartons = cms.EDProducer('HadronAndPartonSelector',
+                                           src = cms.InputTag("generator"),
+                                           particles = cms.InputTag("prunedGenParticles"),
+                                           partonMode = cms.string("Auto"),
+                                           fullChainPhysPartons = cms.bool(True)
+                                           )
+    ##process.path += process.patJetPartons
+
+# set up PAT jets
+patJets = setup_PatJets(process, options.isData)
 
 # go through all combinations of jet radius and PU subtraction algorithms
 for _jet_radius in (4, 8):
@@ -490,11 +503,40 @@ for _jet_radius in (4, 8):
         _jet_collection_name = "ak%dPFJets%s" % (_jet_radius, _PU_method)
         _patJet_collection_name = "AK%dPF%s" % (_jet_radius, _PU_method)
 
+        _jets_for_kappa_producer = 'selectedPatJets'+_patJet_collection_name
+
+        # update jet flavor definition
+        # https://twiki.cern.ch/twiki/bin/view/Main/BackportNewFlavourDefCMSSW8
+        if not options.isData:
+            # Create the jet:flavour mapping using your jets and selected genpartons
+            _flavorinfo_module = "{}FlavorInfos".format(_patJet_collection_name)
+            setattr(process, _flavorinfo_module,
+                             cms.EDProducer("JetFlavourClustering",
+                                            jets = cms.InputTag('selectedPatJets'+_patJet_collection_name),
+                                            bHadrons = cms.InputTag("patJetPartons", "bHadrons"),
+                                            cHadrons = cms.InputTag("patJetPartons", "cHadrons"),
+                                            partons = cms.InputTag("patJetPartons", "physicsPartons"),
+                                            leptons = cms.InputTag("patJetPartons", "leptons"),
+                                            jetAlgorithm = cms.string("AntiKt"),
+                                            rParam = cms.double(float(_jet_radius)/10.),  # Must match the parameter of the input jets
+                                            ghostRescaling = cms.double(1e-18),
+                                            relPtTolerance = cms.double(5),  # large as we are dealing with calibrated jets
+                                            hadronFlavourHasPriority = cms.bool(False)))
+
+            # produce a flavor-updated PAT jet collection
+            _updated_module = "flavUpdatedPatJets{}".format(_patJet_collection_name)
+            setattr(process, _updated_module,
+                             cms.EDProducer("UpdatePatJetFlavourInfo",
+                                            jetSrc = cms.InputTag('selectedPatJets'+_patJet_collection_name),
+                                            jetFlavourInfos = cms.InputTag(_flavorinfo_module)))
+            # tell KAPPA to use the collection as its jet collection
+            _jets_for_kappa_producer = _updated_module
+
         # add KAPPA PatJet config to KAPPA Tuple
         setattr(process.kappaTuple.PatJets,
             _jet_collection_name,
             cms.PSet(
-                src = cms.InputTag('selectedPatJets'+_patJet_collection_name)
+                src = cms.InputTag(_jets_for_kappa_producer)
             )
         )
 
@@ -507,7 +549,6 @@ for _jet_radius in (4, 8):
         # GenJets are just KLVs: add collection to whitelist
         process.kappaTuple.LV.whitelist += cms.vstring(_jet_collection_name)
 
-
 # -- activate KAPPA producers
 
 # PatJet producer
@@ -519,39 +560,6 @@ if not options.isData:
 
     process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
     process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
-
-# GenJet flavor recipe from https://twiki.cern.ch/twiki/bin/view/Main/BackportNewFlavourDefCMSSW8
-if not options.isData:
-
-    # ! TODO: this section probably doesn't work yet
-    #         -> need to replace 'slimmedJets' collection with our reclustered jets...
-
-    # Select the genpartons to be used for flavour info
-    process.patJetPartons = cms.EDProducer('HadronAndPartonSelector',
-                                           src = cms.InputTag("generator"),
-                                           particles = cms.InputTag("prunedGenParticles"),
-                                           partonMode = cms.string("Auto"),
-                                           fullChainPhysPartons = cms.bool(True)
-                                           )
-    # Create the jet:flavour mapping using your jets and selected genpartons
-    process.ak4CHSJetFlavourInfos = cms.EDProducer("JetFlavourClustering",
-                                                   jets = cms.InputTag("slimmedJets"),
-                                                   bHadrons = cms.InputTag("patJetPartons","bHadrons"),
-                                                   cHadrons = cms.InputTag("patJetPartons","cHadrons"),
-                                                   partons = cms.InputTag("patJetPartons","physicsPartons"),
-                                                   leptons = cms.InputTag("patJetPartons","leptons"),
-                                                   jetAlgorithm = cms.string("AntiKt"),
-                                                   rParam = cms.double(0.4), # Must match the parameter of the input jets
-                                                   ghostRescaling = cms.double(1e-18),
-                                                   relPtTolerance = cms.double(5), # large as we are dealing with calibrated jets
-                                                   hadronFlavourHasPriority = cms.bool(False)
-                                                   )
-    # This updates our slimmedJets - must use same collection you gave to the JetFlavourClustering module!
-    process.updateFlavAK4CHSJets = cms.EDProducer("UpdatePatJetFlavourInfo",
-                                                  jetSrc = cms.InputTag("slimmedJets"),
-                                                  jetFlavourInfos = cms.InputTag("ak4CHSJetFlavourInfos")
-                                                  )
-    # end of GenJet flavor recipe
 
 # PileupDensity producer
 process.kappaTuple.active += cms.vstring('PileupDensity')
@@ -726,6 +734,8 @@ if options.edmOut:  # only for testing
                 'drop *',
                 'keep *_ak4PFJets_*_*',
                 'keep *_ak4PFJetsCHS_*_*',
+                'keep patJets_flavUpdatedPatJetsAK*_*_*',
+                'keep patJets_selectedPatJetsAK*_*_*',
                 'keep *_slimmedElectrons_*_*',
                 'keep *_calibratedPatElectrons_*_*',
                 'keep *_selectedElectrons_*_*',
