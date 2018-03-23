@@ -121,14 +121,34 @@ print "---------------------------------\n"
 
 # -- CMSSW message logger
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
+# process.MessageLogger = cms.Service("MessageLogger",
+#                     destinations   =  cms.untracked.vstring('messages'),
+#                     debugModules   = cms.untracked.vstring('*'),
+#                     messages       = cms.untracked.PSet(
+#                         threshold = cms.untracked.string('DEBUG')
+#                     ),
+#                     suppressDebug    = cms.untracked.vstring('HcalGeometry', 'CondDBESSource'),
+#                     suppressInfo     = cms.untracked.vstring('HcalGeometry', 'CondDBESSource'),
+#                     suppressWarning  = cms.untracked.vstring('HcalGeometry', 'CondDBESSource'),
+# )
+
 process.MessageLogger.cerr.FwkReport.reportEvery = options.reportEvery
+#process.MessageLogger.debugModules = cms.untracked.vstring("*")
+#~ process.MessageLogger.debugmessages = cms.untracked.PSet(
+                                                #~ threshold =  cms.untracked.string('DEBUG'),
+                                                #~ INFO       =  cms.untracked.PSet(limit = cms.untracked.int32(0)),
+                                                #~ DEBUG   = cms.untracked.PSet(limit = cms.untracked.int32(0)),
+                                      #~ )
 process.MessageLogger.default = cms.untracked.PSet(
-    ERROR=cms.untracked.PSet(limit=cms.untracked.int32(5))
+#    threshold=cms.untracked.string('DEBUG'),
+#    INFO=cms.untracked.PSet(limit=cms.untracked.int32(10000)),
+    ERROR=cms.untracked.PSet(limit=cms.untracked.int32(5)),
+#    DEBUG=cms.untracked.PSet(limit=cms.untracked.int32(10000)),
 )
 
 # -- CMSSW geometry and detector conditions
 # (These are needed for some PAT tuple production steps)
-process.load("Configuration.Geometry.GeometryIdeal_cff")
+process.load("Configuration.Geometry.GeometryRecoDB_cff")  # new phase-1 geometry
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 process.load("Configuration.StandardSequences.MagneticField_cff")
 process.GlobalTag.globaltag = cms.string(options.globalTag)
@@ -415,9 +435,12 @@ process.electronRegressionValueMapProducer.srcMiniAOD = cms.InputTag(_electron_t
 process.electronMVAValueMapProducer.srcMiniAOD = cms.InputTag(_electron_tag)
 process.kappaTuple.Electrons.electrons.src = _electron_tag
 
+###setupElectrons(process, "slimmedElectrons")
 
 # -- add to process
 process.path *= (process.makeKappaElectrons)
+
+# process.path += process.egmGsfElectronIDSequence
 
 
 ######################
@@ -747,10 +770,10 @@ if options.edmOut:  # only for testing
 
 
 # for debugging: dump entire cmsRun python configuration
-if options.dumpPythonAndExit:
+if options.dumpPythonAndExit or True:
     with open('.'.join(options.outputFile.split('.')[:-1]) + '_dump.py', 'w') as f:
             f.write(process.dumpPython())
-    sys.exit(1)
+    #sys.exit(1)
 
 
 # final information:
