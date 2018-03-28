@@ -282,6 +282,7 @@ def get_sample_by_nick(nickname, expect_n_results = 1):
 
 	# split nickname
 	split_nick = nickname.split("_")
+        print split_nick
 	query = {
 		"process" : "^"+split_nick[0]+"$",
 		"campaign" : "^"+split_nick[1]+"$",
@@ -294,7 +295,7 @@ def get_sample_by_nick(nickname, expect_n_results = 1):
 	}
         if len(split_nick) > 6:
                 query["extension"] = ("^"+re.sub("(-|)v\d","",split_nick[6])+"$" if (len(split_nick[6]) > 2) else "")
-                if "Summer17" in nickname:
+                if "Summer17" in nickname or "Fall17" in nickname:
                     query["version"] = ("^"+re.search("v\d",split_nick[6]).group(0)+"$")
 
 	#query_nick, sample = query_result(query)
