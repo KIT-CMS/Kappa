@@ -282,7 +282,6 @@ def get_sample_by_nick(nickname, expect_n_results = 1):
 
 	# split nickname
 	split_nick = nickname.split("_")
-        print split_nick
 	query = {
 		"process" : "^"+split_nick[0]+"$",
 		"campaign" : "^"+split_nick[1]+"$",
