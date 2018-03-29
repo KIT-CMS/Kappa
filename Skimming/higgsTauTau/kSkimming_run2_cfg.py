@@ -417,6 +417,9 @@ def getBaseConfig(
 		#"byVVTightIsolationMVArun2v1DBdR03oldDMwLT",
 		)
 	process.kappaTuple.active += cms.vstring('L1Taus')
+        if isEmbedded:
+                process.kappaTuple.L1Taus.l1taus.src = cms.InputTag("caloStage2Digis","Tau","SIMembedding")
+
 	if tools.is_above_cmssw_version([8,0,20]):
 		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
 			"rerunDiscriminationByIsolationMVAOldDMrun2v1raw",
