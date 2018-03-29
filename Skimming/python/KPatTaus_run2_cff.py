@@ -17,7 +17,7 @@ from RecoTauTag.RecoTau.TauDiscriminatorTools import noPrediscriminants
 from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import patDiscriminationByIsolationMVArun2v1raw as rerunDiscriminationByIsolationMVAOldDMrun2v1raw
 from RecoTauTag.RecoTau.PATTauDiscriminationByMVAIsolationRun2_cff import patDiscriminationByIsolationMVArun2v1VLoose as rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose
 
-# new ids for oldDMs
+# Summer 2016 training ids for oldDMs
 rerunDiscriminationByIsolationMVAOldDMrun2v1raw.PATTauProducer = cms.InputTag('slimmedTaus')
 rerunDiscriminationByIsolationMVAOldDMrun2v1raw.Prediscriminants = noPrediscriminants
 rerunDiscriminationByIsolationMVAOldDMrun2v1raw.loadMVAfromDB = cms.bool(True)
@@ -51,7 +51,7 @@ rerunDiscriminationByIsolationMVAOldDMrun2v1VTight.mapping[0].cut = cms.string("
 rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight = rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose.clone()
 rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2016v1_WPEff40")
 
-# new ids for newDMs
+# Summer 2016 training ids for newDMs
 rerunDiscriminationByIsolationMVANewDMrun2v1raw = rerunDiscriminationByIsolationMVAOldDMrun2v1raw.clone()
 rerunDiscriminationByIsolationMVANewDMrun2v1raw.mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBnewDMwLT2016v1")
 rerunDiscriminationByIsolationMVANewDMrun2v1raw.mvaOpt = cms.string("DBnewDMwLT")
@@ -73,6 +73,30 @@ rerunDiscriminationByIsolationMVANewDMrun2v1VTight.mapping[0].cut = cms.string("
 rerunDiscriminationByIsolationMVANewDMrun2v1VVTight = rerunDiscriminationByIsolationMVANewDMrun2v1VLoose.clone()
 rerunDiscriminationByIsolationMVANewDMrun2v1VVTight.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBnewDMwLT2016v1_WPEff40")
 
+# Summer 2017 training ids for oldDMs
+rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017 = rerunDiscriminationByIsolationMVAOldDMrun2v1raw.clone()
+rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017.mvaName = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1")
+rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017.mvaOpt = cms.string("DBoldDMwLTwGJ")
+
+rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017 = rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose.clone()
+rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.toMultiplex = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017')
+rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.key = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017:category')
+rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.mvaOutput_normalization = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1_mvaOutput_normalization")
+rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1_WPEff90")
+
+rerunDiscriminationByIsolationMVAOldDMrun2v1VVLoose2017 = rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.clone()
+rerunDiscriminationByIsolationMVAOldDMrun2v1VVLoose2017.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1_WPEff95")
+rerunDiscriminationByIsolationMVAOldDMrun2v1Loose2017 = rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.clone()
+rerunDiscriminationByIsolationMVAOldDMrun2v1Loose2017.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1_WPEff80")
+rerunDiscriminationByIsolationMVAOldDMrun2v1Medium2017 = rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.clone()
+rerunDiscriminationByIsolationMVAOldDMrun2v1Medium2017.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1_WPEff70")
+rerunDiscriminationByIsolationMVAOldDMrun2v1Tight2017 = rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.clone()
+rerunDiscriminationByIsolationMVAOldDMrun2v1Tight2017.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1_WPEff60")
+rerunDiscriminationByIsolationMVAOldDMrun2v1VTight2017 = rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.clone()
+rerunDiscriminationByIsolationMVAOldDMrun2v1VTight2017.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1_WPEff50")
+rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight2017 = rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017.clone()
+rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight2017.mapping[0].cut = cms.string("RecoTauTag_tauIdMVAIsoDBoldDMwLT2017v1_WPEff40")
+
 ## ------------------------------------------------------------------------
 ## Definition of sequences
 
@@ -91,5 +115,13 @@ makeKappaTaus = cms.Sequence(
 	rerunDiscriminationByIsolationMVANewDMrun2v1Medium +
 	rerunDiscriminationByIsolationMVANewDMrun2v1Tight +
 	rerunDiscriminationByIsolationMVANewDMrun2v1VTight +
-	rerunDiscriminationByIsolationMVANewDMrun2v1VVTight
+	rerunDiscriminationByIsolationMVANewDMrun2v1VVTight +
+	rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017 +
+	rerunDiscriminationByIsolationMVAOldDMrun2v1VVLoose2017 +
+	rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017 +
+	rerunDiscriminationByIsolationMVAOldDMrun2v1Loose2017 +
+	rerunDiscriminationByIsolationMVAOldDMrun2v1Medium2017 +
+	rerunDiscriminationByIsolationMVAOldDMrun2v1Tight2017 +
+	rerunDiscriminationByIsolationMVAOldDMrun2v1VTight2017 +
+	rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight2017
 )

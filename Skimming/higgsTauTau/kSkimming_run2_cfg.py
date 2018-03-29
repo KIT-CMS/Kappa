@@ -344,7 +344,15 @@ def getBaseConfig(
 				rerunDiscriminationByIsolationMVANewDMrun2v1Medium = cms.InputTag('rerunDiscriminationByIsolationMVANewDMrun2v1Medium'),
 				rerunDiscriminationByIsolationMVANewDMrun2v1Tight = cms.InputTag('rerunDiscriminationByIsolationMVANewDMrun2v1Tight'),
 				rerunDiscriminationByIsolationMVANewDMrun2v1VTight = cms.InputTag('rerunDiscriminationByIsolationMVANewDMrun2v1VTight'),
-				rerunDiscriminationByIsolationMVANewDMrun2v1VVTight = cms.InputTag('rerunDiscriminationByIsolationMVANewDMrun2v1VVTight')
+				rerunDiscriminationByIsolationMVANewDMrun2v1VVTight = cms.InputTag('rerunDiscriminationByIsolationMVANewDMrun2v1VVTight'),
+				rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017 = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017'),
+				rerunDiscriminationByIsolationMVAOldDMrun2v1VVLoose2017 = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1VVLoose2017'),
+				rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017 = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017'),
+				rerunDiscriminationByIsolationMVAOldDMrun2v1Loose2017 = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1Loose2017'),
+				rerunDiscriminationByIsolationMVAOldDMrun2v1Medium2017 = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1Medium2017'),
+				rerunDiscriminationByIsolationMVAOldDMrun2v1Tight2017 = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1Tight2017'),
+				rerunDiscriminationByIsolationMVAOldDMrun2v1VTight2017 = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1VTight2017'),
+				rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight2017 = cms.InputTag('rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight2017'),
 			),
 		)
 		setattr(process, taus, embedID)
@@ -418,13 +426,17 @@ def getBaseConfig(
 			"rerunDiscriminationByIsolationMVAOldDMrun2v1Tight",
 			"rerunDiscriminationByIsolationMVAOldDMrun2v1VTight",
 			"rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight",
-			"rerunDiscriminationByIsolationMVANewDMrun2v1raw",
-			"rerunDiscriminationByIsolationMVANewDMrun2v1VLoose",
-			"rerunDiscriminationByIsolationMVANewDMrun2v1Loose",
-			"rerunDiscriminationByIsolationMVANewDMrun2v1Medium",
-			"rerunDiscriminationByIsolationMVANewDMrun2v1Tight",
-			"rerunDiscriminationByIsolationMVANewDMrun2v1VTight",
-			"rerunDiscriminationByIsolationMVANewDMrun2v1VVTight"
+			)
+	if tools.is_above_cmssw_version([9,4,2]):
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+			"rerunDiscriminationByIsolationMVAOldDMrun2v1raw2017",
+			"rerunDiscriminationByIsolationMVAOldDMrun2v1VVLoose2017",
+			"rerunDiscriminationByIsolationMVAOldDMrun2v1VLoose2017",
+			"rerunDiscriminationByIsolationMVAOldDMrun2v1Loose2017",
+			"rerunDiscriminationByIsolationMVAOldDMrun2v1Medium2017",
+			"rerunDiscriminationByIsolationMVAOldDMrun2v1Tight2017",
+			"rerunDiscriminationByIsolationMVAOldDMrun2v1VTight2017",
+			"rerunDiscriminationByIsolationMVAOldDMrun2v1VVTight2017",
 			)
 	## now also possible to save all MVA isolation inputs for taus # turn of per default
 	
