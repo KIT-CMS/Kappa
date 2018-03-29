@@ -303,14 +303,25 @@ class DataSetManagerBase:
                             xsec_dict[info[0]] = info[1]
                     else:
                             if xsec_dict[info[0]] == info[1]: continue
+                            elif xsec_dict[info[0]] == 1.0 and info[1] != 1.0:
+                                xsec_dict[info[0]] = info[1]
+                            elif xsec_dict[info[0]] != 1.0 and info[1] == 1.0: continue
+                            elif xsec_dict[info[0]] == -1.0: continue
                             else:
                                 print "WARINING: inconsistent xsec values for process %s. Please query them for the following campaign: %s"%(info[0],old_campaign)
                                 print "Values: ", xsec_dict[info[0]], "vs", info[1]
+                                print "Process is dropped out from the copy procedure"
+                                xsec_dict[info[0]] = -1.0
                                 print "--------------------"
             for nick in new_nick_list:
                 if self.dataset.base_dict[nick]["process"] in xsec_dict:
-                        entry = {"xsec" : float(xsec_dict[self.dataset.base_dict[nick]["process"]])}
-                        self.dataset.addEntry(entry,[nick])
+                        new_xsec = float(xsec_dict[self.dataset.base_dict[nick]["process"]])
+                        if new_xsec > 0.0:
+                                entry = {"xsec" : new_xsec}
+                                self.dataset.addEntry(entry,[nick])
+                        else:
+                                print "WARNING: cross-section not found for %s, Please set it by hand or choose a different reference campaign."%nick
+                                not_updated_nicks.append(nick)
                 else:
                         print "WARNING: cross-section not found for %s, Please set it by hand or choose a different reference campaign."%nick
                         not_updated_nicks.append(nick)
