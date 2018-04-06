@@ -18,7 +18,6 @@ def setup_PatJets(process, data):
 						getattr(process, "pfInclusiveSecondaryVertexFinderTagInfos"+variant_name)*
 						getattr(process, "pfCombinedMVAV2BJetTags"+variant_name)*
 						getattr(process, "pfCombinedInclusiveSecondaryVertexV2BJetTags"+variant_name)*
-						getattr(process, "pfDeepCSVDiscriminatorsJetTags:BvsAll"+variant_name)*
    						getattr(process, "pfSimpleSecondaryVertexHighPurBJetTags"+variant_name)*
 						getattr(process, "pfSimpleSecondaryVertexHighEffBJetTags"+variant_name)*
 						getattr(process, "pfJetBProbabilityBJetTags"+variant_name)*
