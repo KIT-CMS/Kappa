@@ -26,7 +26,7 @@ cd $CMSSW_BASE/src
 git cms-merge-topic -u cms-tau-pog:CMSSW_9_4_X_tau-pog_newTauID-MCv1
 
 # KIT related packages
-git clone https://github.com/KIT-CMS/Kappa.git
+git clone https://github.com/KIT-CMS/Kappa.git -b dictchanges
 git clone https://github.com/janekbechtel/grid-control.git
 
 scram b -j 4
