@@ -22,6 +22,9 @@ cd data/RecoEgamma/ElectronIdentification/data
 git checkout CMSSW_9_4_0_pre3_TnP
 cd $CMSSW_BASE/src
 
+# 2017 tau ID's
+git cms-merge-topic -u cms-tau-pog:CMSSW_9_4_X_tau-pog_newTauID-MCv1
+
 # KIT related packages
 git clone https://github.com/KIT-CMS/Kappa.git
 git clone https://github.com/janekbechtel/grid-control.git
