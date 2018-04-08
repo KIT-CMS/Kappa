@@ -501,6 +501,8 @@ kappaTupleDefaultsBlock = cms.PSet(
 				"pfJetProbabilityBJetTags",
 				"pfCombinedInclusiveSecondaryVertexV2BJetTags",
 				"pfDeepCSVDiscriminatorsJetTags:BvsAll",
+				"pfDeepCSVJetTags:probb",
+				"pfDeepCSVJetTags:probbb",
 				"pfCombinedMVAV2BJetTags",
 				"pfCombinedCvsLJetTags",
 				"pfCombinedCvsBJetTags",
