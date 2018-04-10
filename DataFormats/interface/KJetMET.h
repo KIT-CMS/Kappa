@@ -12,6 +12,8 @@
 #define KAPPA_JETMET_H
 
 #include "KBasic.h"
+#include <boost/algorithm/string/classification.hpp> // Include boost::for is_any_of
+#include <boost/algorithm/string/split.hpp> // Include for boost::split
 
 struct KCaloJet : public KLV
 {
@@ -94,10 +96,25 @@ struct KJet : public KBasicJet
 
 	float getTag(const std::string& name, const KJetMetadata *jetmetadata, bool check = true) const
 	{
-		for (unsigned int i = 0; i < jetmetadata->tagNames.size(); ++i)
+		std::vector<std::string> vnames;
+		boost::split(vnames, name, boost::is_any_of("+"), boost::token_compress_on);
+		std::vector<float> selected_tags;
+		for (unsigned int j = 0; j < vnames.size(); ++j)
 		{
-			if (jetmetadata->ReplaceAll(jetmetadata->tagNames[i], ":", "") == name)
-				return tags[i];
+			for (unsigned int i = 0; i < jetmetadata->tagNames.size(); ++i)
+			{
+				if (jetmetadata->ReplaceAll(jetmetadata->tagNames[i], ":", "") == vnames[j])
+					selected_tags.push_back(tags[i]);
+			}
+		}
+		if (selected_tags.size() > 0)
+		{
+			float tags_sum = 0.0;
+			for(std::vector<float>::iterator it = selected_tags.begin(); it != selected_tags.end(); ++it)
+			{
+				tags_sum += *it;
+			}
+                        return tags_sum;
 		}
 		if (!check)
 			return -999.;
