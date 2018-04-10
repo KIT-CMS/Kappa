@@ -4,8 +4,8 @@ set -e # exit on errors
 export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 source $VO_CMS_SW_DIR/cmsset_default.sh
 
-scramv1 project CMSSW_9_4_6
-cd CMSSW_9_4_6/src
+scramv1 project CMSSW_9_4_6_patch1
+cd CMSSW_9_4_6_patch1/src
 eval `scramv1 runtime -sh`
 
 git cms-init
