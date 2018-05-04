@@ -6370,7 +6370,7 @@
     "n_files": "162", 
     "process": "DYJetsToLL_M50", 
     "scenario": "NZSPU40to70", 
-    "version": "v3", 
+    "version": "",
     "xsec": 5765.4
   }, 
   "EmbeddingMCRunIIWinter17_MuTauFinalState_inputWinter17DRNZSPU40to70GENSIMRAW_13TeV_USER_pythia8": {
