@@ -15,6 +15,7 @@
 #include <SimDataFormats/GeneratorProducts/interface/GenFilterInfo.h>
 #include "SimDataFormats/GeneratorProducts/interface/LHEEventProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
+#include "SimDataFormats/HTXS/interface/HiggsTemplateCrossSections.h"
 #include <FWCore/Framework/interface/EDProducer.h>
 #include "../../Producers/interface/Consumes.h"
 
@@ -46,6 +47,7 @@ public:
 		puInfoSource(cfg.getParameter<edm::InputTag>("pileUpInfoSource")),
 		lheSource(cfg.getParameter<edm::InputTag>("lheSource")),
 		runInfo(cfg.getParameter<edm::InputTag>("lheSource")),
+		htxsSource(cfg.getParameter<edm::InputTag>("htxsInfo")),
 		lheWeightRegexes(cfg.getParameter<std::vector<std::string>>("lheWeightNames"))
 		{
 			this->tokenGenRunInfo = consumescollector.consumes<GenRunInfoProduct, edm::InRun>(tagSource);
@@ -54,6 +56,7 @@ public:
 			this->tokenPuInfo = consumescollector.consumes<std::vector<PileupSummaryInfo>>(puInfoSource);
 			//this->tokenLHERunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
 			this->tokenRunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
+			this->htxsSrc = consumescollector.consumes<HTXS::HiggsClassification>(htxsSource);
 
 			genEventInfoMetadata = new KGenEventInfoMetadata();
 			_lumi_tree->Bronch("genEventInfoMetadata", "KGenEventInfoMetadata", &genEventInfoMetadata);
@@ -206,6 +209,12 @@ public:
 		}
                 }
 
+		// Get STXS infos
+		edm::Handle<HTXS::HiggsClassification> htxs;
+		event.getByToken(htxsSrc, htxs);
+		this->metaEvent->htxs_stage0cat = htxs->stage0_cat;
+		this->metaEvent->htxs_stage1cat = htxs->stage1_cat_pTjet30GeV;
+
 		return true;
 	}
 	bool endRun(edm::Run const&  run, edm::EventSetup const &setup) override
@@ -247,7 +256,7 @@ protected:
 	bool isEmbedded;
 	int forceLumi;
 	std::string binningMode;
-	edm::InputTag tagSource, puInfoSource, lheSource, runInfo;
+	edm::InputTag tagSource, puInfoSource, lheSource, runInfo, htxsSource;
 	KGenEventInfoMetadata *genEventInfoMetadata;
 	std::vector<std::string> lheWeightRegexes;
 
@@ -257,6 +266,7 @@ protected:
 	edm::EDGetTokenT<std::vector<PileupSummaryInfo>> tokenPuInfo;
 	//edm::EDGetTokenT<LHERunInfoProduct> tokenLHERunInfo;
 	edm::EDGetTokenT<LHERunInfoProduct> tokenRunInfo;
+	edm::EDGetTokenT<HTXS::HiggsClassification> htxsSrc;
 };
 
 template<typename Tmeta>
