@@ -10,6 +10,10 @@ eval `scramv1 runtime -sh`
 
 git cms-init
 
+# Get code for electron scale & smear corrections
+git cms-merge-topic cms-egamma:EgammaPostRecoTools_940
+git cms-merge-topic cms-egamma:Egamma80XMiniAODV2_946
+
 # KIT related packages
 git clone https://github.com/KIT-CMS/Kappa.git -b dictchanges
 git clone https://github.com/janekbechtel/grid-control.git

@@ -33,6 +33,7 @@ public:
 		rhoIsoTag(cfg.getParameter<edm::InputTag>("rhoIsoInputTag")),
 		isoValInputTags(cfg.getParameter<std::vector<edm::InputTag> >("isoValInputTags")),
 		tagOfIds(cfg.getParameter<std::vector<edm::InputTag> >("ids")),
+		tagOfUserFloats(cfg.getParameter<std::vector<edm::InputTag> >("userFloats")),
 		srcIds_(cfg.getParameter<std::string>("srcIds")),
 		doPfIsolation_(true),
 		doCutbasedIds_(true)
@@ -70,6 +71,10 @@ public:
 		for (size_t j = 0; j < tagOfIds.size(); ++j)
 		{
 			electronMetadata->idNames.push_back(this->tagOfIds[j].label()+":"+this->tagOfIds[j].instance());
+		}
+		for (size_t j = 0; j < tagOfUserFloats.size(); ++j)
+		{
+			electronMetadata->idNames.push_back(this->tagOfUserFloats[j].label()+":"+this->tagOfUserFloats[j].instance());
 		}
 		return KBaseMultiLVProducer<edm::View<pat::Electron>, KElectrons>::onLumi(lumiBlock, setup);
 	}
@@ -228,6 +233,10 @@ protected:
 		{
 			out.electronIds.push_back(in.electronID(tagOfIds[i].label()));
 		}
+		for (size_t i = 0; i < tagOfUserFloats.size(); ++i)
+		{
+			out.electronIds.push_back(in.userFloat(tagOfUserFloats[i].label()));
+		}
 	}
 
 	virtual void doCutbasedIds(const SingleInputType &in, SingleOutputType &out)
@@ -295,6 +304,7 @@ private:
 	edm::InputTag rhoIsoTag;
 	std::vector<edm::InputTag>  isoValInputTags;
 	std::vector<edm::InputTag> tagOfIds;
+	std::vector<edm::InputTag> tagOfUserFloats;
 
 	edm::EDGetTokenT<reco::ConversionCollection> tokenConversionSource;
 	edm::EDGetTokenT<reco::BeamSpot> tokenBeamSpot;

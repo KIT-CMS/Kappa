@@ -286,36 +286,46 @@ def getBaseConfig(
 	## ------------------------------------------------------------------------
 
 	# Configure Electrons
+
+        # Apply scale & smear corrections of electrons to the default p4()
+        if tools.is_above_cmssw_version([9,4]):
+            from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+            setupEgammaPostRecoSeq(process,applyEnergyCorrections=True,
+                                   applyVIDOnCorrectedEgamma=True,
+                                   isMiniAOD=True,
+                                   era='2017-Nov17ReReco')
+            process.p *= process.egammaPostRecoSeq
+
 	process.kappaTuple.active += cms.vstring('Electrons')
 	process.load("Kappa.Skimming.KElectrons_miniAOD_cff")
 	process.kappaTuple.Electrons.electrons.src = cms.InputTag("slimmedElectrons")
 	process.kappaTuple.Electrons.electrons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
 	process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJets", "rho")
 	process.kappaTuple.Electrons.electrons.allConversions = cms.InputTag("reducedEgamma", "reducedConversions")
+
 	from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
-	process.kappaTuple.Electrons.srcIds = cms.string("standalone")
+        if tools.is_above_cmssw_version([9,4]):
+                process.kappaTuple.Electrons.srcIds = cms.string("pat")
+        else:
+                process.kappaTuple.Electrons.srcIds = cms.string("standalone")
 
 	if tools.is_above_cmssw_version([9,4]):
 		process.kappaTuple.Electrons.ids = cms.VInputTag(
-			"egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
-			"egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose",
-			"egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium",
-			"egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-tight",
-			"egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90",
-			"egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp80",
-			"egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wpLoose",
-			"egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp90",
-			"egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp80",
-			"egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wpLoose",
-			"electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values",
-			"electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values",
-
-			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
-			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose",
-			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium",
-			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight",
-			"electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"
+			cms.InputTag("cutBasedElectronID-Fall17-94X-V1-veto"),
+			cms.InputTag("cutBasedElectronID-Fall17-94X-V1-loose"),
+			cms.InputTag("cutBasedElectronID-Fall17-94X-V1-medium"),
+			cms.InputTag("cutBasedElectronID-Fall17-94X-V1-tight"),
+			cms.InputTag("mvaEleID-Fall17-noIso-V1-wp90"),
+			cms.InputTag("mvaEleID-Fall17-noIso-V1-wp80"),
+			cms.InputTag("mvaEleID-Fall17-noIso-V1-wpLoose"),
+			cms.InputTag("mvaEleID-Fall17-iso-V1-wp90"),
+			cms.InputTag("mvaEleID-Fall17-iso-V1-wp80"),
+			cms.InputTag("mvaEleID-Fall17-iso-V1-wpLoose"),
 			)
+                process.kappaTuple.Electrons.userFloats = cms.VInputTag(
+			cms.InputTag("ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
+			cms.InputTag("ElectronMVAEstimatorRun2Fall17IsoV1Values"),
+                        )
 	elif tools.is_above_cmssw_version([8]):
 		process.kappaTuple.Electrons.ids = cms.VInputTag(
 			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
@@ -324,6 +334,8 @@ def getBaseConfig(
 			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight",
 			"electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"
 			)
+                process.kappaTuple.Electrons.userFloats = cms.VInputTag(
+                        )
 	else:
 		process.kappaTuple.Electrons.ids = cms.VInputTag(
 			"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-veto",
@@ -332,9 +344,12 @@ def getBaseConfig(
 			"egmGsfElectronIDs:cutBasedElectronID-Spring15-25ns-V1-standalone-tight",
 			"electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring15NonTrig25nsV1Values"
 			)
+                process.kappaTuple.Electrons.userFloats = cms.VInputTag(
+                        )
 
-	setupElectrons(process, electrons)
-	process.p *= (process.makeKappaElectrons)
+	if not tools.is_above_cmssw_version([9,4]):
+                setupElectrons(process, electrons)
+                process.p *= (process.makeKappaElectrons)
 
 	## ------------------------------------------------------------------------
 
