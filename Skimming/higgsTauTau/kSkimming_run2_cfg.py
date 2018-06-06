@@ -339,7 +339,7 @@ def getBaseConfig(
 	## ------------------------------------------------------------------------
 
 	# new tau id only available for 8_0_20 (I believe) and above
-        from Kappa.Skimming.runTauIdMVA import *
+        from Kappa.Skimming.runTauIdMVA import TauIDEmbedder
 	if tools.is_above_cmssw_version([9,4,2]):
                 na = TauIDEmbedder(process, cms,
                     debug=True,
