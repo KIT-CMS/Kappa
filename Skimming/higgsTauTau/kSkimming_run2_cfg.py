@@ -255,7 +255,14 @@ def getBaseConfig(
 
 	jetCollectionPuppi = "slimmedJetsPuppi"
 	if tools.is_above_cmssw_version([9]):
-		jetCollection = "slimmedJets"
+                from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection
+                updateJetCollection(
+                       process,
+                       jetSource = cms.InputTag('slimmedJets'),
+                       labelName = 'UpdatedJEC',
+                       jetCorrections = ('AK4PFchs', cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual']), 'None')
+                )
+		jetCollection = "updatedPatJetsUpdatedJEC"
 	elif tools.is_above_cmssw_version([8]):
 		from RecoMET.METPUSubtraction.jet_recorrections import recorrectJets
 		#from RecoMET.METPUSubtraction.jet_recorrections import loadLocalSqlite
@@ -300,7 +307,7 @@ def getBaseConfig(
 	process.load("Kappa.Skimming.KElectrons_miniAOD_cff")
 	process.kappaTuple.Electrons.electrons.src = cms.InputTag("slimmedElectrons")
 	process.kappaTuple.Electrons.electrons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
-	process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJets", "rho")
+	process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag(jetCollection, "rho")
 	process.kappaTuple.Electrons.electrons.allConversions = cms.InputTag("reducedEgamma", "reducedConversions")
 
 	from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
@@ -474,6 +481,9 @@ def getBaseConfig(
 	if tools.is_above_cmssw_version([7,6]):
 		process.kappaTuple.PatJets.ak4PF = cms.PSet(src=cms.InputTag(jetCollection))
 		process.kappaTuple.PatJets.puppiJets = cms.PSet(src=cms.InputTag(jetCollectionPuppi))
+	if tools.is_above_cmssw_version([9]):
+                process.jecSequence = cms.Sequence(process.patJetCorrFactorsUpdatedJEC * process.updatedPatJetsUpdatedJEC)
+                process.p *= process.jecSequence
 
 	## Standard MET and GenMet from pat::MET
 	process.kappaTuple.active += cms.vstring('PatMET')
