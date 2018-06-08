@@ -287,24 +287,24 @@ class SkimManagerBase:
 			if self.skimdataset[dataset]["SKIM_STATUS"] not in ["COMPLETED", "LISTED"] and self.skimdataset[dataset]["GCSKIM_STATUS"] not in ["COMPLETED", "LISTED"]:
 				try:
 					if "failed" in self.skimdataset[dataset]["last_status"]["jobsPerStatus"]:
-						datasets_to_resubmit.append(self.skimdataset[dataset]["crab_name"])
+						datasets_to_resubmit.append((dataset, self.skimdataset[dataset]["crab_name"]))
 				except:
 					print "Failed to resubmit crab task", dataset, ". Possibly a problem with the skim_dataset.json. Try to recover the status of the task properly."
 					pass
 		print "Try to resubmit", len(datasets_to_resubmit), "tasks"
-		for dataset in datasets_to_resubmit:
+		for dataset,crab_name in datasets_to_resubmit:
                         blacklisted_sites_from_dict = argument_dict.get("siteblacklist","").split(",")
                         try:
 							blacklisted_sites_from_dict.remove("")
                         except:
 							pass
-                        blacklisted_sites = self.skimdataset[dataset.replace("crab_","")].get("blacklisted_crab_sites",[]) + blacklisted_sites_from_dict
-                        self.skimdataset[dataset.replace("crab_","")]["blacklisted_crab_sites"] = list(set(blacklisted_sites))
-                        argument_dict["siteblacklist"] = ",".join(self.skimdataset[dataset.replace("crab_","")].get("blacklisted_crab_sites"))
+                        blacklisted_sites = self.skimdataset[dataset].get("blacklisted_crab_sites",[]) + blacklisted_sites_from_dict
+                        self.skimdataset[dataset]["blacklisted_crab_sites"] = list(set(blacklisted_sites))
+                        argument_dict["siteblacklist"] = ",".join(self.skimdataset[dataset].get("blacklisted_crab_sites"))
                         print argument_dict["siteblacklist"]
 			process_queue = Queue()
 			print "Resubmission for", dataset
-			argument_dict["dir"] = os.path.join(self.workdir, str(dataset))
+			argument_dict["dir"] = os.path.join(self.workdir, str(crab_name))
 			p = Process(target=self.crab_cmd, args=[{"cmd":"resubmit", "args" : argument_dict}, process_queue])
 			p.start()
 			p.join()
