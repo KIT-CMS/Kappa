@@ -256,7 +256,7 @@ class DataSetManagerBase:
 		url = 'https://cmsweb.cern.ch/dbs/prod/'+inputDBS+'/DBSReader'
 		import ast
 		print pattern
-		dataset_list = [d["dataset"]  for d in ast.literal_eval(rest_client.get(url, api='datasets', params={'dataset': pattern}))]
+		dataset_list = [d["dataset"]  for d in ast.literal_eval(rest_client.get(url, api='datasets', params={'dataset': pattern, "dataset_access_type": "*"}))]
 		print "Adding missing datasets queried from the pattern: "
 		print pattern
 		print "---------------------------------------------"
