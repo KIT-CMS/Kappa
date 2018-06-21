@@ -433,7 +433,7 @@ class SkimManagerBase:
 
 		if backend=="freiburg":
 			cfg_dict['condor'] = {}
-			cfg_dict['condor']['JDLData'] = 'Requirements=(TARGET.CLOUDSITE=="BWFORCLUSTER") +REMOTEJOB=True accounting_group=cms.higgs'
+			cfg_dict['condor']['JDLData'] = 'Requirements=(Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs'
 			cfg_dict['condor']['proxy'] = "VomsProxy"
 
 		cfg_dict['local'] = {}
