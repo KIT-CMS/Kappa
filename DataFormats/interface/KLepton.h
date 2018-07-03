@@ -102,10 +102,9 @@ struct KLepton : public KLV
 	    approximation: effective area as a circle area
 	    rho is usually provided by a KPileupDensity object
 	*/
-	double pfIsoRho(const double rho = 0.0, const double radius = 0.4) const
+	double pfIsoRho(const double rho = 0.0, const double area = 0.5026544) const
 	{
-		double area = radius * radius * 3.14159;
-		return std::max(0.0, static_cast<double>(pfIso(0.0)) - std::max(rho * area, 0.0));
+		return std::max(0.0, static_cast<double>(sumChargedHadronPt + std::max(sumNeutralHadronEt + sumPhotonEt - rho * area, 0.0)));
 	}
 	
 	unsigned int getHash() const
