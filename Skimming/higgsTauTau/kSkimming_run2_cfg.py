@@ -318,20 +318,20 @@ def getBaseConfig(
 
 	if tools.is_above_cmssw_version([9,4]):
 		process.kappaTuple.Electrons.ids = cms.VInputTag(
-			cms.InputTag("cutBasedElectronID-Fall17-94X-V1-veto"),
-			cms.InputTag("cutBasedElectronID-Fall17-94X-V1-loose"),
-			cms.InputTag("cutBasedElectronID-Fall17-94X-V1-medium"),
-			cms.InputTag("cutBasedElectronID-Fall17-94X-V1-tight"),
-			cms.InputTag("mvaEleID-Fall17-noIso-V1-wp90"),
-			cms.InputTag("mvaEleID-Fall17-noIso-V1-wp80"),
-			cms.InputTag("mvaEleID-Fall17-noIso-V1-wpLoose"),
-			cms.InputTag("mvaEleID-Fall17-iso-V1-wp90"),
-			cms.InputTag("mvaEleID-Fall17-iso-V1-wp80"),
-			cms.InputTag("mvaEleID-Fall17-iso-V1-wpLoose"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-tight"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp80"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wpLoose"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp90"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp80"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wpLoose"),
 			)
                 process.kappaTuple.Electrons.userFloats = cms.VInputTag(
-			cms.InputTag("ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
-			cms.InputTag("ElectronMVAEstimatorRun2Fall17IsoV1Values"),
+			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
+			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values"),
                         )
 	elif tools.is_above_cmssw_version([8]):
 		process.kappaTuple.Electrons.ids = cms.VInputTag(

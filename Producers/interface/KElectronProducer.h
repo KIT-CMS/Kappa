@@ -231,11 +231,11 @@ protected:
 		out.electronIds.clear();
 		for (size_t i = 0; i < tagOfIds.size(); ++i)
 		{
-			out.electronIds.push_back(in.electronID(tagOfIds[i].label()));
+			out.electronIds.push_back(in.electronID(tagOfIds[i].instance()));
 		}
 		for (size_t i = 0; i < tagOfUserFloats.size(); ++i)
 		{
-			out.electronIds.push_back(in.userFloat(tagOfUserFloats[i].label()));
+			out.electronIds.push_back(in.userFloat(tagOfUserFloats[i].instance()));
 		}
 	}
 

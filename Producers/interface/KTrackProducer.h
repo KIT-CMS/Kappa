@@ -58,7 +58,7 @@ public:
 #if (CMSSW_MAJOR_VERSION == 7 && CMSSW_MINOR_VERSION >= 2) || CMSSW_MAJOR_VERSION == 8 || (CMSSW_MAJOR_VERSION == 9 && CMSSW_MINOR_VERSION <= 3)
 		out.nInnerHits = in.hitPattern().numberOfHits(reco::HitPattern::MISSING_INNER_HITS);
 #elif (CMSSW_MAJOR_VERSION == 9 && CMSSW_MINOR_VERSION >= 4) || CMSSW_MAJOR_VERSION >= 10
-		out.nInnerHits = in.hitPattern().numberOfAllHits(reco::HitPattern::MISSING_INNER_HITS);
+		out.nInnerHits = in.hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS);
 #else
 		out.nInnerHits = in.trackerExpectedHitsInner().numberOfAllHits();
 #endif
