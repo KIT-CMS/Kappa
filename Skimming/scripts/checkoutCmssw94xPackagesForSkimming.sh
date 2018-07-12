@@ -4,15 +4,17 @@ set -e # exit on errors
 export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 source $VO_CMS_SW_DIR/cmsset_default.sh
 
-scramv1 project CMSSW_9_4_8
-cd CMSSW_9_4_8/src
+scramv1 project CMSSW_9_4_9_cand2
+cd CMSSW_9_4_9_cand2/src
 eval `scramv1 runtime -sh`
 
 git cms-init
 
 # Get code for electron scale & smear corrections
 git cms-merge-topic cms-egamma:EgammaPostRecoTools_940
-git cms-merge-topic cms-egamma:Egamma80XMiniAODV2_946
+
+# Get recipes to re-correct MET (also for ECAL prefiring)
+git cms-merge-topic cms-met:METRecipe94xEEnoisePatch
 
 # KIT related packages
 git clone https://github.com/KIT-CMS/Kappa.git -b dictchanges
