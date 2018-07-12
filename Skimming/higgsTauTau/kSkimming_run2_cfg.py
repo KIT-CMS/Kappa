@@ -297,8 +297,8 @@ def getBaseConfig(
         # Apply scale & smear corrections of electrons to the default p4()
         if tools.is_above_cmssw_version([9,4]):
             from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
-            setupEgammaPostRecoSeq(process,applyEnergyCorrections=True,
-                                   applyVIDOnCorrectedEgamma=True,
+            setupEgammaPostRecoSeq(process,applyEnergyCorrections=False,
+                                   applyVIDOnCorrectedEgamma=False,
                                    isMiniAOD=True,
                                    era='2017-Nov17ReReco')
             process.p *= process.egammaPostRecoSeq
@@ -332,6 +332,10 @@ def getBaseConfig(
                 process.kappaTuple.Electrons.userFloats = cms.VInputTag(
 			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
 			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values"),
+			cms.InputTag("electronCorrection:ecalTrkEnergyPreCorr"),
+			cms.InputTag("electronCorrection:ecalTrkEnergyPostCorr"),
+			cms.InputTag("electronCorrection:ecalTrkEnergyErrPreCorr"),
+			cms.InputTag("electronCorrection:ecalTrkEnergyErrPostCorr"),
                         )
 	elif tools.is_above_cmssw_version([8]):
 		process.kappaTuple.Electrons.ids = cms.VInputTag(
