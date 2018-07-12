@@ -493,7 +493,9 @@ def getBaseConfig(
 	process.kappaTuple.active += cms.vstring('PatMET')
 	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETs"))
 	if tools.is_above_cmssw_version([9]):
-		pass
+		from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
+		runMetCorAndUncFromMiniAOD(process, isData=data)
+		process.p *= process.fullPatMetSequence
 	elif tools.is_above_cmssw_version([8,0,14]):
 		from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
 		runMetCorAndUncFromMiniAOD(process, isData=data  )
