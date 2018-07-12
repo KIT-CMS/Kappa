@@ -142,7 +142,7 @@ def getBaseConfig(
 			LHERunInfo = cms.InputTag('externalLHEProducer'),
 			ProductionMode = cms.string('AUTO'),
 		)
-		process.p = cms.Path(process.mergedGenParticles*process.myGenerator*process.rivetProducerHTXS)
+		process.p *= cms.Path(process.mergedGenParticles*process.myGenerator*process.rivetProducerHTXS)
 
 	# save primary vertex
 	process.kappaTuple.active += cms.vstring('VertexSummary') # save VertexSummary
