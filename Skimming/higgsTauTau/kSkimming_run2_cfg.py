@@ -153,7 +153,9 @@ def getBaseConfig(
 	if tools.is_above_cmssw_version([7,6]):
 		process.kappaTuple.VertexSummary.goodOfflinePrimaryVerticesSummary = cms.PSet(src=cms.InputTag("offlineSlimmedPrimaryVertices"))
 
-	process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
+	#process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
+	process.kappaTuple.active += cms.vstring('ReducedTriggerObject')
+        process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 
 	# setup BadPFMuonFilter and BadChargedCandidateFilter
 	if tools.is_above_cmssw_version([8]) and not tools.is_above_cmssw_version([9]): 
