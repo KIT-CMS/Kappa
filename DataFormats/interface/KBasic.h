@@ -154,6 +154,16 @@ struct KTriggerObjects
 
 };
 
+struct KReducedTriggerObjects
+{
+	virtual ~KReducedTriggerObjects() {};
+
+	KLVs trgObjects;
+	std::vector<std::vector<std::string> > filterLabels;
+	int metFilterBits;
+
+};
+
 
 struct KFilterMetadata
 {
