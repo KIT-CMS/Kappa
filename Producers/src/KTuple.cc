@@ -68,6 +68,7 @@
 #include "../interface/KTriggerObjectProducer.h"
 #if CMSSW_MAJOR_VERSION >= 7
 #include "../interface/KTriggerObjectStandaloneProducer.h"
+#include "../interface/KReducedTriggerObjectProducer.h"
 #endif
 #include "../interface/KVertexProducer.h"
 #include "../interface/KVertexSummaryProducer.h"
@@ -245,6 +246,7 @@ KTuple::KTuple(const edm::ParameterSet &_psConfig) :
 		addProducer<KTriggerObjectProducer>(active[i]);
 #if CMSSW_MAJOR_VERSION >= 7
 		addProducer<KTriggerObjectStandaloneProducer>(active[i]);
+		addProducer<KReducedTriggerObjectProducer>(active[i]);
 #endif
 		addProducer<KVertexProducer>(active[i]);
 		addProducer<KVertexSummaryProducer>(active[i]);
