@@ -6839,7 +6839,7 @@
     "process": "GluGluHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 3.045966
+    "xsec": 3.0469375999999997
   }, 
   "GluGluHToTauTauM125_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_powheg-pythia8": {
     "Moriond17": [
@@ -20221,7 +20221,7 @@
     "process": "VBFHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 0.2370687
+    "xsec": 0.23720704
   }, 
   "VBFHToTauTauM125_RunIISpring16MiniAODv1_PUSpring16RAWAODSIM_13TeV_MINIAOD_powheg-pythia8": {
     "Moriond17": [
@@ -23285,7 +23285,7 @@
     "process": "WminusHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 0.03340656
+    "xsec": 0.03341869074492099
   }, 
   "WminusHToTauTauM125_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_powheg-pythia8": {
     "Moriond17": [
@@ -23582,7 +23582,7 @@
     "process": "WplusHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 0.052668
+    "xsec": 0.052685146726862295
   }, 
   "WplusHToTauTauM125_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_powheg-pythia8": {
     "Moriond17": [
@@ -23859,7 +23859,7 @@
     "process": "ZHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 0.0554268
+    "xsec": 0.055437468997444665
   }, 
   "ZHToTauTauM125_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_powheg-pythia8": {
     "Moriond17": [
@@ -24529,6 +24529,6 @@
     "process": "ttHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 1.0
+    "xsec": 0.031805311999999995
   }
 }
