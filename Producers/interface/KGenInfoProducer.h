@@ -219,6 +219,8 @@ public:
 		event.getByToken(htxsSrc, htxs);
 		this->metaEvent->htxs_stage0cat = htxs->stage0_cat;
 		this->metaEvent->htxs_stage1cat = htxs->stage1_cat_pTjet30GeV;
+		this->metaEvent->htxs_higgsPt = htxs->higgs.Pt();
+		this->metaEvent->htxs_njets30 = htxs->jets30.size();
 #endif
 
 		return true;
