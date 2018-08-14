@@ -52,18 +52,16 @@ class datasetsHelperTwopz:
         if self.json_file_path and '/' not in out_json_file:
             out_json_file = os.path.join(self.json_file_path, out_json_file)
 
-        if os.path.exists(out_json_file) and self.keep_input_json:
-            print "I do not overwrite ", out_json_file
-            return
+        if self.keep_input_json:
+            if os.path.exists(out_json_file):
+                print "I do not overwrite ", out_json_file
+                return
+            else:
+                print "Creating " + out_json_file
 
-        if not os.path.exists(out_json_file) and self.keep_input_json:
-            print "Created " + out_json_file
-        # else:
-        #     print "Overwritten "+out_json_file
-
-        out_json = open(out_json_file, 'w')
-        out_json.write(json.dumps(self.base_dict, sort_keys=True, indent=2))
-        out_json.close()
+        with open(out_json_file, 'w') as out_json:
+            out_json.write(json.dumps(self.base_dict, sort_keys=True, indent=2))  # add separators=(',', ': ') to get rid of trailing spaces
+            out_json.close()
 
     def make_nickname(self, sample_dict):
         """Gives the (old) structure of the nicknames """
