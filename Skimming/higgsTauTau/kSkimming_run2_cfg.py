@@ -155,7 +155,11 @@ def getBaseConfig(
 
 	#process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
 	process.kappaTuple.active += cms.vstring('ReducedTriggerObject')
-        process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
+	if not isEmbedded:
+		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
+	else:
+		process.kappaTuple.ReducedTriggerObject.bits = cms.InputTag("TriggerResults", "", "SIMembedding")
+		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "MERGE")
 
 	# setup BadPFMuonFilter and BadChargedCandidateFilter
 	if tools.is_above_cmssw_version([8]) and not tools.is_above_cmssw_version([9]): 
