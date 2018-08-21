@@ -210,7 +210,10 @@ def get_xsec(nick):
 	sample = get_sample_by_nick(nick)
 	dict = database
 	if sample in dict and "xsec" in dict[sample]:
-		return dict[sample]["xsec"]
+                if dict[sample]["xsec"] = 1.0 and "generator_xsec" in dict[sample]:
+                    return dict[sample]["generator_xsec"]
+                else:
+                    return dict[sample]["xsec"]
 	else:
 		return -1
 
