@@ -291,9 +291,9 @@ def get_sample_by_nick(nickname, expect_n_results = 1):
 		"scenario" : "^"+split_nick[2]+"$",
 		"energy" : "^"+split_nick[3].strip("TeV")+"$",
 		"format" : "^"+split_nick[4]+"$",
-		"generator" : ("^"+split_nick[5]+"$" if (len(split_nick) > 5) else None),
+                "generator" : ("^"+split_nick[5]+"$" if (len(split_nick) > 5) else None) if not "Embedding" in nickname else "",
                 "extension" : "",
-                "version" : ""
+                "version" : "" if not "Embedding" in nickname else "^"+split_nick[5]+"$"
 	}
         if len(split_nick) > 6:
                 query["extension"] = ("^"+re.sub("(-|)v\d","",split_nick[6])+"$" if (len(split_nick[6]) > 2) else "")
