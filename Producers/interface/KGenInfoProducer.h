@@ -47,9 +47,7 @@ public:
 		puInfoSource(cfg.getParameter<edm::InputTag>("pileUpInfoSource")),
 		lheSource(cfg.getParameter<edm::InputTag>("lheSource")),
 		runInfo(cfg.getParameter<edm::InputTag>("lheSource")),
-#if CMSSW_MAJOR_VERSION < 9
 		htxsSource(cfg.getParameter<edm::InputTag>("htxsInfo")),
-#endif
 		lheWeightRegexes(cfg.getParameter<std::vector<std::string>>("lheWeightNames"))
 		{
 			this->tokenGenRunInfo = consumescollector.consumes<GenRunInfoProduct, edm::InRun>(tagSource);
@@ -58,9 +56,7 @@ public:
 			this->tokenPuInfo = consumescollector.consumes<std::vector<PileupSummaryInfo>>(puInfoSource);
 			//this->tokenLHERunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
 			this->tokenRunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
-#if CMSSW_MAJOR_VERSION < 9
 			this->htxsSrc = consumescollector.consumes<HTXS::HiggsClassification>(htxsSource);
-#endif
 
 			genEventInfoMetadata = new KGenEventInfoMetadata();
 			_lumi_tree->Bronch("genEventInfoMetadata", "KGenEventInfoMetadata", &genEventInfoMetadata);
@@ -213,7 +209,6 @@ public:
 		}
                 }
 
-#if CMSSW_MAJOR_VERSION < 9
 		// Get STXS infos
 		edm::Handle<HTXS::HiggsClassification> htxs;
 		event.getByToken(htxsSrc, htxs);
@@ -221,7 +216,6 @@ public:
 		this->metaEvent->htxs_stage1cat = htxs->stage1_cat_pTjet30GeV;
 		this->metaEvent->htxs_higgsPt = htxs->higgs.Pt();
 		this->metaEvent->htxs_njets30 = htxs->jets30.size();
-#endif
 
 		return true;
 	}
@@ -264,11 +258,7 @@ protected:
 	bool isEmbedded;
 	int forceLumi;
 	std::string binningMode;
-#if CMSSW_MAJOR_VERSION < 9
 	edm::InputTag tagSource, puInfoSource, lheSource, runInfo, htxsSource;
-#else
-	edm::InputTag tagSource, puInfoSource, lheSource, runInfo;
-#endif
 	KGenEventInfoMetadata *genEventInfoMetadata;
 	std::vector<std::string> lheWeightRegexes;
 
@@ -278,9 +268,7 @@ protected:
 	edm::EDGetTokenT<std::vector<PileupSummaryInfo>> tokenPuInfo;
 	//edm::EDGetTokenT<LHERunInfoProduct> tokenLHERunInfo;
 	edm::EDGetTokenT<LHERunInfoProduct> tokenRunInfo;
-#if CMSSW_MAJOR_VERSION < 9
 	edm::EDGetTokenT<HTXS::HiggsClassification> htxsSrc;
-#endif
 };
 
 template<typename Tmeta>
