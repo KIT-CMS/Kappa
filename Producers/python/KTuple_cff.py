@@ -113,6 +113,14 @@ kappaTupleDefaultsBlock = cms.PSet(
 			src = cms.InputTag("slimmedPatTrigger"),
 			)
 	),
+	ReducedTriggerObject = cms.PSet(kappaNoRegEx, kappaNoCut,
+			metfilterbits = cms.InputTag("TriggerResults"),
+			bits = cms.InputTag("TriggerResults","","HLT"),
+                        matchpattern = cms.string("^(?!.*?Mult).*hlt.*(Ele|Mu|Tau).*"),
+		triggerObjects = cms.PSet(
+			src = cms.InputTag("slimmedPatTrigger"),
+			)
+	),
 	Tracks = cms.PSet(kappaNoRename,
 		maxN = cms.int32(-1),
 		minPt = cms.double(10.),

@@ -59,6 +59,7 @@
 	<class name="KTrack"/>
 	<class name="KTracks"/>
 	<class name="KTriggerObjects"/>
+	<class name="KReducedTriggerObjects"/>
 	<class name="KVertex"/>
 	<class name="KVertices"/>
 	<class name="KFilterSummary"/>

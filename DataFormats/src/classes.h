@@ -93,6 +93,7 @@ namespace
 		KTrack dict_KTrack;
 		KTracks dict_KTracks;
 		KTriggerObjects dict_KTriggerObjects;
+		KReducedTriggerObjects dict_KReducedTriggerObjects;
 		KVertex dict_KVertex;
 		KVertices dict_KVertices;
 		KFilterSummary dict_KFilterSummary;

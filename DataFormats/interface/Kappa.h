@@ -97,6 +97,7 @@ REGISTER_NAME_OF_TYPE(KTaupairVerticesMaps,std::vector<KTaupairVerticesMap>);
 REGISTER_NAME_OF_TYPE(KTrack,KTrack);
 REGISTER_NAME_OF_TYPE(KTracks,std::vector<KTrack>);
 REGISTER_NAME_OF_TYPE(KTriggerObjects,KTriggerObjects);
+REGISTER_NAME_OF_TYPE(KReducedTriggerObjects,KReducedTriggerObjects);
 REGISTER_NAME_OF_TYPE(KVertex,KVertex);
 REGISTER_NAME_OF_TYPE(KVertices,std::vector<KVertex>);
 REGISTER_NAME_OF_TYPE(KFilterSummary,KFilterSummary);

@@ -154,6 +154,20 @@ struct KTriggerObjects
 
 };
 
+struct KReducedTriggerObjects
+{
+	virtual ~KReducedTriggerObjects() {};
+
+	KLVs trgObjects;
+	std::vector<std::vector<std::string> > filterLabels;
+	int metFilterBits;
+
+	bool passesMetFilter(size_t metFilterPos)
+	{
+		return ( ( metFilterBits & ( 1 << metFilterPos ) ) > 0 );
+	}
+};
+
 
 struct KFilterMetadata
 {
