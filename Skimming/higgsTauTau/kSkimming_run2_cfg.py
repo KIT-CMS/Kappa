@@ -372,11 +372,11 @@ def getBaseConfig(
 	## ------------------------------------------------------------------------
 
 	# new tau id only available for 8_0_20 (I believe) and above
-        from Kappa.Skimming.runTauIdMVA import TauIDEmbedder
+        from RecoTauTag.RecoTau.runTauIdMVA import TauIDEmbedder
 	if tools.is_above_cmssw_version([9,4,2]):
                 na = TauIDEmbedder(process, cms,
                     debug=True,
-                    toKeep = ["2017v2","2017v1"]
+                    toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
                 )
 	elif tools.is_above_cmssw_version([8,0,20]):
                 na = TauIDEmbedder(process, cms,
@@ -440,15 +440,9 @@ def getBaseConfig(
                         "byTightIsolationMVArun2017v2DBoldDMwLT2017",
                         "byVTightIsolationMVArun2017v2DBoldDMwLT2017",
                         "byVVTightIsolationMVArun2017v2DBoldDMwLT2017",
-                        # 2017v1
-                        "byIsolationMVArun2017v1DBoldDMwLTraw2017",
-                        "byVVLooseIsolationMVArun2017v1DBoldDMwLT2017",
-                        "byVLooseIsolationMVArun2017v1DBoldDMwLT2017",
-                        "byLooseIsolationMVArun2017v1DBoldDMwLT2017",
-                        "byMediumIsolationMVArun2017v1DBoldDMwLT2017",
-                        "byTightIsolationMVArun2017v1DBoldDMwLT2017",
-                        "byVTightIsolationMVArun2017v1DBoldDMwLT2017",
-                        "byVVTightIsolationMVArun2017v1DBoldDMwLT2017",
+                        "deepTau2017v1tauVSall", # deep Tau based on same inputs as MVAIso (BDT-based)
+                        "DPFTau_2016_v0tauVSall", # Deep PF Tau based also on low-level inputs (v0)
+                        "DPFTau_2016_v1tauVSall", # Deep PF Tau based also on low-level inputs (v1)
 			)
 	elif tools.is_above_cmssw_version([8,0,20]):
 		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
