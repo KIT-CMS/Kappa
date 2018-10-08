@@ -32,6 +32,7 @@ git cms-merge-topic cms-egamma:EgammaPostRecoTools_940
 
 # Get code for electron V2 ID's (trained on 94X MC's)
 git cms-merge-topic guitargeek:EgammaID_9_4_X
+git cherry-pick ed6febc05fe021f1ef03dfb5f7c91b242c529a0d
 
 # Get recipes to re-correct MET (also for ECAL prefiring)
 git cms-merge-topic cms-met:METFixEE2017_949_v2
