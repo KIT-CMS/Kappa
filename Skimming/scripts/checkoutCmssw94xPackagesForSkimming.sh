@@ -6,8 +6,8 @@ set -e # exit on errors
 export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 source $VO_CMS_SW_DIR/cmsset_default.sh
 
-scramv1 project CMSSW_9_4_10
-cd CMSSW_9_4_10/src
+scramv1 project CMSSW_9_4_11_cand1
+cd CMSSW_9_4_11_cand1/src
 eval `scramv1 runtime -sh`
 
 git cms-init
@@ -33,7 +33,7 @@ git cms-merge-topic cms-egamma:EgammaPostRecoTools_940
 # Get code for electron V2 ID's (trained on 94X MC's)
 git cms-merge-topic guitargeek:EgammaID_9_4_X
 
-# Get recipes to re-correct MET (also for ECAL prefiring)
+# Get recipes to re-correct MET (also for ECAL noise)
 git cms-merge-topic cms-met:METFixEE2017_949_v2
 
 # Get DPF based Tau ID (and Tau ID Embedder) ---> DPF is optional
