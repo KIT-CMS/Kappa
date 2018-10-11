@@ -306,13 +306,25 @@ def getBaseConfig(
 
 	# Configure Electrons
 
-        # Apply scale & smear corrections of electrons to the default p4()
+        # Apply scale & smear corrections of electrons & store them as user floats (default) and recompute the VID's (including V2)
         if tools.is_above_cmssw_version([9,4]):
             from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
-            setupEgammaPostRecoSeq(process,applyEnergyCorrections=False,
-                                   applyVIDOnCorrectedEgamma=False,
-                                   isMiniAOD=True,
-                                   era='2017-Nov17ReReco')
+            setupEgammaPostRecoSeq(
+                    process,
+                    runVID=True,
+                    eleIDModules=[
+                            'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV70_cff',
+
+                            'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff',
+                            'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_noIso_V1_cff',
+                            'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_iso_V1_cff',
+
+                            'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V2_cff',
+                            'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_noIso_V2_cff',
+                            'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_iso_V2_cff',
+                    ],
+                    era='2017-Nov17ReReco'
+            )
             process.p *= process.egammaPostRecoSeq
 
 	process.kappaTuple.active += cms.vstring('Electrons')
@@ -322,7 +334,6 @@ def getBaseConfig(
 	process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag(jetCollection, "rho")
 	process.kappaTuple.Electrons.electrons.allConversions = cms.InputTag("reducedEgamma", "reducedConversions")
 
-	from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
         if tools.is_above_cmssw_version([9,4]):
                 process.kappaTuple.Electrons.srcIds = cms.string("pat")
         else:
@@ -334,20 +345,53 @@ def getBaseConfig(
 			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose"),
 			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium"),
 			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-tight"),
+
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-veto"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-loose"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-medium"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-tight"),
+
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90"),
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp80"),
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wpLoose"),
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp90"),
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wp80"),
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wpLoose"),
+
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V2-wp90"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V2-wp80"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V2-wpLoose"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wp90"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wp80"),
+			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wpLoose"),
 			)
                 process.kappaTuple.Electrons.userFloats = cms.VInputTag(
-			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
-			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values"),
+			# scale & smear corrected energy (applied on Data AND MC)
 			cms.InputTag("electronCorrection:ecalTrkEnergyPreCorr"),
 			cms.InputTag("electronCorrection:ecalTrkEnergyPostCorr"),
 			cms.InputTag("electronCorrection:ecalTrkEnergyErrPreCorr"),
 			cms.InputTag("electronCorrection:ecalTrkEnergyErrPostCorr"),
+
+			# systematic variations for scale & smear corrections (to be used on MC)
+			cms.InputTag("electronCorrection:energyScaleUp"),
+			cms.InputTag("electronCorrection:energyScaleDown"),
+			cms.InputTag("electronCorrection:energyScaleStatUp"),
+			cms.InputTag("electronCorrection:energyScaleStatDown"),
+			cms.InputTag("electronCorrection:energyScaleSystUp"),
+			cms.InputTag("electronCorrection:energyScaleSystDown"),
+			cms.InputTag("electronCorrection:energyScaleGainUp"),
+			cms.InputTag("electronCorrection:energyScaleGainDown"),
+			cms.InputTag("electronCorrection:energySigmaUp"),
+			cms.InputTag("electronCorrection:energySigmaDown"),
+			cms.InputTag("electronCorrection:energySigmaPhiUp"),
+			cms.InputTag("electronCorrection:energySigmaPhiDown"),
+			cms.InputTag("electronCorrection:energySigmaRhoUp"),
+			cms.InputTag("electronCorrection:energySigmaRhoDown"),
+
+#			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
+#			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values"),
+#			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values"),
+#			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV2Values"),
                         )
 	elif tools.is_above_cmssw_version([8]):
 		process.kappaTuple.Electrons.ids = cms.VInputTag(
@@ -371,6 +415,7 @@ def getBaseConfig(
                         )
 
 	if not tools.is_above_cmssw_version([9,4]):
+                from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
                 setupElectrons(process, electrons)
                 process.p *= (process.makeKappaElectrons)
 
