@@ -267,7 +267,12 @@ def getBaseConfig(
                        process,
                        jetSource = cms.InputTag('slimmedJets'),
                        labelName = 'UpdatedJEC',
-                       jetCorrections = ('AK4PFchs', cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual']), 'None')
+                       jetCorrections = ('AK4PFchs', cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual']), 'None'),
+                       btagDiscriminators = [
+                            "pfDeepFlavourJetTags:probb",
+                            "pfDeepFlavourJetTags:probbb",
+                            "pfDeepFlavourJetTags:problepb",
+                       ],
                 )
 		jetCollection = "updatedPatJetsUpdatedJEC"
 	elif tools.is_above_cmssw_version([8]):
