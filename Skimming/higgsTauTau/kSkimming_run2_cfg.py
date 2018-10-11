@@ -497,15 +497,38 @@ def getBaseConfig(
 
 	## Standard MET and GenMet from pat::MET
 	process.kappaTuple.active += cms.vstring('PatMET')
-	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETs"))
+	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETsModifiedMET"))
 	if tools.is_above_cmssw_version([9]):
 		from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
-		runMetCorAndUncFromMiniAOD(process, isData=data)
-		process.p *= process.fullPatMetSequence
+		runMetCorAndUncFromMiniAOD(
+			process,
+			isData=data,
+			fixEE2017 = True,
+			fixEE2017Params = {'userawPt': True, 'PtThreshold':50.0, 'MinEtaThreshold':2.65, 'MaxEtaThreshold': 3.139},
+			postfix = "ModifiedMET"
+		)
+		process.p *= process.fullPatMetSequenceModifiedMET
 	elif tools.is_above_cmssw_version([8,0,14]):
 		from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
 		runMetCorAndUncFromMiniAOD(process, isData=data  )
 		process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETs", "", "KAPPA"))
+
+#	if tools.is_above_cmssw_version([9]):
+#                from PhysicsTools.PatAlgos.slimming.puppiForMET_cff import makePuppiesFromMiniAOD
+#                makePuppiesFromMiniAOD(process, True)
+#                runMetCorAndUncFromMiniAOD(
+#                        process,
+#                        isData=data,
+#                        metType="Puppi",
+#                        postfix="Puppi",
+#                        jetFlavor="AK4PFPuppi",
+#                )
+#
+#                process.puppiNoLep.useExistingWeights = False
+#                process.puppi.useExistingWeights = False
+#
+#                #process.p *= process.egmPhotonIDSequence*process.puppiMETSequence*process.fullPatMetSequencePuppi
+#                process.p *= process.fullPatMetSequencePuppi
 
 	#process.kappaTuple.PatMET.pfmetT1 = cms.PSet(src=cms.InputTag("patpfMETT1"))
 	process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"))
