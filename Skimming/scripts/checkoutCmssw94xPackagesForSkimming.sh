@@ -27,11 +27,11 @@ cd -
 
 ### Merge-topics ###
 
+# Get code for electron V2 ID's (trained on 94X MC's)
+git cms-merge-topic guitargeek:EgammaID_949
+
 # Get code for electron scale & smear corrections
 git cms-merge-topic cms-egamma:EgammaPostRecoTools_940
-
-# Get code for electron V2 ID's (trained on 94X MC's)
-git cms-merge-topic guitargeek:EgammaID_9_4_X
 
 # Get recipes to re-correct MET (also for ECAL noise)
 git cms-merge-topic cms-met:METFixEE2017_949_v2
