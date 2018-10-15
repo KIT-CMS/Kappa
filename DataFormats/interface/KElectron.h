@@ -21,7 +21,7 @@ namespace KElectronType { enum Type
 {
 	ecalEnergyCorrected = 0, //< true if ecal energy has been corrected = isEcalScaleCorrected
 	momentumCorrected   = 1, //< true if E-p combination has been applied.
-	ecalDriven          = 2, //< 
+	ecalDriven          = 2, //<
 	trackerDriven       = 3, //<
 	cutPreselected      = 4, //<
 	mvaPreselected      = 5, //<
@@ -47,12 +47,31 @@ struct KElectron : public KLepton
 	float dPhiIn;                 //< deltaPhiSuperClusterTrackAtVtx
 	float dEtaInSeed;
 	float sigmaIetaIeta;
+	float sigmaIphiIphi;
 	float full5x5_sigmaIetaIeta;
+	float full5x5_sigmaIphiIphi;
+	float gsfNHits;
 	float hadronicOverEm;
 	float fbrem;
+	float r9;
+	float circularity;
+	float hoe;
+	float kfhits;
+	float kfchi2;
+	float gsfchi2;
+	float gsfhits;
+	float expectedMissingInnerHits;
+	float convVtxFitProbability;
+	float eop;
+	float eleeopout;
+	float oneOverEminusOneOverP;
+	float deta;
+	float dphi;
+	float detacalo;
+	float preShowerOverRaw;
 	//d0 dz vertexfitprob + missing hits
 	float eSuperClusterOverP;
-	float superclusterEnergy;      
+	float superclusterEnergy;
 	float ecalEnergy;             //< the new corrected value, or the supercluster energy.
 	float ecalEnergyErr;
 	float trackMomentumErr;       //< track momentum error from gsf fit.
@@ -65,7 +84,7 @@ struct KElectron : public KLepton
 	float hcal1Iso;   //< dr03HcalDepth1TowerSumEt: hcal depht 1 iso deposit with electron footprint removed.
 	float hcal2Iso;   //< dr03HcalDepth2TowerSumEt: hcal depht 2 iso deposit with electron footprint removed.
 
-	/// calculable quantities:  
+	/// calculable quantities:
 	inline float pIn() const { return ecalEnergy / eSuperClusterOverP; };  //< trackMomentumAtVtxP
 	inline float invEMinusInvP() const { return (1.0f - eSuperClusterOverP) / ecalEnergy; }; //< 1/E - 1/p_in
 	inline float hcalIso() const { return hcal1Iso + hcal2Iso; };  //< dr03HcalTowerSumEt
