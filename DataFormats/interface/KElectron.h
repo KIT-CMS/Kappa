@@ -47,9 +47,28 @@ struct KElectron : public KLepton
 	float dPhiIn;                 //< deltaPhiSuperClusterTrackAtVtx
 	float dEtaInSeed;
 	float sigmaIetaIeta;
+	float sigmaIphiIphi;
 	float full5x5_sigmaIetaIeta;
+	float full5x5_sigmaIphiIphi;
+	float gsfNHits;
 	float hadronicOverEm;
 	float fbrem;
+	float r9;
+	float circularity; 
+	float hoe;
+	float kfhits;
+	float kfchi2;
+	float gsfchi2;
+	float gsfhits;                                
+	float expectedMissingInnerHits;
+	float convVtxFitProbability;  
+	float eop;
+	float eleeopout;
+	float oneOverEminusOneOverP;  
+	float deta;                    
+	float dphi;
+	float detacalo;
+	float preShowerOverRaw;
 	//d0 dz vertexfitprob + missing hits
 	float eSuperClusterOverP;
 	float superclusterEnergy;      

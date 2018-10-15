@@ -47,7 +47,7 @@ public:
 		puInfoSource(cfg.getParameter<edm::InputTag>("pileUpInfoSource")),
 		lheSource(cfg.getParameter<edm::InputTag>("lheSource")),
 		runInfo(cfg.getParameter<edm::InputTag>("lheSource")),
-		htxsSource(cfg.getParameter<edm::InputTag>("htxsInfo")),
+		//htxsSource(cfg.getParameter<edm::InputTag>("htxsInfo")),
 		lheWeightRegexes(cfg.getParameter<std::vector<std::string>>("lheWeightNames"))
 		{
 			this->tokenGenRunInfo = consumescollector.consumes<GenRunInfoProduct, edm::InRun>(tagSource);
@@ -56,7 +56,7 @@ public:
 			this->tokenPuInfo = consumescollector.consumes<std::vector<PileupSummaryInfo>>(puInfoSource);
 			//this->tokenLHERunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
 			this->tokenRunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
-			this->htxsSrc = consumescollector.consumes<HTXS::HiggsClassification>(htxsSource);
+			//this->htxsSrc = consumescollector.consumes<HTXS::HiggsClassification>(htxsSource);
 
 			genEventInfoMetadata = new KGenEventInfoMetadata();
 			_lumi_tree->Bronch("genEventInfoMetadata", "KGenEventInfoMetadata", &genEventInfoMetadata);
@@ -210,12 +210,15 @@ public:
                 }
 
 		// Get STXS infos
-		edm::Handle<HTXS::HiggsClassification> htxs;
-		event.getByToken(htxsSrc, htxs);
-		this->metaEvent->htxs_stage0cat = htxs->stage0_cat;
-		this->metaEvent->htxs_stage1cat = htxs->stage1_cat_pTjet30GeV;
-		this->metaEvent->htxs_higgsPt = htxs->higgs.Pt();
-		this->metaEvent->htxs_njets30 = htxs->jets30.size();
+		// if ( !isEmbedded){
+		// 	edm::Handle<HTXS::HiggsClassification> htxs;
+		// 	event.getByToken(htxsSrc, htxs);
+		// 	this->metaEvent->htxs_stage0cat = htxs->stage0_cat;
+		// 	this->metaEvent->htxs_stage1cat = htxs->stage1_cat_pTjet30GeV;
+		// 	this->metaEvent->htxs_higgsPt = htxs->higgs.Pt();
+		// 	this->metaEvent->htxs_njets30 = htxs->jets30.size();
+		// }
+		
 
 		return true;
 	}

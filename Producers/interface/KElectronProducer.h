@@ -134,6 +134,7 @@ public:
 			KTrackProducer::fillTrack(*in.gsfTrack(), out.track);
 			out.dxy = in.gsfTrack()->dxy(vtx.position());
 			out.dz = in.gsfTrack()->dz(vtx.position());
+			out.gsfNHits = in.gsfTrack()->hitPattern().numberOfAllHits(reco::HitPattern::TRACK_HITS);
 		}
 
 		// ECAL region: bits are set according to reco::GsfElectron::FiducialFlags
@@ -146,11 +147,34 @@ public:
 		out.dEtaIn = in.deltaEtaSuperClusterTrackAtVtx();
 		out.dPhiIn = in.deltaPhiSuperClusterTrackAtVtx();
 		out.sigmaIetaIeta = in.sigmaIetaIeta();
+		out.sigmaIphiIphi = in.sigmaIphiIphi();   
 #if (CMSSW_MAJOR_VERSION == 7 && CMSSW_MINOR_VERSION >= 1) || CMSSW_MAJOR_VERSION >= 8
 		out.full5x5_sigmaIetaIeta = in.full5x5_sigmaIetaIeta();
+		out.full5x5_sigmaIphiIphi = in.full5x5_sigmaIphiIphi();   
 #endif
 		out.hadronicOverEm = in.hadronicOverEm();
+		// Adding Electron ID 17 MVA Input Variables
 		out.fbrem = in.fbrem();
+		out.r9 = in.full5x5_r9();
+		out.circularity = 1.-in.full5x5_e1x5()/in.full5x5_e5x5(); 
+		out.hoe = in.full5x5_hcalOverEcal();
+		//out.kfhits = in.reco::electronMVAVariableHelper:kfhits();
+		out.kfhits = in.closestCtfTrackRef().isAvailable() ? in.closestCtfTrackRef()->hitPattern().trackerLayersWithMeasurement():-1.;
+		out.kfchi2 = in.closestCtfTrackRef().isAvailable() ? in.closestCtfTrackRef()->normalizedChi2():0;
+		//out.kfchi2 = in.reco::electronMVAVariableHelper:kfchi2();
+		out.gsfchi2 = in.gsfTrack()->normalizedChi2();
+		out.gsfhits = in.gsfTrack()->hitPattern().trackerLayersWithMeasurement();                                
+		out.expectedMissingInnerHits = in.gsfTrack()->hitPattern().numberOfLostHits(reco::HitPattern::MISSING_INNER_HITS);
+		// reco::ConversionRef convRef = ConversionTools::matchedConversion(in, conversions, beamSpot->position());
+		// out.convVtxFitProbability = TMath::Prob( in.conversionVertex().chi2(),  in.conversionVertex().ndof();  
+		out.eop = in.eSuperClusterOverP();
+		out.eleeopout = in.eEleClusterOverPout();
+		out.oneOverEminusOneOverP = 1.0/in.ecalEnergy()-1.0/in.trackMomentumAtVtx().R();  
+		out.deta = std::abs(in.deltaEtaSuperClusterTrackAtVtx());                    
+		out.dphi = std::abs(in.deltaPhiSuperClusterTrackAtVtx());
+		out.detacalo= std::abs(in.deltaEtaSeedClusterTrackAtCalo());
+		out.preShowerOverRaw = in.superCluster()->preshowerEnergy()/in.superCluster()->rawEnergy();
+
 		if(in.superCluster().isNonnull())
 		{
 			out.eSuperClusterOverP = in.eSuperClusterOverP();
