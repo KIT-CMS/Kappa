@@ -15,8 +15,8 @@ git cms-init
 ### Add-packages ###
 
 # Get DeepFlavour b-tagger ---> optional
-git cms-addpkg RecoBTag/TensorFlow
-git cherry-pick 94ceae257f846998c357fcad408986cc8a039152
+#git cms-addpkg RecoBTag/TensorFlow
+#git cherry-pick 94ceae257f846998c357fcad408986cc8a039152
 
 # Get working version of HTXSRivetProducer ---> mainly relevant for SM HTT
 git cms-addpkg GeneratorInterface/RivetInterface
@@ -36,16 +36,17 @@ git cms-merge-topic cms-egamma:EgammaPostRecoTools_940
 # Get recipes to re-correct MET (also for ECAL noise)
 git cms-merge-topic cms-met:METFixEE2017_949_v2
 
-# Get DPF based Tau ID (and Tau ID Embedder) ---> DPF is optional
+# Get DPF based Tau ID (and Tau ID Embedder) ---> DPF is optional; remove databases for the time-being
 git cms-merge-topic ocolegro:dpfisolation # consists updated version of runTauIdMVA.py (RecoTauTag/RecoTau/python/runTauIdMVA.py). Originally, this .py file comes from https://raw.githubusercontent.com/greyxray/TauAnalysisTools/CMSSW_9_4_X_tau-pog_RunIIFall17/TauAnalysisTools/python/runTauIdMVA.py
+rm RecoTauTag/RecoTau/data/*.pb
 
 # Get latest anti-e discriminator MVA6v2 (2017 training) ---> optional
-git cms-merge-topic cms-tau-pog:CMSSW_9_4_X_tau-pog_updateAntiEDisc
+#git cms-merge-topic cms-tau-pog:CMSSW_9_4_X_tau-pog_updateAntiEDisc
 
 ### Analysis group related software (ntuplizer, skimming, private MiniAOD, etc.) ###
 
 # KIT related packages
-git clone https://github.com/KIT-CMS/Kappa.git -b dictchanges
+git clone https://github.com/KIT-CMS/Kappa.git -b skim_for_sm
 git clone https://github.com/janekbechtel/grid-control.git
 
 scram b -j 23
