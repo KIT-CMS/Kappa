@@ -127,7 +127,7 @@ def getBaseConfig(
             if isSignal:
 		process.kappaTuple.Info.lheSource = cms.InputTag("source")
 	if tools.is_above_cmssw_version([8]) and (not data or isEmbedded):
-		process.kappaTuple.Info.htxsInfo = cms.untracked.InputTag("rivetProducerHTXS", "HiggsClassification")
+		process.kappaTuple.Info.htxsInfo = cms.InputTag("rivetProducerHTXS", "HiggsClassification")
 		process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 		process.mergedGenParticles = cms.EDProducer("MergedGenParticleProducer",
 			inputPruned = cms.InputTag("prunedGenParticles"),
