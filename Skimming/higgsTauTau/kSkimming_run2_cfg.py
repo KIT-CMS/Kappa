@@ -338,7 +338,7 @@ def getBaseConfig(
 	process.kappaTuple.Electrons.electrons.src = cms.InputTag("slimmedElectrons")
 	process.kappaTuple.Electrons.electrons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
 	process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag(jetCollection, "rho")
-	process.kappaTuple.Electrons.electrons.allConversions = cms.InputTag("reducedEgamma", "reducedConversions")
+	process.kappaTuple.Electrons.electrons.allConversions = cms.InputTag("reducedEgamma","reducedConversions")
 
         if tools.is_above_cmssw_version([9,4]):
                 process.kappaTuple.Electrons.srcIds = cms.string("pat")
@@ -356,6 +356,11 @@ def getBaseConfig(
 			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-loose"),
 			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-medium"),
 			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-tight"),
+
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-loose"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-medium"),
+			cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight"),
 
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp90"),
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V1-wp80"),
@@ -394,6 +399,7 @@ def getBaseConfig(
 			cms.InputTag("electronCorrection:energySigmaRhoUp"),
 			cms.InputTag("electronCorrection:energySigmaRhoDown"),
 
+			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"),
 			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
 			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values"),
 			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values"),

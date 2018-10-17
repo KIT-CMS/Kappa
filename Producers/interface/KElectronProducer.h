@@ -174,6 +174,17 @@ public:
 		out.dphi = std::abs(in.deltaPhiSuperClusterTrackAtVtx());
 		out.detacalo= std::abs(in.deltaEtaSeedClusterTrackAtCalo());
 		out.preShowerOverRaw = in.superCluster()->preshowerEnergy()/in.superCluster()->rawEnergy();
+		reco::ConversionRef convRef = ConversionTools::matchedConversion(in,
+                                    hConversions,
+                                    BeamSpot.product()->position());
+		float convVtxFitProbability = -1.;
+		if(!convRef.isNull()) {
+			const reco::Vertex &vtx = convRef.get()->conversionVertex();
+			if (vtx.isValid()) {
+			convVtxFitProbability = (float)TMath::Prob( vtx.chi2(), vtx.ndof());
+			}
+		}
+		out.convVtxFitProbability = convVtxFitProbability;
 
 		if(in.superCluster().isNonnull())
 		{
