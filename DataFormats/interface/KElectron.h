@@ -61,7 +61,6 @@ struct KElectron : public KLepton
 	float gsfchi2;
 	float gsfhits;                                
 	float expectedMissingInnerHits;
-	float convVtxFitProbability;  
 	float eop;
 	float eleeopout;
 	float oneOverEminusOneOverP;  
@@ -69,6 +68,7 @@ struct KElectron : public KLepton
 	float dphi;
 	float detacalo;
 	float preShowerOverRaw;
+	float convVtxFitProbability;
 	//d0 dz vertexfitprob + missing hits
 	float eSuperClusterOverP;
 	float superclusterEnergy;      
