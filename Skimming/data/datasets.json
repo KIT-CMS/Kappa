@@ -21514,6 +21514,7 @@
     "extension": "", 
     "format": "MINIAOD", 
     "generator": "amcatnlo-pythia8", 
+    "generatorWeight": 0.5854973142645428, 
     "generator_xsec": 13.97, 
     "globalTag": "94X_mc2017_realistic_v15", 
     "inputDBS": "global", 
