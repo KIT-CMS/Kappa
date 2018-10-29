@@ -509,7 +509,19 @@ def getBaseConfig(
 		process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETs", "", "KAPPA"))
 
 	#process.kappaTuple.PatMET.pfmetT1 = cms.PSet(src=cms.InputTag("patpfMETT1"))
+
+	from RecoMET.METPUSubtraction.MVAMETConfiguration_cff import runMVAMET
+	runMVAMET( process, jetCollectionPF = jetCollection)
+	
 	process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"))
+	process.kappaTuple.PatMET.trackMet = cms.PSet(src=cms.InputTag("patpfTrackMET"))
+	process.kappaTuple.PatMET.noPuMet = cms.PSet(src=cms.InputTag("patpfNoPUMET"))
+	process.kappaTuple.PatMET.puCorMet = cms.PSet(src=cms.InputTag("patpfPUCorrectedMET"))
+	process.kappaTuple.PatMET.puMet = cms.PSet(src=cms.InputTag("patpfPUMET"))
+
+	process.p *= cms.Sequence(process.pfNeutrals*process.pfChargedPV*process.neutralInJets*process.pfChargedPU)
+	process.p *= cms.Sequence(process.pfTrackMETCands*process.pfTrackMET*process.patpfTrackMET*process.pfNoPUMETCands*process.pfNoPUMET*process.patpfNoPUMET*process.pfPUCorrectedMETCands*process.pfPUCorrectedMET*process.patpfPUCorrectedMET*process.pfPUMETCands*process.pfPUMET*process.patpfPUMET)
+
 
 	if not tools.is_above_cmssw_version([9]):
 		## Write MVA MET to KMETs
