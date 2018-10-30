@@ -240,6 +240,7 @@ kappaTupleDefaultsBlock = cms.PSet(
 		whitelist = cms.vstring("slimmedMETs"),
 		blacklist = cms.vstring(),
 		uncorrected = cms.bool(False),
+                metsWithShifts = cms.vstring("met","metPuppi"),
 		rename = cms.vstring("slimmedMETs => met", "patPFMet => met"),
 		rename_whitelist= cms.vstring(),
 		rename_blacklist = cms.vstring(),
