@@ -1101,25 +1101,6 @@
     "version": "v2", 
     "xsec": 21658.0
   }, 
-  "DYJetsToLLM10to50_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_madgraph-pythia8_ext1-v1": {
-    "campaign": "RunIIFall17MiniAODv2", 
-    "data": false, 
-    "dbs": "/DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14_ext1-v1/MINIAODSIM", 
-    "energy": "13", 
-    "extension": "ext1", 
-    "format": "MINIAOD", 
-    "generator": "madgraph-pythia8", 
-    "generatorWeight": 0.999197769552697, 
-    "generator_xsec": 15810.0, 
-    "globalTag": "94X_mc2017_realistic_v15", 
-    "inputDBS": "global", 
-    "n_events_generated": "13622021", 
-    "n_files": "267", 
-    "process": "DYJetsToLL_M10to50", 
-    "scenario": "PU2017", 
-    "version": "v1", 
-    "xsec": 21658.0
-  }, 
   "DYJetsToLLM10to50_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_madgraph-pythia8_v1": {
     "campaign": "RunIIFall17MiniAODv2", 
     "data": false, 
