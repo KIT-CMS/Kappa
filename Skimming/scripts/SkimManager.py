@@ -11,6 +11,7 @@ import ast
 import gzip
 import shutil
 import re
+import hashlib
 from multiprocessing import Process, Queue
 
 from httplib import HTTPException
@@ -172,7 +173,7 @@ class SkimManagerBase:
 		return config
 
 	def individualized_crab_cfg(self, akt_nick, config):
-		config.General.requestName = akt_nick[:100]
+		config.General.requestName = self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest()
 		config.Data.inputDBS = self.skimdataset[akt_nick].get("inputDBS", 'global')
 		config.JobType.pyCfgParams = [str('nickname=%s'%(akt_nick)), str('outputfilename=kappa_%s.root'%(akt_nick)), 'mode=crab']
 		config.Data.unitsPerJob = self.files_per_job(akt_nick)
@@ -191,7 +192,7 @@ class SkimManagerBase:
 	def get_status_crab(self):
 		for akt_nick in self.skimdataset.nicks():
 			if self.skimdataset[akt_nick]["SKIM_STATUS"] not in ["LISTED", "COMPLETED", "INIT"] and self.skimdataset[akt_nick]["GCSKIM_STATUS"] not in ["LISTED", "COMPLETED"]:
-				crab_job_dir = os.path.join(self.workdir, self.skimdataset[akt_nick].get("crab_name", "crab_"+akt_nick[:100]))
+				crab_job_dir = os.path.join(self.workdir, self.skimdataset[akt_nick].get("crab_name", "crab_"+self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest()))
 				status_dict = {"proxy" : self.voms_proxy, "dir" : crab_job_dir}
 				self.skimdataset[akt_nick]['last_status'] = self.crab_cmd({"cmd": "status", "args" : status_dict})
 				if not self.skimdataset[akt_nick]['last_status']:
@@ -238,7 +239,7 @@ class SkimManagerBase:
 			for status in status_groups_to_perge:
 				for dataset_nick in self.skimdataset.nicks():
 					if self.skimdataset[dataset_nick]["SKIM_STATUS"] == status or self.skimdataset[dataset_nick]["GCSKIM_STATUS"] == status:
-						tasks_to_perge.append(self.skimdataset[dataset_nick].get("crab_name", "crab_"+dataset_nick[:100]))
+						tasks_to_perge.append(self.skimdataset[dataset_nick].get("crab_name", "crab_"+self.skimdataset[dataset_nick]['process']+"_"+hashlib.md5(dataset_nick).hexdigest()))
 		else:
 			print "You specified an unsuitable status for purging. Please specify from this list: ALL, COMPLETED, LISTED, KILLED, FAILED."
 		print len(tasks_to_perge), "crab task(s) to purge."
@@ -252,7 +253,7 @@ class SkimManagerBase:
 
 	def remake_task(self):
 		nicks_to_remake = [nick for nick in self.skimdataset.nicks() if self.skimdataset[nick]["SKIM_STATUS"] in ["SUBMITFAILED", "EXCEPTION"]]
-		all_subdirs = [os.path.join(self.workdir, self.skimdataset[akt_nick].get("crab_name", "crab_"+akt_nick[:100])) for akt_nick in nicks_to_remake]
+		all_subdirs = [os.path.join(self.workdir, self.skimdataset[akt_nick].get("crab_name", "crab_"+self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest())) for akt_nick in nicks_to_remake]
 		print len(all_subdirs), 'tasks that raised an exception will be remade. This will delete and recreate those folders in the workdir.'
 		print 'Do you want to continue? [Y/n]'
 		self.wait_for_user_confirmation()
@@ -288,7 +289,7 @@ class SkimManagerBase:
 			if self.skimdataset[dataset]["SKIM_STATUS"] not in ["COMPLETED", "LISTED"] and self.skimdataset[dataset]["GCSKIM_STATUS"] not in ["COMPLETED", "LISTED"]:
 				try:
 					if "failed" in self.skimdataset[dataset]["last_status"]["jobsPerStatus"]:
-						datasets_to_resubmit.append((dataset, self.skimdataset[dataset]["crab_name"]))
+						datasets_to_resubmit.append((dataset, self.skimdataset[dataset].get("crab_name", "crab_"+self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest())) )
 				except:
 					print "Failed to resubmit crab task", dataset, ". Possibly a problem with the skim_dataset.json. Try to recover the status of the task properly."
 					pass
@@ -301,7 +302,7 @@ class SkimManagerBase:
 							pass
                         blacklisted_sites = self.skimdataset[dataset].get("blacklisted_crab_sites",[]) + blacklisted_sites_from_dict
                         self.skimdataset[dataset]["blacklisted_crab_sites"] = list(set(blacklisted_sites))
-                        argument_dict["siteblacklist"] = ",".join(self.skimdataset[dataset].get("blacklisted_crab_sites"))
+                        argument_dict["siteblacklist"] = ",".join(self.skimdataset[dataset].get("blacklisted_crab_sites", ["T3_FR_IPNL", "T3_US_UCR", "T2_BR_SPRACE", "T1_RU_*", "T2_RU_*", "T3_US_UMiss", "T2_EE_Estonia", "T2_TW_*", "T3_TW_*", "T2_PK_*"]))
                         print argument_dict["siteblacklist"]
 			process_queue = Queue()
 			print "Resubmission for", dataset
@@ -355,7 +356,7 @@ class SkimManagerBase:
 		out_file.write('while [ -f ".lock" ]\n')
 		out_file.write('do\n')
 		for dataset in datasets_to_submit:
-			out_file.write('go.py '+os.path.join(self.workdir, 'gc_cfg', dataset[:100]+'.conf -G\n'))
+			out_file.write('go.py '+os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf -G\n'))
 		out_file.write('echo "rm .lock"\n')
 		out_file.write('sleep 2\n')
 		out_file.write('done\n')
@@ -374,9 +375,9 @@ class SkimManagerBase:
 			print "Create a new config for", akt_nick
 			gc_config = self.gc_default_cfg(backend=backend)
 			self.individualized_gc_cfg(akt_nick, gc_config)
-			out_file_name = os.path.join(self.workdir, 'gc_cfg', akt_nick[:100]+'.conf')
+			out_file_name = os.path.join(self.workdir, 'gc_cfg', self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest()+'.conf')
 			out_file = open(out_file_name, 'w')
-			gc_workdir = os.path.join(self.workdir, akt_nick[:100])
+			gc_workdir = os.path.join(self.workdir, self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest())
 			if os.path.exists(gc_workdir):
 				print "GC workdir for", akt_nick, "exists. Do you whish to remove? To be removed:"
 				print gc_workdir
@@ -396,15 +397,11 @@ class SkimManagerBase:
 		cfg_dict = {}
 		cfg_dict['global'] = {}
 		cfg_dict['global']['task']  = 'CMSSW'
-		if backend=='freiburg':
+		if backend=='freiburg' or backend=='naf':
 			cfg_dict['global']['backend']  = 'condor'
-		elif backend=='naf':
-			cfg_dict['global']['backend']  = 'local'
 		else:
 			print "Backend not supported. Please choose 'freiburg' or 'naf'."
 			exit()
-		#cfg_dict['global']['backend']  = 'local'
-		#cfg_dict['global']['backend']  = 'cream'
 		cfg_dict['global']["workdir create"] = 'True '
 
 		cfg_dict['jobs'] = {}
@@ -431,10 +428,10 @@ class SkimManagerBase:
 		cfg_dict['storage']['se output files'] = 'kappaTuple.root'
 		cfg_dict['storage']['se output pattern'] = "/@NICK@/@FOLDER@/kappa_@NICK@_@GC_JOB_ID@.@XEXT@"
 
+		cfg_dict['condor'] = {}
+		cfg_dict['condor']['proxy'] = "VomsProxy"
 		if backend=="freiburg":
-			cfg_dict['condor'] = {}
 			cfg_dict['condor']['JDLData'] = 'Requirements=(Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs'
-			cfg_dict['condor']['proxy'] = "VomsProxy"
 
 		cfg_dict['local'] = {}
 		cfg_dict['local']['queue randomize'] = 'True'
@@ -467,7 +464,7 @@ class SkimManagerBase:
 		#gc_config['storage']['se output pattern'] = "FULLEMBEDDING_CMSSW_8_0_21/@NICK@/@FOLDER@/@XBASE@_@GC_JOB_ID@.@XEXT@"
 		gc_config['CMSSW']['dataset'] = akt_nick+" : "+self.skimdataset[akt_nick]['dbs']
 		gc_config['CMSSW']['files per job'] = str(self.files_per_job(akt_nick))
-		gc_config['global']["workdir"] = os.path.join(self.workdir, akt_nick[:100])
+		gc_config['global']["workdir"] = os.path.join(self.workdir, self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest())
 
 		gc_config['dataset'] = {}
 		gc_config['dataset']['dbs instance'] = self.skimdataset[akt_nick].get("inputDBS", 'global')
@@ -484,7 +481,7 @@ class SkimManagerBase:
 	def status_gc(self):
 		for dataset in self.skimdataset.nicks():
 			if self.skimdataset[dataset]["GCSKIM_STATUS"] in ["SUBMITTED", "INIT"]:
-				gc_workdir = os.path.join(self.workdir, dataset[:100])
+				gc_workdir = os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest())
 				if os.path.exists(gc_workdir):
 					if self.skimdataset[dataset]["GCSKIM_STATUS"] == "INIT":
 						print "GC task status set to SUBMITTED for:"
@@ -566,8 +563,8 @@ class SkimManagerBase:
 				self.skimdataset[dataset]["storageSite"] = self.storage_for_output
 			# File list for GC first
 			if self.skimdataset[dataset]["GCSKIM_STATUS"] == "COMPLETED":
-				gc_output_dir = os.path.join(self.workdir, dataset[:100], "output")
-				n_jobs_info = os.path.join(self.workdir, dataset[:100], "params.map.gz")
+				gc_output_dir = os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "output")
+				n_jobs_info = os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "params.map.gz")
 				if os.path.exists(n_jobs_info):
 					print "Getting GC file list for", dataset
 					print skim_path+'/'+dataset+'.txt'
@@ -598,7 +595,7 @@ class SkimManagerBase:
 				crab_numer_folder_regex = re.compile('|'.join(crab_number_folders))
 
 				try:
-					crab_dataset_filelist = subprocess.check_output("crab getoutput --xrootd --jobids 1-{MAXID} --dir {DATASET_TASK} --proxy $X509_USER_PROXY".format(DATASET_TASK=os.path.join(self.workdir, self.skimdataset[dataset].get("crab_name", "crab_"+dataset[:100])), MAXID=min(number_jobs, 5)), shell=True).strip('\n').split('\n')
+					crab_dataset_filelist = subprocess.check_output("crab getoutput --xrootd --jobids 1-{MAXID} --dir {DATASET_TASK} --proxy $X509_USER_PROXY".format(DATASET_TASK=os.path.join(self.workdir, self.skimdataset[dataset].get("crab_name", "crab_"+self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest())), MAXID=min(number_jobs, 5)), shell=True).strip('\n').split('\n')
 					sample_file_path = crab_dataset_filelist[0]
 					job_id_match = re.findall(r'_\d+.root', sample_file_path)[0]
 					sample_file_path =  sample_file_path.replace(job_id_match, "_{JOBID}.root")
