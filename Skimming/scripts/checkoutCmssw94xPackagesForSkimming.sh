@@ -48,4 +48,5 @@ git cms-merge-topic cms-tau-pog:CMSSW_9_4_X_tau-pog_updateAntiEDisc
 git clone https://github.com/KIT-CMS/Kappa.git -b dictchanges
 git clone https://github.com/janekbechtel/grid-control.git
 
-scram b -j 23
+CORES=`grep -c ^processor /proc/cpuinfo`
+scram b -j $CORES
