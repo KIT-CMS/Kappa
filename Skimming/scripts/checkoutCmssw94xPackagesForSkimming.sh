@@ -45,8 +45,8 @@ git cms-merge-topic cms-tau-pog:CMSSW_9_4_X_tau-pog_updateAntiEDisc
 ### Analysis group related software (ntuplizer, skimming, private MiniAOD, etc.) ###
 
 # KIT related packages
-git clone https://github.com/KIT-CMS/Kappa.git -b dictchanges
-git clone https://github.com/janekbechtel/grid-control.git
+git clone git@github.com:KIT-CMS/Kappa.git -b dictchanges
+git clone git@github.com:janekbechtel/grid-control.git
 
 CORES=`grep -c ^processor /proc/cpuinfo`
 scram b -j $CORES
