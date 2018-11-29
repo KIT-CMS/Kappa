@@ -40,7 +40,7 @@ options.register('preselect', False, VarParsing.multiplicity.singleton, VarParsi
 options.register('dumpPython', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'write cmsRun config to dumpPython.py')
 options.parseArguments()
 
-def getBaseConfig( 
+def getBaseConfig(
 	nickname,
 	testfile=False, # false if not given, string otherwise
 	maxevents=-1,
@@ -99,7 +99,7 @@ def getBaseConfig(
         # process.source.eventsToProcess  = cms.untracked.VEventRange("299368:56418140-299368:56418140")
 	process.kappaTuple.profile    = cms.bool(True)
 
-	
+
 	globaltag = datasetsHelper.getGlobalTag(nickname)
 	print "Global Tag:", globaltag
 	process.GlobalTag.globaltag = globaltag
@@ -163,7 +163,7 @@ def getBaseConfig(
 		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "MERGE")
 
 	# setup BadPFMuonFilter and BadChargedCandidateFilter
-	if tools.is_above_cmssw_version([8]) and not tools.is_above_cmssw_version([9]): 
+	if tools.is_above_cmssw_version([8]) and not tools.is_above_cmssw_version([9]):
 		process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
 		process.BadPFMuonFilter.muons = cms.InputTag("slimmedMuons")
 		process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
@@ -204,7 +204,7 @@ def getBaseConfig(
 	if not isEmbedded and "Spring16" in str(process.kappaTuple.TreeInfo.parameters.campaign):
 		# adds for each HLT Trigger wich contains "Tau" or "tau" in the name a Filter object named "l1extratauccolltection"
 		process.kappaTuple.TriggerObjectStandalone.l1extratauJetSource = cms.untracked.InputTag("l1extraParticles","IsoTau","RECO")
-	
+
 	if not tools.is_above_cmssw_version([9]):
 		process.kappaTuple.TriggerObjectStandalone.triggerObjects = cms.PSet( src = cms.InputTag("selectedPatTrigger"))
 		process.kappaTuple.TriggerObjectStandalone.bits = cms.InputTag("TriggerResults", "", "HLT")
@@ -222,7 +222,7 @@ def getBaseConfig(
 		process.kappaTuple.active+= cms.vstring('GenTaus')           # save GenParticles,
 		process.kappaTuple.GenParticles.genParticles.src = cms.InputTag("prunedGenParticles")
 		process.kappaTuple.GenTaus.genTaus.src = cms.InputTag("prunedGenParticles")
-		
+
 
 	# write out for all processes where available
 	process.kappaTuple.Info.lheWeightNames = cms.vstring(".*")
@@ -436,7 +436,7 @@ def getBaseConfig(
         na.runTauID(taus)
         process.p *= ( process.rerunMvaIsolationSequence)
         process.p *= getattr(process, taus)
-	
+
 	process.kappaTuple.active += cms.vstring('PatTaus')
 	process.kappaTuple.PatTaus.taus.binaryDiscrBlacklist = cms.vstring()
 	process.kappaTuple.PatTaus.taus.src = cms.InputTag(taus)
@@ -523,7 +523,7 @@ def getBaseConfig(
 
 	process.kappaTuple.PatTaus.taus.floatDiscrWhitelist = process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist
 	process.kappaTuple.PatTaus.verbose = cms.int32(1)
-	
+
 	## ------------------------------------------------------------------------
 
 	## Configure Jets
