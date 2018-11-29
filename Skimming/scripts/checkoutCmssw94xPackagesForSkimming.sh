@@ -33,9 +33,6 @@ git cms-merge-topic guitargeek:EgammaID_949
 # Get code for electron scale & smear corrections
 git cms-merge-topic cms-egamma:EgammaPostRecoTools_940
 
-# Get recipes to re-correct MET (also for ECAL noise)
-git cms-merge-topic cms-met:METFixEE2017_949_v2
-
 # Get DPF based Tau ID (and Tau ID Embedder) ---> DPF is optional
 git cms-merge-topic ocolegro:dpfisolation # consists updated version of runTauIdMVA.py (RecoTauTag/RecoTau/python/runTauIdMVA.py). Originally, this .py file comes from https://raw.githubusercontent.com/greyxray/TauAnalysisTools/CMSSW_9_4_X_tau-pog_RunIIFall17/TauAnalysisTools/python/runTauIdMVA.py
 
