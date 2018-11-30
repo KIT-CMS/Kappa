@@ -18,13 +18,6 @@ git cms-init
 git cms-addpkg RecoBTag/TensorFlow
 git cherry-pick 94ceae257f846998c357fcad408986cc8a039152
 
-# Get working version of HTXSRivetProducer ---> mainly relevant for SM HTT
-git cms-addpkg GeneratorInterface/RivetInterface
-cd GeneratorInterface/RivetInterface/plugins
-rm HTXSRivetProducer.cc
-wget https://raw.githubusercontent.com/perrozzi/cmssw/HTXS_clean/GeneratorInterface/RivetInterface/plugins/HTXSRivetProducer.cc
-cd -
-
 ### Merge-topics ###
 
 # Get code for electron V2 ID's (trained on 94X MC's)
