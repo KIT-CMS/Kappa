@@ -38,6 +38,9 @@ options.register('outputfilename', 'kappaTuple.root', VarParsing.multiplicity.si
 options.register('mode', 'testsuite', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Mode to run. Options: ["testuite" (Default), "local", "crab"]. Grid-Control is automatically determined.')
 options.register('preselect', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'apply preselection at CMSSW level on leptons. Never preselect on SM Higgs samples')
 options.register('dumpPython', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'write cmsRun config to dumpPython.py')
+options.register('inspectprocess', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'print the content of proces')
+options.register('verbose', 0, VarParsing.multiplicity.singleton, VarParsing.varType.int, 'varbosity of kappaTuple. Default: 0')
+options.register('reportEvery', -1, VarParsing.multiplicity.singleton, VarParsing.varType.int, 'MessageLogger report rate. Default: -1')
 options.parseArguments()
 
 def getBaseConfig(
@@ -48,6 +51,9 @@ def getBaseConfig(
 
 	from Kappa.Skimming.KSkimming_template_cfg import process
 	## ------------------------------------------------------------------------
+
+	if options.reportEvery >= 0 :
+		process.MessageLogger.cerr.FwkReport.reportEvery = options.reportEvery
 
 	# count number of events before doing anything else
 	process.p *= process.nEventsTotal
@@ -93,7 +99,7 @@ def getBaseConfig(
 	else:
 		process.source 			  = cms.Source('PoolSource', fileNames=cms.untracked.vstring())
 	process.maxEvents.input	      = maxevents
-	process.kappaTuple.verbose    = cms.int32(0)
+	process.kappaTuple.verbose    = cms.int32(options.verbose)
 	# uncomment the following option to select only running on certain luminosity blocks. Use only for debugging
 	# process.source.lumisToProcess  = cms.untracked.VLuminosityBlockRange("1:500-1:1000")
         # process.source.eventsToProcess  = cms.untracked.VEventRange("299368:56418140-299368:56418140")
@@ -420,7 +426,6 @@ def getBaseConfig(
                 process.p *= (process.makeKappaElectrons)
 
 	## ------------------------------------------------------------------------
-
 	# new tau id only available for 8_0_20 (I believe) and above
         from RecoTauTag.RecoTau.runTauIdMVA import TauIDEmbedder
 	if tools.is_above_cmssw_version([9,4,2]):
@@ -650,6 +655,11 @@ def getBaseConfig(
 		f = open("dumpPython.py", "w")
 		f.write(process.dumpPython())
 		f.close()
+
+	if options.inspectprocess:
+		import pprint
+		pp = pprint.PrettyPrinter(indent=4)
+		pp.pprint(process.__dict__)
 
 	# add python config to TreeInfo
 	process.kappaTuple.TreeInfo.parameters.config = cms.string(process.dumpPython())
