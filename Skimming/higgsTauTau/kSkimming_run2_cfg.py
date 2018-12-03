@@ -38,9 +38,12 @@ options.register('outputfilename', 'kappaTuple.root', VarParsing.multiplicity.si
 options.register('mode', 'testsuite', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Mode to run. Options: ["testuite" (Default), "local", "crab"]. Grid-Control is automatically determined.')
 options.register('preselect', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'apply preselection at CMSSW level on leptons. Never preselect on SM Higgs samples')
 options.register('dumpPython', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'write cmsRun config to dumpPython.py')
+options.register('inspectprocess', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'print the content of proces')
+options.register('verbose', 0, VarParsing.multiplicity.singleton, VarParsing.varType.int, 'varbosity of kappaTuple. Default: 0')
+options.register('reportEvery', -1, VarParsing.multiplicity.singleton, VarParsing.varType.int, 'MessageLogger report rate. Default: -1')
 options.parseArguments()
 
-def getBaseConfig( 
+def getBaseConfig(
 	nickname,
 	testfile=False, # false if not given, string otherwise
 	maxevents=-1,
@@ -48,6 +51,9 @@ def getBaseConfig(
 
 	from Kappa.Skimming.KSkimming_template_cfg import process
 	## ------------------------------------------------------------------------
+
+	if options.reportEvery >= 0 :
+		process.MessageLogger.cerr.FwkReport.reportEvery = options.reportEvery
 
 	# count number of events before doing anything else
 	process.p *= process.nEventsTotal
@@ -93,13 +99,13 @@ def getBaseConfig(
 	else:
 		process.source 			  = cms.Source('PoolSource', fileNames=cms.untracked.vstring())
 	process.maxEvents.input	      = maxevents
-	process.kappaTuple.verbose    = cms.int32(0)
+	process.kappaTuple.verbose    = cms.int32(options.verbose)
 	# uncomment the following option to select only running on certain luminosity blocks. Use only for debugging
 	# process.source.lumisToProcess  = cms.untracked.VLuminosityBlockRange("1:500-1:1000")
         # process.source.eventsToProcess  = cms.untracked.VEventRange("299368:56418140-299368:56418140")
 	process.kappaTuple.profile    = cms.bool(True)
 
-	
+
 	globaltag = datasetsHelper.getGlobalTag(nickname)
 	print "Global Tag:", globaltag
 	process.GlobalTag.globaltag = globaltag
@@ -163,7 +169,7 @@ def getBaseConfig(
 		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "MERGE")
 
 	# setup BadPFMuonFilter and BadChargedCandidateFilter
-	if tools.is_above_cmssw_version([8]) and not tools.is_above_cmssw_version([9]): 
+	if tools.is_above_cmssw_version([8]) and not tools.is_above_cmssw_version([9]):
 		process.load('RecoMET.METFilters.BadPFMuonFilter_cfi')
 		process.BadPFMuonFilter.muons = cms.InputTag("slimmedMuons")
 		process.BadPFMuonFilter.PFCandidates = cms.InputTag("packedPFCandidates")
@@ -204,7 +210,7 @@ def getBaseConfig(
 	if not isEmbedded and "Spring16" in str(process.kappaTuple.TreeInfo.parameters.campaign):
 		# adds for each HLT Trigger wich contains "Tau" or "tau" in the name a Filter object named "l1extratauccolltection"
 		process.kappaTuple.TriggerObjectStandalone.l1extratauJetSource = cms.untracked.InputTag("l1extraParticles","IsoTau","RECO")
-	
+
 	if not tools.is_above_cmssw_version([9]):
 		process.kappaTuple.TriggerObjectStandalone.triggerObjects = cms.PSet( src = cms.InputTag("selectedPatTrigger"))
 		process.kappaTuple.TriggerObjectStandalone.bits = cms.InputTag("TriggerResults", "", "HLT")
@@ -222,7 +228,7 @@ def getBaseConfig(
 		process.kappaTuple.active+= cms.vstring('GenTaus')           # save GenParticles,
 		process.kappaTuple.GenParticles.genParticles.src = cms.InputTag("prunedGenParticles")
 		process.kappaTuple.GenTaus.genTaus.src = cms.InputTag("prunedGenParticles")
-		
+
 
 	# write out for all processes where available
 	process.kappaTuple.Info.lheWeightNames = cms.vstring(".*")
@@ -420,7 +426,6 @@ def getBaseConfig(
                 process.p *= (process.makeKappaElectrons)
 
 	## ------------------------------------------------------------------------
-
 	# new tau id only available for 8_0_20 (I believe) and above
         from RecoTauTag.RecoTau.runTauIdMVA import TauIDEmbedder
 	if tools.is_above_cmssw_version([9,4,2]):
@@ -437,7 +442,7 @@ def getBaseConfig(
         na.runTauID(taus)
         process.p *= ( process.rerunMvaIsolationSequence)
         process.p *= getattr(process, taus)
-	
+
 	process.kappaTuple.active += cms.vstring('PatTaus')
 	process.kappaTuple.PatTaus.taus.binaryDiscrBlacklist = cms.vstring()
 	process.kappaTuple.PatTaus.taus.src = cms.InputTag(taus)
@@ -524,7 +529,7 @@ def getBaseConfig(
 
 	process.kappaTuple.PatTaus.taus.floatDiscrWhitelist = process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist
 	process.kappaTuple.PatTaus.verbose = cms.int32(1)
-	
+
 	## ------------------------------------------------------------------------
 
 	## Configure Jets
@@ -550,7 +555,7 @@ def getBaseConfig(
 			process,
 			isData=data,
 			fixEE2017 = True,
-			fixEE2017Params = {'userawPt': True, 'PtThreshold':50.0, 'MinEtaThreshold':2.65, 'MaxEtaThreshold': 3.139},
+			fixEE2017Params = {'userawPt': True, 'ptThreshold':50.0, 'minEtaThreshold':2.65, 'maxEtaThreshold': 3.139},
 			postfix = "ModifiedMET"
 		)
 		process.p *= process.fullPatMetSequenceModifiedMET
@@ -660,6 +665,11 @@ def getBaseConfig(
 		f = open("dumpPython.py", "w")
 		f.write(process.dumpPython())
 		f.close()
+
+	if options.inspectprocess:
+		import pprint
+		pp = pprint.PrettyPrinter(indent=4)
+		pp.pprint(process.__dict__)
 
 	# add python config to TreeInfo
 	process.kappaTuple.TreeInfo.parameters.config = cms.string(process.dumpPython())
