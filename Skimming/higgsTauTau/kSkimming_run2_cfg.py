@@ -274,11 +274,11 @@ def getBaseConfig(
                        jetSource = cms.InputTag('slimmedJets'),
                        labelName = 'UpdatedJEC',
                        jetCorrections = ('AK4PFchs', cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual']), 'None'),
-                       btagDiscriminators = [
-                            "pfDeepFlavourJetTags:probb",
-                            "pfDeepFlavourJetTags:probbb",
-                            "pfDeepFlavourJetTags:problepb",
-                       ],
+                       #btagDiscriminators = [
+                       #     "pfDeepFlavourJetTags:probb",
+                       #     "pfDeepFlavourJetTags:probbb",
+                       #     "pfDeepFlavourJetTags:problepb",
+                       #],
                 )
 		jetCollection = "updatedPatJetsUpdatedJEC"
 	elif tools.is_above_cmssw_version([8]):
@@ -431,7 +431,8 @@ def getBaseConfig(
 	if tools.is_above_cmssw_version([9,4,2]):
                 na = TauIDEmbedder(process, cms,
                     debug=True,
-                    toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
+                    #toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
+                    toKeep = ["2017v2"]
                 )
 	elif tools.is_above_cmssw_version([8,0,20]):
                 na = TauIDEmbedder(process, cms,
@@ -495,9 +496,9 @@ def getBaseConfig(
                         "byTightIsolationMVArun2017v2DBoldDMwLT2017",
                         "byVTightIsolationMVArun2017v2DBoldDMwLT2017",
                         "byVVTightIsolationMVArun2017v2DBoldDMwLT2017",
-                        "deepTau2017v1tauVSall", # deep Tau based on same inputs as MVAIso (BDT-based)
-                        "DPFTau_2016_v0tauVSall", # Deep PF Tau based also on low-level inputs (v0)
-                        "DPFTau_2016_v1tauVSall", # Deep PF Tau based also on low-level inputs (v1)
+                        #"deepTau2017v1tauVSall", # deep Tau based on same inputs as MVAIso (BDT-based)
+                        #"DPFTau_2016_v0tauVSall", # Deep PF Tau based also on low-level inputs (v0)
+                        #"DPFTau_2016_v1tauVSall", # Deep PF Tau based also on low-level inputs (v1)
 			)
 	elif tools.is_above_cmssw_version([8,0,20]):
 		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
@@ -580,8 +581,17 @@ def getBaseConfig(
 #                #process.p *= process.egmPhotonIDSequence*process.puppiMETSequence*process.fullPatMetSequencePuppi
 #                process.p *= process.fullPatMetSequencePuppi
 
-	#process.kappaTuple.PatMET.pfmetT1 = cms.PSet(src=cms.InputTag("patpfMETT1"))
+	from Kappa.Producers.prepareMETDefinitions_cff import prepareMETs
+	prepareMETs(process,jetCollection)
+
 	process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"))
+	process.kappaTuple.PatMET.trackMet = cms.PSet(src=cms.InputTag("patpfTrackMET"))
+	process.kappaTuple.PatMET.noPuMet = cms.PSet(src=cms.InputTag("patpfNoPUMET"))
+	process.kappaTuple.PatMET.puCorMet = cms.PSet(src=cms.InputTag("patpfPUCorrectedMET"))
+	process.kappaTuple.PatMET.puMet = cms.PSet(src=cms.InputTag("patpfPUMET"))
+
+	process.p *= cms.Sequence(process.pfNeutrals*process.pfChargedPV*process.neutralInJets*process.pfChargedPU)
+	process.p *= cms.Sequence(process.pfTrackMETCands*process.pfTrackMET*process.patpfTrackMET*process.pfNoPUMETCands*process.pfNoPUMET*process.patpfNoPUMET*process.pfPUCorrectedMETCands*process.pfPUCorrectedMET*process.patpfPUCorrectedMET*process.pfPUMETCands*process.pfPUMET*process.patpfPUMET)
 
 	if not tools.is_above_cmssw_version([9]):
 		## Write MVA MET to KMETs
