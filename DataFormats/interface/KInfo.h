@@ -41,7 +41,7 @@ struct KLumiInfo
 };
 
 // currently equivalent to KLumiInfo
-struct KGenLumiInfo : public KLumiInfo 
+struct KGenLumiInfo : public KLumiInfo
 {
         virtual ~KGenLumiInfo() {};
 };
