@@ -21,14 +21,16 @@ class KPatMETProducer : public KBaseMultiProducer<edm::View<pat::MET>, KMET>
 public:
 	KPatMETProducer(const edm::ParameterSet &cfg, TTree *_event_tree, TTree *_lumi_tree, TTree *_run_tree, edm::ConsumesCollector && consumescollector) :
 		KBaseMultiProducer<edm::View<pat::MET>, KMET>(cfg, _event_tree, _lumi_tree, _run_tree, getLabel(), std::forward<edm::ConsumesCollector>(consumescollector)),
-		uncorrected(cfg.getParameter<bool>("uncorrected")){
+		uncorrected(cfg.getParameter<bool>("uncorrected")),
+                metsWithShifts(cfg.getParameter<std::vector<std::string>>("metsWithShifts"))
+        {
 		genMet = new KMET;
 		_event_tree->Bronch("genmetTrue", "KMET", &genMet);
 	}
 
 	static const std::string getLabel() { return "PatMET"; }
 
-	static void fillMET(const pat::MET &in, KMET &out, bool uncor = false)
+	static void fillMET(const pat::MET &in, KMET &out, bool uncor = false, bool do_shifts = false)
 	{
 		// fill properties of basic MET
 		KMETProducer::fillMET<pat::MET>(in, out);
@@ -56,20 +58,23 @@ public:
 		}
 		#if (CMSSW_MAJOR_VERSION == 7 && CMSSW_MINOR_VERSION >= 6) || (CMSSW_MAJOR_VERSION > 7)
 			// retrieve and save shifted four vector and sumEt of MET for all uncertainties
-			for (const auto metUnc : KMETUncertainty::All)
-			{
-				// The following 'uncertainties' result in runtime errors.
-				// No idea for what purpose they exist in pat::MET::METUncertainty
-				if (metUnc == KMETUncertainty::NoShift ||
-					metUnc == KMETUncertainty::METUncertaintySize ||
-					metUnc == KMETUncertainty::JetResUpSmear ||
-					metUnc == KMETUncertainty::JetResDownSmear ||
-					metUnc == KMETUncertainty::METFullUncertaintySize)
-					continue;
-				// For now, only type-1 corrected MET (default) is saved.
-				copyP4(in.shiftedP4(static_cast<pat::MET::METUncertainty>(metUnc)),out.p4_shiftedByUncertainties[static_cast<KMETUncertainty::Type>(metUnc)]);
-				out.sumEt_shiftedByUncertainties[static_cast<KMETUncertainty::Type>(metUnc)] = in.shiftedSumEt(static_cast<pat::MET::METUncertainty>(metUnc));
-			}
+			if (do_shifts)
+                        {
+                                for (const auto metUnc : KMETUncertainty::All)
+                                {
+                                        // The following 'uncertainties' result in runtime errors.
+                                        // No idea for what purpose they exist in pat::MET::METUncertainty
+                                        if (metUnc == KMETUncertainty::NoShift ||
+                                                metUnc == KMETUncertainty::METUncertaintySize ||
+                                                metUnc == KMETUncertainty::JetResUpSmear ||
+                                                metUnc == KMETUncertainty::JetResDownSmear ||
+                                                metUnc == KMETUncertainty::METFullUncertaintySize)
+                                                continue;
+                                        // For now, only type-1 corrected MET (default) is saved.
+                                        copyP4(in.shiftedP4(static_cast<pat::MET::METUncertainty>(metUnc)),out.p4_shiftedByUncertainties[static_cast<KMETUncertainty::Type>(metUnc)]);
+                                        out.sumEt_shiftedByUncertainties[static_cast<KMETUncertainty::Type>(metUnc)] = in.shiftedSumEt(static_cast<pat::MET::METUncertainty>(metUnc));
+                                }
+                        }
 		#endif
 	}
 
@@ -84,8 +89,17 @@ protected:
 				std::cout << "KMETProducer::fillProduct: Found " << in.size() << " pat::MET objects!" << std::endl;
 			return;
 		}
+                bool shifts = false;
+                for (auto metname : metsWithShifts)
+                {
+                    if(metname == name)
+                    {
+                        shifts = true;
+                        break;
+                    }
+                }
 
-		fillMET(in.at(0), out, uncorrected);
+		fillMET(in.at(0), out, uncorrected, shifts);
 		// fill GenMET
 		if (in.at(0).genMET())
 		{
@@ -98,6 +112,7 @@ private:
 	TTree* _event_tree_pointer;
 	KMET* genMet;
 	bool uncorrected;
+        std::vector<std::string> metsWithShifts;
 };
 
 #endif

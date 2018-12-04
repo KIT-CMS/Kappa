@@ -38,6 +38,9 @@ options.register('outputfilename', 'kappaTuple.root', VarParsing.multiplicity.si
 options.register('mode', 'testsuite', VarParsing.multiplicity.singleton, VarParsing.varType.string, 'Mode to run. Options: ["testuite" (Default), "local", "crab"]. Grid-Control is automatically determined.')
 options.register('preselect', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'apply preselection at CMSSW level on leptons. Never preselect on SM Higgs samples')
 options.register('dumpPython', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'write cmsRun config to dumpPython.py')
+options.register('inspectprocess', False, VarParsing.multiplicity.singleton, VarParsing.varType.bool, 'print the content of proces')
+options.register('verbose', 0, VarParsing.multiplicity.singleton, VarParsing.varType.int, 'varbosity of kappaTuple. Default: 0')
+options.register('reportEvery', -1, VarParsing.multiplicity.singleton, VarParsing.varType.int, 'MessageLogger report rate. Default: -1')
 options.parseArguments()
 
 def getBaseConfig(
@@ -48,6 +51,9 @@ def getBaseConfig(
 
 	from Kappa.Skimming.KSkimming_template_cfg import process
 	## ------------------------------------------------------------------------
+
+	if options.reportEvery >= 0 :
+		process.MessageLogger.cerr.FwkReport.reportEvery = options.reportEvery
 
 	# count number of events before doing anything else
 	process.p *= process.nEventsTotal
@@ -93,7 +99,7 @@ def getBaseConfig(
 	else:
 		process.source 			  = cms.Source('PoolSource', fileNames=cms.untracked.vstring())
 	process.maxEvents.input	      = maxevents
-	process.kappaTuple.verbose    = cms.int32(0)
+	process.kappaTuple.verbose    = cms.int32(options.verbose)
 	# uncomment the following option to select only running on certain luminosity blocks. Use only for debugging
 	# process.source.lumisToProcess  = cms.untracked.VLuminosityBlockRange("1:500-1:1000")
         # process.source.eventsToProcess  = cms.untracked.VEventRange("299368:56418140-299368:56418140")
@@ -268,11 +274,11 @@ def getBaseConfig(
                        jetSource = cms.InputTag('slimmedJets'),
                        labelName = 'UpdatedJEC',
                        jetCorrections = ('AK4PFchs', cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual']), 'None'),
-                       btagDiscriminators = [
-                            "pfDeepFlavourJetTags:probb",
-                            "pfDeepFlavourJetTags:probbb",
-                            "pfDeepFlavourJetTags:problepb",
-                       ],
+                       #btagDiscriminators = [
+                       #     "pfDeepFlavourJetTags:probb",
+                       #     "pfDeepFlavourJetTags:probbb",
+                       #     "pfDeepFlavourJetTags:problepb",
+                       #],
                 )
 		jetCollection = "updatedPatJetsUpdatedJEC"
 	elif tools.is_above_cmssw_version([8]):
@@ -420,13 +426,13 @@ def getBaseConfig(
                 process.p *= (process.makeKappaElectrons)
 
 	## ------------------------------------------------------------------------
-
 	# new tau id only available for 8_0_20 (I believe) and above
         from RecoTauTag.RecoTau.runTauIdMVA import TauIDEmbedder
 	if tools.is_above_cmssw_version([9,4,2]):
                 na = TauIDEmbedder(process, cms,
                     debug=True,
-                    toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
+                    #toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
+                    toKeep = ["2017v2"]
                 )
 	elif tools.is_above_cmssw_version([8,0,20]):
                 na = TauIDEmbedder(process, cms,
@@ -490,9 +496,9 @@ def getBaseConfig(
                         "byTightIsolationMVArun2017v2DBoldDMwLT2017",
                         "byVTightIsolationMVArun2017v2DBoldDMwLT2017",
                         "byVVTightIsolationMVArun2017v2DBoldDMwLT2017",
-                        "deepTau2017v1tauVSall", # deep Tau based on same inputs as MVAIso (BDT-based)
-                        "DPFTau_2016_v0tauVSall", # Deep PF Tau based also on low-level inputs (v0)
-                        "DPFTau_2016_v1tauVSall", # Deep PF Tau based also on low-level inputs (v1)
+                        #"deepTau2017v1tauVSall", # deep Tau based on same inputs as MVAIso (BDT-based)
+                        #"DPFTau_2016_v0tauVSall", # Deep PF Tau based also on low-level inputs (v0)
+                        #"DPFTau_2016_v1tauVSall", # Deep PF Tau based also on low-level inputs (v1)
 			)
 	elif tools.is_above_cmssw_version([8,0,20]):
 		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
@@ -575,8 +581,17 @@ def getBaseConfig(
 #                #process.p *= process.egmPhotonIDSequence*process.puppiMETSequence*process.fullPatMetSequencePuppi
 #                process.p *= process.fullPatMetSequencePuppi
 
-	#process.kappaTuple.PatMET.pfmetT1 = cms.PSet(src=cms.InputTag("patpfMETT1"))
+	from Kappa.Producers.prepareMETDefinitions_cff import prepareMETs
+	prepareMETs(process,jetCollection)
+
 	process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"))
+	process.kappaTuple.PatMET.trackMet = cms.PSet(src=cms.InputTag("patpfTrackMET"))
+	process.kappaTuple.PatMET.noPuMet = cms.PSet(src=cms.InputTag("patpfNoPUMET"))
+	process.kappaTuple.PatMET.puCorMet = cms.PSet(src=cms.InputTag("patpfPUCorrectedMET"))
+	process.kappaTuple.PatMET.puMet = cms.PSet(src=cms.InputTag("patpfPUMET"))
+
+	process.p *= cms.Sequence(process.pfNeutrals*process.pfChargedPV*process.neutralInJets*process.pfChargedPU)
+	process.p *= cms.Sequence(process.pfTrackMETCands*process.pfTrackMET*process.patpfTrackMET*process.pfNoPUMETCands*process.pfNoPUMET*process.patpfNoPUMET*process.pfPUCorrectedMETCands*process.pfPUCorrectedMET*process.patpfPUCorrectedMET*process.pfPUMETCands*process.pfPUMET*process.patpfPUMET)
 
 	if not tools.is_above_cmssw_version([9]):
 		## Write MVA MET to KMETs
@@ -661,6 +676,11 @@ def getBaseConfig(
 		f = open("dumpPython.py", "w")
 		f.write(process.dumpPython())
 		f.close()
+
+	if options.inspectprocess:
+		import pprint
+		pp = pprint.PrettyPrinter(indent=4)
+		pp.pprint(process.__dict__)
 
 	# add python config to TreeInfo
 	process.kappaTuple.TreeInfo.parameters.config = cms.string(process.dumpPython())
