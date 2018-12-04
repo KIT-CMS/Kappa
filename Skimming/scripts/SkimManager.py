@@ -111,7 +111,7 @@ class SkimManagerBase:
 			return None
 		if tag_values_str:
 			tag_values = tag_values_str.strip('][').replace(' ', '').split(',')
-		
+
 		return(self.inputdataset.get_nick_list(tag_key=tag_key, tag_values=tag_values, query=query, nick_regex=nick_regex))
 
 
@@ -124,7 +124,7 @@ class SkimManagerBase:
 		if len(self.skimdataset.get_nicks_with_query(query={"SKIM_STATUS" : "INIT"})) == 0:
 			print "\nNo tasks will be submitted to the crab server. Set --init to add new tasks to submit.\n"
 		else:
-			print str(len(self.skimdataset.get_nicks_with_query(query={"SKIM_STATUS" : "INIT"})))+" tasks will be submitted to the crab server. Continue? [Y/n]"
+			print str(len(self.skimdataset.get_nicks_with_query(query={"SKIM_STATUS" : "INIT"})))+" tasks will be submitted to the crab server. Continue? [Y/n] ",
 			self.wait_for_user_confirmation()
 		nerror=0
 		for akt_nick in self.skimdataset.get_nicks_with_query(query={"SKIM_STATUS" : "INIT"}):
@@ -255,7 +255,7 @@ class SkimManagerBase:
 		nicks_to_remake = [nick for nick in self.skimdataset.nicks() if self.skimdataset[nick]["SKIM_STATUS"] in ["SUBMITFAILED", "EXCEPTION"]]
 		all_subdirs = [os.path.join(self.workdir, self.skimdataset[akt_nick].get("crab_name", "crab_"+self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest())) for akt_nick in nicks_to_remake]
 		print len(all_subdirs), 'tasks that raised an exception will be remade. This will delete and recreate those folders in the workdir.'
-		print 'Do you want to continue? [Y/n]'
+		print 'Do you want to continue? [Y/n] ',
 		self.wait_for_user_confirmation()
 
 		print '\033[94m'+'Getting crab tasks...'+'\033[0m'
@@ -342,7 +342,7 @@ class SkimManagerBase:
 				if line[:5]=='go.py':
 					print line.strip('go.py '+os.path.join(self.workdir, 'gc_cfg'))
 			out_file.close()
-			print 'Overwrite? [Y/n]'
+			print 'Overwrite? [Y/n] ',
 			if not self.wait_for_user_confirmation(true_false=True):
 				print '\nScript will not be overwritten. To run with existing configs: '
 				print os.path.join(self.workdir, 'while.sh')
@@ -589,7 +589,7 @@ class SkimManagerBase:
 				filelist_path = skim_path+'/'+dataset+'.txt'
 				filelist = open(filelist_path, 'w')
 				dataset_filelist = ""
-				
+
 				number_jobs = self.skimdataset[dataset].get("n_jobs", int(self.skimdataset[dataset].get("n_files", 0)) if force else 0)
 				crab_number_folders = [str(i / 1000).zfill(4) for i in range(number_jobs+1)[::1000]]
 				crab_numer_folder_regex = re.compile('|'.join(crab_number_folders))
@@ -694,7 +694,7 @@ if __name__ == "__main__":
 	work_base = SkimManagerBase.get_workbase()
 	if not os.path.exists(work_base):
 		os.makedirs(work_base)
-	
+
 	def_input = os.path.join(os.environ.get("CMSSW_BASE"), "src/Kappa/Skimming/data/datasets.json")
 
 	parser = argparse.ArgumentParser(description="Tools for modify the dataset data base (aka datasets.json)")
@@ -718,11 +718,11 @@ if __name__ == "__main__":
 	parser.add_argument("--remake", action='store_true', default=False, dest="remake", help="Remakes tasks for which an exception occured. (Run after --crab-status). Default: %(default)s")
 	parser.add_argument("--kill-all", action='store_true', default=False, dest="kill_all", help="kills all tasks. Default: %(default)s")
 	parser.add_argument("--purge", default=None, dest="purge", help="Purges tasks specified groups of tasks defined by their status. Possible groups: ALL, COMPLETED, LISTED, FAILED, KILLED. You may specify multiple groups separated by a comma. Default: %(default)s")
-	
+
 	parser.add_argument("--create-filelist", action='store_true', default=False, dest = "create_filelist", help="")
 	parser.add_argument("--reset-filelist", action='store_true', default=False, dest = "reset_filelist", help="")
 	parser.add_argument("--check-filelist", default=None, dest = "check_filelist", help="")
-	
+
 	parser.add_argument("-f", "--force", action='store_true', default=False, dest="force", help="Force current action (e.g. creation of filelists).")
 
 	parser.add_argument("-b", "--backend", default='freiburg', dest="backend", help="Changes backend for the creation of Grid Control configs. Supported: freiburg, naf. Default: %(default)s")
@@ -733,18 +733,18 @@ if __name__ == "__main__":
 		latest_subdir = SkimManagerBase.get_latest_subdir(work_base=work_base)
 		if latest_subdir is None:
 			latest_subdir = args.workdir
-		print '\nNo workdir specified. Do you want to continue the existing skim in '+latest_subdir+' ? [Y/n] (Selecting no will create new workdir)'
+		print '\nNo workdir specified. Do you want to continue the existing skim in '+latest_subdir+' ? [Y/n] (Selecting no will create new workdir) ',
 		if SkimManagerBase.wait_for_user_confirmation(true_false=True):
 			args.workdir=latest_subdir
 		else:
 			print 'New workdir will be created: '+args.workdir
-		
+
 	if not os.path.exists(args.inputfile):
 		print 'No input file found'
 		exit()
 	if args.date:
 		args.workdir+="_"+datetime.date.today().strftime("%Y-%m-%d")
-	
+
 	SKM = SkimManagerBase(storage_for_output=args.storage_for_output, workbase=work_base, workdir=args.workdir)
 	nicks = SKM.nick_list(args.inputfile, tag_key=args.tag, tag_values_str=args.tagvalues, query=args.query, nick_regex=args.nicks)
 
