@@ -426,29 +426,51 @@ def getBaseConfig(
                 process.p *= (process.makeKappaElectrons)
 
 	## ------------------------------------------------------------------------
-	# new tau id only available for 8_0_20 (I believe) and above
-        from RecoTauTag.RecoTau.runTauIdMVA import TauIDEmbedder
-	if tools.is_above_cmssw_version([9,4,2]):
-                na = TauIDEmbedder(process, cms,
-                    debug=True,
-                    #toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
-                    toKeep = ["2017v2"]
-                )
-	elif tools.is_above_cmssw_version([8,0,20]):
-                na = TauIDEmbedder(process, cms,
-                    debug=True,
-                    toKeep = ["2016v1"]
-                )
-        na.runTauID(taus)
-        process.p *= ( process.rerunMvaIsolationSequence)
-        process.p *= getattr(process, taus)
+	#Configure Tau Leptons
+	#--------------------------------------------------------------------------------
+	#https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuidePFTauID#Rerunning_of_the_tau_ID_on_M_AN1
+	toKeep = []
+	if tools.is_above_cmssw_version([9]): toKeep.extend(("2017v2"))
+	elif tools.is_above_cmssw_version([8,0,20]): toKeep.extend(("2016v1", "newDM2016v1"))
+
+	from Kappa.Skimming.runTauIdMVA import TauIDEmbedder
+	na = TauIDEmbedder(process, cms,
+	    debug=True,
+	    toKeep = toKeep
+	)
+
+	if tools.is_above_cmssw_version([8,0,20]):
+		taus = "NewTauIDsEmbedded"
+
+	na.runTauID(taus)
+	process.p *= process.rerunMvaIsolationSequence
+	process.p *= getattr(process, taus)
+
+	tauCollection = cms.InputTag(taus) # to be used as input
+	# Tau ID's embedded additionally into the new collection
+	#NO deep tau, to large files
+	additionalIds = cms.vstring(
+	    "byIsolationMVArun2017v2DBoldDMwLTraw2017",
+	    "byVVLooseIsolationMVArun2017v2DBoldDMwLT2017",
+	    "byVLooseIsolationMVArun2017v2DBoldDMwLT2017",
+	    "byLooseIsolationMVArun2017v2DBoldDMwLT2017",
+	    "byMediumIsolationMVArun2017v2DBoldDMwLT2017",
+	    "byTightIsolationMVArun2017v2DBoldDMwLT2017",
+	    "byVTightIsolationMVArun2017v2DBoldDMwLT2017",
+	    "byVVTightIsolationMVArun2017v2DBoldDMwLT2017",
+	)
+
 
 	process.kappaTuple.active += cms.vstring('PatTaus')
+
+	process.kappaTuple.PatTaus.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
+	process.kappaTuple.PatTaus.offlineBeamSpot = cms.InputTag("offlineBeamSpot")
+
 	process.kappaTuple.PatTaus.taus.binaryDiscrBlacklist = cms.vstring()
+
 	process.kappaTuple.PatTaus.taus.src = cms.InputTag(taus)
 	process.kappaTuple.PatTaus.taus.floatDiscrBlacklist = cms.vstring()
-
-	# just took everything from https://twiki.cern.ch/twiki/bin/viewauth/CMS/TauIDRecommendation13TeV with old DM's and deltaR = 0.5
+	# just took everything from https://twiki.cern.ch/twiki/bin/viewauth/CMS/TauIDRecommendation13TeV
 	process.kappaTuple.PatTaus.taus.preselectOnDiscriminators = cms.vstring ()
 	process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist = cms.vstring(
 		"decayModeFinding",
@@ -463,13 +485,6 @@ def getBaseConfig(
 		"puCorrPtSum",
 		"footprintCorrection",
 		"photonPtSumOutsideSignalCone",
-		"byIsolationMVArun2v1DBoldDMwLTraw",
-		"byVLooseIsolationMVArun2v1DBoldDMwLT",
-		"byLooseIsolationMVArun2v1DBoldDMwLT",
-		"byMediumIsolationMVArun2v1DBoldDMwLT",
-		"byTightIsolationMVArun2v1DBoldDMwLT",
-		"byVTightIsolationMVArun2v1DBoldDMwLT",
-		"byVVTightIsolationMVArun2v1DBoldDMwLT",
 		"againstMuonLoose3",
 		"againstMuonTight3",
 		"againstElectronMVA6category",
@@ -478,41 +493,81 @@ def getBaseConfig(
 		"againstElectronLooseMVA6",
 		"againstElectronMediumMVA6",
 		"againstElectronTightMVA6",
-		"againstElectronVTightMVA6",
+		"againstElectronVTightMVA6"
 		)
 
 	process.kappaTuple.active += cms.vstring('L1Taus')
-        if isEmbedded:
-                process.kappaTuple.L1Taus.l1taus.src = cms.InputTag("caloStage2Digis","Tau","SIMembedding")
 
-	if tools.is_above_cmssw_version([9,4,2]):
-		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
-                        # 2017v2
-                        "byIsolationMVArun2017v2DBoldDMwLTraw2017",
-                        "byVVLooseIsolationMVArun2017v2DBoldDMwLT2017",
-                        "byVLooseIsolationMVArun2017v2DBoldDMwLT2017",
-                        "byLooseIsolationMVArun2017v2DBoldDMwLT2017",
-                        "byMediumIsolationMVArun2017v2DBoldDMwLT2017",
-                        "byTightIsolationMVArun2017v2DBoldDMwLT2017",
-                        "byVTightIsolationMVArun2017v2DBoldDMwLT2017",
-                        "byVVTightIsolationMVArun2017v2DBoldDMwLT2017",
-                        #"deepTau2017v1tauVSall", # deep Tau based on same inputs as MVAIso (BDT-based)
-                        #"DPFTau_2016_v0tauVSall", # Deep PF Tau based also on low-level inputs (v0)
-                        #"DPFTau_2016_v1tauVSall", # Deep PF Tau based also on low-level inputs (v1)
-			)
-	elif tools.is_above_cmssw_version([8,0,20]):
-		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
-                        # 2016v1
-                        "byIsolationMVArun2016v1DBoldDMwLTraw2016",
-                        "byVLooseIsolationMVArun2016v1DBoldDMwLT2016",
-                        "byLooseIsolationMVArun2016v1DBoldDMwLT2016",
-                        "byMediumIsolationMVArun2016v1DBoldDMwLT2016",
-                        "byTightIsolationMVArun2016v1DBoldDMwLT2016",
-                        "byVTightIsolationMVArun2016v1DBoldDMwLT2016",
-                        "byVVTightIsolationMVArun2016v1DBoldDMwLT2016",
-			)
 
-	## now also possible to save all MVA isolation inputs for taus # turn of per default
+	if "2017v1" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+			"byIsolationMVArun2017v1DBoldDMwLTraw2017",
+			"byVVLooseIsolationMVArun2017v1DBoldDMwLT2017",
+			"byVLooseIsolationMVArun2017v1DBoldDMwLT2017",
+			"byLooseIsolationMVArun2017v1DBoldDMwLT2017",
+			"byMediumIsolationMVArun2017v1DBoldDMwLT2017",
+			"byTightIsolationMVArun2017v1DBoldDMwLT2017",
+			"byVTightIsolationMVArun2017v1DBoldDMwLT2017",
+			"byVVTightIsolationMVArun2017v1DBoldDMwLT2017")
+	if "2017v2" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+			"byIsolationMVArun2017v2DBoldDMwLTraw2017",
+			"byVVLooseIsolationMVArun2017v2DBoldDMwLT2017",
+			"byVLooseIsolationMVArun2017v2DBoldDMwLT2017",
+			"byLooseIsolationMVArun2017v2DBoldDMwLT2017",
+			"byMediumIsolationMVArun2017v2DBoldDMwLT2017",
+			"byTightIsolationMVArun2017v2DBoldDMwLT2017",
+			"byVTightIsolationMVArun2017v2DBoldDMwLT2017",
+			"byVVTightIsolationMVArun2017v2DBoldDMwLT2017")
+	if "newDM2017v2" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+			"byIsolationMVArun2017v2DBnewDMwLTraw2017",
+			"byVVLooseIsolationMVArun2017v2DBnewDMwLT2017",
+			"byVLooseIsolationMVArun2017v2DBnewDMwLT2017",
+			"byLooseIsolationMVArun2017v2DBnewDMwLT2017",
+			"byMediumIsolationMVArun2017v2DBnewDMwLT2017",
+			"byTightIsolationMVArun2017v2DBnewDMwLT2017",
+			"byVTightIsolationMVArun2017v2DBnewDMwLT2017",
+			"byVVTightIsolationMVArun2017v2DBnewDMwLT2017")
+	if "dR0p32017v2" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+			"byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017",
+			"byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",
+			"byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",
+			"byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",
+			"byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017",
+			"byTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017",
+			"byVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017",
+			"byVVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017")
+	if "deepTau2017v1" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+			"deepTau2017v1tauVSall") # deep Tau based on same inputs as MVAIso (BDT-based)
+	if "DPFTau_2016_v0" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+                        "DPFTau_2016_v0tauVSall") # Deep PF Tau based also on low-level inputs (v0)
+	if "DPFTau_2016_v1" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+                        "DPFTau_2016_v1tauVSall") # Deep PF Tau based also on low-level inputs (v1)
+
+	if "2016v1" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+			"byIsolationMVArun2v1DBoldDMwLTraw2016",
+			"byVLooseIsolationMVArun2v1DBoldDMwLT2016",
+			"byLooseIsolationMVArun2v1DBoldDMwLT2016",
+			"byMediumIsolationMVArun2v1DBoldDMwLT2016",
+			"byTightIsolationMVArun2v1DBoldDMwLT2016",
+			"byVTightIsolationMVArun2v1DBoldDMwLT2016",
+			"byVVTightIsolationMVArun2v1DBoldDMwLT2016")
+	if "newDM2016v1" in toKeep:
+		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
+			"byIsolationMVArun2v1DBnewDMwLTraw2016",
+			"byVLooseIsolationMVArun2v1DBnewDMwLT2016",
+			"byLooseIsolationMVArun2v1DBnewDMwLT2016",
+			"byMediumIsolationMVArun2v1DBnewDMwLT2016",
+			"byTightIsolationMVArun2v1DBnewDMwLT2016",
+			"byVTightIsolationMVArun2v1DBnewDMwLT2016",
+			"byVVTightIsolationMVArun2v1DBnewDMwLT2016")
+
 	process.kappaTuple.PatTaus.taus.extrafloatDiscrlist = cms.untracked.vstring(
 		"decayDistX",
 		"decayDistY",
