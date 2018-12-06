@@ -1,0 +1,233 @@
+
+----- CMSSW configuration -----
+input:           file://root://xrootd-cms.infn.it//store/data/Run2017B/SingleMuon/MINIAOD/17Nov2017-v1/70000/04D5F12D-37D7-E711-9B97-02163E019BF0.root 
+file type:       miniAOD
+data:            True
+output:          testKappaSkim_out_94X_dataRun2_ReReco17_forValidation_numEvent100.root
+global tag:      94X_dataRun2_ReReco17_forValidation
+max events:      100
+cmssw version:   CMSSW_9_4_2
+---------------------------------
+
+|---- jetToolbox: Initialyzing collection...
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK4 JETS USING 
+|---- jetToolBox: Applying this corrections: None
+|---- jetToolBox: Creating selectedPatJetsAK4PF collection.
+************** MC dependence removal ************
+removing MC dependencies for jets
+|---- jetToolbox: Initialyzing collection...
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK4 JETS USING CHS
+|---- jetToolBox: Applying this corrections: None
+|---- jetToolBox: Running AK4PFCHSpileupJetIdEvaluator.
+|---- jetToolBox: Creating selectedPatJetsAK4PFCHS collection.
+************** MC dependence removal ************
+removing MC dependencies for jets
+|---- jetToolbox: Initialyzing collection...
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK4 JETS USING Puppi
+|---- jetToolBox: Applying this corrections: None
+|---- jetToolBox: Creating selectedPatJetsAK4PFPuppi collection.
+************** MC dependence removal ************
+removing MC dependencies for jets
+|---- jetToolbox: Initialyzing collection...
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK8 JETS USING 
+|---- jetToolBox: Applying this corrections: None
+|---- jetToolBox: Creating selectedPatJetsAK8PF collection.
+************** MC dependence removal ************
+removing MC dependencies for jets
+|---- jetToolbox: Initialyzing collection...
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK8 JETS USING CHS
+|---- jetToolBox: Applying this corrections: None
+|---- jetToolBox: Creating selectedPatJetsAK8PFCHS collection.
+************** MC dependence removal ************
+removing MC dependencies for jets
+|---- jetToolbox: Initialyzing collection...
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK8 JETS USING Puppi
+|---- jetToolBox: Applying this corrections: None
+|---- jetToolBox: Creating selectedPatJetsAK8PFPuppi collection.
+************** MC dependence removal ************
+removing MC dependencies for jets
+-------- CONFIGURATION ----------
+
+CMSSW producers:
+  nEventsTotal
+  nNegEventsTotal
+  pfFilter
+  pfNoPileUpIso
+  pfPileUpIso
+  pfPileUp
+  pfNoPileUp
+  pfAllNeutralHadrons
+  pfAllChargedHadrons
+  pfAllPhotons
+  pfAllChargedParticles
+  pfPileUpAllChargedParticles
+  pfAllNeutralHadronsAndPhotons
+  ak4PFJets
+  ak4PFJetsConstituents
+  chs
+  ak4PFJetsCHS
+  ak4PFJetsCHSConstituents
+  AK4PFCHSpileupJetIdCalculator
+  AK4PFCHSpileupJetIdEvaluator
+  puppi
+  ak4PFJetsPuppi
+  ak4PFJetsPuppiConstituents
+  ak8PFJets
+  ak8PFJetsConstituents
+  chs
+  ak8PFJetsCHS
+  ak8PFJetsCHSConstituents
+  puppi
+  ak8PFJetsPuppi
+  ak8PFJetsPuppiConstituents
+  pfImpactParameterTagInfosAK4PF
+  pfTrackCountingHighEffBJetTagsAK4PF
+  pfSecondaryVertexTagInfosAK4PF
+  pfCombinedSecondaryVertexV2BJetTagsAK4PF
+  softPFElectronsTagInfosAK4PF
+  softPFMuonsTagInfosAK4PF
+  pfInclusiveSecondaryVertexFinderTagInfosAK4PF
+  pfCombinedMVAV2BJetTagsAK4PF
+  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PF
+  pfSimpleSecondaryVertexHighPurBJetTagsAK4PF
+  pfSimpleSecondaryVertexHighEffBJetTagsAK4PF
+  pfJetBProbabilityBJetTagsAK4PF
+  pfJetProbabilityBJetTagsAK4PF
+  pfTrackCountingHighPurBJetTagsAK4PF
+  patJetsAK4PF
+  selectedPatJetsAK4PF
+  pfImpactParameterTagInfosAK4PFCHS
+  pfTrackCountingHighEffBJetTagsAK4PFCHS
+  pfSecondaryVertexTagInfosAK4PFCHS
+  pfCombinedSecondaryVertexV2BJetTagsAK4PFCHS
+  softPFElectronsTagInfosAK4PFCHS
+  softPFMuonsTagInfosAK4PFCHS
+  pfInclusiveSecondaryVertexFinderTagInfosAK4PFCHS
+  pfCombinedMVAV2BJetTagsAK4PFCHS
+  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFCHS
+  pfSimpleSecondaryVertexHighPurBJetTagsAK4PFCHS
+  pfSimpleSecondaryVertexHighEffBJetTagsAK4PFCHS
+  pfJetBProbabilityBJetTagsAK4PFCHS
+  pfJetProbabilityBJetTagsAK4PFCHS
+  pfTrackCountingHighPurBJetTagsAK4PFCHS
+  patJetsAK4PFCHS
+  selectedPatJetsAK4PFCHS
+  pfImpactParameterTagInfosAK4PFPuppi
+  pfTrackCountingHighEffBJetTagsAK4PFPuppi
+  pfSecondaryVertexTagInfosAK4PFPuppi
+  pfCombinedSecondaryVertexV2BJetTagsAK4PFPuppi
+  softPFElectronsTagInfosAK4PFPuppi
+  softPFMuonsTagInfosAK4PFPuppi
+  pfInclusiveSecondaryVertexFinderTagInfosAK4PFPuppi
+  pfCombinedMVAV2BJetTagsAK4PFPuppi
+  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFPuppi
+  pfSimpleSecondaryVertexHighPurBJetTagsAK4PFPuppi
+  pfSimpleSecondaryVertexHighEffBJetTagsAK4PFPuppi
+  pfJetBProbabilityBJetTagsAK4PFPuppi
+  pfJetProbabilityBJetTagsAK4PFPuppi
+  pfTrackCountingHighPurBJetTagsAK4PFPuppi
+  patJetsAK4PFPuppi
+  selectedPatJetsAK4PFPuppi
+  pfImpactParameterTagInfosAK8PF
+  pfTrackCountingHighEffBJetTagsAK8PF
+  pfSecondaryVertexTagInfosAK8PF
+  pfCombinedSecondaryVertexV2BJetTagsAK8PF
+  softPFElectronsTagInfosAK8PF
+  softPFMuonsTagInfosAK8PF
+  pfInclusiveSecondaryVertexFinderTagInfosAK8PF
+  pfCombinedMVAV2BJetTagsAK8PF
+  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK8PF
+  pfSimpleSecondaryVertexHighPurBJetTagsAK8PF
+  pfSimpleSecondaryVertexHighEffBJetTagsAK8PF
+  pfJetBProbabilityBJetTagsAK8PF
+  pfJetProbabilityBJetTagsAK8PF
+  pfTrackCountingHighPurBJetTagsAK8PF
+  patJetsAK8PF
+  selectedPatJetsAK8PF
+  pfImpactParameterTagInfosAK8PFCHS
+  pfTrackCountingHighEffBJetTagsAK8PFCHS
+  pfSecondaryVertexTagInfosAK8PFCHS
+  pfCombinedSecondaryVertexV2BJetTagsAK8PFCHS
+  softPFElectronsTagInfosAK8PFCHS
+  softPFMuonsTagInfosAK8PFCHS
+  pfInclusiveSecondaryVertexFinderTagInfosAK8PFCHS
+  pfCombinedMVAV2BJetTagsAK8PFCHS
+  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK8PFCHS
+  pfSimpleSecondaryVertexHighPurBJetTagsAK8PFCHS
+  pfSimpleSecondaryVertexHighEffBJetTagsAK8PFCHS
+  pfJetBProbabilityBJetTagsAK8PFCHS
+  pfJetProbabilityBJetTagsAK8PFCHS
+  pfTrackCountingHighPurBJetTagsAK8PFCHS
+  patJetsAK8PFCHS
+  selectedPatJetsAK8PFCHS
+  pfImpactParameterTagInfosAK8PFPuppi
+  pfTrackCountingHighEffBJetTagsAK8PFPuppi
+  pfSecondaryVertexTagInfosAK8PFPuppi
+  pfCombinedSecondaryVertexV2BJetTagsAK8PFPuppi
+  softPFElectronsTagInfosAK8PFPuppi
+  softPFMuonsTagInfosAK8PFPuppi
+  pfInclusiveSecondaryVertexFinderTagInfosAK8PFPuppi
+  pfCombinedMVAV2BJetTagsAK8PFPuppi
+  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK8PFPuppi
+  pfSimpleSecondaryVertexHighPurBJetTagsAK8PFPuppi
+  pfSimpleSecondaryVertexHighEffBJetTagsAK8PFPuppi
+  pfJetBProbabilityBJetTagsAK8PFPuppi
+  pfJetProbabilityBJetTagsAK8PFPuppi
+  pfTrackCountingHighPurBJetTagsAK8PFPuppi
+  patJetsAK8PFPuppi
+  selectedPatJetsAK8PFPuppi
+  packedPFCandidatesCHSNotFromPV
+  nEventsFiltered
+  nNegEventsFiltered
+  packedPFCandidatesCHS,electronMVAValueMapProducer,egmGsfElectronIDs,electronRegressionValueMapProducer
+
+CMSSW endpath producers:
+  kappaTuple,elPFIsoDepositChargedAll,pfJetProbabilityBJetTagsAK4PF,muPFMeanDRIsoValueGammaHighThreshold04,muPFMeanDRIsoValueGammaHighThreshold03,elPFIsoValuePU03PFIdPFIso,electronMVAValueMapProducer,ak4PFJetsConstituents,muPFSumDRIsoValueNeutral03,elPFIsoValueNeutral04PFId,elPFIsoValueCharged04PFId,elPFIsoValueCharged04NoPFId,elPFIsoDepositGamma,elPFIsoValueNeutral04NoPFId,muPFIsoDepositCharged,muPFMeanDRIsoValuePU03,muPFMeanDRIsoValuePU04,muPFSumDRIsoValueChargedAll04,elPFIsoValueChargedAll03PFIdPFIso,elPFIsoDepositNeutral,electronRegressionValueMapProducer,muPFIsoValueNeutral04,muPFMeanDRIsoValueNeutral04,muPFMeanDRIsoValueNeutral03,muPFIsoValueNeutral03,muPFIsoValueCharged03PFIso,muPFIsoValueGamma04,elPFIsoValuePU04PFId,elPFIsoValueCharged03NoPFId,elPFIsoValueChargedAll04NoPFId,muPFIsoValueChargedAll04,pfInclusiveSecondaryVertexFinderTagInfosAK4PF,muPFSumDRIsoValuePU04,pfCombinedMVAV2BJetTagsAK4PF,muPFIsoValueChargedAll03PFIso,elPFIsoValueNeutral03PFIdPFIso,muPFSumDRIsoValueChargedAll03,muPFIsoValueCharged04,muPFIsoValueCharged03,pfCombinedSecondaryVertexV2BJetTagsAK4PF,muPFMeanDRIsoValueGamma03,patJetsAK4PF,muPFMeanDRIsoValueGamma04,elPFIsoValueChargedAll03PFId,unpackedTracksAndVertices,muPFIsoValueChargedAll03,elPFIsoDepositPU,pfJetBProbabilityBJetTagsAK4PF,muPFIsoDepositPU,elPFIsoValueGamma03NoPFId,patJetGenJetMatchAK4PF,elPFIsoValueGamma03PFIdPFIso,muPFSumDRIsoValueGamma03,muPFSumDRIsoValueGamma04,softPFElectronsTagInfosAK4PF,muPFIsoDepositGamma,muPFIsoValuePU03PFIso,pfImpactParameterTagInfosAK4PF,muPFSumDRIsoValueNeutralHighThreshold03,muPFSumDRIsoValueNeutralHighThreshold04,softPFMuonsTagInfosAK4PF,muPFSumDRIsoValueGammaHighThreshold03,muPFSumDRIsoValueGammaHighThreshold04,elPFIsoValueCharged03PFIdPFIso,muPFIsoValueGamma03,muPFSumDRIsoValueNeutral04,elPFIsoValuePU03NoPFId,elPFIsoValuePU03PFId,pfSimpleSecondaryVertexHighPurBJetTagsAK4PF,elPFIsoValueChargedAll03NoPFId,muPFSumDRIsoValueCharged04,egmGsfElectronIDs,muPFSumDRIsoValueCharged03,elPFIsoValueChargedAll04PFId,muPFMeanDRIsoValueCharged03,pfTrackCountingHighEffBJetTagsAK4PF,muPFMeanDRIsoValueCharged04,elPFIsoValueNeutral03NoPFId,muPFIsoDepositNeutral,muPFMeanDRIsoValueNeutralHighThreshold03,elPFIsoDepositCharged,muPFMeanDRIsoValueNeutralHighThreshold04,pfSimpleSecondaryVertexHighEffBJetTagsAK4PF,patJetPartonMatchAK4PF,muPFIsoValueNeutral03PFIso,elPFIsoValueNeutral03PFId,muPFIsoValueGammaHighThreshold03,muPFIsoValuePU04,muPFIsoValuePU03,muPFIsoValueGammaHighThreshold04,elPFIsoValuePU04NoPFId,pfTrackCountingHighPurBJetTagsAK4PF,muPFIsoValueGamma03PFIso,muPFIsoValueNeutralHighThreshold04,elPFIsoValueGamma04NoPFId,muPFIsoValueNeutralHighThreshold03,muPFSumDRIsoValuePU03,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PF,elPFIsoValueGamma03PFId,elPFIsoValueGamma04PFId,ak4PFJets,muPFMeanDRIsoValueChargedAll04,muPFIsoDepositChargedAll,pfSecondaryVertexTagInfosAK4PF,elPFIsoValueCharged03PFId,muPFMeanDRIsoValueChargedAll03,pfAllChargedHadrons,pfNoPileUpIso,pfPileUpAllChargedParticles,pfFilter,pfNoPileUp,pfAllNeutralHadrons,pfAllPhotons,pfAllNeutralHadronsAndPhotons,pfPileUpIso,selectedPatJetsAK4PF,pfAllChargedParticles,pfPileUp,softPFMuonsTagInfosAK4PFCHS,pfTrackCountingHighEffBJetTagsAK4PFCHS,pfTrackCountingHighPurBJetTagsAK4PFCHS,patJetGenJetMatchAK4PFCHS,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFCHS,pfImpactParameterTagInfosAK4PFCHS,pfCombinedMVAV2BJetTagsAK4PFCHS,ak4PFJetsCHSConstituents,pfSimpleSecondaryVertexHighPurBJetTagsAK4PFCHS,pfSecondaryVertexTagInfosAK4PFCHS,pfJetBProbabilityBJetTagsAK4PFCHS,patJetsAK4PFCHS,AK4PFCHSpileupJetIdCalculator,pfJetProbabilityBJetTagsAK4PFCHS,AK4PFCHSpileupJetIdEvaluator,patJetPartonMatchAK4PFCHS,pfCombinedSecondaryVertexV2BJetTagsAK4PFCHS,pfSimpleSecondaryVertexHighEffBJetTagsAK4PFCHS,pfInclusiveSecondaryVertexFinderTagInfosAK4PFCHS,ak4PFJetsCHS,softPFElectronsTagInfosAK4PFCHS,chs,selectedPatJetsAK4PFCHS,pfCombinedSecondaryVertexV2BJetTagsAK4PFPuppi,patJetPartonMatchAK4PFPuppi,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFPuppi,patJetsAK4PFPuppi,pfTrackCountingHighPurBJetTagsAK4PFPuppi,patJetGenJetMatchAK4PFPuppi,pfJetBProbabilityBJetTagsAK4PFPuppi,softPFElectronsTagInfosAK4PFPuppi,pfSecondaryVertexTagInfosAK4PFPuppi,softPFMuonsTagInfosAK4PFPuppi,pfSimpleSecondaryVertexHighPurBJetTagsAK4PFPuppi,pfJetProbabilityBJetTagsAK4PFPuppi,pfSimpleSecondaryVertexHighEffBJetTagsAK4PFPuppi,puppi,ak4PFJetsPuppi,pfImpactParameterTagInfosAK4PFPuppi,ak4PFJetsPuppiConstituents,pfTrackCountingHighEffBJetTagsAK4PFPuppi,pfCombinedMVAV2BJetTagsAK4PFPuppi,pfInclusiveSecondaryVertexFinderTagInfosAK4PFPuppi,selectedPatJetsAK4PFPuppi,pfTrackCountingHighEffBJetTagsAK8PF,patJetGenJetMatchAK8PF,ak8PFJets,pfCombinedSecondaryVertexV2BJetTagsAK8PF,pfSecondaryVertexTagInfosAK8PF,pfJetBProbabilityBJetTagsAK8PF,pfTrackCountingHighPurBJetTagsAK8PF,softPFMuonsTagInfosAK8PF,pfCombinedMVAV2BJetTagsAK8PF,pfSimpleSecondaryVertexHighPurBJetTagsAK8PF,patJetsAK8PF,pfJetProbabilityBJetTagsAK8PF,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK8PF,pfInclusiveSecondaryVertexFinderTagInfosAK8PF,patJetPartonMatchAK8PF,ak8PFJetsConstituents,softPFElectronsTagInfosAK8PF,pfImpactParameterTagInfosAK8PF,pfSimpleSecondaryVertexHighEffBJetTagsAK8PF,selectedPatJetsAK8PF,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK8PFCHS,patJetPartonMatchAK8PFCHS,patJetsAK8PFCHS,pfJetProbabilityBJetTagsAK8PFCHS,pfSimpleSecondaryVertexHighEffBJetTagsAK8PFCHS,pfTrackCountingHighEffBJetTagsAK8PFCHS,pfSimpleSecondaryVertexHighPurBJetTagsAK8PFCHS,ak8PFJetsCHSConstituents,pfSecondaryVertexTagInfosAK8PFCHS,pfTrackCountingHighPurBJetTagsAK8PFCHS,patJetGenJetMatchAK8PFCHS,ak8PFJetsCHS,pfJetBProbabilityBJetTagsAK8PFCHS,softPFElectronsTagInfosAK8PFCHS,pfInclusiveSecondaryVertexFinderTagInfosAK8PFCHS,pfCombinedMVAV2BJetTagsAK8PFCHS,pfImpactParameterTagInfosAK8PFCHS,pfCombinedSecondaryVertexV2BJetTagsAK8PFCHS,softPFMuonsTagInfosAK8PFCHS,selectedPatJetsAK8PFCHS,patJetsAK8PFPuppi,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK8PFPuppi,pfSimpleSecondaryVertexHighPurBJetTagsAK8PFPuppi,pfJetBProbabilityBJetTagsAK8PFPuppi,pfImpactParameterTagInfosAK8PFPuppi,pfInclusiveSecondaryVertexFinderTagInfosAK8PFPuppi,patJetPartonMatchAK8PFPuppi,softPFMuonsTagInfosAK8PFPuppi,pfTrackCountingHighPurBJetTagsAK8PFPuppi,ak8PFJetsPuppiConstituents,pfTrackCountingHighEffBJetTagsAK8PFPuppi,pfSimpleSecondaryVertexHighEffBJetTagsAK8PFPuppi,ak8PFJetsPuppi,patJetGenJetMatchAK8PFPuppi,pfCombinedSecondaryVertexV2BJetTagsAK8PFPuppi,pfJetProbabilityBJetTagsAK8PFPuppi,softPFElectronsTagInfosAK8PFPuppi,pfSecondaryVertexTagInfosAK8PFPuppi,pfCombinedMVAV2BJetTagsAK8PFPuppi,selectedPatJetsAK8PFPuppi
+
+Kappa producers:
+  BeamSpot
+  DataInfo
+  Electrons
+  FilterSummary
+  Muons
+  PatJets
+  PatMET
+  PileupDensity
+  TriggerObjectStandalone
+  VertexSummary
+---------------------------------
+06-Dec-2018 16:38:38 CET  Initiating request to open file file://root://xrootd-cms.infn.it//store/data/Run2017B/SingleMuon/MINIAOD/17Nov2017-v1/70000/04D5F12D-37D7-E711-9B97-02163E019BF0.root
+181206 16:38:40 1274902 secgsi_ParseCAlist: nothing to parse
+[2018-12-06 16:38:40.706816 +0100][Error  ][XRootDTransport   ] [[2001:bb8:4004:ff:d::3]:1094 #0.0] No protocols left to try
+[2018-12-06 16:38:40.706861 +0100][Error  ][AsyncSock         ] [[2001:bb8:4004:ff:d::3]:1094 #0.0] Socket error while handshaking: [FATAL] Auth failed
+[2018-12-06 16:38:40.706942 +0100][Error  ][PostMaster        ] [[2001:bb8:4004:ff:d::3]:1094 #0] Unable to recover: [FATAL] Auth failed.
+[2018-12-06 16:38:40.706964 +0100][Error  ][XRootD            ] [[2001:bb8:4004:ff:d::3]:1094] Impossible to send message kXR_open (file: /store/data/Run2017B/SingleMuon/MINIAOD/17Nov2017-v1/70000/04D5F12D-37D7-E711-9B97-02163E019BF0.root, mode: 0660, flags: kXR_open_read kXR_async kXR_retstat ). Trying to recover.
+%MSG-w XrdAdaptor:  file_open 06-Dec-2018 16:38:42 CET pre-events
+Data is served from T2_EE_Estonia instead of original site infn.it
+%MSG
+06-Dec-2018 16:38:43 CET  Successfully opened file file://root://xrootd-cms.infn.it//store/data/Run2017B/SingleMuon/MINIAOD/17Nov2017-v1/70000/04D5F12D-37D7-E711-9B97-02163E019BF0.root
+%MSG-w XrdAdaptor:  (NoModuleName) 06-Dec-2018 16:38:49 CET pre-events
+Data is now served from T2_EE_Estonia, [2001 instead of previous T2_EE_Estonia
+%MSG
+Start Kappa producer KTuple
+Init producer DataInfo using config from Info
+Init producer VertexSummary using config from VertexSummary
+Init producer BeamSpot using config from BeamSpot
+Init producer TriggerObjectStandalone using config from TriggerObjectStandalone
+Init producer Muons using config from Muons
+Init producer Electrons using config from Electrons
+Init producer PatJets using config from PatJets
+Init producer PileupDensity using config from PileupDensity
+Init producer PatMET using config from PatMET
+Init producer FilterSummary using config from FilterSummary
+06-Dec-2018 16:38:59 CET  Closed file file://root://xrootd-cms.infn.it//store/data/Run2017B/SingleMuon/MINIAOD/17Nov2017-v1/70000/04D5F12D-37D7-E711-9B97-02163E019BF0.root
+----- Begin Fatal Exception 06-Dec-2018 16:38:59 CET-----------------------
+An exception of category 'FileInPathError' occurred while
+   [0] Constructing the EventProcessor
+   [1] Constructing module: class=ElectronMVAValueMapProducer label='electronMVAValueMapProducer'
+Exception Message:
+edm::FileInPath unable to find file RecoEgamma/ElectronIdentification/data/Fall17/EIDmva_EB1_5_2017_puinfo_BDT.weights.xml anywhere in the search path.
+The search path is defined by: CMSSW_SEARCH_PATH
+${CMSSW_SEARCH_PATH} is: /portal/ekpbms3/home/mschnepf/skimming/software/CMSSW_9_4_2/src:/portal/ekpbms3/home/mschnepf/skimming/software/CMSSW_9_4_2/external/slc6_amd64_gcc630/data:/cvmfs/cms.cern.ch/slc6_amd64_gcc630/cms/cmssw/CMSSW_9_4_2/src:/cvmfs/cms.cern.ch/slc6_amd64_gcc630/cms/cmssw/CMSSW_9_4_2/external/slc6_amd64_gcc630/data
+Current directory is: /portal/ekpbms3/home/mschnepf/skimming/software/CMSSW_10_2_0/src/Kappa/Skimming/zjet/cfg/94X/940_SingleMuon_17Nov2017
+----- End Fatal Exception -------------------------------------------------
