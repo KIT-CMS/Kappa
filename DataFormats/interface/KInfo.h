@@ -41,7 +41,7 @@ struct KLumiInfo
 };
 
 // currently equivalent to KLumiInfo
-struct KGenLumiInfo : public KLumiInfo 
+struct KGenLumiInfo : public KLumiInfo
 {
         virtual ~KGenLumiInfo() {};
 };
@@ -174,6 +174,11 @@ struct KGenEventInfo : public KEventInfo
         int htxs_higgsPt;     // Higgs Gen Pt from STXS tool
         int htxs_njets30;     // njets with pt > 30 GeV from STXS tool
 	std::vector<float> lheWeight;
+
+	// prefiring weights
+	double _prefiringweight;
+	double _prefiringweightup;
+	double _prefiringweightdown;
 
 	inline float getLheWeight(size_t index, bool failOnError = true) const
 	{

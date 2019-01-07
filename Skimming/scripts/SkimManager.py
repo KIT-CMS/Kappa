@@ -162,6 +162,8 @@ class SkimManagerBase:
 		config.JobType.pluginName = 'Analysis'
 		config.JobType.psetName = os.path.join(os.environ.get("CMSSW_BASE"), "src/Kappa/Skimming/higgsTauTau/", self.configfile)
 		#config.JobType.inputFiles = ['Spring16_25nsV6_DATA.db', 'Spring16_25nsV6_MC.db']
+
+		config.JobType.inputFiles = [ dirr for dirr in ['L1Prefiring'] if os.path.isdir(os.path.join(os.environ.get("CMSSW_BASE"), 'src', dirr)) ]
 		config.JobType.maxMemoryMB = 2500
 		config.JobType.allowUndistributedCMSSW = True
                 config.Site.whitelist = ["T2_US_Vanderbilt", "T2_DE_DESY", "T2_DE_RWTH", "T2_CH_CERN", "T1_DE_KIT", "T2_US_Nebraska", "T2_US_UCSD", "T2_US_MIT", "T2_US_Florida", "T2_US_Purdue", "T2_US_Caltech", "T2_US_Wisconsin", "T2_ES_CIEMAT", "T1_US_FNAL", "T2_UK_London_IC", "T2_UK_SGrid_RALPP", "T3_UK_London_QMUL"]

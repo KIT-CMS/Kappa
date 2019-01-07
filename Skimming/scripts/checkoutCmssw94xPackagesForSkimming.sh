@@ -33,6 +33,9 @@ rm RecoTauTag/RecoTau/data/*.pb
 # Get latest anti-e discriminator MVA6v2 (2017 training) ---> optional
 #git cms-merge-topic cms-tau-pog:CMSSW_9_4_X_tau-pog_updateAntiEDisc
 
+# Ge the prefiring map
+git cms-merge-topic lathomas:L1Prefiring_9_4_9
+
 ### Analysis group related software (ntuplizer, skimming, private MiniAOD, etc.) ###
 
 # KIT related packages

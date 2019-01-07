@@ -58,6 +58,10 @@ public:
 			this->tokenRunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
 			this->htxsSrc = consumescollector.consumes<HTXS::HiggsClassification>(htxsSource);
 
+			this->prefweight_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:NonPrefiringProb"));
+			this->prefweightup_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:NonPrefiringProbUp"));
+			this->prefweightdown_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:NonPrefiringProbDown"));
+
 			genEventInfoMetadata = new KGenEventInfoMetadata();
 			_lumi_tree->Bronch("genEventInfoMetadata", "KGenEventInfoMetadata", &genEventInfoMetadata);
 
@@ -217,8 +221,22 @@ public:
 		this->metaEvent->htxs_higgsPt = htxs->higgs.Pt();
 		this->metaEvent->htxs_njets30 = htxs->jets30.size();
 
+		// Get prefiring weights
+		edm::Handle<double> theprefweight;
+		event.getByToken(prefweight_token, theprefweight);
+		this->metaEvent->_prefiringweight =(*theprefweight);
+
+		edm::Handle<double> theprefweightup;
+		event.getByToken(prefweightup_token, theprefweightup);
+		this->metaEvent->_prefiringweightup =(*theprefweightup);
+
+		edm::Handle<double> theprefweightdown;
+		event.getByToken(prefweightdown_token, theprefweightdown);
+		this->metaEvent->_prefiringweightdown =(*theprefweightdown);
+
 		return true;
 	}
+
 	bool endRun(edm::Run const&  run, edm::EventSetup const &setup) override
 	{
 		// Read generator infos
@@ -269,6 +287,11 @@ protected:
 	//edm::EDGetTokenT<LHERunInfoProduct> tokenLHERunInfo;
 	edm::EDGetTokenT<LHERunInfoProduct> tokenRunInfo;
 	edm::EDGetTokenT<HTXS::HiggsClassification> htxsSrc;
+
+	// prefiring weights
+	edm::EDGetTokenT<double> prefweight_token;
+	edm::EDGetTokenT<double> prefweightup_token;
+	edm::EDGetTokenT<double> prefweightdown_token;
 };
 
 template<typename Tmeta>
