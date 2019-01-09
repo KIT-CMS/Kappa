@@ -64,7 +64,7 @@ def getBaseConfig(
 
 	# new tau id only available for 8_0_20 (I believe) and above
 	if tools.is_above_cmssw_version([8,0,20]):
-		taus = "NewTauIDsEmbedded"
+		taus = "slimmedTausNewID"
 	else:
 		taus = "slimmedTaus"
 	isSignal = datasetsHelper.isSignal(nickname)
@@ -438,7 +438,7 @@ def getBaseConfig(
 
 	## ------------------------------------------------------------------------
 	# new tau id only available for 8_0_20 (I believe) and above
-        from RecoTauTag.RecoTau.runTauIdMVA import TauIDEmbedder
+        from RecoTauTag.RecoTau.tools.runTauIdMVA import TauIDEmbedder
 	if tools.is_above_cmssw_version([9,4,2]):
                 na = TauIDEmbedder(process, cms,
                     debug=True,
@@ -449,7 +449,7 @@ def getBaseConfig(
                     debug=True,
                     toKeep = ["2016v1"]
                 )
-        na.runTauID(taus)
+        na.runTauID()
         process.p *= ( process.rerunMvaIsolationSequence)
         process.p *= getattr(process, taus)
 
