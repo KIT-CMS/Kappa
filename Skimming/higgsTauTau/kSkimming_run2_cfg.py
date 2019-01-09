@@ -328,6 +328,11 @@ def getBaseConfig(
                             'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V2_cff',
                             'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_noIso_V2_cff',
                             'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_iso_V2_cff',
+
+                            'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff',
+                            'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_GeneralPurpose_V1_cff',
+                    ],
+                    phoIDModules=[
                     ],
                     era='2017-Nov17ReReco'
             )
@@ -338,7 +343,7 @@ def getBaseConfig(
 	process.kappaTuple.Electrons.electrons.src = cms.InputTag("slimmedElectrons")
 	process.kappaTuple.Electrons.electrons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
 	process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag(jetCollection, "rho")
-	process.kappaTuple.Electrons.electrons.allConversions = cms.InputTag("reducedEgamma","reducedConversions")
+	process.kappaTuple.Electrons.allConversions = cms.InputTag("reducedEgamma","reducedConversions")
 
         if tools.is_above_cmssw_version([9,4]):
                 process.kappaTuple.Electrons.srcIds = cms.string("pat")
