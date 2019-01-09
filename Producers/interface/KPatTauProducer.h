@@ -255,7 +255,7 @@ virtual bool acceptSingle(const SingleInputType &in) override
 				}
 			}
 #endif
-			checkMapsize(discriminatorMap[names[i]]->floatDiscriminatorNames, "float Discriminators");
+			//checkMapsize(discriminatorMap[names[i]]->floatDiscriminatorNames, "float Discriminators");
 			checkMapsize(discriminatorMap[names[i]]->binaryDiscriminatorNames, "binary Discriminators");
 			n_float_dict += discriminatorMap[names[i]]->floatDiscriminatorNames.size();
 		}

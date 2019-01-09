@@ -570,6 +570,7 @@ def getBaseConfig(
 		)
 
 	process.kappaTuple.PatTaus.taus.floatDiscrWhitelist = process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist
+	process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist = cms.vstring("DontUseBinary")
 	process.kappaTuple.PatTaus.verbose = cms.int32(1)
 
 	## ------------------------------------------------------------------------
