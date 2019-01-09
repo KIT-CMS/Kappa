@@ -559,42 +559,55 @@ def getBaseConfig(
 
 	## Standard MET and GenMet from pat::MET
 	process.kappaTuple.active += cms.vstring('PatMET')
-	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETsModifiedMET"))
 	if tools.is_above_cmssw_version([9]):
-		from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
-		runMetCorAndUncFromMiniAOD(
-			process,
-			isData=data,
-			fixEE2017 = True,
-			fixEE2017Params = {'userawPt': True, 'ptThreshold':50.0, 'minEtaThreshold':2.65, 'maxEtaThreshold': 3.139},
-			postfix = "ModifiedMET"
-		)
-		process.p *= process.fullPatMetSequenceModifiedMET
+                from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
+                from PhysicsTools.PatAlgos.slimming.puppiForMET_cff import makePuppiesFromMiniAOD
+
+                # prepare Puppi
+                makePuppiesFromMiniAOD( process, True)
+
+                # PF MET with EE noise
+                runMetCorAndUncFromMiniAOD(
+                    process,
+                    isData = False,
+                    fixEE2017 = False
+                    )
+
+                # PF MET without EE noise
+                runMetCorAndUncFromMiniAOD(
+                    process,
+                    isData = data,
+                    fixEE2017 = True,
+                    postfix = "ModifiedMET"
+                    )
+
+                # PF MET with Puppi
+                runMetCorAndUncFromMiniAOD(
+                    process,
+                    isData = data,
+                    metType = "Puppi",
+                    jetFlavor = "AK4PFPuppi",
+                    postfix = "Puppi"
+                    )
+
+                process.puppiNoLep.useExistingWeights = False
+                process.puppi.useExistingWeights = False
+
+                process.p *= cms.Sequence(
+                    process.puppiMETSequence*
+                    process.fullPatMetSequence*
+                    process.fullPatMetSequenceModifiedMET*
+                    process.fullPatMetSequencePuppi
+                    )
 	elif tools.is_above_cmssw_version([8,0,14]):
 		from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
 		runMetCorAndUncFromMiniAOD(process, isData=data  )
 		process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETs", "", "KAPPA"))
 
-#	if tools.is_above_cmssw_version([9]):
-#                from PhysicsTools.PatAlgos.slimming.puppiForMET_cff import makePuppiesFromMiniAOD
-#                makePuppiesFromMiniAOD(process, True)
-#                runMetCorAndUncFromMiniAOD(
-#                        process,
-#                        isData=data,
-#                        metType="Puppi",
-#                        postfix="Puppi",
-#                        jetFlavor="AK4PFPuppi",
-#                )
-#
-#                process.puppiNoLep.useExistingWeights = False
-#                process.puppi.useExistingWeights = False
-#
-#                #process.p *= process.egmPhotonIDSequence*process.puppiMETSequence*process.fullPatMetSequencePuppi
-#                process.p *= process.fullPatMetSequencePuppi
-
 	from Kappa.Producers.prepareMETDefinitions_cff import prepareMETs
 	prepareMETs(process,jetCollection)
 
+	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETsModifiedMET"))
 	process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"))
 	process.kappaTuple.PatMET.trackMet = cms.PSet(src=cms.InputTag("patpfTrackMET"))
 	process.kappaTuple.PatMET.noPuMet = cms.PSet(src=cms.InputTag("patpfNoPUMET"))
