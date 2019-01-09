@@ -21,20 +21,23 @@ git cms-init
 ### Merge-topics ###
 
 # Get code for electron V2 ID's (trained on 94X MC's)
-git cms-merge-topic guitargeek:EgammaID_949
+git cms-merge-topic cms-egamma:EgammaID_949
 
 # Get code for electron scale & smear corrections
 git cms-merge-topic cms-egamma:EgammaPostRecoTools_940
 
 # Get DPF based Tau ID (and Tau ID Embedder) ---> DPF is optional; remove databases for the time-being
-git cms-merge-topic ocolegro:dpfisolation # consists updated version of runTauIdMVA.py (RecoTauTag/RecoTau/python/runTauIdMVA.py). Originally, this .py file comes from https://raw.githubusercontent.com/greyxray/TauAnalysisTools/CMSSW_9_4_X_tau-pog_RunIIFall17/TauAnalysisTools/python/runTauIdMVA.py
-rm RecoTauTag/RecoTau/data/*.pb
+git cms-merge-topic cms-tau-pog:CMSSW_9_4_X_tau_pog_DNNTauIDs #merge experimental code for 94X
+git clone https://github.com/cms-tau-pog/RecoTauTag-TrainingFiles -b master RecoTauTag/TrainingFiles/data
+wget https://raw.githubusercontent.com/greyxray/TauAnalysisTools/CMSSW_9_4_X_tau-pog_RunIIFall17/TauAnalysisTools/python/runTauIdMVA.py -P RecoTauTag/RecoTau/python/
 
 # Get latest anti-e discriminator MVA6v2 (2017 training) ---> optional
 #git cms-merge-topic cms-tau-pog:CMSSW_9_4_X_tau-pog_updateAntiEDisc
 
 # Ge the prefiring map
 git cms-merge-topic lathomas:L1Prefiring_9_4_9
+mkdir L1Prefiring/EventWeightProducer/data
+mv L1Prefiring/EventWeightProducer/files/L1PrefiringMaps_new.root L1Prefiring/EventWeightProducer/data/L1PrefiringMaps_new.root
 
 ### Analysis group related software (ntuplizer, skimming, private MiniAOD, etc.) ###
 
