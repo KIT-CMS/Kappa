@@ -442,8 +442,7 @@ def getBaseConfig(
 	if tools.is_above_cmssw_version([9,4,2]):
                 na = TauIDEmbedder(process, cms,
                     debug=True,
-                    #toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
-                    toKeep = ["2017v2"]
+                    toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
                 )
 	elif tools.is_above_cmssw_version([8,0,20]):
                 na = TauIDEmbedder(process, cms,
@@ -507,9 +506,41 @@ def getBaseConfig(
                         "byTightIsolationMVArun2017v2DBoldDMwLT2017",
                         "byVTightIsolationMVArun2017v2DBoldDMwLT2017",
                         "byVVTightIsolationMVArun2017v2DBoldDMwLT2017",
-                        #"deepTau2017v1tauVSall", # deep Tau based on same inputs as MVAIso (BDT-based)
-                        #"DPFTau_2016_v0tauVSall", # Deep PF Tau based also on low-level inputs (v0)
-                        #"DPFTau_2016_v1tauVSall", # Deep PF Tau based also on low-level inputs (v1)
+
+                        # deepTau
+                        "byDeepTau2017v1VSjetraw",
+                        "byDeepTau2017v1VSeraw",
+                        "byDeepTau2017v1VSmuraw",
+
+                        "byVVTightDeepTau2017v1VSjet",
+                        "byVTightDeepTau2017v1VSjet",
+                        "byTightDeepTau2017v1VSjet",
+                        "byMediumDeepTau2017v1VSjet",
+                        "byLooseDeepTau2017v1VSjet",
+                        "byVLooseDeepTau2017v1VSjet",
+                        "byVVLooseDeepTau2017v1VSjet",
+
+                        "byVVTightDeepTau2017v1VSe",
+                        "byVTightDeepTau2017v1VSe",
+                        "byTightDeepTau2017v1VSe",
+                        "byMediumDeepTau2017v1VSe",
+                        "byLooseDeepTau2017v1VSe",
+                        "byVLooseDeepTau2017v1VSe",
+                        "byVVLooseDeepTau2017v1VSe",
+
+                        "byVVTightDeepTau2017v1VSmu",
+                        "byVTightDeepTau2017v1VSmu",
+                        "byTightDeepTau2017v1VSmu",
+                        "byMediumDeepTau2017v1VSmu",
+                        "byLooseDeepTau2017v1VSmu",
+                        "byVLooseDeepTau2017v1VSmu",
+                        "byVVLooseDeepTau2017v1VSmu",
+
+                        # DPFTau
+                        "byDpfTau2016v0VSallraw",
+                        "byTightDpfTau2016v0VSall",
+                        "byDpfTau2016v1VSallraw",
+                        "byTightDpfTau2016v1VSall",
 			)
 	elif tools.is_above_cmssw_version([8,0,20]):
 		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
