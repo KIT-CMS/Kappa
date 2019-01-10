@@ -85,7 +85,7 @@ neutralCandidatePUIDJets::neutralCandidatePUIDJets(const edm::ParameterSet& iCon
   else if(jetPUIDWP_ == "medium")
     jetIdSelection_ = PileupJetIdentifier::kMedium;
   else if(jetPUIDWP_ == "loose")
-    jetIdSelection_ = PileupJetIdentifier::kTight;
+    jetIdSelection_ = PileupJetIdentifier::kLoose;
 
 
   jetPUIDMapLabel_ = iConfig.getParameter<std::string>("jetPUIDMapLabel");  
