@@ -41,8 +41,8 @@ if (cmssw_version_number.startswith("7_4") or cmssw_version_number.startswith("7
 	process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
 else:
-	process.load("Configuration.Geometry.GeometryIdeal_cff")
 	process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
+        process.load('Configuration.Geometry.GeometryRecoDB_cff')
 
 # print the global tag until it is clear whether this auto global tag is fine
 print "GT from autoCond:", process.GlobalTag.globaltag

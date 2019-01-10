@@ -274,13 +274,25 @@ def getBaseConfig(
                        jetSource = cms.InputTag('slimmedJets'),
                        labelName = 'UpdatedJEC',
                        jetCorrections = ('AK4PFchs', cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual']), 'None'),
-                       #btagDiscriminators = [
-                       #     "pfDeepFlavourJetTags:probb",
-                       #     "pfDeepFlavourJetTags:probbb",
-                       #     "pfDeepFlavourJetTags:problepb",
-                       #],
+                       btagDiscriminators = [
+                            "pfDeepFlavourJetTags:probb",
+                            "pfDeepFlavourJetTags:probbb",
+                            "pfDeepFlavourJetTags:problepb",
+                       ],
                 )
-		jetCollection = "updatedPatJetsUpdatedJEC"
+		jetCollection = "selectedUpdatedPatJetsUpdatedJEC"
+                process.jecSequence = cms.Sequence(
+                    process.patJetCorrFactorsUpdatedJEC
+                    *process.updatedPatJetsUpdatedJEC
+                    *process.pfImpactParameterTagInfosUpdatedJEC
+                    *process.pfInclusiveSecondaryVertexFinderTagInfosUpdatedJEC
+                    *process.pfDeepCSVTagInfosUpdatedJEC
+                    *process.pfDeepFlavourTagInfosUpdatedJEC
+                    *process.pfDeepFlavourJetTagsUpdatedJEC
+                    *process.patJetCorrFactorsTransientCorrectedUpdatedJEC
+                    *process.updatedPatJetsTransientCorrectedUpdatedJEC
+                    *process.selectedUpdatedPatJetsUpdatedJEC
+                )
 	elif tools.is_above_cmssw_version([8]):
 		from RecoMET.METPUSubtraction.jet_recorrections import recorrectJets
 		#from RecoMET.METPUSubtraction.jet_recorrections import loadLocalSqlite
@@ -575,20 +587,6 @@ def getBaseConfig(
 
 	## ------------------------------------------------------------------------
 
-	## Configure Jets
-	process.kappaTuple.active += cms.vstring('PileupDensity')
-	process.kappaTuple.PileupDensity.whitelist = cms.vstring("fixedGridRhoFastjetAll")
-	process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll => pileupDensity")
-	if tools.is_above_cmssw_version([7,6]):
-		process.kappaTuple.PileupDensity.pileupDensity = cms.PSet(src=cms.InputTag("fixedGridRhoFastjetAll"))
-	process.kappaTuple.active += cms.vstring('PatJets')
-	if tools.is_above_cmssw_version([7,6]):
-		process.kappaTuple.PatJets.ak4PF = cms.PSet(src=cms.InputTag(jetCollection))
-		process.kappaTuple.PatJets.puppiJets = cms.PSet(src=cms.InputTag(jetCollectionPuppi))
-	if tools.is_above_cmssw_version([9]):
-                process.jecSequence = cms.Sequence(process.patJetCorrFactorsUpdatedJEC * process.updatedPatJetsUpdatedJEC)
-                process.p *= process.jecSequence
-
 	## Standard MET and GenMet from pat::MET
 	process.kappaTuple.active += cms.vstring('PatMET')
 	if tools.is_above_cmssw_version([9]):
@@ -636,6 +634,20 @@ def getBaseConfig(
 		runMetCorAndUncFromMiniAOD(process, isData=data  )
 		process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETs", "", "KAPPA"))
 
+	## Configure Jets
+	process.kappaTuple.active += cms.vstring('PileupDensity')
+	process.kappaTuple.PileupDensity.whitelist = cms.vstring("fixedGridRhoFastjetAll")
+	process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll => pileupDensity")
+	if tools.is_above_cmssw_version([7,6]):
+		process.kappaTuple.PileupDensity.pileupDensity = cms.PSet(src=cms.InputTag("fixedGridRhoFastjetAll"))
+	process.kappaTuple.active += cms.vstring('PatJets')
+	if tools.is_above_cmssw_version([7,6]):
+		process.kappaTuple.PatJets.ak4PF = cms.PSet(src=cms.InputTag(jetCollection))
+		process.kappaTuple.PatJets.puppiJets = cms.PSet(src=cms.InputTag(jetCollectionPuppi))
+	if tools.is_above_cmssw_version([9]):
+                process.p *= process.jecSequence
+
+        # Preparations for MVA MET
 	from Kappa.Producers.prepareMETDefinitions_cff import prepareMETs
 	prepareMETs(process,jetCollection)
 
