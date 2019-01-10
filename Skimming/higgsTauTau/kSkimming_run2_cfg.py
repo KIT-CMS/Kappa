@@ -281,8 +281,20 @@ def getBaseConfig(
                        ],
                 )
 		jetCollection = "selectedUpdatedPatJetsUpdatedJEC"
+
+                process.load("RecoJets.JetProducers.PileupJetID_cfi")
+                process.pileupJetIdUpdated = process.pileupJetId.clone(
+                    jets=cms.InputTag("slimmedJets"),
+                    inputIsCorrected=True,
+                    applyJec=True,
+                    vertexes=cms.InputTag("offlineSlimmedPrimaryVertices")
+                )
+                process.updatedPatJetsUpdatedJEC.userData.userInts.src += ['pileupJetIdUpdated:fullId']
+                process.updatedPatJetsUpdatedJEC.userData.userFloats.src += ['pileupJetIdUpdated:fullDiscriminant']
+
                 process.jecSequence = cms.Sequence(
-                    process.patJetCorrFactorsUpdatedJEC
+                    process.pileupJetIdUpdated
+                    *process.patJetCorrFactorsUpdatedJEC
                     *process.updatedPatJetsUpdatedJEC
                     *process.pfImpactParameterTagInfosUpdatedJEC
                     *process.pfInclusiveSecondaryVertexFinderTagInfosUpdatedJEC
@@ -293,6 +305,7 @@ def getBaseConfig(
                     *process.updatedPatJetsTransientCorrectedUpdatedJEC
                     *process.selectedUpdatedPatJetsUpdatedJEC
                 )
+
 	elif tools.is_above_cmssw_version([8]):
 		from RecoMET.METPUSubtraction.jet_recorrections import recorrectJets
 		#from RecoMET.METPUSubtraction.jet_recorrections import loadLocalSqlite
@@ -668,6 +681,8 @@ def getBaseConfig(
         # Preparations for MVA MET
 	from Kappa.Producers.prepareMETDefinitions_cff import prepareMETs
 	prepareMETs(process,jetCollection)
+        process.neutralInJets.jetPUDIWP = cms.string("medium")
+        process.neutralInJets.jetPUIDMapLabel = cms.string("pileupJetIdUpdated:fullId")
 
 	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETsModifiedMET"))
 	process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"))
