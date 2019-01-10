@@ -32,6 +32,10 @@ git clone https://github.com/cms-tau-pog/RecoTauTag-TrainingFiles -b master Reco
 
 # Get latest anti-e discriminator MVA6v2 (2017 training) ---> optional
 git cms-merge-topic ArturAkh:CMSSW_9_4_X_tau-pog_updateAntiEDisc
+mkdir RecoTauTag/TrainingFiles/data/AntiETauId
+wget https://raw.githubusercontent.com/cms-tau-pog/RecoTauTag-TrainingFiles/AntiEMVA6v2/AntiETauId/RecoTauTag_MVAs_2018Oct01.db -P RecoTauTag/TrainingFiles/data/AntiETauId
+wget https://raw.githubusercontent.com/cms-tau-pog/RecoTauTag-TrainingFiles/AntiEMVA6v2/AntiETauId/RecoTauTag_MVAs_2018Dec11_MVA6v3_eveto.db -P RecoTauTag/TrainingFiles/data/AntiETauId
+wget https://raw.githubusercontent.com/cms-tau-pog/RecoTauTag-TrainingFiles/AntiEMVA6v2/AntiETauId/RecoTauTag_MVAs_2018Dec11_MVA6v3_noeveto.db -P RecoTauTag/TrainingFiles/data/AntiETauId
 
 # Ge the prefiring map
 git cms-merge-topic lathomas:L1Prefiring_9_4_9

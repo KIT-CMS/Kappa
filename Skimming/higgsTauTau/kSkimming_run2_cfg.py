@@ -465,6 +465,15 @@ def getBaseConfig(
         process.p *= ( process.rerunMvaIsolationSequence)
         process.p *= getattr(process, taus)
 
+        # adding new anti-e discriminator training
+        process.load("RecoTauTag.RecoTau.antiElectronAtPAT_cff")
+        process.p.replace(getattr(process, taus), process.patTauDiscriminationByElectronRejectionSeq+getattr(process, taus))
+        tauIDSourcesNew_ = cms.PSet(
+            getattr(process, taus).tauIDSources,
+            process.againstElectronTauIDSources
+        )
+        getattr(process, taus).tauIDSources = tauIDSourcesNew_
+
 	process.kappaTuple.active += cms.vstring('PatTaus')
 	process.kappaTuple.PatTaus.taus.binaryDiscrBlacklist = cms.vstring()
 	process.kappaTuple.PatTaus.taus.src = cms.InputTag(taus)
@@ -553,6 +562,15 @@ def getBaseConfig(
                         "byTightDpfTau2016v0VSall",
                         "byDpfTau2016v1VSallraw",
                         "byTightDpfTau2016v1VSall",
+
+                        # new anti-e training
+                        "againstElectronMVA6category2018",
+                        "againstElectronMVA6Raw2018",
+                        "againstElectronVLooseMVA62018",
+                        "againstElectronLooseMVA62018",
+                        "againstElectronMediumMVA62018",
+                        "againstElectronTightMVA62018",
+                        "againstElectronVTightMVA62018",
 			)
 	elif tools.is_above_cmssw_version([8,0,20]):
 		process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist += cms.vstring(
