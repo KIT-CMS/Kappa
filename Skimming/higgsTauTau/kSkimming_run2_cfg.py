@@ -132,7 +132,7 @@ def getBaseConfig(
 	if not tools.is_above_cmssw_version([9]):
             if isSignal:
 		process.kappaTuple.Info.lheSource = cms.InputTag("source")
-	if tools.is_above_cmssw_version([8]) and (not data or isEmbedded):
+	if tools.is_above_cmssw_version([8]) and (not data or not isEmbedded):
 		process.kappaTuple.Info.htxsInfo = cms.InputTag("rivetProducerHTXS", "HiggsClassification")
 		process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 		process.mergedGenParticles = cms.EDProducer("MergedGenParticleProducer",
@@ -630,14 +630,14 @@ def getBaseConfig(
                 # PF MET with EE noise
                 runMetCorAndUncFromMiniAOD(
                     process,
-                    isData = False,
+                    isData = data or isEmbedded,
                     fixEE2017 = False
                     )
 
                 # PF MET without EE noise
                 runMetCorAndUncFromMiniAOD(
                     process,
-                    isData = data,
+                    isData = data or isEmbedded,
                     fixEE2017 = True,
                     postfix = "ModifiedMET"
                     )
@@ -645,7 +645,7 @@ def getBaseConfig(
                 # PF MET with Puppi
                 runMetCorAndUncFromMiniAOD(
                     process,
-                    isData = data,
+                    isData = data or isEmbedded,
                     metType = "Puppi",
                     jetFlavor = "AK4PFPuppi",
                     postfix = "Puppi"
