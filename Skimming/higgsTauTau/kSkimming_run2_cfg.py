@@ -467,7 +467,7 @@ def getBaseConfig(
 	if tools.is_above_cmssw_version([9,4,2]):
                 na = TauIDEmbedder(process, cms,
                     debug=True,
-                    toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1"]
+                    toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1", "againstEle2018"]
                 )
 	elif tools.is_above_cmssw_version([8,0,20]):
                 na = TauIDEmbedder(process, cms,
@@ -477,15 +477,6 @@ def getBaseConfig(
         na.runTauID()
         process.p *= ( process.rerunMvaIsolationSequence)
         process.p *= getattr(process, taus)
-
-        # adding new anti-e discriminator training
-        process.load("RecoTauTag.RecoTau.antiElectronAtPAT_cff")
-        process.p.replace(getattr(process, taus), process.patTauDiscriminationByElectronRejectionSeq+getattr(process, taus))
-        tauIDSourcesNew_ = cms.PSet(
-            getattr(process, taus).tauIDSources,
-            process.againstElectronTauIDSources
-        )
-        getattr(process, taus).tauIDSources = tauIDSourcesNew_
 
 	process.kappaTuple.active += cms.vstring('PatTaus')
 	process.kappaTuple.PatTaus.taus.binaryDiscrBlacklist = cms.vstring()
