@@ -37,8 +37,8 @@ git clone https://github.com/cms-tau-pog/RecoTauTag-TrainingFiles -b master Reco
 #git cms-merge-topic ArturAkh:DNNTauIDs_andAntiEDiscv3
 
 # Prefiring
-# Ge the prefiring map
 # from private communication, valid till Moriond at least
+# https://twiki.cern.ch/twiki/bin/viewauth/CMS/L1ECALPrefiringWeightRecipe
 git cms-merge-topic lathomas:L1Prefiring_10_2_6
 mkdir L1Prefiring/EventWeightProducer/data
 mv L1Prefiring/EventWeightProducer/files/L1PrefiringMaps_new.root L1Prefiring/EventWeightProducer/data/L1PrefiringMaps_new.root
