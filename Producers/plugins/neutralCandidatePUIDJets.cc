@@ -47,7 +47,7 @@ class neutralCandidatePUIDJets : public edm::stream::EDProducer<> {
   static std::string   jetPUIDNameLabel_ ;
   static bool stringInJetCollection_ ;
 
-  float jetPUIDCut_ [4][3];
+  float jetPUIDCut_ [5][4];
 
 };
 #endif
