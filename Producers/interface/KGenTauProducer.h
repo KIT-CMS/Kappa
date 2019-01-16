@@ -217,16 +217,17 @@ private:
 				walkDecayTree(dynamic_cast<const reco::GenParticle&>(*in.daughter(1)), info, level, allowNonPromptTauDecayProduct);
 		}
 		//else if(in.numberOfDaughters() >= 3 && ( isLepton(in.daughter(0)->pdgId()) &&  isLepton(in.daughter(1)->pdgId()) && isLepton(in.daughter(2)->pdgId())))
-		else if(minthreeLeptondauhhters(in,lep_daughter_wiht_max_pt))
+		else if (minthreeLeptondauhhters(in, lep_daughter_wiht_max_pt))
 		{
 			//printf("\tinternal gamma(*) conversion (tau -> l l tau )\n");
 			// Don't increase level since the initial tau is not real.
 			// The inital tau decays into three leptons, which can be illustrated by a virual photon (gamma*).
-			// Take the lepton with the largest pt, which is most likly to be reconstructed as the tau. The others are usally soft 
+			// Take the lepton with the largest pt, which is most likly to be reconstructed as the tau. The others are usally soft
 			// the loop over the daughters is necessary since also photons can be radiated within this step.
-			 if (std::abs(lep_daughter_wiht_max_pt) == 11 || std::abs(lep_daughter_wiht_max_pt) == 13 ) allowNonPromptTauDecayProduct = true;
+			if (std::abs(in.daughter(lep_daughter_wiht_max_pt)->pdgId()) == 11 || std::abs(in.daughter(lep_daughter_wiht_max_pt)->pdgId()) == 13)
+			 	allowNonPromptTauDecayProduct = true;
 			 walkDecayTree(dynamic_cast<const reco::GenParticle&>(*in.daughter(lep_daughter_wiht_max_pt)), info, level, allowNonPromptTauDecayProduct);
-		}		
+		}
 		else if(in.numberOfDaughters() == 2 && std::abs(in.pdgId()) == 111 &&
 				std::abs(in.daughter(0)->pdgId()) == 22 && std::abs(in.daughter(1)->pdgId()) == 22)
 		{
