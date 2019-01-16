@@ -42,7 +42,7 @@ protected:
 	virtual void fillSingle(const SingleInputType &in, SingleOutputType &out)
 	{
 		KBasicGenParticleProducer<KGenTaus>::fillSingle(in, out);
-		
+
 		// custom implementations
 		DecayInfo info;
 		walkDecayTree(dynamic_cast<const reco::GenParticle&>(in), info);
@@ -146,7 +146,7 @@ protected:
 		if(!dynamic_cast<const reco::GenParticle&>(in).statusFlags().isPrompt())
 		    return false;
 #endif
-		
+
 
 		return true;
 	}
@@ -169,9 +169,9 @@ private:
 		//printf("PDG %d\tstatus %d", in.pdgId(), in.status());
 		//std::cout<<"\tpt "<<in.p4().pt()<<"\tphi "<<in.p4().phi()<<"\teta "<<in.p4().eta()<<"\tE "<<in.p4().E()
 		//<<"\tispromptaudecyp:"<<in.statusFlags().isPromptTauDecayProduct();
-		
+
 		unsigned int lep_daughter_wiht_max_pt = 0;
-		
+
 		RMDLV p4(0,0,0,0);
 		if(in.numberOfDaughters() == 0)
 		{
@@ -272,27 +272,32 @@ private:
 	{
 		return std::abs(pdg_id) == 12 || std::abs(pdg_id) == 14 || std::abs(pdg_id) == 16;
 	}
+
 	static bool isLepton(int pdg_id)
 	{
 		return std::abs(pdg_id) == 11 || std::abs(pdg_id) == 13 || std::abs(pdg_id) == 15;
 	}
-	static bool minthreeLeptondauhhters(const reco::GenParticle& in, unsigned int &lep_daughter_wiht_max_pt){
-	  int Nakt=0;
-	  float akt_max_pt=-1.0;
-	  for(unsigned int i = 0; i < in.numberOfDaughters(); ++i)
-	    {
-	     if (isLepton(in.daughter(i)->pdgId()))
-	     {
-	       Nakt++; 
-	       if (in.daughter(i)->pt()>akt_max_pt){
-		 lep_daughter_wiht_max_pt = i;
-		 akt_max_pt = in.daughter(i)->pt();
-	       }
-	     }
-	  }	
-	  return Nakt>=3;
+
+	// returns True if >=3 leptons as daughters and saves the number, corresponding to the daughter-lepton with highest p_T
+	static bool minthreeLeptondauhhters(const reco::GenParticle& in, unsigned int &lep_daughter_wiht_max_pt)
+	{
+		int Nakt = 0;
+		float akt_max_pt = -1.0;
+		for(unsigned int i = 0; i < in.numberOfDaughters(); ++i)
+		{
+			if (isLepton(in.daughter(i)->pdgId()))
+			{
+				Nakt++;
+				if (in.daughter(i)->pt() > akt_max_pt)
+				{
+					lep_daughter_wiht_max_pt = i;
+					akt_max_pt = in.daughter(i)->pt();
+				}
+			}
+		}
+		return Nakt>=3;
 	}
-	  
+
 };
 
 #endif
