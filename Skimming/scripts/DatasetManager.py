@@ -4,10 +4,12 @@ import json
 import os
 from Kappa.Skimming.datasetsHelperTwopz import datasetsHelperTwopz
 import argparse
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 
 class DataSetManagerBase:
-    def __init__(self, in_dataset_file, tag_key=None, tag_values_str=None, query=None, nick_regex=None):
+    def __init__(self, in_dataset_file, tag_key=None, tag_values_str=None, query=None, nick_regex=None, dbs_regex=None):
         self.in_dataset_file = in_dataset_file
         self.dataset = datasetsHelperTwopz(in_dataset_file)
         self.orginal = datasetsHelperTwopz(in_dataset_file)  # Just a copy to compare
@@ -18,10 +20,18 @@ class DataSetManagerBase:
             self.tag_values = None
         self.query = query
         self.nick_regex = nick_regex
+        self.dbs_regex = dbs_regex
 
-    def get_nick_list(self, tag_key=None, tag_values=None, query=None, nick_regex=None):
+    def get_nick_list(self, tag_key=None, tag_values=None, query=None, nick_regex=None, dbs_regex=None):
         """ get the list with matching requerments, default use setting provided by arg parser"""
+        if dbs_regex is None:
+            dbs_regex = self.dbs_regex
+        if dbs_regex is not None:
+            print 'matching by dbs_regex'
+            import re
+            return filter((lambda x: re.search(dbs_regex, self.dataset.base_dict[x]['dbs'.encode('utf-8')])), self.dataset.base_dict.keys())
         if (not tag_key) and (not query) and (not nick_regex):
+            print 'matching by dbs_regex'
             return self.dataset.get_nick_list(tag_key=self.tag_key, tag_values=self.tag_values, query=self.query, nick_regex=self.nick_regex)
         else:
             return self.dataset.get_nick_list(tag_key=tag_key, tag_values=tag_values, query=query, nick_regex=nick_regex)
@@ -60,6 +70,11 @@ class DataSetManagerBase:
             return
         nick_list = self.get_nick_list()
         self.dataset.addTags(add_tag_key, add_tag_values_str.strip('[]').replace(' ', '').split(','), nick_list)
+
+    def add_attribute(self, attribute, attribute_value):
+        nicks = self.get_nick_list()
+        for nick in nicks:
+            self.dataset.base_dict[nick][attribute] = attribute_value
 
     def add_globaltag(self, add_globaltag):
         nick_list = self.get_nick_list()
@@ -275,6 +290,8 @@ class DataSetManagerBase:
 
     def print_skim(self, keys_to_print):
         nicks = self.get_nick_list()
+        # print nicks
+        print "Found matches:", len(nicks)
         print "---------------------------------------------------------"
         for nick in nicks:
             print nick
@@ -282,6 +299,20 @@ class DataSetManagerBase:
                 if item_to_print in self.dataset.base_dict[nick].keys():
                     print "%15s : %s" % (item_to_print, self.dataset.base_dict[nick][item_to_print])
             print "---------------------------------------------------------"
+
+    def printregistered(self, printregistered):
+        import ast
+        nicks = self.get_nick_list()
+        if nicks is None:
+            nicks = self.dataset.base_dict.keys()
+        print 'nicks analysed:', len(nicks)
+        options = set()
+        for nick in nicks:
+            if printregistered.encode('utf-8') in self.dataset.base_dict[nick].keys():
+                options.add(self.dataset.base_dict[nick][printregistered])
+        header = '\n Possible options for ' + printregistered + '(' + str(len(options)) + '):'
+        print header, '\n', '-' * (len(header) - 1)
+        pp.pprint(options)
 
     def add_entry(self, entry):
         if os.path.isfile(entry):
@@ -370,6 +401,9 @@ if __name__ == "__main__":
     parser.add_argument("--addtag", dest="addtag", help="Add the to this tag the TagValues -> requieres -- addtagvaluesoption\nAlso either the --query or --nicks option must be given (for matching) ")
     parser.add_argument("--addtagvalues", dest="addtagvalues", help="The tag values, must be a comma separated string (e.g. --TagValues \"Skim_Base',Skim_Exetend\" ")
 
+    parser.add_argument("--addattribute", dest="addattribute", help="Add new attribute that stores 1 element")
+    parser.add_argument("--addattributevalue", dest="addattributevalue", help="Add new attribute that stores 1 element")
+
     parser.add_argument("--globaltag", dest="globaltag", default=None, help="Add a global tag to all that matches query [Default : %(default)s]")
 
     parser.add_argument("--rmtag", dest="rmtag", help="Remove the to this tag the TagValues -> requieres --TagValues option\nAlso either the --query or --nicks option must be given (for matching) ")
@@ -383,6 +417,9 @@ if __name__ == "__main__":
 
     parser.add_argument("--print", dest="print_ds", help="Print ", action='store_true')
     parser.add_argument("--printkeys", dest="printkeys", help="which keys to print [Default : %(default)s]. Choose \"all\" for printing everything.", nargs="+", default=["dbs"])
+
+    parser.add_argument("--printregistered", dest="printregistered", help="print possible options.", nargs=1, type=str, default=None)
+    parser.add_argument("--dbsregex", dest="dbsregex", help="dbs_regex matching to dbs.", type=str, default=None)
 
     args = parser.parse_args()
     if not os.path.isabs(args.inputfile):
@@ -399,7 +436,7 @@ if __name__ == "__main__":
         if not os.path.exists(args.inputfile):
             print "Input Database " + args.inputfile + " could not be found. Please specify correct file path."
             exit()
-    DSM = DataSetManagerBase(args.inputfile, tag_key=args.tag, tag_values_str=args.tagvalues, query=args.query, nick_regex=args.nicks)
+    DSM = DataSetManagerBase(args.inputfile, tag_key=args.tag, tag_values_str=args.tagvalues, query=args.query, nick_regex=args.nicks, dbs_regex=args.dbsregex)
 
     if args.addDatasets and (args.addentry or args.addtag or args.rmtag):
         print "Adding Datasets and adding/removing entries or tags in same instance not supported. Please do separately."
@@ -407,6 +444,8 @@ if __name__ == "__main__":
     if args.addDatasets:
         DSM.query_datasets(args.addDatasets, inputDBS=args.inputDBS, xsec=args.xsec, globaltag=args.globaltag)
     else:
+        if args.addattribute:
+            DSM.add_attribute(attribute=args.addattribute, attribute_value=args.addattributevalue)
         if args.addentry:
             DSM.add_entry(entry=args.addentry)
         if args.addtag:
@@ -428,6 +467,9 @@ if __name__ == "__main__":
 
     if args.print_ds:
         DSM.print_skim(keys_to_print=args.printkeys)
+
+    if args.printregistered is not None:
+        DSM.printregistered(printregistered=args.printregistered[0])
 
 # Always show the difference between old an new
 
