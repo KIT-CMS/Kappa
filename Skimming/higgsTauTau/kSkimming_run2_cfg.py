@@ -338,7 +338,7 @@ def getBaseConfig(
 	# Configure Electrons
 
         # Apply scale & smear corrections of electrons & store them as user floats (default) and recompute the VID's (including V2)
-        if tools.is_above_cmssw_version([9,4]):
+        if tools.is_above_cmssw_version([9, 4]):
             from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
             setupEgammaPostRecoSeq(
                     process,
@@ -357,9 +357,8 @@ def getBaseConfig(
                             'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff',
                             'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_GeneralPurpose_V1_cff',
                     ],
-                    phoIDModules=[
-                    ],
-                    era='2017-Nov17ReReco'
+                    phoIDModules=[],
+                    era=str(datasetsHelper.base_dict[nickname]["era"]),
             )
             process.p *= process.egammaPostRecoSeq
 
@@ -406,7 +405,11 @@ def getBaseConfig(
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wp80"),
 			cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wpLoose"),
 			)
-                process.kappaTuple.Electrons.userFloats = cms.VInputTag(
+		# According to this: https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPostRecoRecipes#A_note_on_ValueMaps
+		process.kappaTuple.Electrons.userFloats = cms.VInputTag()
+		# Note you have to disable the the energy corrections fpr 2018 as they are not available yet.
+		if '2017' in str(datasetsHelper.base_dict[nickname]["era"]) or '2016' in str(datasetsHelper.base_dict[nickname]["era"]):
+			process.kappaTuple.Electrons.userFloats = cms.VInputTag(
 			# scale & smear corrected energy (applied on Data AND MC)
 			cms.InputTag("electronCorrection:ecalTrkEnergyPreCorr"),
 			cms.InputTag("electronCorrection:ecalTrkEnergyPostCorr"),
@@ -467,7 +470,13 @@ def getBaseConfig(
 	if tools.is_above_cmssw_version([9,4,2]):
                 na = TauIDEmbedder(process, cms,
                     debug=True,
-                    toKeep = ["2017v2","DPFTau_2016_v0","DPFTau_2016_v1","deepTau2017v1", "againstEle2018"]
+                    toKeep=[
+                    	"2017v2",
+                    	"DPFTau_2016_v0",
+                    	"DPFTau_2016_v1",
+                    	"deepTau2017v1",
+                    	"againstEle2018",
+                    ]
                 )
 	elif tools.is_above_cmssw_version([8,0,20]):
                 na = TauIDEmbedder(process, cms,
