@@ -439,13 +439,6 @@ class SkimManagerBase:
 		cfg_dict['local']['queue randomize'] = 'True'
 		cfg_dict['local']['wms'] = 'OGE'
 		cfg_dict['local']['proxy'] = 'VomsProxy'
-		cfg_dict['local']['submit options'] = '-l os=sld6'
-
-		cfg_dict['wms'] = {}
-		cfg_dict['wms']['submit options'] = '-l distro=sld6'
-
-		#cfg_dict['backend'] = {}
-		#cfg_dict['backend']['ce'] = "cream-ge-2-kit.gridka.de:8443/cream-sge-sl6"
 
 		cfg_dict['constants'] = {}
 		cfg_dict['constants']['GC_GLITE_LOCATION'] = '/cvmfs/grid.cern.ch/emi3ui-latest/etc/profile.d/setup-ui-example.sh'
