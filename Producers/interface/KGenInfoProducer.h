@@ -58,9 +58,9 @@ public:
 			this->tokenRunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
 			this->htxsSrc = consumescollector.consumes<HTXS::HiggsClassification>(htxsSource);
 
-			this->prefweight_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:NonPrefiringProb"));
-			this->prefweightup_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:NonPrefiringProbUp"));
-			this->prefweightdown_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:NonPrefiringProbDown"));
+			this->prefweight_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:nonPrefiringProb"));
+			this->prefweightup_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:nonPrefiringProbUp"));
+			this->prefweightdown_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:nonPrefiringProbDown"));
 
 			genEventInfoMetadata = new KGenEventInfoMetadata();
 			_lumi_tree->Bronch("genEventInfoMetadata", "KGenEventInfoMetadata", &genEventInfoMetadata);
