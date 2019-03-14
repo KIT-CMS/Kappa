@@ -132,7 +132,7 @@ def getBaseConfig(
 	if not tools.is_above_cmssw_version([9]):
             if isSignal:
 		process.kappaTuple.Info.lheSource = cms.InputTag("source")
-	if tools.is_above_cmssw_version([8]) and (not data or isEmbedded):
+	if tools.is_above_cmssw_version([8]) and not data and not isEmbedded:
 		process.kappaTuple.Info.htxsInfo = cms.InputTag("rivetProducerHTXS", "HiggsClassification")
 		process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
 		process.mergedGenParticles = cms.EDProducer("MergedGenParticleProducer",
@@ -150,6 +150,14 @@ def getBaseConfig(
 			ProductionMode = cms.string('AUTO'),
 		)
 		process.p *= cms.Sequence(process.mergedGenParticles*process.myGenerator*process.rivetProducerHTXS)
+	if tools.is_above_cmssw_version([8]) and isEmbedded:
+		process.kappaTuple.Info.htxsInfo = cms.InputTag("rivetProducerHTXS", "HiggsClassification")
+		process.load("SimGeneral.HepPDTESSource.pythiapdt_cfi")
+		process.mergedGenParticles = cms.EDProducer("MergedGenParticleProducer",
+			inputPruned = cms.InputTag("prunedGenParticles"),
+			inputPacked = cms.InputTag("packedGenParticles"),
+		)
+		process.p *= cms.Sequence(process.mergedGenParticles)
 
 	# save primary vertex
 	process.kappaTuple.active += cms.vstring('VertexSummary') # save VertexSummary
