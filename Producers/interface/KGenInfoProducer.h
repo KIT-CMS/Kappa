@@ -56,8 +56,7 @@ public:
 			this->tokenPuInfo = consumescollector.consumes<std::vector<PileupSummaryInfo>>(puInfoSource);
 			//this->tokenLHERunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
 			this->tokenRunInfo = consumescollector.consumes<LHERunInfoProduct, edm::InRun>(runInfo);
-			this->htxsSrc = consumescollector.consumes<HTXS::HiggsClassification>(htxsSource);
-
+			if(!isEmbedded) this->htxsSrc = consumescollector.consumes<HTXS::HiggsClassification>(htxsSource);
 			this->prefweight_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:nonPrefiringProb"));
 			this->prefweightup_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:nonPrefiringProbUp"));
 			this->prefweightdown_token = consumescollector.consumes<double>(edm::InputTag("prefiringweight:nonPrefiringProbDown"));
@@ -214,13 +213,14 @@ public:
                 }
 
 		// Get STXS infos
-		edm::Handle<HTXS::HiggsClassification> htxs;
-		event.getByToken(htxsSrc, htxs);
-		this->metaEvent->htxs_stage0cat = htxs->stage0_cat;
-		this->metaEvent->htxs_stage1cat = htxs->stage1_cat_pTjet30GeV;
-		this->metaEvent->htxs_higgsPt = htxs->higgs.Pt();
-		this->metaEvent->htxs_njets30 = htxs->jets30.size();
-
+		if(!isEmbedded) {
+			edm::Handle<HTXS::HiggsClassification> htxs;
+			event.getByToken(htxsSrc, htxs);
+			this->metaEvent->htxs_stage0cat = htxs->stage0_cat;
+			this->metaEvent->htxs_stage1cat = htxs->stage1_cat_pTjet30GeV;
+			this->metaEvent->htxs_higgsPt = htxs->higgs.Pt();
+			this->metaEvent->htxs_njets30 = htxs->jets30.size();
+		}
 		// Get prefiring weights
 		edm::Handle<double> theprefweight;
 		event.getByToken(prefweight_token, theprefweight);
