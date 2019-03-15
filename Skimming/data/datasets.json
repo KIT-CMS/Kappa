@@ -6392,7 +6392,7 @@
     "process": "Embedding2017C", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
     "version": "v2"
-  }, 
+  },
   "Embedding2017C_TauTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "TauTauFinalState", 
     "data": true, 
@@ -6716,6 +6716,60 @@
     "scenario": "inputDoubleMu_94X_miniAODv2", 
     "version": "v2"
   }, 
+  "Embedding2018C_MuonEmbedding_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
+    "campaign": "MuonEmbedding", 
+    "data": true, 
+    "dbs": "", 
+    "embedded": true, 
+    "energy": "13", 
+    "extension": "", 
+    "format": "USER", 
+    "generator": "", 
+    "globalTag": "102X_dataRun2_Sep2018Rereco_v1", 
+    "inputDBS": "phys03", 
+    "n_events_generated": "8567883", 
+    "n_files": "8968", 
+    "era": "2017-Nov17ReReco",
+    "process": "Embedding2018C", 
+    "scenario": "inputDoubleMu102XminiAODv1", 
+    "version": "v1"
+  }, 
+  "Embedding2018C_ElectronEmbedding_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
+    "campaign": "ElectronEmbedding",
+    "data": true, 
+    "dbs": "",
+    "embedded": true, 
+    "energy": "13",
+    "extension": "", 
+    "format": "USER",
+    "generator": "",
+    "globalTag": "102X_dataRun2_Sep2018Rereco_v1",
+    "inputDBS": "phys03",
+    "n_events_generated": "8567883",
+    "n_files": "8968", 
+    "era": "2017-Nov17ReReco",
+    "process": "Embedding2018C", 
+    "scenario": "inputDoubleMu102XminiAODv1",
+    "version": "v1"
+  },
+  "Embedding2018C_TauTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
+    "campaign": "TauTauFinalState",
+    "data": true, 
+    "dbs": "",
+    "embedded": true, 
+    "energy": "13",
+    "extension": "", 
+    "format": "USER",
+    "generator": "",
+    "globalTag": "102X_dataRun2_Sep2018Rereco_v1",
+    "inputDBS": "phys03",
+    "n_events_generated": "4821754",
+    "n_files": "8968", 
+    "era": "2017-Nov17ReReco",
+    "process": "Embedding2018C", 
+    "scenario": "inputDoubleMu102XminiAODv1",
+    "version": "v1"
+  },
   "EmbeddingMCRunIISummer16DR80_ElMuFinalState_imputFlatPU28to62HcalNZSRAWAODSIM_13TeV_USER_pythia8": {
     "Moriond17": [
       "Skim_Embedding_MCRunIISummer16"
