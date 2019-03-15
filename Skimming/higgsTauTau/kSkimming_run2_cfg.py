@@ -171,7 +171,10 @@ def getBaseConfig(
 	#process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
 	process.kappaTuple.active += cms.vstring('ReducedTriggerObject')
 	if not isEmbedded:
-		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
+		if data and tools.is_above_cmssw_version([10,2]):
+		    process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
+		else:
+		    process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 	else:
 		process.kappaTuple.ReducedTriggerObject.bits = cms.InputTag("TriggerResults", "", "SIMembedding")
 		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "MERGE")
