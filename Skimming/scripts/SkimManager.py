@@ -407,9 +407,15 @@ class SkimManagerBase:
 		cfg_dict['global']["workdir create"] = 'True '
 
 		cfg_dict['jobs'] = {}
-		cfg_dict['jobs']['in flight'] = '500'
-		cfg_dict['jobs']['wall time'] = '06:00:00'
-		cfg_dict['jobs']['memory'] = '5000'
+		cfg_dict['jobs']['in flight'] = '1000'
+		if backend=='naf': ## to get into short queue on NAF, increase if files are too large
+			cfg_dict['jobs']['wall time'] = '02:59:00'
+		else:
+			cfg_dict['jobs']['wall time'] = '06:00:00'
+		if backend=='naf': ## to get into short queue on NAF, increase if files are too large
+			cfg_dict['jobs']['memory'] = '1990'
+		else:
+			cfg_dict['jobs']['memory'] = '5400'
 		cfg_dict['jobs']['max retry'] = '3'
 		#cfg_dict['jobs']['jobs'] = '1'
 
