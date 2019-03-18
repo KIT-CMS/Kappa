@@ -370,12 +370,12 @@ class SkimManagerBase:
 		print os.path.join(self.workdir, 'while.sh')
 		print ''
 
-	def create_gc_config(self, backend='freiburg'):
+	def create_gc_config(self, backend='freiburg',events_per_job=0):
 		shutil.copyfile(src=os.path.join(os.environ.get("CMSSW_BASE"), "src/Kappa/Skimming/higgsTauTau/", self.configfile), dst=os.path.join(self.workdir, 'gc_cfg', self.configfile))
-		gc_config = self.gc_default_cfg(backend=backend)
+		gc_config = self.gc_default_cfg(backend=backend,events_per_job=events_per_job)
 		for akt_nick in self.skimdataset.get_nicks_with_query(query={"GCSKIM_STATUS" : "INIT"}):
 			print "Create a new config for", akt_nick
-			gc_config = self.gc_default_cfg(backend=backend)
+			gc_config = self.gc_default_cfg(backend=backend,events_per_job=events_per_job)
 			self.individualized_gc_cfg(akt_nick, gc_config)
 			out_file_name = os.path.join(self.workdir, 'gc_cfg', self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest()+'.conf')
 			out_file = open(out_file_name, 'w')
@@ -395,7 +395,7 @@ class SkimManagerBase:
 					out_file.write(akt_item+' = '+gc_config[akt_key][akt_item]+'\n')
 			out_file.close()
 
-	def gc_default_cfg(self, backend='freiburg'):
+	def gc_default_cfg(self, backend='freiburg',events_per_job=0):
 		cfg_dict = {}
 		cfg_dict['global'] = {}
 		cfg_dict['global']['task']  = 'CMSSW'
@@ -423,9 +423,12 @@ class SkimManagerBase:
 		cfg_dict['CMSSW']['project area'] = '$CMSSW_BASE/'
 		cfg_dict['CMSSW']['area files'] = '-.* -config lib module */data *.xml *.sql *.cf[if] *.py *.h'
 		cfg_dict['CMSSW']['config file'] = self.configfile
-
-		cfg_dict['CMSSW']['dataset splitter'] = 'FileBoundarySplitter'
-		cfg_dict['CMSSW']['files per job'] = '1'
+		if events_per_job>0:
+			cfg_dict['CMSSW']['dataset splitter'] = 'EventBoundarySplitter'
+			cfg_dict['CMSSW']['events per job'] = events_per_job
+		else:
+			cfg_dict['CMSSW']['dataset splitter'] = 'FileBoundarySplitter'
+			cfg_dict['CMSSW']['files per job'] = '1'
 		cfg_dict['CMSSW']['se runtime'] = 'True'
 		cfg_dict['CMSSW'][';partition lfn modifier'] = '<srm:nrg>' ## comment out per default both can be changed during run, which can improve the succses rate
 		cfg_dict['CMSSW']['depends'] = 'glite'
@@ -716,6 +719,7 @@ if __name__ == "__main__":
 
 	parser.add_argument("--resubmit-with-options", default=None, dest="resubmit", help="Resubmit failed tasks. Options for crab resubmit can be specified via a python dict, e.g: --resubmit '{\"maxmemory\" : \"3000\", \"maxruntime\" : \"1440\"}'. To avoid options use '{}' Default: %(default)s")
 	parser.add_argument("--resubmit-with-gc", action='store_true', default=False, dest="resubmit_with_gc", help="Resubmits non-completed tasks with Grid Control.")
+
 	parser.add_argument("--remake", action='store_true', default=False, dest="remake", help="Remakes tasks for which an exception occured. (Run after --crab-status). Default: %(default)s")
 	parser.add_argument("--kill-all", action='store_true', default=False, dest="kill_all", help="kills all tasks. Default: %(default)s")
 	parser.add_argument("--purge", default=None, dest="purge", help="Purges tasks specified groups of tasks defined by their status. Possible groups: ALL, COMPLETED, LISTED, FAILED, KILLED. You may specify multiple groups separated by a comma. Default: %(default)s")
@@ -727,6 +731,7 @@ if __name__ == "__main__":
 	parser.add_argument("-f", "--force", action='store_true', default=False, dest="force", help="Force current action (e.g. creation of filelists).")
 
 	parser.add_argument("-b", "--backend", default='freiburg', dest="backend", help="Changes backend for the creation of Grid Control configs. Supported: freiburg, naf. Default: %(default)s")
+	parser.add_argument("-e", "--events-per-job", default=0, dest="events_per_job", help="For submission with grid-control only! Select event-based splitting instead of file based and give number of events oer job.")
 
 	args = parser.parse_args()
 
@@ -751,7 +756,7 @@ if __name__ == "__main__":
 
 	if args.init:
 		SKM.add_new(nicks)
-		SKM.create_gc_config(backend=args.backend)
+		SKM.create_gc_config(backend=args.backend,events_per_job=args.events_per_job)
 
 	if args.kill_all:
 		SKM.kill_all()
