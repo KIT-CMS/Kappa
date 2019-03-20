@@ -449,6 +449,14 @@ def getBaseConfig(
 			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values"),
 			cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV2Values"),
                         )
+		elif '2018' in str(datasetsHelper.base_dict[nickname]["era"]):
+                        process.kappaTuple.Electrons.userFloats = cms.VInputTag(
+                        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"),
+                        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
+                        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values"),
+                        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values"),
+                        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV2Values"),
+                        )
 	elif tools.is_above_cmssw_version([8]):
 		process.kappaTuple.Electrons.ids = cms.VInputTag(
 			"egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-veto",
