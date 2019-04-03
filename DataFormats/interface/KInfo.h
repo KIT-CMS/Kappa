@@ -170,7 +170,8 @@ struct KGenEventInfo : public KEventInfo
 	double x2;            ///< x of the second parton (used for PDF reweighting)
 	double qScale;        ///< q scale of the process (used for PDF reweighting)
 	int htxs_stage0cat;   // stage 0 flag for simplified template cross section measurements
-	int htxs_stage1cat;   // stage 1 flag for simplified template cross section measurements
+	int htxs_stage1p1cat;   // stage 1.1 flag for simplified template cross section measurements
+	int htxs_stage1p1finecat;   // stage 1.1 flag for simplified template cross section measurements (finer granularity)
         int htxs_higgsPt;     // Higgs Gen Pt from STXS tool
         int htxs_njets30;     // njets with pt > 30 GeV from STXS tool
 	std::vector<float> lheWeight;
