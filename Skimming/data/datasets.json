@@ -241,7 +241,8 @@
     "n_files": "977", 
     "process": "DY1JetsToLL_M50", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1012.5
   }, 
   "DY1JetsToLLM50_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_madgraph-pythia8": {
     "Fall15": [
@@ -519,7 +520,8 @@
     "n_files": "326", 
     "process": "DY2JetsToLL_M50", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 332.8
   }, 
   "DY2JetsToLLM50_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_madgraph-pythia8": {
     "Fall15": [
@@ -738,7 +740,8 @@
     "n_files": "113", 
     "process": "DY3JetsToLL_M50", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 101.8
   }, 
   "DY3JetsToLLM50_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_madgraph-pythia8": {
     "Fall15": [
@@ -1143,7 +1146,8 @@
     "n_files": "569", 
     "process": "DYJetsToLL_M10to50", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 21658.0
   }, 
   "DYJetsToLLM10to50_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_amcatnlo-pythia8": {
     "Fall15": [
@@ -1496,8 +1500,8 @@
     "n_files": "1254", 
     "process": "DYJetsToLLM50", 
     "scenario": "102X", 
-    "xsec": 5765.4,
-    "version": "v1"
+    "version": "v1", 
+    "xsec": 5765.4
   }, 
   "DYJetsToLLM50_RunIIFall15DR76_PU25nsData2015v1_13TeV_AOD_madgraph-pythia8": {
     "campaign": "RunIIFall15DR76", 
@@ -3935,7 +3939,8 @@
     "n_files": "91", 
     "process": "EWKWPlus2Jets_WToLNu_M50", 
     "scenario": "102X", 
-    "version": "v1"
+    "version": "v1",
+    "xsec": 25.62
   }, 
   "EWKWPlus2JetsWToLNuM50_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_madgraph-pythia8": {
     "Fall15": [
@@ -6839,6 +6844,24 @@
     "scenario": "inputDoubleMu102XminiAODv1", 
     "version": "v1"
   }, 
+  "Embedding2018B_MuTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
+    "campaign": "MuTauFinalState",
+    "data": true,
+    "dbs": "",
+    "embedded": true,
+    "energy": "13",
+    "era": "2018-Prompt",
+    "extension": "",
+    "format": "USER",
+    "generator": "",
+    "globalTag": "102X_dataRun2_Sep2018Rereco_v1",
+    "inputDBS": "phys03",
+    "n_events_generated": "4821754",
+    "n_files": "8968",
+    "process": "Embedding2018B",
+    "scenario": "inputDoubleMu102XminiAODv1",
+    "version": "v1"
+  },
   "Embedding2018C_MuonEmbedding_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
     "campaign": "MuonEmbedding", 
     "data": true, 
@@ -7285,7 +7308,8 @@
     "n_files": "188", 
     "process": "GluGluHToTauTau_M125", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 3.045966
   }, 
   "GluGluHToTauTauM125_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_powheg-pythia8": {
     "Fall15": [
@@ -9625,6 +9649,57 @@
     "scenario": "PromptRecov1", 
     "version": ""
   }, 
+  "MuonEG_Run2018A_17Sep2018v1_13TeV_MINIAOD": {
+    "campaign": "Run2018A", 
+    "data": true, 
+    "dbs": "/MuonEG/Run2018A-17Sep2018-v1/MINIAOD", 
+    "energy": "13", 
+    "era": "2018-Prompt",
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "", 
+    "globalTag": "102X_dataRun2_v8", 
+    "inputDBS": "global", 
+    "n_events_generated": "32958503", 
+    "n_files": "541", 
+    "process": "MuonEG", 
+    "scenario": "17Sep2018v1", 
+    "version": ""
+  }, 
+  "MuonEG_Run2018B_17Sep2018v1_13TeV_MINIAOD": {
+    "campaign": "Run2018B", 
+    "data": true, 
+    "dbs": "/MuonEG/Run2018B-17Sep2018-v1/MINIAOD", 
+    "energy": "13", 
+    "era": "2018-Prompt",
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "", 
+    "globalTag": "102X_dataRun2_v8", 
+    "inputDBS": "global", 
+    "n_events_generated": "16211567", 
+    "n_files": "333", 
+    "process": "MuonEG", 
+    "scenario": "17Sep2018v1", 
+    "version": ""
+  }, 
+  "MuonEG_Run2018C_17Sep2018v1_13TeV_MINIAOD": {
+    "campaign": "Run2018C", 
+    "data": true, 
+    "era": "2018-Prompt",
+    "dbs": "/MuonEG/Run2018C-17Sep2018-v1/MINIAOD", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "", 
+    "globalTag": "102X_dataRun2_v8", 
+    "inputDBS": "global", 
+    "n_events_generated": "15652198", 
+    "n_files": "292", 
+    "process": "MuonEG", 
+    "scenario": "17Sep2018v1", 
+    "version": ""
+  }, 
   "QCD_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
       "Skim_Fall15_Full"
@@ -10013,7 +10088,7 @@
     "n_files": "160", 
     "process": "STtWantitop5finclusiveDecaysTuneCP5", 
     "scenario": "102X", 
-    "version": "v1",
+    "version": "v1", 
     "xsec": 35.85
   }, 
   "STtWantitop5finclusiveDecaysTuneCP5_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_powheg-pythia8_v1": {
@@ -10195,7 +10270,7 @@
     "n_files": "173", 
     "process": "STtWtop5finclusiveDecaysTuneCP5", 
     "scenario": "102X", 
-    "version": "v1",
+    "version": "v1", 
     "xsec": 35.85
   }, 
   "STtWtop5finclusiveDecaysTuneCP5_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_powheg-pythia8_v1": {
@@ -10479,7 +10554,8 @@
     "n_files": "17", 
     "process": "SUSYGluGluToBBHToTauTau_M100", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM100_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -10596,7 +10672,8 @@
     "n_files": "18", 
     "process": "SUSYGluGluToBBHToTauTau_M110", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM110_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -10749,7 +10826,8 @@
     "n_files": "17", 
     "process": "SUSYGluGluToBBHToTauTau_M1200", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM1200_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -10901,7 +10979,8 @@
     "n_files": "15", 
     "process": "SUSYGluGluToBBHToTauTau_M120", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM120_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -11054,7 +11133,8 @@
     "n_files": "19", 
     "process": "SUSYGluGluToBBHToTauTau_M130", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM130_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -11189,7 +11269,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToBBHToTauTau_M1400", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM1400_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -11323,7 +11404,8 @@
     "n_files": "20", 
     "process": "SUSYGluGluToBBHToTauTau_M140", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM140_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -11457,7 +11539,8 @@
     "n_files": "12", 
     "process": "SUSYGluGluToBBHToTauTau_M1500", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM1500_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -11574,7 +11657,8 @@
     "n_files": "20", 
     "process": "SUSYGluGluToBBHToTauTau_M1600", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM1600_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -11708,7 +11792,8 @@
     "n_files": "21", 
     "process": "SUSYGluGluToBBHToTauTau_M160", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM160_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -11900,7 +11985,8 @@
     "n_files": "9", 
     "process": "SUSYGluGluToBBHToTauTau_M1800", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM1800_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -12052,7 +12138,8 @@
     "n_files": "22", 
     "process": "SUSYGluGluToBBHToTauTau_M180", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM180_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -12186,7 +12273,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToBBHToTauTau_M2000", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM2000_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -12356,7 +12444,8 @@
     "n_files": "11", 
     "process": "SUSYGluGluToBBHToTauTau_M200", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM200_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -12508,7 +12597,8 @@
     "n_files": "10", 
     "process": "SUSYGluGluToBBHToTauTau_M2300", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM2300_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -12642,7 +12732,8 @@
     "n_files": "14", 
     "process": "SUSYGluGluToBBHToTauTau_M250", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM250_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -12776,7 +12867,8 @@
     "n_files": "16", 
     "process": "SUSYGluGluToBBHToTauTau_M2600", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM2600_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -12910,7 +13002,8 @@
     "n_files": "12", 
     "process": "SUSYGluGluToBBHToTauTau_M2900", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM2900_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -13044,7 +13137,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToBBHToTauTau_M300", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM300_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -13214,7 +13308,8 @@
     "n_files": "12", 
     "process": "SUSYGluGluToBBHToTauTau_M3200", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM3200_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -13401,7 +13496,8 @@
     "n_files": "11", 
     "process": "SUSYGluGluToBBHToTauTau_M350", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM350_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -13553,7 +13649,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToBBHToTauTau_M400", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM400_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -13687,7 +13784,8 @@
     "n_files": "16", 
     "process": "SUSYGluGluToBBHToTauTau_M450", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM450_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -13923,7 +14021,8 @@
     "n_files": "15", 
     "process": "SUSYGluGluToBBHToTauTau_M600", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM600_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -14093,7 +14192,8 @@
     "n_files": "14", 
     "process": "SUSYGluGluToBBHToTauTau_M700", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM700_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -14245,7 +14345,8 @@
     "n_files": "16", 
     "process": "SUSYGluGluToBBHToTauTau_M800", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM800_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -14414,7 +14515,8 @@
     "n_files": "17", 
     "process": "SUSYGluGluToBBHToTauTau_M80", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM80_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -14549,7 +14651,8 @@
     "n_files": "14", 
     "process": "SUSYGluGluToBBHToTauTau_M900", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM900_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -14683,7 +14786,8 @@
     "n_files": "25", 
     "process": "SUSYGluGluToBBHToTauTau_M90", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToBBHToTauTauM90_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -15060,7 +15164,8 @@
     "n_files": "18", 
     "process": "SUSYGluGluToHToTauTau_M100", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM100_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -15177,7 +15282,8 @@
     "n_files": "21", 
     "process": "SUSYGluGluToHToTauTau_M110", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM110_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -15294,7 +15400,8 @@
     "n_files": "19", 
     "process": "SUSYGluGluToHToTauTau_M1200", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM1200_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -15428,7 +15535,8 @@
     "n_files": "15", 
     "process": "SUSYGluGluToHToTauTau_M120", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM120_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -15545,7 +15653,8 @@
     "n_files": "25", 
     "process": "SUSYGluGluToHToTauTau_M130", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM130_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -15662,7 +15771,8 @@
     "n_files": "21", 
     "process": "SUSYGluGluToHToTauTau_M1400", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM1400_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -15796,7 +15906,8 @@
     "n_files": "22", 
     "process": "SUSYGluGluToHToTauTau_M140", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM140_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -15930,7 +16041,8 @@
     "n_files": "12", 
     "process": "SUSYGluGluToHToTauTau_M1500", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM1500_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -16047,7 +16159,8 @@
     "n_files": "12", 
     "process": "SUSYGluGluToHToTauTau_M1600", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM1600_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -16332,7 +16445,8 @@
     "n_files": "18", 
     "process": "SUSYGluGluToHToTauTau_M1800", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM1800_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -16466,7 +16580,8 @@
     "n_files": "17", 
     "process": "SUSYGluGluToHToTauTau_M180", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM180_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -16600,7 +16715,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToHToTauTau_M2000", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM2000_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -16734,7 +16850,8 @@
     "n_files": "12", 
     "process": "SUSYGluGluToHToTauTau_M200", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM200_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -16868,7 +16985,8 @@
     "n_files": "17", 
     "process": "SUSYGluGluToHToTauTau_M2300", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM2300_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -17002,7 +17120,8 @@
     "n_files": "12", 
     "process": "SUSYGluGluToHToTauTau_M250", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM250_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -17135,7 +17254,8 @@
     "n_files": "11", 
     "process": "SUSYGluGluToHToTauTau_M2600", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM2600_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -17269,7 +17389,8 @@
     "n_files": "14", 
     "process": "SUSYGluGluToHToTauTau_M2900", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM2900_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -17403,7 +17524,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToHToTauTau_M300", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM300_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -17537,7 +17659,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToHToTauTau_M3200", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM3200_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -17671,7 +17794,8 @@
     "n_files": "11", 
     "process": "SUSYGluGluToHToTauTau_M350", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM350_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -17805,7 +17929,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToHToTauTau_M400", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM400_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -17939,7 +18064,8 @@
     "n_files": "13", 
     "process": "SUSYGluGluToHToTauTau_M450", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM450_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -18174,7 +18300,8 @@
     "n_files": "15", 
     "process": "SUSYGluGluToHToTauTau_M600", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM600_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -18287,7 +18414,8 @@
     "n_files": "17", 
     "process": "SUSYGluGluToHToTauTau_M700", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM700_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -18421,7 +18549,8 @@
     "n_files": "18", 
     "process": "SUSYGluGluToHToTauTau_M800", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM800_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -18554,7 +18683,8 @@
     "n_files": "15", 
     "process": "SUSYGluGluToHToTauTau_M80", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM80_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -18671,7 +18801,8 @@
     "n_files": "8", 
     "process": "SUSYGluGluToHToTauTau_M900", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM900_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -18805,7 +18936,8 @@
     "n_files": "23", 
     "process": "SUSYGluGluToHToTauTau_M90", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "SUSYGluGluToHToTauTauM90_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_pythia8": {
     "Fall15": [
@@ -20790,7 +20922,7 @@
     "n_files": "968", 
     "process": "TTTo2L2Nu", 
     "scenario": "102X", 
-    "version": "v1",
+    "version": "v1", 
     "xsec": 87.31
   }, 
   "TTTo2L2Nu_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_powheg-pythia8_v2": {
@@ -20910,7 +21042,7 @@
     "n_files": "3313", 
     "process": "TTToHadronic", 
     "scenario": "102X", 
-    "version": "v1",
+    "version": "v1", 
     "xsec": 380.1
   }, 
   "TTToHadronic_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_powheg-pythia8_v1": {
@@ -20988,7 +21120,7 @@
     "n_files": "1523", 
     "process": "TTToSemiLeptonic", 
     "scenario": "102X", 
-    "version": "v1",
+    "version": "v1", 
     "xsec": 364.4
   }, 
   "TTToSemiLeptonic_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_powheg-pythia8_v1": {
@@ -22259,7 +22391,8 @@
     "n_files": "72", 
     "process": "VBFHToTauTau_M125", 
     "scenario": "102X", 
-    "version": "v1"
+    "version": "v1",
+    "xsec": 0.2370687
   }, 
   "VBFHToTauTauM125_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_amcatnlo-pythia8": {
     "Fall15": [
@@ -23442,7 +23575,7 @@
     "n_files": "743", 
     "process": "W1JetsToLNu", 
     "scenario": "102X", 
-    "version": "v2",
+    "version": "v2", 
     "xsec": 9493
   }, 
   "W1JetsToLNu_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_madgraph-pythia8": {
@@ -23584,7 +23717,7 @@
     "n_files": "335", 
     "process": "W2JetsToLNu", 
     "scenario": "102X", 
-    "version": "v2",
+    "version": "v2", 
     "xsec": 3144.5
   }, 
   "W2JetsToLNu_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_madgraph-pythia8": {
@@ -23748,7 +23881,7 @@
     "n_files": "300", 
     "process": "W3JetsToLNu", 
     "scenario": "102X", 
-    "version": "v2",
+    "version": "v2", 
     "xsec": 942.3
   }, 
   "W3JetsToLNu_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_madgraph-pythia8": {
@@ -23932,7 +24065,7 @@
     "n_files": "205", 
     "process": "W4JetsToLNu", 
     "scenario": "102X", 
-    "version": "v2",
+    "version": "v2", 
     "xsec": 524.2
   }, 
   "W4JetsToLNu_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_madgraph-pythia8": {
@@ -25157,7 +25290,7 @@
     "n_files": "153", 
     "process": "WW", 
     "scenario": "102X", 
-    "version": "v2",
+    "version": "v2", 
     "xsec": 63.21
   }, 
   "WW_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_pythia8_v1": {
@@ -25658,7 +25791,8 @@
     "n_files": "206", 
     "process": "WZTo3LNu", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 1.0
   }, 
   "WZTo3LNu_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_amcatnlo-pythia8_v2": {
     "campaign": "RunIIFall17MiniAOD", 
@@ -25829,7 +25963,7 @@
     "n_files": "72", 
     "process": "WZ", 
     "scenario": "102X", 
-    "version": "v3",
+    "version": "v3", 
     "xsec": 22.82
   }, 
   "WZ_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_pythia8_v1": {
@@ -25990,7 +26124,8 @@
     "n_files": "143", 
     "process": "WminusHToTauTau_M125", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 0.03340656
   }, 
   "WminusHToTauTauM125_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_powheg-pythia8": {
     "Fall15": [
@@ -26305,7 +26440,8 @@
     "n_files": "96", 
     "process": "WplusHToTauTau_M125", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 0.052668
   }, 
   "WplusHToTauTauM125_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_powheg-pythia8": {
     "Fall15": [
@@ -26620,7 +26756,8 @@
     "n_files": "163", 
     "process": "ZHToTauTau_M125", 
     "scenario": "102X", 
-    "version": "v2"
+    "version": "v2",
+    "xsec": 0.055437468997444665
   }, 
   "ZHToTauTauM125_RunIIFall15MiniAODv2_PU25nsData2015v1_13TeV_MINIAOD_powheg-pythia8": {
     "Fall15": [
@@ -27220,7 +27357,7 @@
     "n_files": "53", 
     "process": "ZZ", 
     "scenario": "102X", 
-    "version": "v2",
+    "version": "v2", 
     "xsec": 10.32
   }, 
   "ZZ_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_pythia8_v1": {
@@ -27496,7 +27633,8 @@
     "n_files": "576", 
     "process": "ttHToTauTau_M125", 
     "scenario": "102X", 
-    "version": "v1"
+    "version": "v1",
+    "xsec": 0.0318053112
   }, 
   "ttHToTauTauM125_RunIIFall17MiniAOD_94X_13TeV_MINIAOD_powheg-pythia8_v2": {
     "campaign": "RunIIFall17MiniAOD", 
