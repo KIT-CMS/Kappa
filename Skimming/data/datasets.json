@@ -951,6 +951,7 @@
     "dbs": "/DY4JetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM", 
     "energy": "13", 
     "era": "2018-Prompt", 
+    "extension": "",
     "format": "MINIAOD", 
     "generator": "madgraph-pythia8", 
     "inputDBS": "global", 
