@@ -8,8 +8,8 @@
 # CMSSW version:  CMSSW_9_4_9
 # created:        2018-07-23
 
-
-_CMSSW_VERSION="CMSSW_9_4_9_cand2"
+# set CMSSW-version
+# _CMSSW_VERSION="CMSSW_9_4_9_cand2"
 _CMSSW_VERSION="CMSSW_9_4_10"
 
 
@@ -32,7 +32,8 @@ cd "${_CMSSW_DIR}/src"
 cmsenv
 
 # initialize git repository from CMSSW
-git cms-init
+git cms-init --upstream-only
+# --upstream-only avoids having github access to the cmssw project to clone the code!
 
 
 # -- apply CMSSW modifications, backports, etc. (user code)
