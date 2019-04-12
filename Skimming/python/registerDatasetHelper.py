@@ -25,7 +25,7 @@ def make_hash(o):
 	"""
 
 	if isinstance(o, (set, tuple, list)):
-		return tuple([make_hash(e) for e in o])    
+		return tuple([make_hash(e) for e in o])
 	elif not isinstance(o, dict):
 		return hash(o)
 	new_o = copy.deepcopy(o)
@@ -42,7 +42,7 @@ def cached_query(function):
 			return cache[query_id]
 		else:
 			result = function(*args)
-			cache[query_id] = result 
+			cache[query_id] = result
 			return result
 
 	return wrapper
@@ -80,8 +80,8 @@ def get_energy(pd_name, details, default=None, data=False, isembedded=False):
 			startpos = pd_name[0:endpos].rfind("_")+1
 			return pd_name[startpos:endpos]
                 elif isembedded:
-                    return "13" 
-		else: 
+                    return "13"
+		else:
 			if details.find("2011")!=-1: return "7"
 			if details.find("2012")!=-1: return "8"
 			if details.find("2015")!=-1: return "13"
@@ -151,8 +151,8 @@ def get_process(pd_name, default=None):
 		pos = pd_name.find("CPmixing")
 		if pos != -1:
 			process += "_"+pd_name[pos:]
-		process = process.replace("EmbeddingRun","Embedding") ## Since Run201 is Reserved for Data 
-		return process 
+		process = process.replace("EmbeddingRun","Embedding") ## Since Run201 is Reserved for Data
+		return process
 
 def get_globaltag(details, default=None):
 	if (default == None):
@@ -286,19 +286,21 @@ def get_sample_by_nick(nickname, expect_n_results = 1):
 	# split nickname
 	split_nick = nickname.split("_")
 	query = {
-		"process" : "^"+split_nick[0]+"$",
-		"campaign" : "^"+split_nick[1]+"$",
-		"scenario" : "^"+split_nick[2]+"$",
-		"energy" : "^"+split_nick[3].strip("TeV")+"$",
-		"format" : "^"+split_nick[4]+"$",
-                "generator" : ("^"+split_nick[5]+"$" if (len(split_nick) > 5) else None) if not "Embedding" in nickname else "",
-                "extension" : "",
-                "version" : "" if not "Embedding" in nickname else "^"+split_nick[5]+"$"
+		"process": "^" + split_nick[0].replace('M', '_M') + "$",
+		"campaign": "^" + split_nick[1] + "$",
+		"scenario": "^" + split_nick[2] + "$",
+		"energy": "^" + split_nick[3].strip("TeV") + "$",
+		"format": "^" + split_nick[4] + "$",
+                "generator": "^" + split_nick[5] + "$" if (len(split_nick) > 5) else None,
+                "extension": "",
+                "version": "^" + split_nick[-1] + "$",
 	}
+	if 'Embedding' in nickname:
+		query.update({'generator': '', 'version': ''})
         if len(split_nick) > 6:
-                query["extension"] = ("^"+re.sub("(-|)v\d","",split_nick[6])+"$" if (len(split_nick[6]) > 2) else "")
+                query["extension"] = ("^" + re.sub("(-|)v\d", "", split_nick[6]) + "$" if (len(split_nick[6]) > 2) else "")
                 if "Summer17" in nickname or "Fall17" in nickname:
-                    query["version"] = ("^"+re.search("v\d",split_nick[6]).group(0)+"$")
+                    query["version"] = ("^" + re.search("v\d", split_nick[6]).group(0) + "$")
 
 	#query_nick, sample = query_result(query)
 	if(expect_n_results == 1):
