@@ -109,6 +109,8 @@ class datasetsHelperTwopz:
     def isEmbedded(self, nick):
         """Chekc if sample has the embedded flag and return if not. Use False als defult"""
         sub_dict = self.base_dict.get(nick)
+        if sub_dict is None:
+            raise Exception("'%s' nick is not found in datasets.json" % (nick))
         return sub_dict.get("embedded", False)
 
     def isMiniaod(self, nick):
