@@ -51,7 +51,7 @@ def getBaseConfig(
 
 	from Kappa.Skimming.KSkimming_template_cfg import process
 	## ------------------------------------------------------------------------
-
+	era = str(datasetsHelper.base_dict[nickname]["era"])
 	if options.reportEvery >= 0 :
 		process.MessageLogger.cerr.FwkReport.reportEvery = options.reportEvery
 
@@ -180,7 +180,7 @@ def getBaseConfig(
 		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "MERGE")
 
 	# setup BadPFMuonFilter and BadChargedCandidateFilter
-	if tools.is_above_cmssw_version([9,4,9]):
+	if tools.is_above_cmssw_version([9,4,9]) and any(year in era for year in ['2017', '2018']):
 		process.load('RecoMET.METFilters.ecalBadCalibFilter_cfi')
 
 		baddetEcallist = cms.vuint32(
@@ -193,6 +193,7 @@ def getBaseConfig(
 		     872437185,872422564,872421566,872421695,
 		     872421955,872421567,872437184,872421951,
 		     872421694,872437056,872437057,872437313,
+		     #  A more complete list of noisy crystals is currently tested (post-Moriond2019):
 		     872438182,872438951,872439990,872439864,872439609, 872437181,872437182,872437053,872436794,872436667,872436536,872421541,872421413, 872421414,872421031,872423083,872421439, # extra under test
 		     ])
 
