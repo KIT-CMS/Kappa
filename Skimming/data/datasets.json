@@ -1926,7 +1926,8 @@
     "n_files": "35", 
     "process": "GluGluHToTauTau_M125", 
     "scenario": "PU2017", 
-    "version": "v2"
+    "version": "v2", 
+    "xsec": 3.0469376
   }, 
   "GluGluHToTauTauM125_RunIISummer16MiniAODv3_PUMoriond17_13TeV_MINIAOD_powheg-pythia8_v1": {
     "campaign": "RunIISummer16MiniAODv3", 
@@ -7466,7 +7467,8 @@
     "n_files": "39", 
     "process": "VBFHToTauTau_M125", 
     "scenario": "PU2017", 
-    "version": "v1"
+    "version": "v1", 
+    "xsec": 0.2370687
   }, 
   "VBFHToTauTauM125_RunIISummer16MiniAODv3_PUMoriond17_13TeV_MINIAOD_powheg-pythia8_v2": {
     "campaign": "RunIISummer16MiniAODv3", 
