@@ -286,7 +286,6 @@ def get_sample_by_nick(nickname, expect_n_results = 1):
 	# split nickname
 	split_nick = nickname.split("_")
 	version = split_nick[-1] if 'ext' not in split_nick[-1] else split_nick[-1].split('-')[-1]
-	extension = "" if 'ext' not in split_nick[-1] else "^" + split_nick[-1].split('-')[0] + "$"
 	query = {
 		"process": "^" + split_nick[0].replace('M', '_M') + "$",
 		"campaign": "^" + split_nick[1] + "$",
@@ -294,8 +293,8 @@ def get_sample_by_nick(nickname, expect_n_results = 1):
 		"energy": "^" + split_nick[3].strip("TeV") + "$",
 		"format": "^" + split_nick[4] + "$",
                 "generator": "^" + split_nick[5] + "$" if (len(split_nick) > 5) else None,
-                "extension": extension,
-                "version": "^" + version + "$",
+                "extension": "^" + split_nick[-1].split('-')[0] + "$" if 'ext' in split_nick[-1] else None,
+                "version": "^" + version + "$" if split_nick[4] != 'MINIAOD' else None,
 	}
 	if 'Embedding' in nickname:
 		query.update({'generator': ''})
