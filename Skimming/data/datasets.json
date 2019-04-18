@@ -3015,6 +3015,22 @@
     "version": "v2", 
     "xsec": 1.0
   }, 
+  "SUSYGluGluToBBHToTauTauM1500_RunIIAutumn18MiniAOD_102X_13TeV_MINIAOD_pythia8_v2": {
+    "campaign": "RunIIAutumn18MiniAOD", 
+    "data": false, 
+    "dbs": "/SUSYGluGluToBBHToTauTau_M-1500_TuneCP5_13TeV-pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "pythia8", 
+    "globalTag": "102X_upgrade2018_realistic_v18", 
+    "inputDBS": "global", 
+    "n_events_generated": "200000", 
+    "n_files": "12", 
+    "process": "SUSYGluGluToBBHToTauTau_M1500", 
+    "scenario": "102X", 
+    "version": "v2"
+  }, 
   "SUSYGluGluToBBHToTauTauM1500_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
     "campaign": "RunIIFall17MiniAODv2", 
     "data": false, 
@@ -3051,6 +3067,22 @@
     "scenario": "PUMoriond17", 
     "version": "v2", 
     "xsec": 1.0
+  }, 
+  "SUSYGluGluToBBHToTauTauM1600_RunIIAutumn18MiniAOD_102X_13TeV_MINIAOD_pythia8_v2": {
+    "campaign": "RunIIAutumn18MiniAOD", 
+    "data": false, 
+    "dbs": "/SUSYGluGluToBBHToTauTau_M-1600_TuneCP5_13TeV-pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM", 
+    "energy": "13", 
+    "extension": "", 
+    "format": "MINIAOD", 
+    "generator": "pythia8", 
+    "globalTag": "102X_upgrade2018_realistic_v18", 
+    "inputDBS": "global", 
+    "n_events_generated": "185000", 
+    "n_files": "20", 
+    "process": "SUSYGluGluToBBHToTauTau_M1600", 
+    "scenario": "102X", 
+    "version": "v2"
   }, 
   "SUSYGluGluToBBHToTauTauM1600_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
     "campaign": "RunIIFall17MiniAODv2", 
