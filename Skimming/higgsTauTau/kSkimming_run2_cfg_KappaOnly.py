@@ -52,6 +52,24 @@ def getBaseConfig(
 	maxevents=-1,
 	outputfilename = 'kappaTuple.root'):
 
+        trigger_objects_embedding = {
+            2016 : "selectedPatTrigger",
+            2017 : "slimmedPatTrigger",
+            2018 : "slimmedPatTrigger",
+        }
+
+        metfilterbits_process_data = {
+            2016 : "DQM",
+            2017 : "PAT",
+            2018 : "RECO",
+        }
+
+        pfmet = {
+            2016 : "slimmedMETs",
+            2017 : "slimmedMETsModifiedMET",
+            2018 : "slimmedMETs",
+        }
+
         
         # CMSSW version
         cmssw_version_number = tools.get_cmssw_version_number()
@@ -63,13 +81,23 @@ def getBaseConfig(
 	isData = datasetsHelper.isData(nickname) and not isEmbedded
         isMC = not isData and not isEmbedded
 	era = str(datasetsHelper.base_dict[nickname]["era"])
+        year = datasetsHelper.base_dict[nickname]["year"]
+        dtype = ""
+        if isData:
+            dtype = "data"
+        elif isEmbedded:
+            dtype = "embedding"
+        elif isMC:
+            dtype = "MC"
+        postMiniAODProcess = "KAPPA"
 
         from Kappa.Skimming.postMiniAODSequences import create_postMiniAODSequences
-        process = create_postMiniAODSequences(2017, 'MC')
+        process = create_postMiniAODSequences(year, dtype)
         process.ep = cms.EndPath()
         if not options.usePostMiniAODSequences:
             process.p = cms.Path()
             process._Process__name = "KAPPA"
+            postMiniAODProcess = "SKIM"
 
         ## Global Tag
 	globaltag = datasetsHelper.getGlobalTag(nickname)
@@ -133,7 +161,7 @@ def getBaseConfig(
 	elif isMC:
 		process.kappaTuple.active+= cms.vstring('GenInfo')           # produce Metadata for MC
 		process.kappaTuple.Info.pileUpInfoSource = cms.InputTag("slimmedAddPileupInfo")
-		process.kappaTuple.Info.htxsInfo = cms.InputTag("rivetProducerHTXS", "HiggsClassification",  "SKIM")
+		process.kappaTuple.Info.htxsInfo = cms.InputTag("rivetProducerHTXS", "HiggsClassification",  postMiniAODProcess)
                 process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "HLT")
         elif isEmbedded:
 		process.kappaTuple.active += cms.vstring('GenInfo')          # produce Metatada for embedding
@@ -160,12 +188,13 @@ def getBaseConfig(
 		process.kappaTuple.ReducedTriggerObject.bits = cms.InputTag("TriggerResults", "", "HLT")
         elif isEmbedded:
 		process.kappaTuple.ReducedTriggerObject.bits = cms.InputTag("TriggerResults", "", "SIMembedding")
+		process.kappaTuple.ReducedTriggerObject.triggerObjects = cms.PSet(src=cms.InputTag(trigger_objects_embedding[year]))
 
 	## ------------------------------------------------------------------------
 
-        # MET filters
+        # MET filters #TODO cover also self-produced metfilterbits
         if isData:
-		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
+		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", metfilterbits_process_data[year])
         elif isMC:
 		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 	elif isEmbedded:
@@ -202,7 +231,7 @@ def getBaseConfig(
 	process.kappaTuple.active += cms.vstring('Electrons')
 	process.kappaTuple.Electrons.electrons.src = cms.InputTag("slimmedElectrons")
 	process.kappaTuple.Electrons.electrons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
-	process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("selectedUpdatedPatJetsUpdatedJEC", "rho", "SKIM")
+	process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("selectedUpdatedPatJetsUpdatedJEC", "rho", postMiniAODProcess)
 	process.kappaTuple.Electrons.allConversions = cms.InputTag("reducedEgamma","reducedConversions")
         process.kappaTuple.Electrons.srcIds = cms.string("pat")
         process.kappaTuple.Electrons.ids = cms.VInputTag(
@@ -219,46 +248,32 @@ def getBaseConfig(
                 cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wpLoose"),
                 )
         # According to this: https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPostRecoRecipes#A_note_on_ValueMaps
-        process.kappaTuple.Electrons.userFloats = cms.VInputTag()
-        # Note you have to disable the the energy corrections fpr 2018 as they are not available yet.
-        if '2017' in era or '2016' in era:
-                process.kappaTuple.Electrons.userFloats = cms.VInputTag(
-                # scale & smear corrected energy (applied on Data AND MC)
-                cms.InputTag("electronCorrection:ecalTrkEnergyPreCorr"),
-                cms.InputTag("electronCorrection:ecalTrkEnergyPostCorr"),
-                cms.InputTag("electronCorrection:ecalTrkEnergyErrPreCorr"),
-                cms.InputTag("electronCorrection:ecalTrkEnergyErrPostCorr"),
+        process.kappaTuple.Electrons.userFloats = cms.VInputTag(
+        # scale & smear corrected energy (applied on Data AND MC)
+        cms.InputTag("electronCorrection:ecalTrkEnergyPreCorr"),
+        cms.InputTag("electronCorrection:ecalTrkEnergyPostCorr"),
+        cms.InputTag("electronCorrection:ecalTrkEnergyErrPreCorr"),
+        cms.InputTag("electronCorrection:ecalTrkEnergyErrPostCorr"),
 
-                # systematic variations for scale & smear corrections (to be used on MC)
-                cms.InputTag("electronCorrection:energyScaleUp"),
-                cms.InputTag("electronCorrection:energyScaleDown"),
-                cms.InputTag("electronCorrection:energyScaleStatUp"),
-                cms.InputTag("electronCorrection:energyScaleStatDown"),
-                cms.InputTag("electronCorrection:energyScaleSystUp"),
-                cms.InputTag("electronCorrection:energyScaleSystDown"),
-                cms.InputTag("electronCorrection:energyScaleGainUp"),
-                cms.InputTag("electronCorrection:energyScaleGainDown"),
-                cms.InputTag("electronCorrection:energySigmaUp"),
-                cms.InputTag("electronCorrection:energySigmaDown"),
-                cms.InputTag("electronCorrection:energySigmaPhiUp"),
-                cms.InputTag("electronCorrection:energySigmaPhiDown"),
-                cms.InputTag("electronCorrection:energySigmaRhoUp"),
-                cms.InputTag("electronCorrection:energySigmaRhoDown"),
+        # systematic variations for scale & smear corrections (to be used on MC)
+        cms.InputTag("electronCorrection:energyScaleUp"),
+        cms.InputTag("electronCorrection:energyScaleDown"),
+        cms.InputTag("electronCorrection:energyScaleStatUp"),
+        cms.InputTag("electronCorrection:energyScaleStatDown"),
+        cms.InputTag("electronCorrection:energyScaleSystUp"),
+        cms.InputTag("electronCorrection:energyScaleSystDown"),
+        cms.InputTag("electronCorrection:energyScaleGainUp"),
+        cms.InputTag("electronCorrection:energyScaleGainDown"),
+        cms.InputTag("electronCorrection:energySigmaUp"),
+        cms.InputTag("electronCorrection:energySigmaDown"),
+        cms.InputTag("electronCorrection:energySigmaPhiUp"),
+        cms.InputTag("electronCorrection:energySigmaPhiDown"),
+        cms.InputTag("electronCorrection:energySigmaRhoUp"),
+        cms.InputTag("electronCorrection:energySigmaRhoDown"),
 
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"),
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values"),
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values"),
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV2Values"),
-                )
-        elif '2018' in era:
-                process.kappaTuple.Electrons.userFloats = cms.VInputTag(
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values"),
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values"),
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values"),
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values"),
-                cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV2Values"),
-                )
+        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values"),
+        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV2Values"),
+        )
 
 	## ------------------------------------------------------------------------
 
@@ -389,7 +404,7 @@ def getBaseConfig(
 	process.p *= cms.Sequence(process.pfTrackMETCands*process.pfTrackMET*process.patpfTrackMET*process.pfNoPUMETCands*process.pfNoPUMET*process.patpfNoPUMET*process.pfPUCorrectedMETCands*process.pfPUCorrectedMET*process.patpfPUCorrectedMET*process.pfPUMETCands*process.pfPUMET*process.patpfPUMET)
 
 	process.kappaTuple.active += cms.vstring('PatMET')
-	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag("slimmedMETsModifiedMET"))
+	process.kappaTuple.PatMET.met = cms.PSet(src=cms.InputTag(pfmet[year]))
 	process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"))
 	process.kappaTuple.PatMET.trackMet = cms.PSet(src=cms.InputTag("patpfTrackMET"))
 	process.kappaTuple.PatMET.noPuMet = cms.PSet(src=cms.InputTag("patpfNoPUMET"))
@@ -473,7 +488,6 @@ def getBaseConfig(
 if __name__ == "__main__" or __name__ == "kSkimming_run2_cfg":
 
 	# local testing with user-defined input file
-        print options
 	if options.mode == "local":
 		if options.testfile == '': # get testfile from DBS
 			testfile = datasetsHelper.get_testfile_for_nick(options.nickname)
