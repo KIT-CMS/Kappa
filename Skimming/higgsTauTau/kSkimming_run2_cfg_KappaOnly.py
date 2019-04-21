@@ -192,13 +192,14 @@ def getBaseConfig(
 
 	## ------------------------------------------------------------------------
 
-        # MET filters #TODO cover also self-produced metfilterbits
+        # MET filters
         if isData:
 		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", metfilterbits_process_data[year])
         elif isMC:
 		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 	elif isEmbedded:
 		process.kappaTuple.ReducedTriggerObject.metfilterbits = cms.InputTag("TriggerResults", "", "MERGE")
+        process.kappaTuple.ReducedTriggerObject.rerunecalBadCalibFilter = cms.InputTag("ecalBadCalibReducedMINIAODFilter")
 
 	## ------------------------------------------------------------------------
 

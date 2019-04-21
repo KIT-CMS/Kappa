@@ -29,6 +29,7 @@ public:
 	{
 		triggerBits_ = cfg.getParameter<edm::InputTag>("bits");
 		metFilterBits_ = cfg.getParameter<edm::InputTag>("metfilterbits");
+                rerunecalBadCalibFilterBool_ = cfg.getParameter<edm::InputTag>("rerunecalBadCalibFilter");
                 matchpattern_ = cfg.getParameter<std::string>("matchpattern");
 		
 		toMetadata = new KTriggerObjectMetadata;
@@ -36,6 +37,7 @@ public:
 
 		this->triggerBitsToken_ = consumescollector.consumes<edm::TriggerResults>(triggerBits_);
 		this->metFilterBitsToken_ = consumescollector.consumes<edm::TriggerResults>(metFilterBits_);
+                this->rerunecalBadCalibFilterBoolToken_ = consumescollector.consumes<bool>(rerunecalBadCalibFilterBool_);
 	
 	}
 
@@ -63,15 +65,16 @@ public:
 				selectedMetFilters_.push_back(i);
 		}
 		nMetFilters_ = selectedMetFilters_.size();
-		if(nMetFilters_ >=(8* sizeof(int)))
+		if(nMetFilters_ >=(8* sizeof(int)) - 1)
 		{
-			std::cout << "Tried to read " << nMetFilters_ << " but only able to store " << (sizeof(int)*8) << " bits." << std::endl;
+			std::cout << "Tried to read " << nMetFilters_ << " but only able to store " << (sizeof(int)*8 - 1) << " bits." << std::endl;
 			assert(false);
 		}
 		for(auto i : selectedMetFilters_)
 		{
 			toMetadata->metFilterNames.push_back(metFilterNames_.triggerName(i));
 		}
+		toMetadata->metFilterNames.push_back(rerunecalBadCalibFilterBool_.label());
 		return true;
 	}
 
@@ -80,6 +83,7 @@ public:
 		
 		event.getByToken(this->triggerBitsToken_, triggerBitsHandle_);
 		event.getByToken(this->metFilterBitsToken_, metFilterBitsHandle_);
+		event.getByToken(this->rerunecalBadCalibFilterBoolToken_, rerunecalBadCalibFilterBoolHandle_);
 		event_ = &(event);
 		return KBaseMultiProducer::onEvent(event, setup);
 	}
@@ -101,6 +105,10 @@ protected:
             {
             	if(metFilterBitsHandle_->accept(selectedMetFilters_[i]))
             	    out.metFilterBits = ( out.metFilterBits | ( 1 << i ));
+            }
+            if ((*rerunecalBadCalibFilterBoolHandle_) )
+            {
+                out.metFilterBits = (out.metFilterBits | ( 1 << nMetFilters_ )); // rerunecalBadCalibFilter
             }
             
             out.trgObjects.clear();
@@ -128,10 +136,13 @@ protected:
 private:
 	edm::InputTag triggerBits_;
 	edm::InputTag metFilterBits_;
+        edm::InputTag rerunecalBadCalibFilterBool_;
 	edm::Handle<edm::TriggerResults> triggerBitsHandle_;
 	edm::Handle<edm::TriggerResults> metFilterBitsHandle_;
+	edm::Handle<bool> rerunecalBadCalibFilterBoolHandle_;
 	edm::EDGetTokenT<edm::TriggerResults> triggerBitsToken_;
 	edm::EDGetTokenT<edm::TriggerResults> metFilterBitsToken_;
+	edm::EDGetTokenT<bool> rerunecalBadCalibFilterBoolToken_;
 
 	const edm::Event *event_;
         std::string matchpattern_;

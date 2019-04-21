@@ -149,7 +149,7 @@ def create_postMiniAODSequences(year,dataset_type):
         ecalMinEt        = cms.double(50.),
         baddetEcal    = baddetEcallist,
         taggingMode = cms.bool(True),
-        debug = cms.bool(True)
+        debug = cms.bool(False)
         )
     process.p *= process.ecalBadCalibReducedMINIAODFilter
 
@@ -276,9 +276,8 @@ def create_postMiniAODSequences(year,dataset_type):
         outputCommands = cms.untracked.vstring(
             "drop *",
 
-            "keep *_slimmedMETsCorrectedMET_*_SKIM",
             "keep *_rivetProducerHTXS_*_SKIM",
-            "keep *_TriggerResults_*_SKIM",
+            "keep *_ecalBadCalibReducedMINIAODFilter_*_SKIM",
             "keep *_slimmedElectrons_*_SKIM",
             "keep *_slimmedTausNewID_*_SKIM",
             "keep *_slimmedMETsModifiedMET_*_SKIM", # to be used for 2017
