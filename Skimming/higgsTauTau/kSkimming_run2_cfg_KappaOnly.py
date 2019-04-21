@@ -88,7 +88,7 @@ def getBaseConfig(
             dtype = "embedding"
         elif isMC:
             dtype = "MC"
-        postMiniAODProcess = "KAPPA"
+        postMiniAODProcess = "SKIM"
 
         from Kappa.Skimming.postMiniAODSequences import create_postMiniAODSequences
         process = create_postMiniAODSequences(year, dtype)
@@ -96,7 +96,6 @@ def getBaseConfig(
         if not options.usePostMiniAODSequences:
             process.p = cms.Path()
             process._Process__name = "KAPPA"
-            postMiniAODProcess = "SKIM"
 
         ## Global Tag
 	globaltag = datasetsHelper.getGlobalTag(nickname)
