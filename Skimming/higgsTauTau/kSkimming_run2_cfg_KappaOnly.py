@@ -165,6 +165,7 @@ def getBaseConfig(
         elif isEmbedded:
 		process.kappaTuple.active += cms.vstring('GenInfo')          # produce Metatada for embedding
 		process.kappaTuple.Info.overrideHLTCheck = cms.untracked.bool(True)
+		process.kappaTuple.Info.htxsInfo = cms.InputTag("rivetProducerHTXS", "HiggsClassification",  postMiniAODProcess)
 		process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "SIMembedding")
 
 	process.kappaTuple.Info.lheWeightNames = cms.vstring(".*") # write out for all processes where available

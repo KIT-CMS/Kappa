@@ -288,11 +288,18 @@ def create_postMiniAODSequences(year,dataset_type):
             "keep patJets_selectedUpdatedPatJetsUpdatedJEC_*_SKIM",
 
             "keep GenEventInfoProduct_generator__SIM",
+            "keep GenEventInfoProduct_generator__SIMembedding",
+
             "keep *_TriggerResults_*_HLT",
             "keep *_TriggerResults_*_SIMembedding",
+
             "keep *_caloStage2Digis_Tau_RECO",
             "keep *_fixedGridRhoFastjetAll__RECO",
             "keep recoBeamSpot_offlineBeamSpot__RECO",
+
+            "keep *_caloStage2Digis_Tau_SIMembedding",
+            "keep *_fixedGridRhoFastjetAll__MERGE",
+            "keep recoBeamSpot_offlineBeamSpot__LHEembeddingCLEAN",
 
     #	"keep recoDeDxHitInfosedmAssociation_isolatedTracks__PAT",
     #	"keep recoBaseTagInfosOwned_slimmedJetsPuppi_tagInfos_PAT",
