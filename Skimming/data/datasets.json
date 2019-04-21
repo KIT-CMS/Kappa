@@ -869,7 +869,8 @@
     "process": "Embedding2016B", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 875.4
+    "xsec": 875.4, 
+    "year": 2016
   }, 
   "Embedding2016B_ElTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -890,7 +891,8 @@
     "process": "Embedding2016B", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 864.7
+    "xsec": 864.7, 
+    "year": 2016
   }, 
   "Embedding2016B_MuTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -913,7 +915,8 @@
     "process": "Embedding2016B", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 867.7
+    "xsec": 867.7, 
+    "year": 2016
   }, 
   "Embedding2016B_TauTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -936,7 +939,8 @@
     "process": "Embedding2016B", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 869.6
+    "xsec": 869.6, 
+    "year": 2016
   }, 
   "Embedding2016C_ElMuFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -958,7 +962,8 @@
     "process": "Embedding2016C", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 857.1
+    "xsec": 857.1, 
+    "year": 2016
   }, 
   "Embedding2016C_ElTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -979,7 +984,8 @@
     "process": "Embedding2016C", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 857.1
+    "xsec": 857.1, 
+    "year": 2016
   }, 
   "Embedding2016C_MuTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1002,7 +1008,8 @@
     "process": "Embedding2016C", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 885.3
+    "xsec": 885.3, 
+    "year": 2016
   }, 
   "Embedding2016C_TauTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "campaign": "TauTauFinalState", 
@@ -1020,7 +1027,8 @@
     "process": "Embedding2016C", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 859.0
+    "xsec": 859.0, 
+    "year": 2016
   }, 
   "Embedding2016D_ElMuFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1042,7 +1050,8 @@
     "process": "Embedding2016D", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 818.5
+    "xsec": 818.5, 
+    "year": 2016
   }, 
   "Embedding2016D_ElTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1063,7 +1072,8 @@
     "process": "Embedding2016D", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 825.4
+    "xsec": 825.4, 
+    "year": 2016
   }, 
   "Embedding2016D_MuTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1086,7 +1096,8 @@
     "process": "Embedding2016D", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 889.2
+    "xsec": 889.2, 
+    "year": 2016
   }, 
   "Embedding2016D_TauTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "campaign": "TauTauFinalState", 
@@ -1104,7 +1115,8 @@
     "process": "Embedding2016D", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 821.1
+    "xsec": 821.1, 
+    "year": 2016
   }, 
   "Embedding2016E_ElMuFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1126,7 +1138,8 @@
     "process": "Embedding2016E", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 823.7
+    "xsec": 823.7, 
+    "year": 2016
   }, 
   "Embedding2016E_ElTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1147,7 +1160,8 @@
     "process": "Embedding2016E", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 825.4
+    "xsec": 825.4, 
+    "year": 2016
   }, 
   "Embedding2016E_MuTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1170,7 +1184,8 @@
     "process": "Embedding2016E", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 830.7
+    "xsec": 830.7, 
+    "year": 2016
   }, 
   "Embedding2016E_TauTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "campaign": "TauTauFinalState", 
@@ -1188,7 +1203,8 @@
     "process": "Embedding2016E", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 905.9
+    "xsec": 905.9, 
+    "year": 2016
   }, 
   "Embedding2016F_ElMuFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1210,7 +1226,8 @@
     "process": "Embedding2016F", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 828.0
+    "xsec": 828.0, 
+    "year": 2016
   }, 
   "Embedding2016F_ElTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1231,7 +1248,8 @@
     "process": "Embedding2016F", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 852.5
+    "xsec": 852.5, 
+    "year": 2016
   }, 
   "Embedding2016F_MuTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1254,7 +1272,8 @@
     "process": "Embedding2016F", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 832.9
+    "xsec": 832.9, 
+    "year": 2016
   }, 
   "Embedding2016F_TauTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "campaign": "TauTauFinalState", 
@@ -1272,7 +1291,8 @@
     "process": "Embedding2016F", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 828.9
+    "xsec": 828.9, 
+    "year": 2016
   }, 
   "Embedding2016G_ElMuFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1294,7 +1314,8 @@
     "process": "Embedding2016G", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 860.9
+    "xsec": 860.9, 
+    "year": 2016
   }, 
   "Embedding2016G_ElTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1315,7 +1336,8 @@
     "process": "Embedding2016G", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 863.8
+    "xsec": 863.8, 
+    "year": 2016
   }, 
   "Embedding2016G_MuTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1338,7 +1360,8 @@
     "process": "Embedding2016G", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 858.8
+    "xsec": 858.8, 
+    "year": 2016
   }, 
   "Embedding2016G_TauTauFinalState_imputSep16DoubleMumirrorminiAODv2_13TeV_USER": {
     "campaign": "TauTauFinalState", 
@@ -1356,7 +1379,8 @@
     "process": "Embedding2016G", 
     "scenario": "imputSep16DoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 859.0
+    "xsec": 859.0, 
+    "year": 2016
   }, 
   "Embedding2016H_ElMuFinalState_imputPromptDoubleMumirrorminiAODv4_13TeV_USER": {
     "Moriond17": [
@@ -1378,7 +1402,8 @@
     "process": "Embedding2016H", 
     "scenario": "imputPromptDoubleMu_mirror_miniAODv4", 
     "version": "", 
-    "xsec": 820.8
+    "xsec": 820.8, 
+    "year": 2016
   }, 
   "Embedding2016H_ElTauFinalState_imputPromptDoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1401,7 +1426,8 @@
     "process": "Embedding2016H", 
     "scenario": "imputPromptDoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 836.0
+    "xsec": 836.0, 
+    "year": 2016
   }, 
   "Embedding2016H_MuTauFinalState_imputPromptDoubleMumirrorminiAODv2_13TeV_USER": {
     "Moriond17": [
@@ -1425,7 +1451,8 @@
     "process": "Embedding2016H", 
     "scenario": "imputPromptDoubleMu_mirror_miniAODv2", 
     "version": "", 
-    "xsec": 816.4
+    "xsec": 816.4, 
+    "year": 2016
   }, 
   "Embedding2016H_TauTauFinalState_imputPromptDoubleMumirrorminiAODv3_13TeV_USER": {
     "Moriond17": [
@@ -1449,7 +1476,8 @@
     "process": "Embedding2016H", 
     "scenario": "imputPromptDoubleMu_mirror_miniAODv3", 
     "version": "", 
-    "xsec": 821.9
+    "xsec": 821.9, 
+    "year": 2016
   }, 
   "Embedding2017B_ElMuFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElMuFinalState", 
@@ -1467,7 +1495,8 @@
     "n_files": "5633", 
     "process": "Embedding2017B", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017B_ElTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElTauFinalState", 
@@ -1485,7 +1514,8 @@
     "n_files": "5633", 
     "process": "Embedding2017B", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017B_MuTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "MuTauFinalState", 
@@ -1503,7 +1533,8 @@
     "n_files": "5633", 
     "process": "Embedding2017B", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017B_TauTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "TauTauFinalState", 
@@ -1521,7 +1552,8 @@
     "n_files": "5633", 
     "process": "Embedding2017B", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017C_ElMuFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElMuFinalState", 
@@ -1539,7 +1571,8 @@
     "n_files": "16628", 
     "process": "Embedding2017C", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017C_ElTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElTauFinalState", 
@@ -1557,7 +1590,8 @@
     "n_files": "16628", 
     "process": "Embedding2017C", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017C_MuTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "MuTauFinalState", 
@@ -1575,7 +1609,8 @@
     "n_files": "16628", 
     "process": "Embedding2017C", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017C_TauTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "TauTauFinalState", 
@@ -1593,7 +1628,8 @@
     "n_files": "16628", 
     "process": "Embedding2017C", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017D_ElMuFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElMuFinalState", 
@@ -1611,7 +1647,8 @@
     "n_files": "7179", 
     "process": "Embedding2017D", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017D_ElTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElTauFinalState", 
@@ -1629,7 +1666,8 @@
     "n_files": "7179", 
     "process": "Embedding2017D", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017D_MuTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "MuTauFinalState", 
@@ -1647,7 +1685,8 @@
     "n_files": "7179", 
     "process": "Embedding2017D", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017D_TauTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "TauTauFinalState", 
@@ -1665,7 +1704,8 @@
     "n_files": "7179", 
     "process": "Embedding2017D", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017E_ElMuFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElMuFinalState", 
@@ -1683,7 +1723,8 @@
     "n_files": "15321", 
     "process": "Embedding2017E", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017E_ElTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElTauFinalState", 
@@ -1701,7 +1742,8 @@
     "n_files": "15324", 
     "process": "Embedding2017E", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017E_MuTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "MuTauFinalState", 
@@ -1719,7 +1761,8 @@
     "n_files": "15324", 
     "process": "Embedding2017E", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017E_TauTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "TauTauFinalState", 
@@ -1737,7 +1780,8 @@
     "n_files": "15324", 
     "process": "Embedding2017E", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017F_ElMuFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElMuFinalState", 
@@ -1755,7 +1799,8 @@
     "n_files": "20409", 
     "process": "Embedding2017F", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017F_ElTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "ElTauFinalState", 
@@ -1773,7 +1818,8 @@
     "n_files": "20409", 
     "process": "Embedding2017F", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017F_MuTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "MuTauFinalState", 
@@ -1791,7 +1837,8 @@
     "n_files": "20409", 
     "process": "Embedding2017F", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2017F_TauTauFinalState_inputDoubleMu94XminiAODv2_13TeV_USER_v2": {
     "campaign": "TauTauFinalState", 
@@ -1809,7 +1856,8 @@
     "n_files": "20409", 
     "process": "Embedding2017F", 
     "scenario": "inputDoubleMu_94X_miniAODv2", 
-    "version": "v2"
+    "version": "v2", 
+    "year": 2017
   }, 
   "Embedding2018B_MuTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
     "campaign": "MuTauFinalState", 
@@ -1827,7 +1875,8 @@
     "n_files": "8968", 
     "process": "Embedding2018B", 
     "scenario": "inputDoubleMu102XminiAODv1", 
-    "version": "v1"
+    "version": "v1", 
+    "year": 2018
   }, 
   "Embedding2018C_ElTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
     "campaign": "ElTauFinalState", 
@@ -1845,7 +1894,8 @@
     "n_files": "8968", 
     "process": "Embedding2018C", 
     "scenario": "inputDoubleMu102XminiAODv1", 
-    "version": "v1"
+    "version": "v1", 
+    "year": 2018
   }, 
   "Embedding2018C_MuTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
     "campaign": "MuTauFinalState", 
@@ -1863,7 +1913,8 @@
     "n_files": "8968", 
     "process": "Embedding2018C", 
     "scenario": "inputDoubleMu102XminiAODv1", 
-    "version": "v1"
+    "version": "v1", 
+    "year": 2018
   }, 
   "Embedding2018C_TauTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
     "campaign": "TauTauFinalState", 
@@ -1881,7 +1932,8 @@
     "n_files": "8968", 
     "process": "Embedding2018C", 
     "scenario": "inputDoubleMu102XminiAODv1", 
-    "version": "v1"
+    "version": "v1", 
+    "year": 2018
   }, 
   "GluGluHToTauTauM110_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_powheg-pythia8_v1": {
     "campaign": "RunIIFall17MiniAODv2", 

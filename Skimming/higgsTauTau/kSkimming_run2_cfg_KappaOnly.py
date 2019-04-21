@@ -80,7 +80,6 @@ def getBaseConfig(
 	isEmbedded = datasetsHelper.isEmbedded(nickname)
 	isData = datasetsHelper.isData(nickname) and not isEmbedded
         isMC = not isData and not isEmbedded
-	era = str(datasetsHelper.base_dict[nickname]["era"])
         year = datasetsHelper.base_dict[nickname]["year"]
         dtype = ""
         if isData:
