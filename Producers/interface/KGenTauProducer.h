@@ -45,6 +45,7 @@ protected:
 
 		// custom implementations
 		DecayInfo info;
+                //std::cout << "Looking into decay tree of gen particle with pdgID = " << in.pdgId() << " and p4 = " << in.pt() << "," << in.eta() << "," << in.phi() << "," << in.mass() << std::endl;
 		walkDecayTree(dynamic_cast<const reco::GenParticle&>(in), info);
 
 		//out.visible.p4 = info.p4_vis; // now set in else statement below
@@ -165,6 +166,8 @@ private:
 
 	void walkDecayTree(const reco::GenParticle& in, DecayInfo& info, int level = 0, bool allowNonPromptTauDecayProduct = false )
 	{
+                std::string level_string = "";
+                for(int i = 0; i < level; i++) level_string += "\t";
 		//for(int i = 0; i < level; ++i) printf(" ");
 		//printf("PDG %d\tstatus %d", in.pdgId(), in.status());
 		//std::cout<<"\tpt "<<in.p4().pt()<<"\tphi "<<in.p4().phi()<<"\teta "<<in.p4().eta()<<"\tE "<<in.p4().E()
@@ -193,11 +196,12 @@ private:
 				if(std::abs(in.pdgId()) == 13 && std::abs(in.mother()->pdgId()) == 15) info.mode = DecayInfo::Muonic;
 
 				if(in.charge() != 0) ++info.n_charged;
+                                //std::cout << "\t"+level_string+"Increasing number of charged decay products: " << info.n_charged << " because of particle with pdgId: " << in.pdgId()  << " and p4 = (" << in.pt() << "," << in.eta() << "," << in.phi() << "," << in.mass() << ")" << " at level " << level << std::endl;
 			}
 		}
 		else if(in.numberOfDaughters() == 1)
 		{
-			//printf("\tone child, keeping level... \n");
+			//std::cout << "\t"+level_string+"one child, keeping level... \n";
 			// Don't increase level since this does not seem to be a "real"
 			// decay but just an intermediate generator step
 			walkDecayTree(static_cast<const reco::GenParticle&>(*in.daughter(0)), info, level, allowNonPromptTauDecayProduct);
@@ -207,7 +211,7 @@ private:
 				(std::abs(in.daughter(0)->pdgId()) == 15 && std::abs(in.daughter(1)->pdgId()) == 22))
 			   )
 		{
-			//printf("\tinterm. gamma emission, keeping level... \n");
+			//std::cout << "\t"+level_string+"interm. gamma emission, keeping level... \n";
 			// Don't increase level since this does not seem to be a "real"
 			// decay but just an intermediate emission of a photon
 			// Don't follow photon decay path
@@ -219,7 +223,7 @@ private:
 		//else if(in.numberOfDaughters() >= 3 && ( isLepton(in.daughter(0)->pdgId()) &&  isLepton(in.daughter(1)->pdgId()) && isLepton(in.daughter(2)->pdgId())))
 		else if (minthreeLeptondauhhters(in, lep_daughter_wiht_max_pt))
 		{
-			//printf("\tinternal gamma(*) conversion (tau -> l l tau )\n");
+			//std::cout << "\t"+level_string+"internal gamma(*) conversion (tau -> l l tau )\n";
 			// Don't increase level since the initial tau is not real.
 			// The inital tau decays into three leptons, which can be illustrated by a virual photon (gamma*).
 			// Take the lepton with the largest pt, which is most likly to be reconstructed as the tau. The others are usally soft
@@ -228,10 +232,21 @@ private:
 			 	allowNonPromptTauDecayProduct = true;
 			 walkDecayTree(dynamic_cast<const reco::GenParticle&>(*in.daughter(lep_daughter_wiht_max_pt)), info, level, allowNonPromptTauDecayProduct);
 		}
+		else if (minThreeDaughtersWithQQBar(in, lep_daughter_wiht_max_pt))
+		{
+			//std::cout << "\t"+level_string+"internal gamma(*) conversion (tau -> q q tau )\n";
+			// Don't increase level since the initial tau is not real.
+			// The inital tau decays into three leptons, which can be illustrated by a virual photon (gamma*).
+			// Take the lepton with the largest pt, which is most likly to be reconstructed as the tau. The others are usally soft
+			// the loop over the daughters is necessary since also photons can be radiated within this step.
+			if (std::abs(in.daughter(lep_daughter_wiht_max_pt)->pdgId()) == 11 || std::abs(in.daughter(lep_daughter_wiht_max_pt)->pdgId()) == 13)
+                                allowNonPromptTauDecayProduct = true;
+		        walkDecayTree(dynamic_cast<const reco::GenParticle&>(*in.daughter(lep_daughter_wiht_max_pt)), info, level, allowNonPromptTauDecayProduct);
+		}
 		else if(in.numberOfDaughters() == 2 && std::abs(in.pdgId()) == 111 &&
 				std::abs(in.daughter(0)->pdgId()) == 22 && std::abs(in.daughter(1)->pdgId()) == 22)
 		{
-			//printf("\tneutral pion, stop recursion. \n");
+			//std::cout << "\t"+level_string+"neutral pion, stop recursion. \n";
 			//printf("\n");
 			// Neutral pion, save four-momentum in the visible component
 			RMDLV p4;
@@ -243,7 +258,7 @@ private:
 				(std::abs(in.daughter(0)->pdgId()) == 11 && std::abs(in.daughter(1)->pdgId()) == 22 && std::abs(in.daughter(2)->pdgId()) == 11) ||
 				(std::abs(in.daughter(0)->pdgId()) == 11 && std::abs(in.daughter(1)->pdgId()) == 11 && std::abs(in.daughter(2)->pdgId()) == 22)))
 		{
-			//printf("\tneutral pion, stop recursion. ");
+			//std::cout << "\t"+level_string+"neutral pion, stop recursion. \n";
 			//printf("\n");
 			// Neutral pion, save four-momentum in the visible component
 			RMDLV p4;
@@ -253,7 +268,7 @@ private:
 		else if(in.numberOfDaughters() == 4 && std::abs(in.pdgId()) == 111 &&
 				std::abs(in.daughter(0)->pdgId()) == 11 && std::abs(in.daughter(1)->pdgId()) == 11 && std::abs(in.daughter(2)->pdgId()) == 11 && std::abs(in.daughter(3)->pdgId()) == 11)
 		{
-			//printf("\tneutral pion, stop recursion. ");
+			//std::cout << "\t"+level_string+"neutral pion, stop recursion. \n";
 			//printf("\n");
 			// Neutral pion, save four-momentum in the visible component
 			RMDLV p4;
@@ -262,9 +277,12 @@ private:
 		}
 		else
 		{
-			//printf("\t%lu children, recurse...\n", in.numberOfDaughters());
+			//std::cout << "\t"+level_string << in.numberOfDaughters() << " children, recurse...\n";
 			for(unsigned int i = 0; i < in.numberOfDaughters(); ++i)
+                        {
+                                //std::cout << "\t"+level_string+"Running recursion for " << (*in.daughter(i)).pdgId() << " with p4 " << (*in.daughter(i)).pt() << "," << (*in.daughter(i)).eta() << "," << (*in.daughter(i)).phi() << "," << (*in.daughter(i)).mass() << std::endl;
 				walkDecayTree(dynamic_cast<const reco::GenParticle&>(*in.daughter(i)), info, level + 1, allowNonPromptTauDecayProduct);
+                        }
 		}
 	}
 
@@ -276,6 +294,10 @@ private:
 	static bool isLepton(int pdg_id)
 	{
 		return std::abs(pdg_id) == 11 || std::abs(pdg_id) == 13 || std::abs(pdg_id) == 15;
+	}
+	static bool isQuark(int pdg_id)
+	{
+		return std::abs(pdg_id) >= 1  && std::abs(pdg_id) <=  6;
 	}
 
 	// returns True if >=3 leptons as daughters and saves the number, corresponding to the daughter-lepton with highest p_T
@@ -296,6 +318,29 @@ private:
 			}
 		}
 		return Nakt>=3;
+	}
+	static bool minThreeDaughtersWithQQBar(const reco::GenParticle& in, unsigned int &lep_daughter_wiht_max_pt)
+	{
+		int qqBar = 0;
+                int Nakt = 0;
+		float akt_max_pt = -1.0;
+		for(unsigned int i = 0; i < in.numberOfDaughters(); ++i)
+		{
+			if (isLepton(in.daughter(i)->pdgId()))
+			{
+				Nakt++;
+				if (in.daughter(i)->pt() > akt_max_pt)
+				{
+					lep_daughter_wiht_max_pt = i;
+					akt_max_pt = in.daughter(i)->pt();
+				}
+			}
+                        else if (isQuark(in.daughter(i)->pdgId()))
+                        {
+                                qqBar++;
+                        }
+		}
+		return Nakt>=1 && qqBar == 2;
 	}
 
 };
