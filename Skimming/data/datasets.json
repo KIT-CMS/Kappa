@@ -2020,6 +2020,7 @@
     "extension": "", 
     "format": "MINIAOD", 
     "generator": "powheg-pythia8", 
+    "generatorWeight": 0.989858892639276, 
     "globalTag": "102X_mc2017_realistic_v6", 
     "inputDBS": "global", 
     "n_events_generated": "2921180", 
