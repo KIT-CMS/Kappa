@@ -485,7 +485,7 @@ def getBaseConfig(
 
 	return process
 
-if __name__ == "__main__" or __name__ == "kSkimming_run2_cfg":
+if __name__ == "__main__" or __name__ == "kSkimming_run2_cfg_KappaOnly":
 
 	# local testing with user-defined input file
 	if options.mode == "local":

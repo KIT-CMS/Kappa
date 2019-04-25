@@ -30,7 +30,7 @@ class SkimManagerBase:
 		backup_dataset = self.skimdataset.json_file_name.replace(".json", "_backup.json")
 		self.skimdataset.keep_input_json = False ## will be updated very often
 		self.skimdataset.write_to_jsonfile(backup_dataset)
-		self.configfile = 'kSkimming_run2_cfg.py'
+		self.configfile = 'kSkimming_run2_cfg_KappaOnly.py'
 		self.max_crab_jobs_per_nick = 8000 # 10k is the hard limit
 		self.voms_proxy = None
 		self.site_storage_access_dict = {
@@ -177,7 +177,7 @@ class SkimManagerBase:
 	def individualized_crab_cfg(self, akt_nick, config):
 		config.General.requestName = self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest()
 		config.Data.inputDBS = self.skimdataset[akt_nick].get("inputDBS", 'global')
-		config.JobType.pyCfgParams = [str('nickname=%s'%(akt_nick)), str('outputfilename=kappa_%s.root'%(akt_nick)), 'mode=crab']
+		config.JobType.pyCfgParams = [str('nickname=%s'%(akt_nick)), str('outputfilename=kappa_%s.root'%(akt_nick)), 'mode=crab','usePostMiniAODSequences=True']
 		config.Data.unitsPerJob = self.files_per_job(akt_nick)
 		config.Data.inputDataset = self.skimdataset[akt_nick]['dbs']
 		config.Data.allowNonValidInputDataset = True
@@ -432,6 +432,7 @@ class SkimManagerBase:
 		cfg_dict['CMSSW']['se runtime'] = 'True'
 		cfg_dict['CMSSW'][';partition lfn modifier'] = '<srm:nrg>' ## comment out per default both can be changed during run, which can improve the succses rate
 		cfg_dict['CMSSW']['depends'] = 'glite'
+		cfg_dict['CMSSW']['arguments'] = 'usePostMiniAODSequences=True'
 		cfg_dict['CMSSW']['parameter factory'] = "ModularParameterFactory"
 		cfg_dict['CMSSW']['partition lfn modifier dict'] = "\n   <xrootd>    => root://cms-xrd-global.cern.ch//\n   <xrootd:eu> => root://xrootd-cms.infn.it//\n   <xrootd:us> => root://cmsxrootd.fnal.gov//\n   <xrootd:desy> => root://dcache-cms-xrootd.desy.de:1094/\n   <dcap:desy> => dcap://dcache-cms-dcap.desy.de//pnfs/desy.de/cms/tier2/\n   <local:desy> => file:///pnfs/desy.de/cms/tier2/\n   <srm:nrg> => srm://dgridsrm-fzk.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/dcms/disk-only/\n   <dcap:nrg> => dcap://dcnrgdcap.gridka.de:22125//pnfs/gridka.de/dcms/disk-only/\n   <xrootd:nrg> => root://cmsxrootd.gridka.de//pnfs/gridka.de/dcms/disk-only/\n   <dcap:gridka> => dcap://dccmsdcap.gridka.de:22125//pnfs/gridka.de/cms/disk-only/\n   <xrootd:gridka> => root://cmsxrootd.gridka.de//\n   <dcap:aachen> => dcap://grid-dcap-extern.physik.rwth-aachen.de/pnfs/physik.rwth-aachen.de/cms/\n   <xrootd:aachen> => root://grid-vo-cms.physik.rwth-aachen.de:1094/\n"
 
