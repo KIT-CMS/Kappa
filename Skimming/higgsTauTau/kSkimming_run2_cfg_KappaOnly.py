@@ -308,7 +308,7 @@ def getBaseConfig(
 
                 # standard anti-e
 		"againstElectronMVA6category",
-		"againstElectronMVA6raw",
+		"againstElectronMVA6Raw",
 		"againstElectronVLooseMVA6",
 		"againstElectronLooseMVA6",
 		"againstElectronMediumMVA6",
