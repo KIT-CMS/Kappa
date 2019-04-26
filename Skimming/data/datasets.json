@@ -1951,6 +1951,7 @@
     "process": "GluGluHToTauTau_M110", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "GluGluHToTauTauM120_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_powheg-pythia8_v1": {
@@ -1969,6 +1970,7 @@
     "process": "GluGluHToTauTau_M120", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 3.6454782, 
     "year": 2017
   }, 
   "GluGluHToTauTauM125_RunIIAutumn18MiniAOD_102X_13TeV_MINIAOD_powheg-pythia8_v2": {
@@ -2625,6 +2627,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M1000", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM1000_RunIISummer16MiniAODv3_PUMoriond17_13TeV_MINIAOD_pythia8_v2": {
@@ -2739,6 +2742,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M110", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM110_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -2815,6 +2819,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M1200", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM1200_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -2891,6 +2896,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M120", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM120_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -2948,6 +2954,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM130_RunIIAutumn18MiniAOD_102X_13TeV_MINIAOD_pythia8_v2": {
@@ -2985,6 +2992,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M130", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM130_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3061,6 +3069,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M1400", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM1400_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3137,6 +3146,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M140", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM140_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3325,6 +3335,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M160", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM160_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3459,6 +3470,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M1800", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM1800_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3553,6 +3565,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M180", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM180_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3629,6 +3642,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M2000", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM2000_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3741,6 +3755,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M200", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM200_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3835,6 +3850,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M2300", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM2300_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3911,6 +3927,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M250", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM250_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -3987,6 +4004,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M2600", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM2600_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -4121,6 +4139,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M300", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM300_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -4233,6 +4252,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M3200", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM3200_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -4363,6 +4383,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M350", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM350_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -4457,6 +4478,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M400", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM400_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -4533,6 +4555,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M450", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM450_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -4590,6 +4613,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M500", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM500_RunIISpring16MiniAODv1_PUSpring16_13TeV_MINIAOD_pythia8": {
@@ -4668,6 +4692,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M600", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM600_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -4780,6 +4805,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M700", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM700_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -4874,6 +4900,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M800", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM800_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -5062,6 +5089,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M900", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM900_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -5138,6 +5166,7 @@
     "process": "SUSYGluGluToBBHToTauTau_M90", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 1.0, 
     "year": 2017
   }, 
   "SUSYGluGluToBBHToTauTauM90_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_pythia8_v1": {
@@ -7907,7 +7936,7 @@
     "process": "VBFHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 0.2370687, 
+    "xsec": 0.23720704, 
     "year": 2017
   }, 
   "VBFHToTauTauM125_RunIISummer16MiniAODv3_PUMoriond17_13TeV_MINIAOD_powheg-pythia8_v2": {
@@ -9082,7 +9111,7 @@
     "process": "WminusHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 0.03341869074492099, 
+    "xsec": 0.033417216, 
     "year": 2017
   }, 
   "WminusHToTauTauM125_RunIISummer16MiniAODv3_PUMoriond17_13TeV_MINIAOD_powheg-pythia8_v2": {
@@ -9140,6 +9169,7 @@
     "process": "WplusHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
+    "xsec": 0.0526848, 
     "year": 2017
   }, 
   "WplusHToTauTauM125_RunIISummer16MiniAODv3_PUMoriond17_13TeV_MINIAOD_powheg-pythia8_v2": {
@@ -9177,6 +9207,7 @@
     "process": "WplusHToTauTau_M130", 
     "scenario": "PU2017", 
     "version": "v2", 
+    "xsec": 0.040117154, 
     "year": 2017
   }, 
   "ZHToTauTauM125_RunIIAutumn18MiniAOD_102X_13TeV_MINIAOD_powheg-pythia8_v2": {
@@ -9216,7 +9247,7 @@
     "process": "ZHToTauTau_M125", 
     "scenario": "PU2017", 
     "version": "v1", 
-    "xsec": 0.055437468997444665, 
+    "xsec": 0.055438208, 
     "year": 2017
   }, 
   "ZHToTauTauM125_RunIISummer16MiniAODv3_PUMoriond17_13TeV_MINIAOD_powheg-pythia8_v2": {
