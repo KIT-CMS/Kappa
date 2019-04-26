@@ -121,16 +121,21 @@ public:
 		// tags
 		for(auto id: names->tagNames)
 		{
+                        //std::cout << "ID: " << id << std::endl;
 			if(in.hasUserFloat(id))
 			{
+                                //std::cout << "\tUser float type" << std::endl;
 				out.tags.push_back(in.userFloat(id));
 			}
 			else if(in.hasUserInt(id))
                         {
+                                //std::cout << "\tUser int type" << std::endl;
 				out.tags.push_back(in.userInt(id));
                         }
-			else
+                        else
 			{
+                                //std::cout << "\tbtag discriminator type or not available" << std::endl;
+                                //std::cout << "\tValue: " << in.bDiscriminator(id) << std::endl;
 				out.tags.push_back(in.bDiscriminator(id));
 			}
 		}

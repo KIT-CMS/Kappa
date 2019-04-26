@@ -55,6 +55,12 @@ Prefiring = {
     2018 : '2017BtoF', # no prefiring weights needed for 2018, so explicit setting is irrelevant
 }
 
+JetIdVersion = {
+    2016 : 'WINTER16',
+    2017 : 'WINTER17',
+    2018 : 'WINTER17', # same as 2017
+}
+
 def create_postMiniAODSequences(year,dataset_type):
     print "Using year = %s and dataset_type = %s"%(year,dataset_type)
     if not (year in [2016, 2017, 2018] and dataset_type in ['data', 'data-prompt', 'MC', 'embedding', 'embedding-prompt']):
@@ -244,11 +250,35 @@ def create_postMiniAODSequences(year,dataset_type):
         applyJec=True,
         vertexes=cms.InputTag("offlineSlimmedPrimaryVertices")
     )
-    process.updatedPatJetsUpdatedJEC.userData.userInts.src += ['pileupJetIdUpdated:fullId']
+    process.looseJetId = cms.EDProducer("PatJetIDValueMapProducer",
+                  filterParams=cms.PSet(
+                    version = cms.string(JetIdVersion[year]),
+                    quality = cms.string('LOOSE'),
+                  ),
+                              src = cms.InputTag("slimmedJets")
+    )
+    process.tightJetId = cms.EDProducer("PatJetIDValueMapProducer",
+                  filterParams=cms.PSet(
+                    version = cms.string(JetIdVersion[year]),
+                    quality = cms.string('TIGHT'),
+                  ),
+                              src = cms.InputTag("slimmedJets")
+    )
+    process.tightJetIdLepVeto = cms.EDProducer("PatJetIDValueMapProducer",
+                  filterParams=cms.PSet(
+                    version = cms.string(JetIdVersion[year]),
+                    quality = cms.string('TIGHTLEPVETO'),
+                  ),
+                              src = cms.InputTag("slimmedJets")
+    )
+    process.updatedPatJetsUpdatedJEC.userData.userInts.src += ['pileupJetIdUpdated:fullId','looseJetId', 'tightJetId', 'tightJetIdLepVeto']
     process.updatedPatJetsUpdatedJEC.userData.userFloats.src += ['pileupJetIdUpdated:fullDiscriminant']
 
     process.jecSequence = cms.Sequence(
         process.pileupJetIdUpdated
+        *process.looseJetId
+        *process.tightJetId
+        *process.tightJetIdLepVeto
         *process.patJetCorrFactorsUpdatedJEC
         *process.updatedPatJetsUpdatedJEC
         *process.pfImpactParameterTagInfosUpdatedJEC
