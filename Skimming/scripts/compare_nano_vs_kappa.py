@@ -119,9 +119,12 @@ kappalumitree = kappafile.Get("Lumis")
 
 lumis = [l for l in kappalumitree]
 
-def getEffectiveArea(eta):
+def getEffectiveArea(eta,year):
     etaBins = [0.0,1.0,1.479,2.0,2.2,2.3,2.4,2.5]
     eAs = [0.1440,0.1562,0.1032,0.0859,0.1116,0.1321,0.1654]
+    if year == 2016:
+        etaBins[-1] = 5.0
+        eAs = [0.1703, 0.1715, 0.1213, 0.1230, 0.1635, 0.1937, 0.2393]
     for i in range(len(eAs)):
         if abs(eta) >= etaBins[i] and abs(eta) < etaBins[i+1]:
             return eAs[i]
@@ -142,7 +145,7 @@ for i,entry in enumerate(kappatree):
             print "\t\t\tCorrected pt,eta,phi,m =",correctedP4.Pt(),correctedP4.Eta(),correctedP4.Phi(),correctedP4.M() # used in NanoAOD
             ElectronId = e.getId("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values",lumis[0].electronMetadata)
             print "\t\t\tId discriminator (NoIso Fall17V2)",ElectronId
-            relRhoIso = max(e.sumChargedHadronPt + max(e.sumNeutralHadronEt + e.sumPhotonEt - rho*getEffectiveArea(e.superclusterPosition.Eta()),0.0), 0.0)/e.p4.Pt() # use UNCORRECTED Pt to compute Isolation
+            relRhoIso = max(e.sumChargedHadronPt + max(e.sumNeutralHadronEt + e.sumPhotonEt - rho*getEffectiveArea(e.superclusterPosition.Eta(),args.year),0.0), 0.0)/e.p4.Pt() # use UNCORRECTED Pt to compute Isolation
             print "\t\t\trelative Rho-corrected isolation",relRhoIso
             print "\t\t\tImpact parameter",e.dxy, e.dz
             print "\t\t\tNumber of lost hits",e.expectedMissingInnerHits
