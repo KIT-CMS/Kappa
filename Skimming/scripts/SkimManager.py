@@ -520,7 +520,7 @@ class SkimManagerBase:
 		status_dict.setdefault('EXCEPTION', [])
 		status_dict.setdefault('FAILED', [])
 		status_dict.setdefault('SUBMITTED', [])
-		
+		max_string_length=len(max(self.skimdataset.nicks(), key=len))
 		for akt_nick in self.skimdataset.nicks():
 			if self.skimdataset[akt_nick]["SKIM_STATUS"] in ["COMPLETED", "LISTED"] or self.skimdataset[akt_nick]["GCSKIM_STATUS"] in ["COMPLETED", "LISTED"]:
 				status_dict['COMPLETED'].append(akt_nick)
@@ -544,29 +544,29 @@ class SkimManagerBase:
 				print nick
 			print '\n'+'\033[91m'+'FAILED: '+str(len(status_dict['FAILED']))+' tasks'+'\033[0m'
 			for nick in status_dict['FAILED']:
-				self.print_statistics(nick)
+				self.print_statistics(nick,max_string_length)
 			print '\n'+'\033[93m'+'EXCEPTION: '+str(len(status_dict['EXCEPTION']))+' tasks'+'\033[0m'
 			for nick in status_dict['EXCEPTION']:
-				self.print_statistics(nick)
+				self.print_statistics(nick,max_string_length)
 			print '\n'+'SUBMITTED: '+str(len(status_dict['SUBMITTED']))+' tasks'
 			for nick in status_dict['SUBMITTED']:
 				total_running+=self.skimdataset[nick].get('crab_running', 0)
 				total_done+=self.skimdataset[nick].get('crab_done', 0)
 				total_failed+=self.skimdataset[nick].get('crab_failed', 0)
 				total_n_jobs+=self.skimdataset[nick].get('n_jobs', 0)
-				self.print_statistics(nick)
-				done_string = '\033[92m'+'\t Done: {} ({}%) '.format(total_done,round(100*float(total_done)/float(total_n_jobs),1))+'\033[0m'
-				running_string = '\033[94m'+'\t Running: {} ({}%) '.format(total_running,round(100*float(total_running)/float(total_n_jobs),1))+'\033[0m'
-				failed_string = '\033[91m'+'\t Failed: {} ({}%) '.format(total_failed,round(100*float(total_failed)/float(total_n_jobs),1))+'\033[0m'
-			print "\t\t\t\033[1mTotal: \033[0m \t", done_string, running_string, failed_string
+				self.print_statistics(nick,max_string_length)
+			done_string = '\033[92m'+'\t Done: {} ({}%) '.format(total_done,round(100*float(total_done)/float(total_n_jobs),1))+'\033[0m'
+			running_string = '\033[94m'+'\t Running: {} ({}%) '.format(total_running,round(100*float(total_running)/float(total_n_jobs),1))+'\033[0m'
+			failed_string = '\033[91m'+'\t Failed: {} ({}%) '.format(total_failed,round(100*float(total_failed)/float(total_n_jobs),1))+'\033[0m'
+			print " "*(max_string_length-7)+"\033[1mTotal: \033[0m", done_string, running_string, failed_string
 			print '\n'
 
 		status_json = open(os.path.join(self.workdir, 'skim_summary.json'), 'w')
 		status_json.write(json.dumps(status_dict, sort_keys=True, indent=2))
 		status_json.close()
 
-	def print_statistics(self, nick):
-		format_string = "" if len(nick)>38 else "\t"
+	def print_statistics(self, nick, max_string_length=0):
+		format_string = " "*(max_string_length-len(nick))
 		done_string = '\033[92m'+'\t Done: {} ({}%) '.format(self.skimdataset[nick].get('crab_done', 0),round(100*float(self.skimdataset[nick].get('crab_done', 0))/float(self.skimdataset[nick].get('n_jobs', 0)),1))+'\033[0m'
 		running_string = '\033[94m'+'\t Running: {} ({}%) '.format(self.skimdataset[nick].get('crab_running', 0),round(100*float(self.skimdataset[nick].get('crab_running', 0))/float(self.skimdataset[nick].get('n_jobs', 0)),1))+'\033[0m'
 		failed_string = '\033[91m'+'\t Failed: {} ({}%) '.format(self.skimdataset[nick].get('crab_failed', 0),round(100*float(self.skimdataset[nick].get('crab_failed', 0))/float(self.skimdataset[nick].get('n_jobs', 0)),1))+'\033[0m'
