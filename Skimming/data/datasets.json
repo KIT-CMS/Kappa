@@ -2076,6 +2076,24 @@
     "version": "v1", 
     "year": 2018
   }, 
+  "Embedding2018A_ElTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
+    "campaign": "ElTauFinalState", 
+    "data": true, 
+    "dbs": "/EmbeddingRun2018A/ElTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER", 
+    "embedded": true, 
+    "energy": "13", 
+    "extension": "", 
+    "format": "USER", 
+    "generator": "", 
+    "globalTag": "102X_dataRun2_Sep2018ABC_v2", 
+    "inputDBS": "phys03", 
+    "n_events_generated": "11735088", 
+    "n_files": "21606", 
+    "process": "Embedding2018A", 
+    "scenario": "inputDoubleMu_102X_miniAODv1", 
+    "version": "v1", 
+    "year": 2018
+  }, 
   "Embedding2018A_MuTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
     "campaign": "MuTauFinalState", 
     "data": true, 
@@ -2283,6 +2301,24 @@
     "process": "Embedding2018D", 
     "scenario": "inputDoubleMu_102X_miniAODv1", 
     "version": "v1", 
+    "year": 2018
+  }, 
+  "Embedding2018D_TauTauFinalState_inputDoubleMu102XminiAODv1_13TeV_USER_v1": {
+    "campaign": "TauTauFinalState", 
+    "data": true, 
+    "dbs": "/EmbeddingRun2018D/TauTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER", 
+    "embedded": true, 
+    "energy": "13", 
+    "extension": "", 
+    "format": "USER", 
+    "generator": "", 
+    "globalTag": "102X_dataRun2_Prompt_v13", 
+    "inputDBS": "phys03", 
+    "n_events_generated": "0", 
+    "n_files": "0", 
+    "process": "Embedding2018D", 
+    "scenario": "inputDoubleMu_102X_miniAODv1", 
+    "version": "v1",
     "year": 2018
   }, 
   "GluGluHToTauTauM110_RunIIFall17MiniAODv2_PU2017_13TeV_MINIAOD_powheg-pythia8_v1": {
