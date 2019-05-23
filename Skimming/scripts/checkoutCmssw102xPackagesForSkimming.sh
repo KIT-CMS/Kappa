@@ -35,5 +35,7 @@ git cms-merge-topic cms-egamma:EgammaPostRecoTools_dev # for 2018 Scale & Smear
 git clone git@github.com:KIT-CMS/Kappa.git -b dictchanges
 git clone git@github.com:KIT-CMS/grid-control.git
 
+git submodule update --init --recursive # add the datasets.json submodule
+
 CORES=`grep -c ^processor /proc/cpuinfo`
 scram b -j $CORES
