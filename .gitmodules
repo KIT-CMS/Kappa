@@ -1,0 +1,3 @@
+[submodule "Skimming/data"]
+	path = Skimming/data
+	url = git@github.com:KIT-CMS/datasets.git
