@@ -55,11 +55,11 @@ protected:
 		{
 		case DecayInfo::Electronic:
 			out.decayMode = 1;
-			assert(info.n_charged == 1);
+			//assert(info.n_charged == 1);
 			break;
 		case DecayInfo::Muonic:
 			out.decayMode = 2;
-			assert(info.n_charged == 1);
+			//assert(info.n_charged == 1);
 			break;
 		case DecayInfo::Hadronic:
 			if(info.n_charged == 1)
