@@ -455,7 +455,7 @@ class SkimManagerBase:
 		cfg_dict['local']['proxy'] = 'VomsProxy'
 
 		cfg_dict['constants'] = {}
-		cfg_dict['constants']['GC_GLITE_LOCATION'] = '/cvmfs/grid.cern.ch/emi3ui-latest/etc/profile.d/setup-ui-example.sh'
+		cfg_dict['constants']['GC_GLITE_LOCATION'] = '/cvmfs/grid.cern.ch/umd-sl6ui-latest/etc/profile.d/setup-ui-example.sh'
 		#cfg_dict['constants']['X509_USER_PROXY'] = '$X509_USER_PROXY'
 
 		cfg_dict['parameters'] = {}
