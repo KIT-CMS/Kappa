@@ -403,21 +403,21 @@ class SkimManagerBase:
 		cfg_dict = {}
 		cfg_dict['global'] = {}
 		cfg_dict['global']['task']  = 'CMSSW'
-		if backend=='freiburg' or backend=='naf':
+		if backend=='freiburg' or backend=='naf' or backend=='cern':
 			cfg_dict['global']['backend']  = 'condor'
 		else:
-			print "Backend not supported. Please choose 'freiburg' or 'naf'."
+			print "Backend not supported. Please choose 'freiburg' or 'naf' or 'cern'."
 			exit()
-		cfg_dict['global']["workdir create"] = 'True '
+		cfg_dict['global']["workdir create"] = 'True'
 
 		cfg_dict['jobs'] = {}
 		cfg_dict['jobs']['in flight'] = '1000'
-		if backend=='naf': ## to get into short queue on NAF, increase if files are too large
-			cfg_dict['jobs']['wall time'] = '02:59:00'
+		if backend=='naf' or backend=='cern': ## to get into short queue on NAF, increase if files are too large
+			cfg_dict['jobs']['wall time'] = '03:00:00'
 		else:
 			cfg_dict['jobs']['wall time'] = '06:00:00'
-		if backend=='naf': ## to get into short queue on NAF, increase if files are too large
-			cfg_dict['jobs']['memory'] = '1990'
+		if backend=='naf' or backend=='cern': ## to get into short queue on NAF, increase if files are too large
+			cfg_dict['jobs']['memory'] = '2000'
 		else:
 			cfg_dict['jobs']['memory'] = '5400'
 		cfg_dict['jobs']['max retry'] = '3'
@@ -448,6 +448,8 @@ class SkimManagerBase:
 		cfg_dict['condor']['proxy'] = "VomsProxy"
 		if backend=="freiburg":
 			cfg_dict['condor']['JDLData'] = 'Requirements=(Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs'
+                if backend=="cern":
+                        cfg_dict['condor']['JDLData'] = 'Requirements=((OpSysAndVer=?="SLCern6"))'
 
 		cfg_dict['local'] = {}
 		cfg_dict['local']['queue randomize'] = 'True'
