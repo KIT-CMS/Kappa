@@ -165,6 +165,7 @@ def create_postMiniAODSequences(year,dataset_type):
         process,
         runVID=True,
         eleIDModules=[
+                'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_GeneralPurpose_V1_cff',
                 'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV70_cff',
 
                 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V2_cff',

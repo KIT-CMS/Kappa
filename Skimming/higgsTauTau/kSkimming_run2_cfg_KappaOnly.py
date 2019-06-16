@@ -235,6 +235,9 @@ def getBaseConfig(
 	process.kappaTuple.Electrons.allConversions = cms.InputTag("reducedEgamma","reducedConversions")
         process.kappaTuple.Electrons.srcIds = cms.string("pat")
         process.kappaTuple.Electrons.ids = cms.VInputTag(
+		cms.InputTag("egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp80"),
+		cms.InputTag("egmGsfElectronIDs:mvaEleID-Spring16-GeneralPurpose-V1-wp90"),
+
                 cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-veto"),
                 cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-loose"),
                 cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-medium"),
@@ -314,6 +317,15 @@ def getBaseConfig(
 		"againstElectronMediumMVA6",
 		"againstElectronTightMVA6",
 		"againstElectronVTightMVA6",
+		
+		# old 2015
+		"byIsolationMVArun2v1DBoldDMwLTraw",
+		"byVLooseIsolationMVArun2v1DBoldDMwLT",
+		"byLooseIsolationMVArun2v1DBoldDMwLT",
+		"byMediumIsolationMVArun2v1DBoldDMwLT",
+		"byTightIsolationMVArun2v1DBoldDMwLT",
+		"byVTightIsolationMVArun2v1DBoldDMwLT",
+		"byVVTightIsolationMVArun2v1DBoldDMwLT", 
 
                 # 2017v2
                 "byIsolationMVArun2017v2DBoldDMwLTraw2017",
