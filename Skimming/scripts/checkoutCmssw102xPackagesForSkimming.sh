@@ -16,9 +16,6 @@ git cms-init
 git cms-addpkg EgammaAnalysis/ElectronTools
 rm EgammaAnalysis/ElectronTools/data -rf
 git clone git@github.com:cms-egamma/EgammaAnalysis-ElectronTools.git EgammaAnalysis/ElectronTools/data
-cd EgammaAnalysis/ElectronTools/data
-git checkout ScalesSmearing2018_Dev
-cd -
 
 ### Merge-topics ###
 git cms-merge-topic KIT-CMS:stxs_1p1 # adapted HTXS code for stage 1.1; used reference: https://gitlab.cern.ch/LHCHIGGSXS/LHCHXSWG2/STXS
@@ -27,7 +24,7 @@ git cms-merge-topic KIT-CMS:stxs_1p1 # adapted HTXS code for stage 1.1; used ref
 # https://twiki.cern.ch/twiki/bin/view/CMS/EgammaMiniAODV2, https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPostRecoRecipes
 # The 2018 MiniAOD includes the Fall17V2 IDs for electrons but not for photons.
 git cms-merge-topic cms-egamma:EgammaPostRecoTools # just adds in an extra file to have a setup function to make things easier
-git cms-merge-topic cms-egamma:EgammaPostRecoTools_dev # for 2018 Scale & Smear
+git cms-merge-topic cms-egamma:slava77-btvDictFix_10210 # fixes the Run2018D dictionary issue, see https://github.com/cms-sw/cmssw/issues/26182, may not be necessary for later releases
 
 ### Analysis group related software (ntuplizer, skimming, private MiniAOD, etc.) ###
 
