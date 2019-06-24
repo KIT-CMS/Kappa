@@ -15,7 +15,7 @@ git cms-init
 ### Add-packages ###
 git cms-addpkg EgammaAnalysis/ElectronTools
 rm EgammaAnalysis/ElectronTools/data -rf
-git clone git@github.com:cms-egamma/EgammaAnalysis-ElectronTools.git EgammaAnalysis/ElectronTools/data
+git clone git@github.com:cms-data/EgammaAnalysis-ElectronTools.git EgammaAnalysis/ElectronTools/data
 
 ### Merge-topics ###
 git cms-merge-topic KIT-CMS:stxs_1p1 # adapted HTXS code for stage 1.1; used reference: https://gitlab.cern.ch/LHCHIGGSXS/LHCHXSWG2/STXS
