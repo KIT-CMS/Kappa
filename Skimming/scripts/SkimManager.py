@@ -375,7 +375,7 @@ class SkimManagerBase:
 		print ''
 
 	def create_gc_config(self, backend='freiburg',events_per_job=0):
-		shutil.copyfile(src=os.path.join(os.environ.get("CMSSW_BASE"), "src/Kappa/Skimming/higgsTauTau/", self.configfile), dst=os.path.join(self.workdir, 'gc_cfg', self.configfile))
+		shutil.copyfile(src=os.path.join(os.environ.get("CMSSW_BASE"), "src/Kappa/Skimming/higgsTauTau/", self.configfile), dst=os.path.join(self.workdir, 'gc_cfg', os.path.basename(self.configfile)))
 		gc_config = self.gc_default_cfg(backend=backend,events_per_job=events_per_job)
 		for akt_nick in self.skimdataset.get_nicks_with_query(query={"GCSKIM_STATUS" : "INIT"}):
 			print "Create a new config for", akt_nick
@@ -426,7 +426,7 @@ class SkimManagerBase:
 		cfg_dict['CMSSW'] = {}
 		cfg_dict['CMSSW']['project area'] = '$CMSSW_BASE/'
 		cfg_dict['CMSSW']['area files'] = '-.* -config lib module */data *.xml *.sql *.cf[if] *.py *.h *.json *.dat'
-		cfg_dict['CMSSW']['config file'] = self.configfile
+		cfg_dict['CMSSW']['config file'] = os.path.basename(self.configfile)
 		if events_per_job>0:
 			cfg_dict['CMSSW']['dataset splitter'] = 'EventBoundarySplitter'
 			cfg_dict['CMSSW']['events per job'] = events_per_job
