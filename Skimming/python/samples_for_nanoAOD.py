@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import os
 
 class Sample(object):
     def __init__(self, year, das, cfg, out):
@@ -62,6 +63,9 @@ samples = [
     Sample(2018, "/ST_t-channel_top_5f_TuneCP5_13TeV-powheg-pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM"                            , 'myNanoProdMc2018_NANO.py', 'myNanoProdMc2018_NANO.root'),
     Sample(2018, "/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1/MINIAODSIM", 'myNanoProdMc2018_NANO.py', 'myNanoProdMc2018_NANO.root'),
     Sample(2018, "/VBFHToTauTau_M125_13TeV_powheg_pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext1-v1/MINIAODSIM"                                 , 'myNanoProdMc2018_NANO.py', 'myNanoProdMc2018_NANO.root'),
+    Sample(2018, "/GluGluHToTauTau_M125_13TeV_powheg_pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v2/MINIAODSIM"                                 , 'myNanoProdMc2018_NANO.py', 'myNanoProdMc2018_NANO.root'),
+
+    
     # data 2018
     Sample(2018, "/Tau/Run2018A-17Sep2018-v1/MINIAOD"        , 'myNanoProdData2018ABC_NANO.py', 'myNanoProdData2018ABC_NANO.root'),
     Sample(2018, "/Tau/Run2018B-17Sep2018-v1/MINIAOD"        , 'myNanoProdData2018ABC_NANO.py', 'myNanoProdData2018ABC_NANO.root'),
@@ -121,6 +125,9 @@ samples = [
     Sample(2017, "/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v1/MINIAODSIM", 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     Sample(2017, "/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/MINIAODSIM"    , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     Sample(2017, "/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/MINIAODSIM"    , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
+    Sample(2017, "/GluGluHToTauTau_M125_13TeV_powheg_pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v2/MINIAODSIM"    , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
+    Sample(2017, "/VBFHToTauTau_M125_13TeV_powheg_pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v1/MINIAODSIM"    , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
+
     # data 2017
     Sample(2017, "/Tau/Run2017B-Nano14Dec2018-v1/NANOAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
     Sample(2017, "/Tau/Run2017C-Nano14Dec2018-v1/NANOAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
@@ -182,7 +189,8 @@ samples = [
     Sample(2016, "/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/RunIISummer16MiniAODv3-PUMoriond17_94X_mcRun2_asymptotic_v3-v1/MINIAODSIM"      , 'myNanoProdMc2016_NANO.py', 'myNanoProdMc2016_NANO.root'),
     ###########
     Sample(2016, "/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/RunIISummer16MiniAODv3-PUMoriond17_94X_mcRun2_asymptotic_v3-v1/MINIAODSIM"                                                   , 'myNanoProdMc2016_NANO.py', 'myNanoProdMc2016_NANO.root'),
-
+    Sample(2016, "/GluGluHToTauTau_M125_13TeV_powheg_pythia8/RunIISummer16MiniAODv3-PUMoriond17_94X_mcRun2_asymptotic_v3-v1/MINIAODSIM"                                                   , 'myNanoProdMc2016_NANO.py', 'myNanoProdMc2016_NANO.root'),
+    Sample(2016, "/VBFHToTauTau_M125_13TeV_powheg_pythia8/RunIISummer16MiniAODv3-PUMoriond17_94X_mcRun2_asymptotic_v3-v2/MINIAODSIM"                                                   , 'myNanoProdMc2016_NANO.py', 'myNanoProdMc2016_NANO.root'),
     # data 2016
     Sample(2016, "/Tau/Run2016B-17Jul2018_ver2-v1/MINIAOD"           , 'myNanoProdData2016_NANO.py', 'myNanoProdData2016_NANO.root'),
     Sample(2016, "/Tau/Run2016C-17Jul2018-v1/MINIAOD"                , 'myNanoProdData2016_NANO.py', 'myNanoProdData2016_NANO.root'),
@@ -211,6 +219,6 @@ samples = [
 
 
 
-
-
-
+if __name__ == "__main__":
+    for sample in samples:
+        os.system("python scripts/DatasetManager.py --addDataset {} --overwrite".format(sample.das))
