@@ -21,7 +21,7 @@ from CRABClient.ClientExceptions import ClientException
 class SkimManagerBase:
 
 
-	def __init__(self, storage_for_output, workbase=".", workdir="TEST_SKIM", use_proxy_variable=False):
+	def __init__(self, storage_for_output, workbase=".", workdir="TEST_SKIM", use_proxy_variable=False, config=None):
 		self.storage_for_output = storage_for_output
 		self.workdir = os.path.join(workbase, os.path.abspath(workdir))
 		if not os.path.exists(self.workdir+"/gc_cfg"):
@@ -30,7 +30,7 @@ class SkimManagerBase:
 		backup_dataset = self.skimdataset.json_file_name.replace(".json", "_backup.json")
 		self.skimdataset.keep_input_json = False ## will be updated very often
 		self.skimdataset.write_to_jsonfile(backup_dataset)
-		self.configfile = 'kSkimming_run2_cfg_KappaOnly.py'
+		self.configfile = config
 		self.max_crab_jobs_per_nick = 8000 # 10k is the hard limit
 		self.voms_proxy = None
 		self.site_storage_access_dict = {
@@ -725,6 +725,7 @@ if __name__ == "__main__":
 
 	parser.add_argument("-i", "--input", dest="inputfile", default=def_input, help="input data base (Default: %s)"%def_input)
 	parser.add_argument("-w", "--workdir", dest="workdir", default=os.path.join(work_base, strftime("%Y-%m-%d-%H-%M-%S", gmtime()))+"_kappa-skim", help="Set work directory  (Default: %(default)s)")
+	parser.add_argument("-c", "--config", dest="config", default="kSkimming_run2_cfg_KappaOnly.py", help="Set cmsRun configuration file (Default: %(default)s)")
 	parser.add_argument("-d", "--date", dest="date", action="store_true", default=False, help="Add current date to workdir folder (Default: %(default)s)")
 	parser.add_argument("--query", dest="query", help="Query which each dataset has to fulfill. Works with regex e.g: --query '{\"campaign\" : \"RunIISpring16MiniAOD.*reHLT\"}' \n((!!! For some reasons the most outer question marks must be the \'))")
 	parser.add_argument("--nicks", dest="nicks", help="Query which each dataset has to fulfill. Works with regex e.g: --nicks \".*_Run2016(B|C|D).*\"")
@@ -771,7 +772,7 @@ if __name__ == "__main__":
 	if args.date:
 		args.workdir+="_"+datetime.date.today().strftime("%Y-%m-%d")
 
-	SKM = SkimManagerBase(storage_for_output=args.storage_for_output, workbase=work_base, workdir=args.workdir)
+	SKM = SkimManagerBase(storage_for_output=args.storage_for_output, workbase=work_base, workdir=args.workdir, config=args.config)
 	nicks = SKM.nick_list(args.inputfile, tag_key=args.tag, tag_values_str=args.tagvalues, query=args.query, nick_regex=args.nicks)
 
 	if args.init:
