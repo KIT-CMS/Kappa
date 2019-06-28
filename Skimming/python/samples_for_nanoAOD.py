@@ -88,19 +88,21 @@ samples = [
     ###########
 
     # MC 2017
-    Sample(2017, "/WW_TuneCP5_13TeV-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/MINIAODSIM"                                                          , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     Sample(2017, "/WW_TuneCP5_13TeV-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/MINIAODSIM"                                                          , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     Sample(2017, "/WZ_TuneCP5_13TeV-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/MINIAODSIM"                                                          , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     Sample(2017, "/ZZ_TuneCP5_13TeV-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v2/MINIAODSIM"                                                  , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     ###########
     Sample(2017, "/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14_ext1-v2/MINIAODSIM"                                 , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     Sample(2017, "/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v3/MINIAODSIM"                                      , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
-    Sample(2017, "/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/MINIAODSIM"                                      , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
+
     Sample(2017, "/W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v3/MINIAODSIM"                                     , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     Sample(2017, "/W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v4/MINIAODSIM"                                     , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
+
     Sample(2017, "/W2JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v4/MINIAODSIM"                                     , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     Sample(2017, "/W2JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v5/MINIAODSIM"                                     , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
+
     Sample(2017, "/W3JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/MINIAODSIM"                                     , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
+
     Sample(2017, "/W4JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v2/MINIAODSIM"                             , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
     ###########
     Sample(2017, "/DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v2/MINIAODSIM"                     , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
@@ -129,23 +131,23 @@ samples = [
     Sample(2017, "/VBFHToTauTau_M125_13TeV_powheg_pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v1/MINIAODSIM"    , 'myNanoProdMc2017_NANO.py', 'myNanoProdMc2017_NANO.root'),
 
     # data 2017
-    Sample(2017, "/Tau/Run2017B-Nano14Dec2018-v1/NANOAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/Tau/Run2017C-Nano14Dec2018-v1/NANOAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/Tau/Run2017D-Nano14Dec2018-v1/NANOAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/Tau/Run2017E-Nano14Dec2018-v1/NANOAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/Tau/Run2017F-Nano14Dec2018-v1/NANOAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/Tau/Run2017B-31Mar2018-v1/MINIAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/Tau/Run2017C-31Mar2018-v1/MINIAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/Tau/Run2017D-31Mar2018-v1/MINIAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/Tau/Run2017E-31Mar2018-v1/MINIAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/Tau/Run2017F-31Mar2018-v1/MINIAOD"           , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
     ###########
-    Sample(2017, "/SingleMuon/Run2017B-Nano14Dec2018-v1/NANOAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/SingleMuon/Run2017C-Nano14Dec2018-v1/NANOAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/SingleMuon/Run2017D-Nano14Dec2018-v1/NANOAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/SingleMuon/Run2017E-Nano14Dec2018-v1/NANOAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/SingleMuon/Run2017F-Nano14Dec2018-v1/NANOAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleMuon/Run2017B-31Mar2018-v1/MINIAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleMuon/Run2017C-31Mar2018-v1/MINIAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleMuon/Run2017D-31Mar2018-v1/MINIAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleMuon/Run2017E-31Mar2018-v1/MINIAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleMuon/Run2017F-31Mar2018-v1/MINIAOD"    , 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
     ###########
-    Sample(2017, "/SingleElectron/Run2017B-Nano14Dec2018-v1/NANOAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/SingleElectron/Run2017C-Nano14Dec2018-v1/NANOAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/SingleElectron/Run2017D-Nano14Dec2018-v1/NANOAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/SingleElectron/Run2017E-Nano14Dec2018-v1/NANOAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
-    Sample(2017, "/SingleElectron/Run2017F-Nano14Dec2018-v1/NANOAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleElectron/Run2017B-31Mar2018-v1/MINIAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleElectron/Run2017C-31Mar2018-v1/MINIAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleElectron/Run2017D-31Mar2018-v1/MINIAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleElectron/Run2017E-31Mar2018-v1/MINIAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+    Sample(2017, "/SingleElectron/Run2017F-31Mar2018-v1/MINIAOD", 'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
 
     ###########
     ###########
