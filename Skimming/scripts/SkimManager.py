@@ -415,39 +415,41 @@ class SkimManagerBase:
 		if backend=='naf' or backend=='cern': ## to get into short queue on NAF, increase if files are too large
 			cfg_dict['jobs']['wall time'] = '03:00:00'
 		else:
-			cfg_dict['jobs']['wall time'] = '06:00:00'
+			cfg_dict['jobs']['wall time'] = '03:00:00'
 		if backend=='naf' or backend=='cern': ## to get into short queue on NAF, increase if files are too large
 			cfg_dict['jobs']['memory'] = '2000'
 		else:
-			cfg_dict['jobs']['memory'] = '5400'
+			cfg_dict['jobs']['memory'] = '2000'
 		cfg_dict['jobs']['max retry'] = '3'
 		#cfg_dict['jobs']['jobs'] = '1'
 
 		cfg_dict['CMSSW'] = {}
 		cfg_dict['CMSSW']['project area'] = '$CMSSW_BASE/'
-		cfg_dict['CMSSW']['area files'] = '-.* -config lib module */data *.xml *.sql *.cf[if] *.py *.h *.json *.dat'
+		cfg_dict['CMSSW']['area files'] = '-.* -config lib module */data *.xml *.sql *.cf[if] *.py *.h *.json *.dat *.pb'
 		cfg_dict['CMSSW']['config file'] = os.path.basename(self.configfile)
-		if events_per_job>0:
-			cfg_dict['CMSSW']['dataset splitter'] = 'EventBoundarySplitter'
-			cfg_dict['CMSSW']['events per job'] = events_per_job
-		else:
-			cfg_dict['CMSSW']['dataset splitter'] = 'FileBoundarySplitter'
-			cfg_dict['CMSSW']['files per job'] = '1'
+		#if events_per_job>0:
+		#	cfg_dict['CMSSW']['dataset splitter'] = 'EventBoundarySplitter'
+		#	cfg_dict['CMSSW']['events per job'] = events_per_job
+		#else:
+		#	cfg_dict['CMSSW']['dataset splitter'] = 'FileBoundarySplitter'
+		#	cfg_dict['CMSSW']['files per job'] = '1'
+		cfg_dict['CMSSW']['dataset splitter'] = 'EventBoundarySplitter'
+		cfg_dict['CMSSW']['events per job'] = '25000'
 		cfg_dict['CMSSW']['se runtime'] = 'True'
-		cfg_dict['CMSSW'][';partition lfn modifier'] = '<srm:nrg>' ## comment out per default both can be changed during run, which can improve the succses rate
+		#cfg_dict['CMSSW'][';partition lfn modifier'] = '<srm:nrg>' ## comment out per default both can be changed during run, which can improve the succses rate
 		cfg_dict['CMSSW']['depends'] = 'glite'
-		cfg_dict['CMSSW']['arguments'] = 'usePostMiniAODSequences=True'
+		#cfg_dict['CMSSW']['arguments'] = 'usePostMiniAODSequences=True'
 		cfg_dict['CMSSW']['parameter factory'] = "ModularParameterFactory"
 		cfg_dict['CMSSW']['partition lfn modifier dict'] = "\n   <xrootd>    => root://cms-xrd-global.cern.ch//\n   <xrootd:eu> => root://xrootd-cms.infn.it//\n   <xrootd:us> => root://cmsxrootd.fnal.gov//\n   <xrootd:desy> => root://dcache-cms-xrootd.desy.de:1094/\n   <dcap:desy> => dcap://dcache-cms-dcap.desy.de//pnfs/desy.de/cms/tier2/\n   <local:desy> => file:///pnfs/desy.de/cms/tier2/\n   <srm:nrg> => srm://dgridsrm-fzk.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/dcms/disk-only/\n   <dcap:nrg> => dcap://dcnrgdcap.gridka.de:22125//pnfs/gridka.de/dcms/disk-only/\n   <xrootd:nrg> => root://cmsxrootd.gridka.de//pnfs/gridka.de/dcms/disk-only/\n   <dcap:gridka> => dcap://dccmsdcap.gridka.de:22125//pnfs/gridka.de/cms/disk-only/\n   <xrootd:gridka> => root://cmsxrootd.gridka.de//\n   <dcap:aachen> => dcap://grid-dcap-extern.physik.rwth-aachen.de/pnfs/physik.rwth-aachen.de/cms/\n   <xrootd:aachen> => root://grid-vo-cms.physik.rwth-aachen.de:1094/\n"
 
 		cfg_dict['storage'] = {}
-		cfg_dict['storage']['se output files'] = 'kappaTuple.root'
-		cfg_dict['storage']['se output pattern'] = "/@NICK@/@FOLDER@/kappa_@NICK@_@GC_JOB_ID@.@XEXT@"
+		cfg_dict['storage']['se output files'] = 'myNanoProd_NANO.root'
+		cfg_dict['storage']['se output pattern'] = "@NICK@/@FOLDER@/@XBASE@_@GC_JOB_ID@.@XEXT@"
 
 		cfg_dict['condor'] = {}
 		cfg_dict['condor']['proxy'] = "VomsProxy"
 		if backend=="freiburg":
-			cfg_dict['condor']['JDLData'] = 'Requirements=(Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs'
+			cfg_dict['condor']['JDLData'] = 'Requirements=(TARGET.Machine!="sm01.etp.kit.edu"&&Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs'
                 if backend=="cern":
                         cfg_dict['condor']['JDLData'] = 'Requirements=((OpSysAndVer=?="SLCern6"))'
 
@@ -471,10 +473,10 @@ class SkimManagerBase:
 		#se_path_base = 'srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/'
 		storageSite = self.skimdataset[akt_nick].get("storageSite", self.storage_for_output)
 		se_path_base = self.site_storage_access_dict[storageSite]["srm"]
-		gc_config['storage']['se path'] = se_path_base+"store/user/%s/higgs-kit/skimming/%s/GC_SKIM/%s/"%(self.getUsernameFromSiteDB_cache(), os.path.basename(self.workdir.rstrip("/")), datetime.datetime.today().strftime("%y%m%d_%H%M%S"))
+		gc_config['storage']['se path'] = se_path_base+"store/user/%s/taupog/nanoAOD/"%(self.getUsernameFromSiteDB_cache())
 		#gc_config['storage']['se output pattern'] = "FULLEMBEDDING_CMSSW_8_0_21/@NICK@/@FOLDER@/@XBASE@_@GC_JOB_ID@.@XEXT@"
 		gc_config['CMSSW']['dataset'] = akt_nick+" : "+self.skimdataset[akt_nick]['dbs']
-		gc_config['CMSSW']['files per job'] = str(self.files_per_job(akt_nick))
+		#gc_config['CMSSW']['files per job'] = str(self.files_per_job(akt_nick))
 		gc_config['global']["workdir"] = os.path.join(self.workdir, self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest())
 
 		gc_config['dataset'] = {}
