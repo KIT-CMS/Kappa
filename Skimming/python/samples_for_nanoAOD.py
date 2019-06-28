@@ -72,11 +72,13 @@ samples = [
     Sample(2018, "/SingleMuon/Run2018B-17Sep2018-v1/MINIAOD" , 'myNanoProdData2018ABC_NANO.py', 'myNanoProdData2018ABC_NANO.root'),
     Sample(2018, "/SingleMuon/Run2018C-17Sep2018-v1/MINIAOD" , 'myNanoProdData2018ABC_NANO.py', 'myNanoProdData2018ABC_NANO.root'),
     Sample(2018, "/SingleMuon/Run2018D-PromptReco-v2/MINIAOD", 'myNanoProdData2018D_NANO.py'  , 'myNanoProdData2018D_NANO.root'  ),
+    Sample(2018, "/SingleMuon/Run2018D-22Jan2019-v2/MINIAOD", 'myNanoProdData2018D_NANO.py'  , 'myNanoProdData2018D_NANO.root'  ),
     ###########
     Sample(2018, "/EGamma/Run2018A-17Sep2018-v2/MINIAOD"     , 'myNanoProdData2018ABC_NANO.py', 'myNanoProdData2018ABC_NANO.root'),
     Sample(2018, "/EGamma/Run2018B-17Sep2018-v1/MINIAOD"     , 'myNanoProdData2018ABC_NANO.py', 'myNanoProdData2018ABC_NANO.root'),
     Sample(2018, "/EGamma/Run2018C-17Sep2018-v1/MINIAOD"     , 'myNanoProdData2018ABC_NANO.py', 'myNanoProdData2018ABC_NANO.root'),
     Sample(2018, "/EGamma/Run2018D-PromptReco-v2/MINIAOD"    , 'myNanoProdData2018D_NANO.py'  , 'myNanoProdData2018D_NANO.root'  ),
+    Sample(2018, "/EGamma/Run2018D-22Jan2019-v2/MINIAOD"    , 'myNanoProdData2018D_NANO.py'  , 'myNanoProdData2018D_NANO.root'  ),
 
     ###########
     ###########
