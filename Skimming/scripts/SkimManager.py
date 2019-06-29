@@ -609,6 +609,15 @@ class SkimManagerBase:
 					self.skimdataset[dataset]["GCSKIM_STATUS"] = "LISTED"
 					print "List creation successfull!"
 					print "---------------------------------------------------------"
+					print ""
+					print "Creating nanoAOD filelist for publishing... "
+					nanoName = self.skimdataset[dataset]["dbs"].replace("MiniAOD","NanoAOD").replace("MINIAODSIM","USER").replace("MINIAOD","USER")
+					if "Run201" in nanoName:
+						nanoName = nanoName.replace("/USER","-NanoAOD/USER")
+					nanoName = nanoName.replace("/USER","_DeepTauv2_TauPOG-v1/USER")
+					os.system("datasetDBS3Add.py -n {} {}".format(nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
+					self.skimdataset[dataset]["GCSKIM_STATUS"] = "READYFORPUBLISHING"
+
 			# If GC task not completed, create a crab filelist
 			elif force or (self.skimdataset[dataset]["SKIM_STATUS"] == "COMPLETED" and self.skimdataset[dataset]["GCSKIM_STATUS"] != "LISTED"):
 				print "Getting CRAB file list for", dataset
@@ -646,6 +655,17 @@ class SkimManagerBase:
 
 		print "End of list creation."
 
+	def publish_filelist(self):
+		for dataset in self.skimdataset.nicks():
+			storage_site = self.skimdataset[dataset].get("storageSite", self.storage_for_output)
+			if not self.skimdataset[dataset].get("storageSite"):
+				self.skimdataset[dataset]["storageSite"] = self.storage_for_output
+			# File list for GC first
+			if self.skimdataset[dataset]["GCSKIM_STATUS"] == "READYFORPUBLISHING":
+					os.system("datasetDBS3Add.py -i -F {} {}".format(os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
+					self.skimdataset[dataset]["GCSKIM_STATUS"] = "PUBLISHED"
+
+
 	def reset_filelist(self):
 		for dataset in self.skimdataset.nicks():
 			if self.skimdataset[dataset]["SKIM_STATUS"] == "LISTED":
@@ -680,10 +700,12 @@ class SkimManagerBase:
 		if os.environ.get('SKIM_WORK_BASE') is not None:
 			return(os.environ['SKIM_WORK_BASE'])
 		else:
-			if 'ekpbms1' in os.environ["HOSTNAME"]:
+			if 'bms1' in os.environ["HOSTNAME"]:
 				return("/portal/ekpbms1/home/%s/kappa_skim_workdir/" % os.environ["USER"])
-			elif 'ekpbms2' in os.environ["HOSTNAME"]:
+			elif 'bms2' in os.environ["HOSTNAME"]:
 				return("/portal/ekpbms2/home/%s/kappa_skim_workdir/" % os.environ["USER"])
+                        elif 'bms3' in os.environ["HOSTNAME"]:
+                                return("/portal/ekpbms1/home/%s/kappa_skim_workdir/" % os.environ["USER"])
 			elif 'naf' in os.environ["HOSTNAME"]:
 				return("/nfs/dust/cms/user/%s/kappa_skim_workdir/" % os.environ["USER"])
 			elif 'aachen' in os.environ["HOSTNAME"]:
@@ -755,6 +777,7 @@ if __name__ == "__main__":
 
 	parser.add_argument("-b", "--backend", default='freiburg', dest="backend", help="Changes backend for the creation of Grid Control configs. Supported: freiburg, naf. Default: %(default)s")
 	parser.add_argument("-e", "--events-per-job", default=0, dest="events_per_job", help="For submission with grid-control only! Select event-based splitting instead of file based and give number of events oer job.")
+	parser.add_argument("--publish", action='store_true', default=False, dest="publish", help="")
 
 	args = parser.parse_args()
 
@@ -800,6 +823,11 @@ if __name__ == "__main__":
 
 	if args.create_filelist:
 		SKM.create_filelist(args.force)
+		SKM.save_dataset()
+		exit()
+
+	if args.publish:
+		SKM.publish_filelist()
 		SKM.save_dataset()
 		exit()
 
