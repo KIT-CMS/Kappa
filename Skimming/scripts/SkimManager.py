@@ -657,10 +657,6 @@ class SkimManagerBase:
 
 	def publish_filelist(self):
 		for dataset in self.skimdataset.nicks():
-			storage_site = self.skimdataset[dataset].get("storageSite", self.storage_for_output)
-			if not self.skimdataset[dataset].get("storageSite"):
-				self.skimdataset[dataset]["storageSite"] = self.storage_for_output
-			# File list for GC first
 			if self.skimdataset[dataset]["GCSKIM_STATUS"] == "READYFORPUBLISHING":
 					os.system("datasetDBS3Add.py -i -F {} {}".format(os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
 					self.skimdataset[dataset]["GCSKIM_STATUS"] = "PUBLISHED"
