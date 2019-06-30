@@ -611,21 +611,32 @@ class SkimManagerBase:
 					print "---------------------------------------------------------"
 					print ""
 					print "Creating nanoAOD filelist for publishing... "
+
 					globaltags_to_be_removed = [
-					"_94X_mcRun2_asymptotic_v3",
-					"_94X_mc2017_realistic_v14",
-					"-102X_upgrade2018_realistic_v15",
-					"_102X_upgrade2018_realistic_v15"					]
-					nanoName = self.skimdataset[dataset]["dbs"]
+						"_94X_mcRun2_asymptotic_v3",
+						"_94X_mc2017_realistic_v14",
+						"-102X_upgrade2018_realistic_v15",
+						"_102X_upgrade2018_realistic_v15"]
+					das_segments =  self.skimdataset[dataset]["dbs"].split("/")
+					das_segments[2] =  das_segments[2].replace("-","_")
+					nanoName = ""
+        				for i,segment in enumerate(das_segments):
+						nanoName += segment
+         		    			if not i==(len(das_segments)-1):
+							nanoName += "/"
 					nanoName = re.sub("MiniAODv.","NanoAODv5", nanoName)
-       				nanoName = re.sub("MiniAOD","NanoAODv5", nanoName)
+       					nanoName = re.sub("MiniAOD","NanoAODv5", nanoName)
 					nanoName = nanoName.replace("MINIAODSIM","USER").replace("MINIAOD","USER")
 					for tag in globaltags_to_be_removed:
-            			nanoName = nanoName.replace(tag,"")
+            					nanoName = nanoName.replace(tag,"")
 					if "Run201" in nanoName:
-						nanoName = nanoName.replace("/USER","-NanoAOD/USER")
-					nanoName = nanoName.replace("/USER","_DeepTauv2_TauPOG-v1/USER")
-					os.system("datasetDBS3Add.py -n {} {}".format(nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
+						nanoName = nanoName.replace("/USER","_NanoAODv5/USER")
+					nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v1/USER")
+
+					datatype = "data" if ("Run201" in nanoName or "Embedding" in nanoName) else "mc"
+					print("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
+
+					# os.system("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
 					self.skimdataset[dataset]["GCSKIM_STATUS"] = "READYFORPUBLISHING"
 
 			# If GC task not completed, create a crab filelist
@@ -668,7 +679,7 @@ class SkimManagerBase:
 	def publish_filelist(self):
 		for dataset in self.skimdataset.nicks():
 			if self.skimdataset[dataset]["GCSKIM_STATUS"] == "READYFORPUBLISHING":
-					os.system("datasetDBS3Add.py -i -F {} {}".format(os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
+					os.system("dataset_dbs3_add.py -i -F {} {}".format(os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
 					self.skimdataset[dataset]["GCSKIM_STATUS"] = "PUBLISHED"
 
 
