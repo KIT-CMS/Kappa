@@ -611,7 +611,17 @@ class SkimManagerBase:
 					print "---------------------------------------------------------"
 					print ""
 					print "Creating nanoAOD filelist for publishing... "
-					nanoName = self.skimdataset[dataset]["dbs"].replace("MiniAOD","NanoAOD").replace("MINIAODSIM","USER").replace("MINIAOD","USER")
+					globaltags_to_be_removed = [
+					"_94X_mcRun2_asymptotic_v3",
+					"_94X_mc2017_realistic_v14",
+					"-102X_upgrade2018_realistic_v15",
+					"_102X_upgrade2018_realistic_v15"					]
+					nanoName = self.skimdataset[dataset]["dbs"]
+					nanoName = re.sub("MiniAODv.","NanoAODv5", nanoName)
+       				nanoName = re.sub("MiniAOD","NanoAODv5", nanoName)
+					nanoName = nanoName.replace("MINIAODSIM","USER").replace("MINIAOD","USER")
+					for tag in globaltags_to_be_removed:
+            			nanoName = nanoName.replace(tag,"")
 					if "Run201" in nanoName:
 						nanoName = nanoName.replace("/USER","-NanoAOD/USER")
 					nanoName = nanoName.replace("/USER","_DeepTauv2_TauPOG-v1/USER")
