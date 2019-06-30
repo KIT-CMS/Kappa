@@ -634,7 +634,7 @@ class SkimManagerBase:
 					nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v1/USER")
 
 					datatype = "data" if ("Run201" in nanoName or "Embedding" in nanoName) else "mc"
-					print("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
+					os.system("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
 
 					# os.system("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
 					self.skimdataset[dataset]["GCSKIM_STATUS"] = "READYFORPUBLISHING"
