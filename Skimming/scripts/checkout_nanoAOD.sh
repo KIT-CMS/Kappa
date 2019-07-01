@@ -12,5 +12,7 @@ wget https://github.com/cms-tau-pog/RecoTauTag-TrainingFiles/raw/DeepTau2017v2/D
 
 git clone --recursive git@github.com:KIT-CMS/Kappa.git -b nanoAOD
 git clone git@github.com:KIT-CMS/grid-control
+git clone git@github.com:janekbechtel/grid-control jb_grid-control
+
 
 scram b -j 12

@@ -13,7 +13,6 @@ import shutil
 import re
 import hashlib
 from multiprocessing import Process, Queue
-
 from httplib import HTTPException
 from CRABAPI.RawCommand import crabCommand
 from CRABClient.ClientExceptions import ClientException
@@ -635,9 +634,7 @@ class SkimManagerBase:
 					nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v1/USER")
 
 					datatype = "data" if ("Run201" in nanoName or "Embedding" in nanoName) else "mc"
-					os.system("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
-
-					# os.system("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
+					os.system("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))	
 					self.skimdataset[dataset]["GCSKIM_STATUS"] = "READYFORPUBLISHING"
 
 			# If GC task not completed, create a crab filelist
@@ -679,9 +676,23 @@ class SkimManagerBase:
 
 	def publish_filelist(self):
 		for dataset in self.skimdataset.nicks():
+			if "Run201" in dataset or "Embedding" in dataset:
+				datatype = "data"
+			else:
+				datatype = "mc"
 			if self.skimdataset[dataset]["GCSKIM_STATUS"] == "READYFORPUBLISHING":
-					os.system("dataset_dbs3_add.py -i -F {} {}".format(os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))
-					self.skimdataset[dataset]["GCSKIM_STATUS"] = "PUBLISHED"
+					os.system("datasetDBS3Add.py --datatype {} -i -F {} {}".format(datatype, os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))	
+					if "bms" in os.environ["HOSTNAME"]:
+						print "Using dasgoclient for validation does not work on ETP machines. Please validate manually if dataset {} is published.".format(self.skimdataset[dataset]["dbs"])
+					else:
+						query = os.popen('dasgoclient -query="dataset= {} instance=prod/phys03"'.format(self.skimdataset[dataset]["dbs"])).read()
+						if(query.strip("\n")==self.skimdataset[dataset]["dbs"]):
+							print "\033[32m"+"Successfully added the dataset {}".format(self.skimdataset[dataset]["dbs"])+"\033[0m"
+							self.skimdataset[dataset]["GCSKIM_STATUS"] = "PUBLISHED" 	
+						else:
+							print "\033[31m"+"Adding dataset {} not successful. Please try manually and run SkimManager again:".format(self.skimdataset[dataset]["dbs"])+"\033[0m"
+							print "datasetDBS3Add.py --datatype {} -i -F {} {}".format(datatype, os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf'))
+							
 
 
 	def reset_filelist(self):
