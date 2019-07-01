@@ -625,11 +625,12 @@ class SkimManagerBase:
          		    			if not i==(len(das_segments)-1):
 							nanoName += "/"
 					nanoName = re.sub("MiniAODv.","NanoAODv5", nanoName)
-       					nanoName = re.sub("MiniAOD","NanoAODv5", nanoName)
+					nanoName = re.sub("MiniAOD","NanoAODv5", nanoName)
+					nanoName = re.sub("miniAOD","NanoAODv5", nanoName)
 					nanoName = nanoName.replace("MINIAODSIM","USER").replace("MINIAOD","USER")
 					for tag in globaltags_to_be_removed:
             					nanoName = nanoName.replace(tag,"")
-					if "Run201" in nanoName:
+					if "Run201" in nanoName and not "Embedding" in nanoName:
 						nanoName = nanoName.replace("/USER","_NanoAODv5/USER")
 					nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v1/USER")
 

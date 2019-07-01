@@ -1,5 +1,6 @@
 from collections import OrderedDict
 import os
+import re
 
 class Sample(object):
     def __init__(self, year, das, cfg, out):
@@ -212,10 +213,62 @@ samples = [
     Sample(2016, "/SingleElectron/Run2016F-17Jul2018-v1/MINIAOD"     , 'myNanoProdData2016_NANO.py', 'myNanoProdData2016_NANO.root'),
     Sample(2016, "/SingleElectron/Run2016G-17Jul2018-v1/MINIAOD"     , 'myNanoProdData2016_NANO.py', 'myNanoProdData2016_NANO.root'),
     Sample(2016, "/SingleElectron/Run2016H-17Jul2018-v1/MINIAOD"     , 'myNanoProdData2016_NANO.py', 'myNanoProdData2016_NANO.root'),
+
+    Sample(2017, "/EmbeddingRun2017B/MuTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017C/MuTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017D/MuTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017E/MuTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017F/MuTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER ",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+
+    Sample(2017, "/EmbeddingRun2017B/ElTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017C/ElTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017D/ElTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017E/ElTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017F/ElTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER ",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+
+    Sample(2017, "/EmbeddingRun2017B/ElMuFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017C/ElMuFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017D/ElMuFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017E/ElMuFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017F/ElMuFinalState-inputDoubleMu_94X_miniAOD-v2/USER ",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+
+    Sample(2017, "/EmbeddingRun2017B/TauTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017C/TauTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017D/TauTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017E/TauTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+ 	Sample(2017, "/EmbeddingRun2017F/TauTauFinalState-inputDoubleMu_94X_miniAOD-v2/USER ",    'myNanoProdData2017_NANO.py', 'myNanoProdData2017_NANO.root'),
+
+    Sample(2018, "/EmbeddingRun2018A/MuTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018B/MuTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018C/MuTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018D/MuTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+
+    Sample(2018, "/EmbeddingRun2018A/ElTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018B/ElTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018C/ElTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018D/ElTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+
+    Sample(2018, "/EmbeddingRun2018A/ElMuFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018B/ElMuFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018C/ElMuFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018D/ElMuFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+
+    Sample(2018, "/EmbeddingRun2018A/TauTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018B/TauTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018C/TauTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+    Sample(2018, "/EmbeddingRun2018D/TauTauFinalState-inputDoubleMu_102X_miniAOD-v1/USER",    'myNanoProdData2018_NANO.py', 'myNanoProdData2018_NANO.root'),
+
 ]
 
 
 
 if __name__ == "__main__":
+    globaltags_to_be_removed = [
+    "_94X_mcRun2_asymptotic_v3",
+    "_94X_mc2017_realistic_v14",
+    "-102X_upgrade2018_realistic_v15",
+    "_102X_upgrade2018_realistic_v15"
+    ]
     for sample in samples:
-        os.system("python scripts/DatasetManager.py --addDataset {} --overwrite".format(sample.das))
+        appendix = " --inputDBS phys03" if "Embedding" in sample.das else ""
+        os.system("python scripts/DatasetManager.py --addDataset {} --overwrite {}".format(sample.das, appendix))
