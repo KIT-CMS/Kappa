@@ -682,7 +682,7 @@ class SkimManagerBase:
 				datatype = "mc"
 			if self.skimdataset[dataset]["GCSKIM_STATUS"] == "READYFORPUBLISHING":
 					os.system("datasetDBS3Add.py --datatype {} -i -F {} {}".format(datatype, os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))	
-					if "bms" in os.environ["HOSTNAME"]:
+					if "bms1" in os.environ["HOSTNAME"] or "bms3" in os.environ["HOSTNAME"]:
 						print "Using dasgoclient for validation does not work on ETP machines. Please validate manually if dataset {} is published.".format(self.skimdataset[dataset]["dbs"])
 					else:
 						query = os.popen('dasgoclient -query="dataset= {} instance=prod/phys03"'.format(self.skimdataset[dataset]["dbs"])).read()
