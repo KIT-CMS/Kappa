@@ -681,16 +681,38 @@ class SkimManagerBase:
 			else:
 				datatype = "mc"
 			if self.skimdataset[dataset]["GCSKIM_STATUS"] == "READYFORPUBLISHING":
+                                        globaltags_to_be_removed = [
+                                                "_94X_mcRun2_asymptotic_v3",
+                                                "_94X_mc2017_realistic_v14",
+                                                "-102X_upgrade2018_realistic_v15",
+                                                "_102X_upgrade2018_realistic_v15"]
+                                        das_segments =  self.skimdataset[dataset]["dbs"].split("/")
+                                        das_segments[2] =  das_segments[2].replace("-","_")
+                                        nanoName = ""
+                                        for i,segment in enumerate(das_segments):
+                                                nanoName += segment
+                                                if not i==(len(das_segments)-1):
+                                                        nanoName += "/"
+                                        nanoName = re.sub("MiniAODv.","NanoAODv5", nanoName)
+                                        nanoName = re.sub("MiniAOD","NanoAODv5", nanoName)
+                                        nanoName = re.sub("miniAOD","NanoAODv5", nanoName)
+                                        nanoName = nanoName.replace("MINIAODSIM","USER").replace("MINIAOD","USER")
+                                        for tag in globaltags_to_be_removed:
+                                                nanoName = nanoName.replace(tag,"")
+                                        if "Run201" in nanoName and not "Embedding" in nanoName:
+                                                nanoName = nanoName.replace("/USER","_NanoAODv5/USER")
+                                        nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v1/USER")
+
 					os.system("datasetDBS3Add.py --datatype {} -i -F {} {}".format(datatype, os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))	
 					if "bms1" in os.environ["HOSTNAME"] or "bms3" in os.environ["HOSTNAME"]:
-						print "Using dasgoclient for validation does not work on ETP machines. Please validate manually if dataset {} is published.".format(self.skimdataset[dataset]["dbs"])
+						print "Using dasgoclient for validation does not work on ETP machines. Please validate manually if dataset {} is published.".format(nanoName)
 					else:
-						query = os.popen('dasgoclient -query="dataset= {} instance=prod/phys03"'.format(self.skimdataset[dataset]["dbs"])).read()
-						if(query.strip("\n")==self.skimdataset[dataset]["dbs"]):
-							print "\033[32m"+"Successfully added the dataset {}".format(self.skimdataset[dataset]["dbs"])+"\033[0m"
+						query = os.popen('dasgoclient -query="dataset= {} instance=prod/phys03"'.format(nanoName)).read()
+						if(query.strip("\n")==nanoName):
+							print "\033[32m"+"Successfully added the dataset {}".format(nanoName)+"\033[0m"
 							self.skimdataset[dataset]["GCSKIM_STATUS"] = "PUBLISHED" 	
 						else:
-							print "\033[31m"+"Adding dataset {} not successful. Please try manually and run SkimManager again:".format(self.skimdataset[dataset]["dbs"])+"\033[0m"
+							print "\033[31m"+"Adding dataset {} not successful. Please try manually and run SkimManager again:".format(nanoName)+"\033[0m"
 							print "datasetDBS3Add.py --datatype {} -i -F {} {}".format(datatype, os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf'))
 							
 
