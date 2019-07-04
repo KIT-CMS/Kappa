@@ -234,7 +234,7 @@ class DataSetManagerBase:
                 else:
                     print "This inputDBS(", inputDBS, ") can not provide event and file numbers"
 
-    def add_dataset(self, dbs, inputDBS=None, xsec=None, nick_name=None, globaltag=None):
+    def add_dataset(self, dbs, inputDBS=None, xsec=None, nick_name=None, globaltag=None, year=None):
         new_entry = {'dbs': dbs}
         self.query = new_entry  # now it can be used to set tags
         if len(self.get_nick_list(query=new_entry)) > 0:
@@ -267,7 +267,7 @@ class DataSetManagerBase:
         self.set_n_events_files(new_entry)
         self.dataset[nick_name] = new_entry
 
-    def query_datasets(self, pattern, inputDBS=None, xsec=None, nick_name=None, globaltag=None):
+    def query_datasets(self, pattern, inputDBS=None, xsec=None, nick_name=None, globaltag=None, year=None):
         from Kappa.Skimming.getNumberGeneratedEventsFromDB import RestClient
         cert = os.environ['X509_USER_PROXY']
         if not cert.strip():
@@ -282,7 +282,7 @@ class DataSetManagerBase:
         print pattern
         print "---------------------------------------------"
         for dataset in dataset_list:
-            self.add_dataset(dataset, inputDBS=inputDBS, xsec=xsec, nick_name=nick_name, globaltag=globaltag)
+            self.add_dataset(dataset, inputDBS=inputDBS, xsec=xsec, nick_name=nick_name, globaltag=globaltag, year=year)
         return
 
     def delete_datasets(self):
@@ -445,7 +445,7 @@ if __name__ == "__main__":
         print "Adding Datasets and adding/removing entries or tags in same instance not supported. Please do separately."
         exit()
     if args.addDatasets:
-        DSM.query_datasets(args.addDatasets, inputDBS=args.inputDBS, xsec=args.xsec, globaltag=args.globaltag)
+        DSM.query_datasets(args.addDatasets, inputDBS=args.inputDBS, xsec=args.xsec, globaltag=args.globaltag, year=args.year)
     else:
         if args.addattribute:
             DSM.add_attribute(attribute=args.addattribute, attribute_value=args.addattributevalue)
