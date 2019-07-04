@@ -245,6 +245,8 @@ class DataSetManagerBase:
             new_entry["inputDBS"] = inputDBS  # default will be global
         if globaltag is not None:
             new_entry["globalTag"] = globaltag
+        if year is not None:
+            new_entry["year"] = year
         new_entry["data"] = True if "Run20" in dbs else False
         if "Embedding" in dbs:
             new_entry["embedded"] = True  # if not given assume false ;)
@@ -405,6 +407,7 @@ if __name__ == "__main__":
     parser.add_argument("--addattributevalue", dest="addattributevalue", help="Add new attribute that stores 1 element")
 
     parser.add_argument("--globaltag", dest="globaltag", default=None, help="Add a global tag to all that matches query [Default : %(default)s]")
+    parser.add_argument("--year", dest="year", default=None, help="Add a year tag to all that matches query [Default : %(default)s]")
 
     parser.add_argument("--rmtag", dest="rmtag", help="Remove the to this tag the TagValues -> requieres --TagValues option\nAlso either the --query or --nicks option must be given (for matching) ")
     parser.add_argument("--rmtagvalues", dest="rmtagvalues", help="The tag values, must be a comma separated string (e.g. --TagValues \"Skim_Base',Skim_Extend\" ")
