@@ -334,7 +334,7 @@ class SkimManagerBase:
 
 	def prepare_resubmission_with_gc(self, nicks = None):
 
-		datasets_to_resubmit = [dataset for dataset in self.skimdataset.nicks() if self.skimdataset[dataset]["SKIM_STATUS"] not in ["COMPLETED", "LISTED"] and self.skimdataset[dataset]["GCSKIM_STATUS"] not in ["COMPLETED", "LISTED"]]
+		datasets_to_resubmit = [dataset for dataset in self.skimdataset.nicks() if self.skimdataset[dataset]["SKIM_STATUS"] not in ["COMPLETED", "LISTED", "READYFORPUBLISHING", "PUBLISHED"] and self.skimdataset[dataset]["GCSKIM_STATUS"] not in ["COMPLETED", "LISTED","READYFORPUBLISHING", "PUBLISHED"]]
 		if nicks is not None:
 			datasets_to_resubmit = [x for x in datasets_to_resubmit if x in nicks]
 		self.write_while(datasets_to_submit=datasets_to_resubmit)
