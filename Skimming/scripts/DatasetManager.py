@@ -246,7 +246,7 @@ class DataSetManagerBase:
         if globaltag is not None:
             new_entry["globalTag"] = globaltag
         if year is not None:
-            new_entry["year"] = year
+            new_entry["year"] = int(year)
         new_entry["data"] = True if "Run20" in dbs else False
         if "Embedding" in dbs:
             new_entry["embedded"] = True  # if not given assume false ;)
