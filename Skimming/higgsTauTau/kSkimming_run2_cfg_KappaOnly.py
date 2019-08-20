@@ -52,12 +52,6 @@ def getBaseConfig(
 	maxevents=-1,
 	outputfilename = 'kappaTuple.root'):
 
-        trigger_objects_embedding = {
-            2016 : "selectedPatTrigger",
-            2017 : "slimmedPatTrigger",
-            2018 : "slimmedPatTrigger",
-        }
-
         metfilterbits_process_data = {
             2016 : "DQM",
             2017 : "PAT",
@@ -187,7 +181,7 @@ def getBaseConfig(
 		process.kappaTuple.ReducedTriggerObject.bits = cms.InputTag("TriggerResults", "", "HLT")
         elif isEmbedded:
 		process.kappaTuple.ReducedTriggerObject.bits = cms.InputTag("TriggerResults", "", "SIMembedding")
-		process.kappaTuple.ReducedTriggerObject.triggerObjects = cms.PSet(src=cms.InputTag(trigger_objects_embedding[year]))
+		process.kappaTuple.ReducedTriggerObject.triggerObjects = cms.PSet(src=cms.InputTag("slimmedPatTrigger"))
 
 	## ------------------------------------------------------------------------
 
