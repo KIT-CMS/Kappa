@@ -472,7 +472,7 @@ class SkimManagerBase:
 		#se_path_base = 'srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/'
 		storageSite = self.skimdataset[akt_nick].get("storageSite", self.storage_for_output)
 		se_path_base = self.site_storage_access_dict[storageSite]["srm"]
-		gc_config['storage']['se path'] = se_path_base+"store/user/%s/taupog/nanoAOD/"%(self.getUsernameFromSiteDB_cache())
+		gc_config['storage']['se path'] = se_path_base+"store/user/%s/taupog/nanoAOD-v2/"%(self.getUsernameFromSiteDB_cache())
 		#gc_config['storage']['se output pattern'] = "FULLEMBEDDING_CMSSW_8_0_21/@NICK@/@FOLDER@/@XBASE@_@GC_JOB_ID@.@XEXT@"
 		gc_config['CMSSW']['dataset'] = akt_nick+" : "+self.skimdataset[akt_nick]['dbs']
 		#gc_config['CMSSW']['files per job'] = str(self.files_per_job(akt_nick))
@@ -631,7 +631,7 @@ class SkimManagerBase:
             					nanoName = nanoName.replace(tag,"")
 					if "Run201" in nanoName and not "Embedding" in nanoName:
 						nanoName = nanoName.replace("/USER","_NanoAODv5/USER")
-					nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v1/USER")
+					nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v2/USER")
 
 					datatype = "data" if ("Run201" in nanoName or "Embedding" in nanoName) else "mc"
 					os.system("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))	
@@ -701,7 +701,7 @@ class SkimManagerBase:
                                                 nanoName = nanoName.replace(tag,"")
                                         if "Run201" in nanoName and not "Embedding" in nanoName:
                                                 nanoName = nanoName.replace("/USER","_NanoAODv5/USER")
-                                        nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v1/USER")
+                                        nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v2/USER")
 
 					os.system("datasetDBS3Add.py --datatype {} -i -F {} {}".format(datatype, os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))	
 					if "bms1" in os.environ["HOSTNAME"] or "bms3" in os.environ["HOSTNAME"]:
