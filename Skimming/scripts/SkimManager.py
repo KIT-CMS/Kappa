@@ -631,7 +631,7 @@ class SkimManagerBase:
             					nanoName = nanoName.replace(tag,"")
 					if "Run201" in nanoName and not "Embedding" in nanoName:
 						nanoName = nanoName.replace("/USER","_NanoAODv5/USER")
-					nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v2/USER")
+					nanoName = nanoName.replace("/USER","-DeepTauv2p1_TauPOG-v1/USER")
 
 					datatype = "data" if ("Run201" in nanoName or "Embedding" in nanoName) else "mc"
 					os.system("dataset_dbs3_add.py --datatype {} -n {} {}".format(datatype, nanoName, os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))	
@@ -701,7 +701,7 @@ class SkimManagerBase:
                                                 nanoName = nanoName.replace(tag,"")
                                         if "Run201" in nanoName and not "Embedding" in nanoName:
                                                 nanoName = nanoName.replace("/USER","_NanoAODv5/USER")
-                                        nanoName = nanoName.replace("/USER","-DeepTauv2_TauPOG-v2/USER")
+                                        nanoName = nanoName.replace("/USER","-DeepTauv2p1_TauPOG-v1/USER")
 
 					os.system("datasetDBS3Add.py --datatype {} -i -F {} {}".format(datatype, os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "dbs", "dbs.dat"),os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf')))	
 					if "bms1" in os.environ["HOSTNAME"] or "bms3" in os.environ["HOSTNAME"]:
@@ -761,6 +761,8 @@ class SkimManagerBase:
 				return("/nfs/dust/cms/user/%s/kappa_skim_workdir/" % os.environ["USER"])
 			elif 'aachen' in os.environ["HOSTNAME"]:
 				return("/net/scratch_cms3b/%s/kappa_skim_workdir/" % os.environ["USER"])
+			elif 'lxplus' in os.environ["HOSTNAME"]:
+				return("/afs/cern.ch/work/{}/{}/kappa_skim_workdir/".format(os.environ["USER"][0],os.environ["USER"]))
 			else:
 				log.critical("Default workbase could not be found. Please specify working dir as absolute path.")
 				sys.exit()
