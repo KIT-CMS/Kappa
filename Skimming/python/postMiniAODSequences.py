@@ -274,7 +274,7 @@ def create_postMiniAODSequences(year,dataset_type):
     )
     process.updatedPatJetsUpdatedJEC.userData.userInts.src += ['pileupJetIdUpdated:fullId','looseJetId', 'tightJetId', 'tightJetIdLepVeto']
     process.updatedPatJetsUpdatedJEC.userData.userFloats.src += ['pileupJetIdUpdated:fullDiscriminant']
-
+    
     process.jecSequence = cms.Sequence(
         process.pileupJetIdUpdated
         *process.looseJetId
@@ -293,6 +293,18 @@ def create_postMiniAODSequences(year,dataset_type):
     )
     process.p *= process.jecSequence
 
+    # Puppi jets
+    updateJetCollection(
+       process,
+       jetSource = cms.InputTag('slimmedJetsPuppi'),
+       labelName = 'UpdatedJEC',
+       postfix = 'Puppi',
+       jetCorrections = ('AK4PFPuppi', cms.vstring(['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual']), 'None')  # Update: Safe to always add 'L2L3Residual' as MC contains dummy L2L3Residual corrections (always set to 1)
+    )
+    
+    process.jecPuppiSequence = cms.Sequence(process.patJetCorrFactorsUpdatedJECPuppi * process.updatedPatJetsUpdatedJECPuppi)
+    process.p *= process.jecPuppiSequence
+    
     # Prefiring weights
     process.prefiringweight = cms.EDProducer(
             "L1ECALPrefiringWeightProducer",
