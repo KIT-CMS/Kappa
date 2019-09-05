@@ -220,8 +220,8 @@ def create_postMiniAODSequences(year,dataset_type):
         postfix = "Puppi"
         )
 
-    process.puppiNoLep.useExistingWeights = False
-    process.puppi.useExistingWeights = False
+    process.puppiNoLep.useExistingWeights = True
+    process.puppi.useExistingWeights = True
 
     process.p *= cms.Sequence(
         process.puppiMETSequence*
