@@ -282,7 +282,7 @@ def getBaseConfig(
 	process.kappaTuple.PatTaus.taus.preselectOnDiscriminators = cms.vstring ()
 	process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist = cms.vstring(
                 # DM finding
-		"decayModeFinding",
+		"decayModeFindingOldDMs",
 		"decayModeFindingNewDMs",
 
                 # cut-based iso
@@ -332,39 +332,33 @@ def getBaseConfig(
                 "byVVTightIsolationMVArun2017v2DBoldDMwLT2017",
 
                 # deepTau
-                "byDeepTau2017v1VSjetraw",
-                "byDeepTau2017v1VSeraw",
-                "byDeepTau2017v1VSmuraw",
+                "byDeepTau2017v2p1VSjetraw",
+                "byDeepTau2017v2p1VSeraw",
+                "byDeepTau2017v2p1VSmuraw",
 
-                "byVVTightDeepTau2017v1VSjet",
-                "byVTightDeepTau2017v1VSjet",
-                "byTightDeepTau2017v1VSjet",
-                "byMediumDeepTau2017v1VSjet",
-                "byLooseDeepTau2017v1VSjet",
-                "byVLooseDeepTau2017v1VSjet",
-                "byVVLooseDeepTau2017v1VSjet",
+                "byVVTightDeepTau2017v2p1VSjet",
+                "byVTightDeepTau2017v2p1VSjet",
+                "byTightDeepTau2017v2p1VSjet",
+                "byMediumDeepTau2017v2p1VSjet",
+                "byLooseDeepTau2017v2p1VSjet",
+                "byVLooseDeepTau2017v2p1VSjet",
+                "byVVLooseDeepTau2017v2p1VSjet",
 
-                "byVVTightDeepTau2017v1VSe",
-                "byVTightDeepTau2017v1VSe",
-                "byTightDeepTau2017v1VSe",
-                "byMediumDeepTau2017v1VSe",
-                "byLooseDeepTau2017v1VSe",
-                "byVLooseDeepTau2017v1VSe",
-                "byVVLooseDeepTau2017v1VSe",
+                "byVVTightDeepTau2017v2p1VSe",
+                "byVTightDeepTau2017v2p1VSe",
+                "byTightDeepTau2017v2p1VSe",
+                "byMediumDeepTau2017v2p1VSe",
+                "byLooseDeepTau2017v2p1VSe",
+                "byVLooseDeepTau2017v2p1VSe",
+                "byVVLooseDeepTau2017v2p1VSe",
 
-                "byVVTightDeepTau2017v1VSmu",
-                "byVTightDeepTau2017v1VSmu",
-                "byTightDeepTau2017v1VSmu",
-                "byMediumDeepTau2017v1VSmu",
-                "byLooseDeepTau2017v1VSmu",
-                "byVLooseDeepTau2017v1VSmu",
-                "byVVLooseDeepTau2017v1VSmu",
-
-                # DPFTau
-                "byDpfTau2016v0VSallraw",
-                "byTightDpfTau2016v0VSall",
-                "byDpfTau2016v1VSallraw",
-                "byTightDpfTau2016v1VSall",
+                "byVVTightDeepTau2017v2p1VSmu",
+                "byVTightDeepTau2017v2p1VSmu",
+                "byTightDeepTau2017v2p1VSmu",
+                "byMediumDeepTau2017v2p1VSmu",
+                "byLooseDeepTau2017v2p1VSmu",
+                "byVLooseDeepTau2017v2p1VSmu",
+                "byVVLooseDeepTau2017v2p1VSmu",
 
                 # new anti-e training
                 "againstElectronMVA6category2018",
