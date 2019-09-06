@@ -282,7 +282,7 @@ def getBaseConfig(
 	process.kappaTuple.PatTaus.taus.preselectOnDiscriminators = cms.vstring ()
 	process.kappaTuple.PatTaus.taus.binaryDiscrWhitelist = cms.vstring(
                 # DM finding
-		"decayModeFindingOldDMs",
+		"decayModeFinding",
 		"decayModeFindingNewDMs",
 
                 # cut-based iso
