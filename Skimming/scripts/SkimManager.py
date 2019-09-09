@@ -362,7 +362,7 @@ class SkimManagerBase:
 		out_file.write('while [ -f ".lock" ]\n')
 		out_file.write('do\n')
 		for dataset in datasets_to_submit:
-			out_file.write('go.py '+os.path.join(self.workdir, 'gc_cfg', self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest()+'.conf -G\n'))
+			out_file.write('go.py '+os.path.join(self.workdir, 'gc_cfg', dataset+'.conf -G\n'))
 		out_file.write('echo "rm .lock"\n')
 		out_file.write('sleep 2\n')
 		out_file.write('done\n')
@@ -381,9 +381,9 @@ class SkimManagerBase:
 			print "Create a new config for", akt_nick
 			gc_config = self.gc_default_cfg(backend=backend,events_per_job=events_per_job)
 			self.individualized_gc_cfg(akt_nick, gc_config)
-			out_file_name = os.path.join(self.workdir, 'gc_cfg', self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest()+'.conf')
+			out_file_name = os.path.join(self.workdir, 'gc_cfg', akt_nick + '.conf')
 			out_file = open(out_file_name, 'w')
-			gc_workdir = os.path.join(self.workdir, self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest())
+			gc_workdir = os.path.join(self.workdir, akt_nick)
 			if os.path.exists(gc_workdir):
 				print "GC workdir for", akt_nick, "exists. Do you whish to remove? To be removed:"
 				print gc_workdir
@@ -475,7 +475,7 @@ class SkimManagerBase:
 		#gc_config['storage']['se output pattern'] = "FULLEMBEDDING_CMSSW_8_0_21/@NICK@/@FOLDER@/@XBASE@_@GC_JOB_ID@.@XEXT@"
 		gc_config['CMSSW']['dataset'] = akt_nick+" : "+self.skimdataset[akt_nick]['dbs']
 		gc_config['CMSSW']['files per job'] = str(self.files_per_job(akt_nick))
-		gc_config['global']["workdir"] = os.path.join(self.workdir, self.skimdataset[akt_nick]['process']+"_"+hashlib.md5(akt_nick).hexdigest())
+		gc_config['global']["workdir"] = os.path.join(self.workdir, akt_nick)
 
 		gc_config['dataset'] = {}
 		gc_config['dataset']['dbs instance'] = self.skimdataset[akt_nick].get("inputDBS", 'global')
