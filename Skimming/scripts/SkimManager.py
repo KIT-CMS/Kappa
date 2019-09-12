@@ -405,6 +405,8 @@ class SkimManagerBase:
 		cfg_dict['global']['task']  = 'CMSSW'
 		if backend=='freiburg' or backend=='naf' or backend=='cern':
 			cfg_dict['global']['backend']  = 'condor'
+		elif backend=='rwthtier2':
+			cfg_dict['global']['backend']  = 'cream'
 		else:
 			print "Backend not supported. Please choose 'freiburg' or 'naf' or 'cern'."
 			exit()
@@ -438,18 +440,38 @@ class SkimManagerBase:
 		cfg_dict['CMSSW']['depends'] = 'glite'
 		cfg_dict['CMSSW']['arguments'] = 'usePostMiniAODSequences=True'
 		cfg_dict['CMSSW']['parameter factory'] = "ModularParameterFactory"
-		cfg_dict['CMSSW']['partition lfn modifier dict'] = "\n   <xrootd>    => root://cms-xrd-global.cern.ch//\n   <xrootd:eu> => root://xrootd-cms.infn.it//\n   <xrootd:us> => root://cmsxrootd.fnal.gov//\n   <xrootd:desy> => root://dcache-cms-xrootd.desy.de:1094/\n   <dcap:desy> => dcap://dcache-cms-dcap.desy.de//pnfs/desy.de/cms/tier2/\n   <local:desy> => file:///pnfs/desy.de/cms/tier2/\n   <srm:nrg> => srm://dgridsrm-fzk.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/dcms/disk-only/\n   <dcap:nrg> => dcap://dcnrgdcap.gridka.de:22125//pnfs/gridka.de/dcms/disk-only/\n   <xrootd:nrg> => root://cmsxrootd.gridka.de//pnfs/gridka.de/dcms/disk-only/\n   <dcap:gridka> => dcap://dccmsdcap.gridka.de:22125//pnfs/gridka.de/cms/disk-only/\n   <xrootd:gridka> => root://cmsxrootd.gridka.de//\n   <dcap:aachen> => dcap://grid-dcap-extern.physik.rwth-aachen.de/pnfs/physik.rwth-aachen.de/cms/\n   <xrootd:aachen> => root://grid-vo-cms.physik.rwth-aachen.de:1094/\n"
+		cfg_dict['CMSSW']['partition lfn modifier dict'] = \
+			"\n   <xrootd>    => root://cms-xrd-global.cern.ch//" + \
+			"\n   <xrootd:eu> => root://xrootd-cms.infn.it//" + \
+			"\n   <xrootd:us> => root://cmsxrootd.fnal.gov//" + \
+			"\n   <xrootd:desy> => root://dcache-cms-xrootd.desy.de:1094/" + \
+			"\n   <xrootd:aachen> => root://grid-vo-cms.physik.rwth-aachen.de:1094/" + \
+			"\n   <xrootd:nrg> => root://cmsxrootd.gridka.de//pnfs/gridka.de/dcms/disk-only/" + \
+			"\n   <xrootd:gridka> => root://cmsxrootd.gridka.de//" + \
+			"\n   <dcap:desy> => dcap://dcache-cms-dcap.desy.de//pnfs/desy.de/cms/tier2/" + \
+			"\n   <dcap:aachen> => dcap://grid-dcap-extern.physik.rwth-aachen.de/pnfs/physik.rwth-aachen.de/cms/" + \
+			"\n   <dcap:nrg> => dcap://dcnrgdcap.gridka.de:22125//pnfs/gridka.de/dcms/disk-only/" + \
+			"\n   <dcap:gridka> => dcap://dccmsdcap.gridka.de:22125//pnfs/gridka.de/cms/disk-only/" + \
+			"\n   <srm:desy> => srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/" + \
+			"\n   <srm:aachen> => srm://grid-srm.physik.rwth-aachen.de:8443/srm/managerv2?SFN=/pnfs/physik.rwth-aachen.de/cms/" + \
+			"\n   <srm:nrg> => srm://dgridsrm-fzk.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/dcms/disk-only/" + \
+			"\n   <local:desy> => file:///pnfs/desy.de/cms/tier2/" + \
+			"\n"
 
 		cfg_dict['storage'] = {}
 		cfg_dict['storage']['se output files'] = 'kappaTuple.root'
 		cfg_dict['storage']['se output pattern'] = "/@NICK@/@FOLDER@/kappa_@NICK@_@GC_JOB_ID@.@XEXT@"
 
-		cfg_dict['condor'] = {}
-		cfg_dict['condor']['proxy'] = "VomsProxy"
-		if backend=="freiburg":
-			cfg_dict['condor']['JDLData'] = 'Requirements=(Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs'
-                if backend=="cern":
-                        cfg_dict['condor']['JDLData'] = 'Requirements=((OpSysAndVer=?="SLCern6"))'
+		if backend=='freiburg' or backend=='naf' or backend=='cern':
+			cfg_dict['condor'] = {}
+			cfg_dict['condor']['proxy'] = "VomsProxy"
+			if backend=="freiburg":
+				cfg_dict['condor']['JDLData'] = 'Requirements=(Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs'
+	                if backend=="cern":
+	                        cfg_dict['condor']['JDLData'] = 'Requirements=((OpSysAndVer=?="SLCern6"))'
+		elif backend=='rwthtier2':
+				cfg_dict['backend'] = {}
+				cfg_dict['backend']['ce'] = "grid-ce.physik.rwth-aachen.de:8443/cream-pbs-cms"
 
 		cfg_dict['local'] = {}
 		cfg_dict['local']['queue randomize'] = 'True'
