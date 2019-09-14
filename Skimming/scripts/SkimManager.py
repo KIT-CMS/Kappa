@@ -511,10 +511,10 @@ class SkimManagerBase:
 # Adapt the grid-control configs listed in this script for example to resubmit jobs with modified parameters (memory, wall-time etc.)
 # Here is only checked, whether the grid-control tasks is SUBMITTED or FINISHED.
 
-	def status_gc(self):
+	def status_gc(self):	
 		for dataset in self.skimdataset.nicks():
-			if self.skimdataset[dataset]["GCSKIM_STATUS"] in ["SUBMITTED", "INIT"]:
-				gc_workdir = os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest())
+			if self.skimdataset[dataset]["GCSKIM_STATUS"] in ["SUBMITTED", "INIT"]:	
+				gc_workdir = os.path.join(self.workdir, dataset)
 				if os.path.exists(gc_workdir):
 					if self.skimdataset[dataset]["GCSKIM_STATUS"] == "INIT":
 						print "GC task status set to SUBMITTED for:"
@@ -609,8 +609,8 @@ class SkimManagerBase:
 				self.skimdataset[dataset]["storageSite"] = self.storage_for_output
 			# File list for GC first
 			if self.skimdataset[dataset]["GCSKIM_STATUS"] == "COMPLETED":
-				gc_output_dir = os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "output")
-				n_jobs_info = os.path.join(self.workdir, self.skimdataset[dataset]['process']+"_"+hashlib.md5(dataset).hexdigest(), "params.map.gz")
+				gc_output_dir = os.path.join(self.workdir, dataset, "output")
+				n_jobs_info = os.path.join(self.workdir, dataset, "params.map.gz")
 				if os.path.exists(n_jobs_info):
 					print "Getting GC file list for", dataset
 					print skim_path+'/'+dataset+'.txt'
