@@ -403,7 +403,7 @@ class SkimManagerBase:
 		cfg_dict = {}
 		cfg_dict['global'] = {}
 		cfg_dict['global']['task']  = 'CMSSW'
-		if backend=='freiburg' or backend=='naf' or backend=='cern':
+		if backend=='freiburg' or backend=='naf' or backend=='cern' or backend == 'rwth':
 			cfg_dict['global']['backend']  = 'condor'
 		elif backend=='rwthtier2':
 			cfg_dict['global']['backend']  = 'cream'
@@ -414,7 +414,7 @@ class SkimManagerBase:
 
 		cfg_dict['jobs'] = {}
 		cfg_dict['jobs']['in flight'] = '1000'
-		if backend=='naf' or backend=='cern': ## to get into short queue on NAF, increase if files are too large
+		if backend=='naf' or backend=='cern' or backend == 'rwth': ## to get into short queue on NAF, increase if files are too large
 			cfg_dict['jobs']['wall time'] = '03:00:00'
 		else:
 			cfg_dict['jobs']['wall time'] = '06:00:00'
@@ -462,7 +462,7 @@ class SkimManagerBase:
 		cfg_dict['storage']['se output files'] = 'kappaTuple.root'
 		cfg_dict['storage']['se output pattern'] = "/@NICK@/@FOLDER@/kappa_@NICK@_@GC_JOB_ID@.@XEXT@"
 
-		if backend=='freiburg' or backend=='naf' or backend=='cern':
+		if backend=='freiburg' or backend=='naf' or backend=='cern' or backend == 'rwth':
 			cfg_dict['condor'] = {}
 			cfg_dict['condor']['proxy'] = "VomsProxy"
 			if backend=="freiburg":
