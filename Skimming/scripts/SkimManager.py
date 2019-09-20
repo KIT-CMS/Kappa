@@ -511,14 +511,14 @@ class SkimManagerBase:
 # Adapt the grid-control configs listed in this script for example to resubmit jobs with modified parameters (memory, wall-time etc.)
 # Here is only checked, whether the grid-control tasks is SUBMITTED or FINISHED.
 
-	def status_gc(self):	
+	def status_gc(self):
 		for dataset in self.skimdataset.nicks():
-			if self.skimdataset[dataset]["GCSKIM_STATUS"] in ["SUBMITTED", "INIT"]:	
+			print dataset, self.skimdataset[dataset]["GCSKIM_STATUS"]
+			if self.skimdataset[dataset]["GCSKIM_STATUS"] in ["SUBMITTED", "INIT"]:
 				gc_workdir = os.path.join(self.workdir, dataset)
 				if os.path.exists(gc_workdir):
 					if self.skimdataset[dataset]["GCSKIM_STATUS"] == "INIT":
-						print "GC task status set to SUBMITTED for:"
-						print dataset
+						print "\tGC task status set to SUBMITTED for: %s" % dataset
 						self.skimdataset[dataset]["GCSKIM_STATUS"] = "SUBMITTED"
 					gc_output_dir = os.path.join(gc_workdir, "output")
 					n_gc_jobs = int(gzip.open(os.path.join(gc_workdir, "params.map.gz"), 'r').read())
@@ -531,9 +531,13 @@ class SkimManagerBase:
 								if info_line == "EXITCODE=0":
 									done_jobs += 1
 									break
+						else:
+							print "\tPath doesnt exist:", job_info_path
 					if n_gc_jobs == done_jobs:
 						print "GC task COMPLETED for", dataset
 						self.skimdataset[dataset]["GCSKIM_STATUS"] = "COMPLETED"
+					else:
+						print "\t done %d/%d" % (done_jobs, n_gc_jobs)
 
 
 ########## Summary function, that prints out statistics on the running tasks
@@ -792,7 +796,7 @@ if __name__ == "__main__":
 		print 'No input file found'
 		exit()
 	if args.date:
-		args.workdir+="_"+datetime.date.today().strftime("%Y-%m-%d")
+		args.workdir += "_" + datetime.date.today().strftime("%Y-%m-%d")
 
 	SKM = SkimManagerBase(storage_for_output=args.storage_for_output, workbase=work_base, workdir=args.workdir, config=args.config)
 	nicks = SKM.nick_list(args.inputfile, tag_key=args.tag, tag_values_str=args.tagvalues, query=args.query, nick_regex=args.nicks)
@@ -818,6 +822,9 @@ if __name__ == "__main__":
                 SKM.save_dataset()
 		exit()
 
+	if args.statusgc:
+		SKM.status_gc()
+
 	if args.create_filelist:
 		SKM.create_filelist(args.force)
 		SKM.save_dataset()
@@ -836,10 +843,7 @@ if __name__ == "__main__":
 		SKM.prepare_resubmission_with_gc(nicks = nicks)
 		exit()
 
-	if args.statusgc:
-		SKM.status_gc()
-
-	else:
+	if not args.statusgc:
 		SKM.submit_crab()
 		SKM.status_crab()
 		SKM.print_skim(summary=args.summary)
