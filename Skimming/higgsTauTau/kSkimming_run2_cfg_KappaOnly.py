@@ -343,6 +343,7 @@ def getBaseConfig(
                 "byLooseDeepTau2017v2p1VSjet",
                 "byVLooseDeepTau2017v2p1VSjet",
                 "byVVLooseDeepTau2017v2p1VSjet",
+                "byVVVLooseDeepTau2017v2p1VSjet",
 
                 "byVVTightDeepTau2017v2p1VSe",
                 "byVTightDeepTau2017v2p1VSe",
@@ -351,6 +352,7 @@ def getBaseConfig(
                 "byLooseDeepTau2017v2p1VSe",
                 "byVLooseDeepTau2017v2p1VSe",
                 "byVVLooseDeepTau2017v2p1VSe",
+                "byVVVLooseDeepTau2017v2p1VSe",
 
                 "byVVTightDeepTau2017v2p1VSmu",
                 "byVTightDeepTau2017v2p1VSmu",
@@ -359,6 +361,7 @@ def getBaseConfig(
                 "byLooseDeepTau2017v2p1VSmu",
                 "byVLooseDeepTau2017v2p1VSmu",
                 "byVVLooseDeepTau2017v2p1VSmu",
+                "byVVVLooseDeepTau2017v2p1VSmu",
 
                 # new anti-e training
                 "againstElectronMVA6category2018",

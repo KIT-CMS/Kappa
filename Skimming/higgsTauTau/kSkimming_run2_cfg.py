@@ -600,6 +600,7 @@ def getBaseConfig(
                         "byLooseDeepTau2017v1VSjet",
                         "byVLooseDeepTau2017v1VSjet",
                         "byVVLooseDeepTau2017v1VSjet",
+                        "byVVVLooseDeepTau2017v1VSjet",
 
                         "byVVTightDeepTau2017v1VSe",
                         "byVTightDeepTau2017v1VSe",
@@ -608,6 +609,7 @@ def getBaseConfig(
                         "byLooseDeepTau2017v1VSe",
                         "byVLooseDeepTau2017v1VSe",
                         "byVVLooseDeepTau2017v1VSe",
+                        "byVVVLooseDeepTau2017v1VSe",
 
                         "byVVTightDeepTau2017v1VSmu",
                         "byVTightDeepTau2017v1VSmu",
@@ -616,6 +618,7 @@ def getBaseConfig(
                         "byLooseDeepTau2017v1VSmu",
                         "byVLooseDeepTau2017v1VSmu",
                         "byVVLooseDeepTau2017v1VSmu",
+                        "byVVVLooseDeepTau2017v1VSmu",
 
                         # DPFTau
                         "byDpfTau2016v0VSallraw",
