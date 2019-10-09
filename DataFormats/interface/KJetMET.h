@@ -38,6 +38,8 @@ struct KBasicJet : public KLV
 	float area;
 	float jecFactor;
 	std::vector<float> corrections;
+	float bjetRegCorr;
+	float bjetRegRes;
 
 	float neutralHadronFraction, chargedHadronFraction;
 	float muonFraction, photonFraction, electronFraction;

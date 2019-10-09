@@ -6,8 +6,8 @@
 //-  * Manuel Zeise <zeise@cern.ch>
 //-  * Thomas Hauth <Thomas.Hauth@cern.ch>
 
-#ifndef KAPPA_PATJETPRODUCER_H
-#define KAPPA_PATJETPRODUCER_H
+#ifndef KAPPA_PATPUPPIJETPRODUCER_H
+#define KAPPA_PATPUPPIJETPRODUCER_H
 
 #include "KBaseMultiLVProducer.h"
 #include "KGenJetProducer.h"
@@ -15,10 +15,10 @@
 #include <FWCore/Framework/interface/EDProducer.h>
 #include "../../Producers/interface/Consumes.h"
 
-class KPatJetProducer : public KBaseMultiLVProducer<edm::View<pat::Jet>, KJets >
+class KPatPuppiJetProducer : public KBaseMultiLVProducer<edm::View<pat::Jet>, KJets >
 {
 public:
-	KPatJetProducer(const edm::ParameterSet &cfg, TTree *_event_tree, TTree *_lumi_tree, TTree *_run_tree, edm::ConsumesCollector && consumescollector) :
+	KPatPuppiJetProducer(const edm::ParameterSet &cfg, TTree *_event_tree, TTree *_lumi_tree, TTree *_run_tree, edm::ConsumesCollector && consumescollector) :
 		KBaseMultiLVProducer<edm::View<pat::Jet>, KJets>(cfg, _event_tree, _lumi_tree, _run_tree, getLabel(), std::forward<edm::ConsumesCollector>(consumescollector)),
 		ids(cfg.getParameter<std::vector<std::string> >("ids"))
 	{
@@ -29,7 +29,7 @@ public:
 		jecSet = "patJetCorrFactors";
 	}
 
-	static const std::string getLabel() { return "PatJets"; }
+	static const std::string getLabel() { return "PatPuppiJets"; }
 
 	inline std::string firstLetterUppercase(const std::string input)
 	{
@@ -62,7 +62,7 @@ public:
 			{
 				if (KBaseProducer::verbosity > 0)
 				{
-					std::cout << "KPatJetProducer::onFirstObject: listing all available JEC sets below" << std::endl;
+					std::cout << "KPatPuppiJetProducer::onFirstObject: listing all available JEC sets below" << std::endl;
 					std::cout << "Jet Energy Set : " << set << std::endl;
 				}
 			}
@@ -86,6 +86,7 @@ public:
 
 	virtual void fillSingle(const SingleInputType &in, SingleOutputType &out)
 	{
+
 		copyP4(in, out.p4);
 
 		out.area = in.jetArea();
@@ -102,8 +103,6 @@ public:
 		out.hfEMFraction = in.HFEMEnergyFraction();
 		out.hadronFlavour = in.hadronFlavour();
 		out.partonFlavour = in.partonFlavour();
-		out.bjetRegCorr = in.userFloat("bjetRegCorr");
-		out.bjetRegRes = in.userFloat("bjetRegRes");
 
 // energy fraction definitions have changed in CMSSW 7.3.X
 // fractions should add up to unity
