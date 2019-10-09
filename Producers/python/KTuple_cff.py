@@ -522,6 +522,34 @@ kappaTupleDefaultsBlock = cms.PSet(
 		),
 	),
 
+        PatPuppiJets = cms.PSet(kappaNoCut,
+                manual = cms.VInputTag(),
+
+                whitelist = cms.vstring("patJets_.*"),
+                blacklist = cms.vstring(".*Tau.*", "recoPFJets_pfJets.*kappaSkim", "Jets(Iso)?QG", ".*SubJets.*"),
+
+                rename = cms.vstring(
+                        "(slimmedJetsAK8)|(slimmed) => (?1ak8PFJets)(?2ak4PF)"
+                ),
+                rename_whitelist= cms.vstring(),
+                rename_blacklist = cms.vstring(),
+                ids = cms.vstring( "pileupJetIdUpdated:fullDiscriminant",
+                                "pileupJetId:fullDiscriminant",
+                                "pileupJetIdUpdated:fullId",
+                                "pileupJetId:fullId",
+                                "pfCombinedInclusiveSecondaryVertexV2BJetTags",
+                                "pfDeepCSVJetTags:probb",
+                                "pfDeepCSVJetTags:probbb",
+                                "pfDeepFlavourJetTags:probbb",
+                                "pfDeepFlavourJetTags:probb",
+                                "pfDeepFlavourJetTags:problepb",
+                                "looseJetId",
+                                "tightJetId",
+                                "tightJetIdLepVeto",
+                ),
+        ),
+
+
 	GenJets = cms.PSet(kappaNoCut,
 		manual = cms.VInputTag(),
 

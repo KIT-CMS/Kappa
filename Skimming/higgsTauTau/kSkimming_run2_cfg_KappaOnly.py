@@ -426,8 +426,9 @@ def getBaseConfig(
 
 	## Jets
 	process.kappaTuple.active += cms.vstring('PatJets')
-        process.kappaTuple.PatJets.ak4PF = cms.PSet(src=cms.InputTag("selectedUpdatedPatJetsUpdatedJEC"))
-        process.kappaTuple.PatJets.puppiJets = cms.PSet(src=cms.InputTag("updatedPatJetsUpdatedJECPuppi"))
+	process.kappaTuple.PatJets.ak4PF = cms.PSet(src=cms.InputTag("selectedUpdatedPatJetsUpdatedJECUpdatedbReg"))
+	process.kappaTuple.active += cms.vstring('PatPuppiJets')
+	process.kappaTuple.PatPuppiJets.puppiJets = cms.PSet(src=cms.InputTag("updatedPatJetsUpdatedJECPuppi"))
 
 	## ------------------------------------------------------------------------
 
