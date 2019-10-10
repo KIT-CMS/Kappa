@@ -103,26 +103,6 @@ def create_postMiniAODSequences(year,dataset_type):
     process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
     from Configuration.AlCa.GlobalTag import GlobalTag
     process.GlobalTag = GlobalTag( process.GlobalTag,  globalTag[year][dataset_type])
-    from CondCore.DBCommon.CondDBSetup_cfi import CondDBSetup
-    if year==2018:
-        process.jec = cms.ESSource('PoolDBESSource',
-            CondDBSetup,
-            connect = cms.string('frontier://FrontierProd/CMS_CONDITIONS'),
-            toGet = cms.VPSet(
-                cms.PSet(
-                    record = cms.string('JetCorrectionsRecord'),
-                    tag    = cms.string('JetCorrectorParametersCollection_Autumn18_%s_AK4PFchs'%("RunABCD_V19_DATA" if (isData or isEmbedded) else "V19_MC")),
-                    label  = cms.untracked.string('AK4PFchs')
-                ),
-                cms.PSet(
-                    record = cms.string('JetCorrectionsRecord'),
-                    tag    = cms.string('JetCorrectorParametersCollection_Autumn18_%s_AK4PFPuppi'%("RunABCD_V19_DATA" if (isData or isEmbedded) else "V19_MC")),
-                    label  = cms.untracked.string('AK4PFPuppi')
-                )
-            )
-        )
-        # Add an ESPrefer to override JEC that might be available from the global tag
-        process.es_prefer_jec = cms.ESPrefer('PoolDBESSource', 'jec')
 
     dataset_type = dataset_type.strip("-prompt") # it's only important for GT & testfile to distinguish between prompt and rereco
 
