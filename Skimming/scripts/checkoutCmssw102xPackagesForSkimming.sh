@@ -6,8 +6,8 @@ export SCRAM_ARCH=slc6_amd64_gcc700
 export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 source $VO_CMS_SW_DIR/cmsset_default.sh
 
-scramv1 project CMSSW_10_2_17
-cd CMSSW_10_2_17/src
+scramv1 project CMSSW_10_2_18
+cd CMSSW_10_2_18/src
 eval `scramv1 runtime -sh`
 
 git cms-init
