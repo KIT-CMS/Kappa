@@ -1,0 +1,1070 @@
+-------------------------------------------------------------------
+ Info: To run c tagging on MiniAOD, c-tag-specific IVF secondary
+       vertices will be remade.
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+ Info: To run c tagging on MiniAOD, c-tag-specific IVF secondary
+       vertices will be remade.
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+ Info: To run c tagging on MiniAOD, c-tag-specific IVF secondary
+       vertices will be remade.
+-------------------------------------------------------------------
+
+----- CMSSW configuration -----
+input:           root://xrootd-cms.infn.it//store/mc/RunIIFall17MiniAODv2/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14_ext3-v1/30002/FE18C0A5-27E3-E911-8643-EC0D9A8221EE.root 
+file type:       miniAOD
+data:            False
+output:          testKappaSkim_out_94X_mc2017_realistic_v14_numEvent100.root
+global tag:      94X_mc2017_realistic_v14
+max events:      100
+cmssw version:   CMSSW_10_6_5
+---------------------------------
+
+|---- jetToolbox: Initializing collection... (with postfix )
+|---- jetToolBox: Adding these btag discriminators: ['pfCombinedInclusiveSecondaryVertexV2BJetTags', 'pfCombinedCvsLJetTags', 'pfCombinedCvsBJetTags'] in the jet collection.
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK4 JETS USING 
+|---- jetToolBox: Applying these corrections: ('AK4PF', [], 'None')
+|---- jetToolBox: Creating selectedPatJetsAK4PF collection.
+|---- jetToolbox: Initializing collection... (with postfix )
+|---- jetToolBox: Adding these btag discriminators: ['pfCombinedInclusiveSecondaryVertexV2BJetTags', 'pfCombinedCvsLJetTags', 'pfCombinedCvsBJetTags'] in the jet collection.
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK4 JETS USING CHS
+|---- jetToolBox: Applying these corrections: ('AK4PFchs', [], 'None')
+|---- jetToolBox: Running AK4PFCHSpileupJetIdEvaluator.
+|---- jetToolBox: Creating selectedPatJetsAK4PFCHS collection.
+|---- jetToolbox: Initializing collection... (with postfix )
+|---- jetToolBox: Adding these btag discriminators: ['pfCombinedInclusiveSecondaryVertexV2BJetTags', 'pfCombinedCvsLJetTags', 'pfCombinedCvsBJetTags'] in the jet collection.
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK4 JETS USING Puppi
+|---- jetToolBox: Applying these corrections: ('AK4PFPuppi', [], 'None')
+|---- jetToolBox: Creating selectedPatJetsAK4PFPuppi collection.
+|---- jetToolbox: Initializing collection... (with postfix )
+|---- jetToolBox: Adding these btag discriminators: ['pfBoostedDoubleSecondaryVertexAK8BJetTags', 'pfMassIndependentDeepDoubleBvLJetTags:probQCD', 'pfMassIndependentDeepDoubleBvLJetTags:probHbb', 'pfMassIndependentDeepDoubleCvLJetTags:probQCD', 'pfMassIndependentDeepDoubleCvLJetTags:probHcc', 'pfMassIndependentDeepDoubleCvBJetTags:probHbb', 'pfMassIndependentDeepDoubleCvBJetTags:probHcc'] in the jet collection.
+|---- jetToolBox: DeepCSV and DeepFlavour btag discriminators were trained for AK4 CHS jets. You are trying to use it in other configuration. Use it at your own risk.
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK8 JETS USING 
+|---- jetToolBox: Applying these corrections: ('AK8PF', [], 'None')
+|---- jetToolBox: Creating selectedPatJetsAK8PF collection.
+|---- jetToolbox: Initializing collection... (with postfix )
+|---- jetToolBox: Adding these btag discriminators: ['pfBoostedDoubleSecondaryVertexAK8BJetTags', 'pfMassIndependentDeepDoubleBvLJetTags:probQCD', 'pfMassIndependentDeepDoubleBvLJetTags:probHbb', 'pfMassIndependentDeepDoubleCvLJetTags:probQCD', 'pfMassIndependentDeepDoubleCvLJetTags:probHcc', 'pfMassIndependentDeepDoubleCvBJetTags:probHbb', 'pfMassIndependentDeepDoubleCvBJetTags:probHcc'] in the jet collection.
+|---- jetToolBox: DeepCSV and DeepFlavour btag discriminators were trained for AK4 CHS jets. You are trying to use it in other configuration. Use it at your own risk.
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK8 JETS USING CHS
+|---- jetToolBox: Applying these corrections: ('AK8PFchs', [], 'None')
+|---- jetToolBox: Creating selectedPatJetsAK8PFCHS collection.
+|---- jetToolbox: Initializing collection... (with postfix )
+|---- jetToolBox: Adding these btag discriminators: ['pfBoostedDoubleSecondaryVertexAK8BJetTags', 'pfMassIndependentDeepDoubleBvLJetTags:probQCD', 'pfMassIndependentDeepDoubleBvLJetTags:probHbb', 'pfMassIndependentDeepDoubleCvLJetTags:probQCD', 'pfMassIndependentDeepDoubleCvLJetTags:probHcc', 'pfMassIndependentDeepDoubleCvBJetTags:probHbb', 'pfMassIndependentDeepDoubleCvBJetTags:probHcc'] in the jet collection.
+|---- jetToolBox: DeepCSV and DeepFlavour btag discriminators were trained for AK4 CHS jets. You are trying to use it in other configuration. Use it at your own risk.
+|---- jetToolBox: JETTOOLBOX RUNNING ON MiniAOD FOR AK8 JETS USING Puppi
+|---- jetToolBox: Applying these corrections: ('AK8PFPuppi', [], 'None')
+|---- jetToolBox: Creating selectedPatJetsAK8PFPuppi collection.
+-------- CONFIGURATION ----------
+
+CMSSW producers:
+  nEventsTotal
+  nNegEventsTotal
+  goodOfflinePrimaryVertices
+  pfNoPileUpIso
+  pfPileUpIso
+  pfPileUp
+  pfNoPileUp
+  pfAllNeutralHadrons
+  pfAllChargedHadrons
+  pfAllPhotons
+  pfAllChargedParticles
+  pfPileUpAllChargedParticles
+  pfAllNeutralHadronsAndPhotons
+  packedGenParticlesForJetsNoNu
+  ak4GenJetsNoNu
+  ak4PFJets
+  ak4PFJetsConstituents
+  patJetsAK4PFPATJetswithUserData
+  packedGenParticlesForJetsNoNu
+  ak4GenJetsNoNu
+  chs
+  ak4PFJetsCHS
+  ak4PFJetsCHSConstituents
+  patJetsAK4PFCHSPATJetswithUserData
+  packedGenParticlesForJetsNoNu
+  ak4GenJetsNoNu
+  puppi
+  ak4PFJetsPuppi
+  ak4PFJetsPuppiConstituents
+  patJetsAK4PFPuppiPATJetswithUserData
+  packedGenParticlesForJetsNoNu
+  ak8GenJetsNoNu
+  ak8PFJets
+  ak8PFJetsConstituents
+  patJetsAK8PFPATJetswithUserData
+  packedGenParticlesForJetsNoNu
+  ak8GenJetsNoNu
+  chs
+  ak8PFJetsCHS
+  ak8PFJetsCHSConstituents
+  patJetsAK8PFCHSPATJetswithUserData
+  packedGenParticlesForJetsNoNu
+  ak8GenJetsNoNu
+  puppi
+  ak8PFJetsPuppi
+  ak8PFJetsPuppiConstituents
+  patJetsAK8PFPuppiPATJetswithUserData
+  packedPFCandidatesCHSNotFromPV
+  nEventsFiltered
+  nNegEventsFiltered
+  packedPFCandidatesCHS
+
+CMSSW endpath producers:
+  kappaTuple,packedGenParticlesForJetsNoNu,ak4GenJetsNoNu,ak4PFJets,ak4PFJetsConstituents,patJetsAK4PF,selectedPatJetsAK4PF,patJetPartonMatchAK4PF,patJetGenJetMatchAK4PF,patJetPartonsLegacy,patJetPartonAssociationLegacyAK4PF,patJetFlavourAssociationLegacyAK4PF,patJetPartons,patJetFlavourAssociationAK4PF,pfImpactParameterTagInfosAK4PF,pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PF,softPFMuonsTagInfosAK4PF,softPFElectronsTagInfosAK4PF,pfInclusiveSecondaryVertexFinderTagInfosAK4PF,pfCombinedCvsLJetTagsAK4PF,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PF,pfCombinedCvsBJetTagsAK4PF,candidateVertexArbitrator,candidateVertexArbitratorCvsL,candidateVertexArbitratorDefault,candidateVertexMerger,candidateVertexMergerCvsL,inclusiveCandidateSecondaryVertices,inclusiveCandidateSecondaryVerticesCvsL,inclusiveCandidateVertexFinder,inclusiveCandidateVertexFinderCvsL,inclusiveCandidateVertexFinderDefault,inclusiveSecondaryVertices,inclusiveVertexFinder,inclusiveVertexFinderDefault,trackVertexArbitrator,trackVertexArbitratorDefault,vertexMerger,slimmedSecondaryVerticesCvsL,patJetCorrFactorsAK4PF,patJetsAK4PFlooseJetId,patJetsAK4PFtightJetId,patJetsAK4PFtightJetIdLepVeto,patJetsAK4PFPATJetswithUserData,chs,ak4PFJetsCHS,ak4PFJetsCHSConstituents,patJetsAK4PFCHS,selectedPatJetsAK4PFCHS,patJetPartonMatchAK4PFCHS,patJetGenJetMatchAK4PFCHS,patJetPartonAssociationLegacyAK4PFCHS,patJetFlavourAssociationLegacyAK4PFCHS,patJetFlavourAssociationAK4PFCHS,pfImpactParameterTagInfosAK4PFCHS,pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PFCHS,softPFMuonsTagInfosAK4PFCHS,softPFElectronsTagInfosAK4PFCHS,pfInclusiveSecondaryVertexFinderTagInfosAK4PFCHS,pfCombinedCvsLJetTagsAK4PFCHS,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFCHS,pfCombinedCvsBJetTagsAK4PFCHS,patJetCorrFactorsAK4PFCHS,AK4PFCHSpileupJetIdCalculator,AK4PFCHSpileupJetIdEvaluator,patJetsAK4PFCHSlooseJetId,patJetsAK4PFCHStightJetId,patJetsAK4PFCHStightJetIdLepVeto,patJetsAK4PFCHSPATJetswithUserData,puppi,ak4PFJetsPuppi,ak4PFJetsPuppiConstituents,patJetsAK4PFPuppi,selectedPatJetsAK4PFPuppi,patJetPartonMatchAK4PFPuppi,patJetGenJetMatchAK4PFPuppi,patJetPartonAssociationLegacyAK4PFPuppi,patJetFlavourAssociationLegacyAK4PFPuppi,patJetFlavourAssociationAK4PFPuppi,pfImpactParameterTagInfosAK4PFPuppi,pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PFPuppi,softPFMuonsTagInfosAK4PFPuppi,softPFElectronsTagInfosAK4PFPuppi,pfInclusiveSecondaryVertexFinderTagInfosAK4PFPuppi,pfCombinedCvsLJetTagsAK4PFPuppi,pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFPuppi,pfCombinedCvsBJetTagsAK4PFPuppi,patJetCorrFactorsAK4PFPuppi,patJetsAK4PFPuppilooseJetId,patJetsAK4PFPuppitightJetId,patJetsAK4PFPuppitightJetIdLepVeto,patJetsAK4PFPuppiPATJetswithUserData,ak8GenJetsNoNu,ak8PFJets,ak8PFJetsConstituents,patJetsAK8PF,selectedPatJetsAK8PF,patJetPartonMatchAK8PF,patJetGenJetMatchAK8PF,patJetPartonAssociationLegacyAK8PF,patJetFlavourAssociationLegacyAK8PF,patJetFlavourAssociationAK8PF,pfDeepDoubleXTagInfosAK8PF,pfBoostedDoubleSVAK8TagInfosAK8PF,pfImpactParameterAK8TagInfosAK8PF,pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PF,pfMassIndependentDeepDoubleCvLJetTagsAK8PF,pfMassIndependentDeepDoubleBvLJetTagsAK8PF,pfMassIndependentDeepDoubleCvBJetTagsAK8PF,pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PF,patJetCorrFactorsAK8PF,patJetsAK8PFlooseJetId,patJetsAK8PFtightJetId,patJetsAK8PFtightJetIdLepVeto,patJetsAK8PFPATJetswithUserData,ak8PFJetsCHS,ak8PFJetsCHSConstituents,patJetsAK8PFCHS,selectedPatJetsAK8PFCHS,patJetPartonMatchAK8PFCHS,patJetGenJetMatchAK8PFCHS,patJetPartonAssociationLegacyAK8PFCHS,patJetFlavourAssociationLegacyAK8PFCHS,patJetFlavourAssociationAK8PFCHS,pfDeepDoubleXTagInfosAK8PFCHS,pfBoostedDoubleSVAK8TagInfosAK8PFCHS,pfImpactParameterAK8TagInfosAK8PFCHS,pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PFCHS,pfMassIndependentDeepDoubleCvLJetTagsAK8PFCHS,pfMassIndependentDeepDoubleBvLJetTagsAK8PFCHS,pfMassIndependentDeepDoubleCvBJetTagsAK8PFCHS,pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PFCHS,patJetCorrFactorsAK8PFCHS,patJetsAK8PFCHSlooseJetId,patJetsAK8PFCHStightJetId,patJetsAK8PFCHStightJetIdLepVeto,patJetsAK8PFCHSPATJetswithUserData,ak8PFJetsPuppi,ak8PFJetsPuppiConstituents,patJetsAK8PFPuppi,selectedPatJetsAK8PFPuppi,patJetPartonMatchAK8PFPuppi,patJetGenJetMatchAK8PFPuppi,patJetPartonAssociationLegacyAK8PFPuppi,patJetFlavourAssociationLegacyAK8PFPuppi,patJetFlavourAssociationAK8PFPuppi,pfDeepDoubleXTagInfosAK8PFPuppi,pfBoostedDoubleSVAK8TagInfosAK8PFPuppi,pfImpactParameterAK8TagInfosAK8PFPuppi,pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PFPuppi,pfMassIndependentDeepDoubleCvLJetTagsAK8PFPuppi,pfMassIndependentDeepDoubleBvLJetTagsAK8PFPuppi,pfMassIndependentDeepDoubleCvBJetTagsAK8PFPuppi,pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PFPuppi,patJetCorrFactorsAK8PFPuppi,patJetsAK8PFPuppilooseJetId,patJetsAK8PFPuppitightJetId,patJetsAK8PFPuppitightJetIdLepVeto,patJetsAK8PFPuppiPATJetswithUserData,pfMet,genMetExtractor,patJetCorrFactorsReapplyJEC,patJetsReapplyJEC,basicJetsForMet,jetSelectorForMet,cleanedPatJets,metrawCalo,patCaloMet,pfCHS,pfMetCHS,patCHSMet,pfTrk,pfMetTrk,patTrkMet,patPFMet,pfCandsNotInJetsForMetCorr,selectedPatJetsForMetT1T2Corr,selectedPatJetsForMetT2Corr,patPFMetT1T2Corr,patPFMetT2Corr,selectedVerticesForPFMEtCorrType0,selectedPrimaryVertexHighestPtTrackSumForPFMEtCorrType0,particleFlowDisplacedVertex,pfCandidateToVertexAssociation,patPFMetT0Corr,pfCandMETcorr,patPFMetT1,patPFMetT1T2,patPFMetT0pcT1,patPFMetT0pcT1T2,patSmearedJets,selectedPatJetsForMetT1T2SmearCorr,selectedPatJetsForMetT2SmearCorr,patPFMetT1T2SmearCorr,patPFMetT2SmearCorr,patPFMetTxyCorr,ak4CaloL1OffsetCorrector,ak4L1JPTOffsetCorrector,ak4CaloL1FastjetCorrector,ak4L1JPTFastjetCorrector,ak4CaloL2RelativeCorrector,ak4CaloL3AbsoluteCorrector,ak4CaloL2L3Corrector,ak4PFL2RelativeCorrector,ak4PFL3AbsoluteCorrector,ak4PFL2L3Corrector,ak4PFCHSL2RelativeCorrector,ak4PFCHSL3AbsoluteCorrector,ak4PFCHSL2L3Corrector,ak4CaloL1OffsetCorrector,ak4L1JPTOffsetCorrector,ak4JPTL2RelativeCorrector,ak4JPTL3AbsoluteCorrector,ak4JPTL2L3Corrector,ak4TrackL2RelativeCorrector,ak4TrackL3AbsoluteCorrector,ak4TrackL2L3Corrector,ak4PFPuppiL2RelativeCorrector,ak4PFPuppiL3AbsoluteCorrector,ak4PFPuppiL2L3Corrector,ak4CaloL2RelativeCorrector,ak4CaloL3AbsoluteCorrector,ak4CaloResidualCorrector,ak4CaloL2L3ResidualCorrector,ak4PFL2RelativeCorrector,ak4PFL3AbsoluteCorrector,ak4PFResidualCorrector,ak4PFL2L3ResidualCorrector,ak4PFCHSL2RelativeCorrector,ak4PFCHSL3AbsoluteCorrector,ak4PFCHSResidualCorrector,ak4PFCHSL2L3ResidualCorrector,ak4CaloL1OffsetCorrector,ak4L1JPTOffsetCorrector,ak4JPTL2RelativeCorrector,ak4JPTL3AbsoluteCorrector,ak4JPTResidualCorrector,ak4JPTL2L3ResidualCorrector,ak4PFPuppiL2RelativeCorrector,ak4PFPuppiL3AbsoluteCorrector,ak4PFPuppiResidualCorrector,ak4PFPuppiL2L3ResidualCorrector,ak4CaloL1OffsetCorrector,ak4CaloL2RelativeCorrector,ak4CaloL3AbsoluteCorrector,ak4CaloL1L2L3Corrector,ak4PFL1OffsetCorrector,ak4PFL2RelativeCorrector,ak4PFL3AbsoluteCorrector,ak4PFL1L2L3Corrector,ak4PFCHSL1OffsetCorrector,ak4PFCHSL2RelativeCorrector,ak4PFCHSL3AbsoluteCorrector,ak4PFCHSL1L2L3Corrector,ak4CaloL1OffsetCorrector,ak4L1JPTOffsetCorrector,ak4JPTL2RelativeCorrector,ak4JPTL3AbsoluteCorrector,ak4JPTL1L2L3Corrector,ak4PFPuppiL1OffsetCorrector,ak4PFPuppiL2RelativeCorrector,ak4PFPuppiL3AbsoluteCorrector,ak4PFPuppiL1L2L3Corrector,ak4CaloL1OffsetCorrector,ak4CaloL2RelativeCorrector,ak4CaloL3AbsoluteCorrector,ak4CaloResidualCorrector,ak4CaloL1L2L3ResidualCorrector,ak4PFL1OffsetCorrector,ak4PFL2RelativeCorrector,ak4PFL3AbsoluteCorrector,ak4PFResidualCorrector,ak4PFL1L2L3ResidualCorrector,ak4PFCHSL1OffsetCorrector,ak4PFCHSL2RelativeCorrector,ak4PFCHSL3AbsoluteCorrector,ak4PFCHSResidualCorrector,ak4PFCHSL1L2L3ResidualCorrector,ak4CaloL1OffsetCorrector,ak4L1JPTOffsetCorrector,ak4JPTL2RelativeCorrector,ak4JPTL3AbsoluteCorrector,ak4JPTResidualCorrector,ak4JPTL1L2L3ResidualCorrector,ak4PFPuppiL1OffsetCorrector,ak4PFPuppiL2RelativeCorrector,ak4PFPuppiL3AbsoluteCorrector,ak4PFPuppiResidualCorrector,ak4PFPuppiL1L2L3ResidualCorrector,ak4CaloL1FastjetCorrector,ak4CaloL2RelativeCorrector,ak4CaloL3AbsoluteCorrector,ak4CaloL1FastL2L3Corrector,ak4PFL1FastjetCorrector,ak4PFL2RelativeCorrector,ak4PFL3AbsoluteCorrector,ak4PFL1FastL2L3Corrector,ak4PFCHSL1FastjetCorrector,ak4PFCHSL2RelativeCorrector,ak4PFCHSL3AbsoluteCorrector,ak4PFCHSL1FastL2L3Corrector,ak4CaloL1FastjetCorrector,ak4L1JPTFastjetCorrector,ak4JPTL2RelativeCorrector,ak4JPTL3AbsoluteCorrector,ak4JPTL1FastL2L3Corrector,ak4PFPuppiL1FastjetCorrector,ak4PFPuppiL2RelativeCorrector,ak4PFPuppiL3AbsoluteCorrector,ak4PFPuppiL1FastL2L3Corrector,ak4CaloL1FastjetCorrector,ak4CaloL2RelativeCorrector,ak4CaloL3AbsoluteCorrector,ak4CaloResidualCorrector,ak4CaloL1FastL2L3ResidualCorrector,ak4PFL1FastjetCorrector,ak4PFL2RelativeCorrector,ak4PFL3AbsoluteCorrector,ak4PFResidualCorrector,ak4PFL1FastL2L3ResidualCorrector,ak4PFCHSL1FastjetCorrector,ak4PFCHSL2RelativeCorrector,ak4PFCHSL3AbsoluteCorrector,ak4PFCHSResidualCorrector,ak4PFCHSL1FastL2L3ResidualCorrector,ak4CaloL1FastjetCorrector,ak4L1JPTFastjetCorrector,ak4JPTL2RelativeCorrector,ak4JPTL3AbsoluteCorrector,ak4JPTResidualCorrector,ak4JPTL1FastL2L3ResidualCorrector,ak4PFPuppiL1FastjetCorrector,ak4PFPuppiL2RelativeCorrector,ak4PFPuppiL3AbsoluteCorrector,ak4PFPuppiResidualCorrector,ak4PFPuppiL1FastL2L3ResidualCorrector,ak4CaloL2RelativeCorrector,ak4CaloL3AbsoluteCorrector,ak4CaloL6SLBCorrector,ak4CaloL2L3L6Corrector,ak4PFL2RelativeCorrector,ak4PFL3AbsoluteCorrector,ak4PFL6SLBCorrector,ak4PFL2L3L6Corrector,ak4CaloL1FastjetCorrector,ak4CaloL2RelativeCorrector,ak4CaloL3AbsoluteCorrector,ak4CaloL6SLBCorrector,ak4CaloL1FastL2L3L6Corrector,ak4PFL1FastjetCorrector,ak4PFL2RelativeCorrector,ak4PFL3AbsoluteCorrector,ak4PFL6SLBCorrector,ak4PFL1FastL2L3L6Corrector,slimmedMETs,patPFMetT1,shiftedPatJetResDown,shiftedPatMETCorrJetResDown,shiftedPatJetResUp,shiftedPatMETCorrJetResUp,patPFMetT1JetResUp,patPFMetT1JetResDown,pfCandsNoJets,pfCandsNoJetsNoEle,pfCandsNoJetsNoEleNoMu,pfCandsNoJetsNoEleNoMuNoTau,pfCandsForUnclusteredUnc,pfElectrons,pfTaus,pfMuons,pfNoPileUp,pfPhotons,shiftedPatMuonEnDown,shiftedPatMETCorrMuonEnDown,shiftedPatMuonEnUp,shiftedPatMETCorrMuonEnUp,patPFMetT1MuonEnUp,patPFMetT1MuonEnDown,shiftedPatJetEnDown,shiftedPatMETCorrJetEnDown,shiftedPatJetEnUp,shiftedPatMETCorrJetEnUp,patPFMetT1JetEnUp,patPFMetT1JetEnDown,shiftedPatTauEnDown,shiftedPatMETCorrTauEnDown,shiftedPatTauEnUp,shiftedPatMETCorrTauEnUp,patPFMetT1TauEnDown,patPFMetT1TauEnUp,shiftedPatPhotonEnDown,shiftedPatMETCorrPhotonEnDown,shiftedPatPhotonEnUp,shiftedPatMETCorrPhotonEnUp,patPFMetT1PhotonEnUp,patPFMetT1PhotonEnDown,shiftedPatElectronEnDown,shiftedPatMETCorrElectronEnDown,shiftedPatElectronEnUp,shiftedPatMETCorrElectronEnUp,patPFMetT1ElectronEnUp,patPFMetT1ElectronEnDown,shiftedPatUnclusteredEnDown,shiftedPatMETCorrUnclusteredEnDown,shiftedPatUnclusteredEnUp,shiftedPatMETCorrUnclusteredEnUp,patPFMetT1UnclusteredEnUp,patPFMetT1UnclusteredEnDown,patPFMetT1Txy,patPFMetTxy,patPFMetT1Smear,shiftedPatSmearedJetResDown,shiftedPatMETCorrSmearedJetResDown,shiftedPatSmearedJetResUp,shiftedPatMETCorrSmearedJetResUp,patPFMetT1SmearJetResDown,patPFMetT1SmearJetResUp,patPFMetT1SmearMuonEnUp,patPFMetT1SmearMuonEnDown,patPFMetT1SmearJetEnUp,patPFMetT1SmearJetEnDown,patPFMetT1SmearTauEnUp,patPFMetT1SmearTauEnDown,patPFMetT1SmearPhotonEnUp,patPFMetT1SmearPhotonEnDown,patPFMetT1SmearElectronEnDown,patPFMetT1SmearElectronEnUp,patPFMetT1SmearUnclusteredEnUp,patPFMetT1SmearUnclusteredEnDown
+
+Kappa producers:
+  BeamSpot
+  FilterSummary
+  GenInfo
+  GenParticles
+  LV
+  Muons
+  PatJets
+  PatMET
+  PileupDensity
+  TriggerObjectStandalone
+  VertexSummary
+  packedPFCandidates
+---------------------------------
+06-Dec-2019 16:36:05 CET  Initiating request to open file root://xrootd-cms.infn.it//store/mc/RunIIFall17MiniAODv2/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14_ext3-v1/30002/FE18C0A5-27E3-E911-8643-EC0D9A8221EE.root
+[2019-12-06 16:36:15.555630 +0100][Warning][XRootDTransport   ] [[2620:6a:0:8420::4c]:32741 #0.0] Logged in, accepting empty login response.
+%MSG-w XrdAdaptor:  file_open 06-Dec-2019 16:36:15 CET pre-events
+Data is served from [2620 instead of original site infn.it
+%MSG
+06-Dec-2019 16:36:18 CET  Successfully opened file root://xrootd-cms.infn.it//store/mc/RunIIFall17MiniAODv2/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14_ext3-v1/30002/FE18C0A5-27E3-E911-8643-EC0D9A8221EE.root
+Start Kappa producer KTuple
+Init producer GenInfo using config from Info
+Init producer VertexSummary using config from VertexSummary
+Init producer BeamSpot using config from BeamSpot
+Init producer GenParticles using config from GenParticles
+Init producer TriggerObjectStandalone using config from TriggerObjectStandalone
+Init producer Muons using config from Muons
+Init producer PatJets using config from PatJets
+Init producer LV using config from LV
+Init producer PileupDensity using config from PileupDensity
+Init producer packedPFCandidates using config from packedPFCandidates
+Init producer PatMET using config from PatMET
+Init producer FilterSummary using config from FilterSummary
+Begin processing the 1st record. Run 1, Event 241288635, LumiSection 89301 on stream 0 at 06-Dec-2019 16:36:41.703 CET
+%MSG-w L3Absolute not found:  PATJetProducer:patJetsAK4PF  06-Dec-2019 16:36:52 CET Run: 1 Event: 241288635
+L2L3Residual and L3Absolute are not part of the jetCorrFactors
+of module patJetCorrFactorsAK4PF. Jets will remain uncorrected.
+%MSG
+%MSG-w L3Absolute not found:  PATJetProducer:patJetsAK4PFCHS  06-Dec-2019 16:36:52 CET Run: 1 Event: 241288635
+L2L3Residual and L3Absolute are not part of the jetCorrFactors
+of module patJetCorrFactorsAK4PFCHS. Jets will remain uncorrected.
+%MSG
+%MSG-w L3Absolute not found:  PATJetProducer:patJetsAK4PFPuppi  06-Dec-2019 16:36:52 CET Run: 1 Event: 241288635
+L2L3Residual and L3Absolute are not part of the jetCorrFactors
+of module patJetCorrFactorsAK4PFPuppi. Jets will remain uncorrected.
+%MSG
+%MSG-w L3Absolute not found:  PATJetProducer:patJetsAK8PF  06-Dec-2019 16:36:52 CET Run: 1 Event: 241288635
+L2L3Residual and L3Absolute are not part of the jetCorrFactors
+of module patJetCorrFactorsAK8PF. Jets will remain uncorrected.
+%MSG
+%MSG-w L3Absolute not found:  PATJetProducer:patJetsAK8PFCHS  06-Dec-2019 16:36:52 CET Run: 1 Event: 241288635
+L2L3Residual and L3Absolute are not part of the jetCorrFactors
+of module patJetCorrFactorsAK8PFCHS. Jets will remain uncorrected.
+%MSG
+%MSG-w L3Absolute not found:  PATJetProducer:patJetsAK8PFPuppi  06-Dec-2019 16:36:52 CET Run: 1 Event: 241288635
+L2L3Residual and L3Absolute are not part of the jetCorrFactors
+of module patJetCorrFactorsAK8PFPuppi. Jets will remain uncorrected.
+%MSG
+06-Dec-2019 16:38:06 CET  Closed file root://xrootd-cms.infn.it//store/mc/RunIIFall17MiniAODv2/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14_ext3-v1/30002/FE18C0A5-27E3-E911-8643-EC0D9A8221EE.root
+
+TrigReport ---------- Event  Summary ------------
+TrigReport Events total = 100 passed = 100 failed = 0
+
+TrigReport ---------- Path   Summary ------------
+TrigReport  Trig Bit#   Executed     Passed     Failed      Error Name
+TrigReport     1    0        100        100          0          0 path
+
+TrigReport -------End-Path   Summary ------------
+TrigReport  Trig Bit#   Executed     Passed     Failed      Error Name
+TrigReport     0    0        100        100          0          0 endpath
+
+TrigReport ---------- Modules in Path: path ------------
+TrigReport  Trig Bit#    Visited     Passed     Failed      Error Name
+TrigReport     1    0        100        100          0          0 nEventsTotal
+TrigReport     1    1        100        100          0          0 nNegEventsTotal
+TrigReport     1    2        100        100          0          0 goodOfflinePrimaryVertices
+TrigReport     1    3        100        100          0          0 pfNoPileUpIso
+TrigReport     1    4        100        100          0          0 pfPileUpIso
+TrigReport     1    5        100        100          0          0 pfPileUp
+TrigReport     1    6        100        100          0          0 pfNoPileUp
+TrigReport     1    7        100        100          0          0 pfAllNeutralHadrons
+TrigReport     1    8        100        100          0          0 pfAllChargedHadrons
+TrigReport     1    9        100        100          0          0 pfAllPhotons
+TrigReport     1   10        100        100          0          0 pfAllChargedParticles
+TrigReport     1   11        100        100          0          0 pfPileUpAllChargedParticles
+TrigReport     1   12        100        100          0          0 pfAllNeutralHadronsAndPhotons
+TrigReport     1   13        100        100          0          0 packedGenParticlesForJetsNoNu
+TrigReport     1   14        100        100          0          0 ak4GenJetsNoNu
+TrigReport     1   15        100        100          0          0 ak4PFJets
+TrigReport     1   16        100        100          0          0 ak4PFJetsConstituents
+TrigReport     1   17        100        100          0          0 patJetsAK4PFPATJetswithUserData
+TrigReport     1   18        100        100          0          0 packedGenParticlesForJetsNoNu
+TrigReport     1   19        100        100          0          0 ak4GenJetsNoNu
+TrigReport     1   20        100        100          0          0 chs
+TrigReport     1   21        100        100          0          0 ak4PFJetsCHS
+TrigReport     1   22        100        100          0          0 ak4PFJetsCHSConstituents
+TrigReport     1   23        100        100          0          0 patJetsAK4PFCHSPATJetswithUserData
+TrigReport     1   24        100        100          0          0 packedGenParticlesForJetsNoNu
+TrigReport     1   25        100        100          0          0 ak4GenJetsNoNu
+TrigReport     1   26        100        100          0          0 puppi
+TrigReport     1   27        100        100          0          0 ak4PFJetsPuppi
+TrigReport     1   28        100        100          0          0 ak4PFJetsPuppiConstituents
+TrigReport     1   29        100        100          0          0 patJetsAK4PFPuppiPATJetswithUserData
+TrigReport     1   30        100        100          0          0 packedGenParticlesForJetsNoNu
+TrigReport     1   31        100        100          0          0 ak8GenJetsNoNu
+TrigReport     1   32        100        100          0          0 ak8PFJets
+TrigReport     1   33        100        100          0          0 ak8PFJetsConstituents
+TrigReport     1   34        100        100          0          0 patJetsAK8PFPATJetswithUserData
+TrigReport     1   35        100        100          0          0 packedGenParticlesForJetsNoNu
+TrigReport     1   36        100        100          0          0 ak8GenJetsNoNu
+TrigReport     1   37        100        100          0          0 chs
+TrigReport     1   38        100        100          0          0 ak8PFJetsCHS
+TrigReport     1   39        100        100          0          0 ak8PFJetsCHSConstituents
+TrigReport     1   40        100        100          0          0 patJetsAK8PFCHSPATJetswithUserData
+TrigReport     1   41        100        100          0          0 packedGenParticlesForJetsNoNu
+TrigReport     1   42        100        100          0          0 ak8GenJetsNoNu
+TrigReport     1   43        100        100          0          0 puppi
+TrigReport     1   44        100        100          0          0 ak8PFJetsPuppi
+TrigReport     1   45        100        100          0          0 ak8PFJetsPuppiConstituents
+TrigReport     1   46        100        100          0          0 patJetsAK8PFPuppiPATJetswithUserData
+TrigReport     1   47        100        100          0          0 packedPFCandidatesCHSNotFromPV
+TrigReport     1   48        100        100          0          0 nEventsFiltered
+TrigReport     1   49        100        100          0          0 nNegEventsFiltered
+TrigReport     1   50        100        100          0          0 packedPFCandidatesCHS
+
+TrigReport ------ Modules in End-Path: endpath ------------
+TrigReport  Trig Bit#    Visited     Passed     Failed      Error Name
+TrigReport     0    0        100        100          0          0 kappaTuple
+
+TrigReport ---------- Module Summary ------------
+TrigReport    Visited   Executed     Passed     Failed      Error Name
+TrigReport        100        100        100          0          0 AK4PFCHSpileupJetIdCalculator
+TrigReport        300        100        100          0          0 AK4PFCHSpileupJetIdEvaluator
+TrigReport        100        100        100          0          0 TriggerResults
+TrigReport          0          0          0          0          0 ak4CaloL1FastL2L3Corrector
+TrigReport          0          0          0          0          0 ak4CaloL1FastL2L3L6Corrector
+TrigReport          0          0          0          0          0 ak4CaloL1FastL2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4CaloL1FastjetCorrector
+TrigReport          0          0          0          0          0 ak4CaloL1L2L3Corrector
+TrigReport          0          0          0          0          0 ak4CaloL1L2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4CaloL1OffsetCorrector
+TrigReport          0          0          0          0          0 ak4CaloL2L3Corrector
+TrigReport          0          0          0          0          0 ak4CaloL2L3L6Corrector
+TrigReport          0          0          0          0          0 ak4CaloL2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4CaloL2RelativeCorrector
+TrigReport          0          0          0          0          0 ak4CaloL3AbsoluteCorrector
+TrigReport          0          0          0          0          0 ak4CaloL6SLBCorrector
+TrigReport          0          0          0          0          0 ak4CaloResidualCorrector
+TrigReport        300        100        100          0          0 ak4GenJetsNoNu
+TrigReport          0          0          0          0          0 ak4JPTL1FastL2L3Corrector
+TrigReport          0          0          0          0          0 ak4JPTL1FastL2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4JPTL1L2L3Corrector
+TrigReport          0          0          0          0          0 ak4JPTL1L2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4JPTL2L3Corrector
+TrigReport          0          0          0          0          0 ak4JPTL2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4JPTL2RelativeCorrector
+TrigReport          0          0          0          0          0 ak4JPTL3AbsoluteCorrector
+TrigReport          0          0          0          0          0 ak4JPTResidualCorrector
+TrigReport          0          0          0          0          0 ak4L1JPTFastjetCorrector
+TrigReport          0          0          0          0          0 ak4L1JPTOffsetCorrector
+TrigReport        100        100        100          0          0 ak4PFCHSL1FastL2L3Corrector
+TrigReport        100        100        100          0          0 ak4PFCHSL1FastL2L3ResidualCorrector
+TrigReport        100        100        100          0          0 ak4PFCHSL1FastjetCorrector
+TrigReport          0          0          0          0          0 ak4PFCHSL1L2L3Corrector
+TrigReport          0          0          0          0          0 ak4PFCHSL1L2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4PFCHSL1OffsetCorrector
+TrigReport          0          0          0          0          0 ak4PFCHSL2L3Corrector
+TrigReport          0          0          0          0          0 ak4PFCHSL2L3ResidualCorrector
+TrigReport        100        100        100          0          0 ak4PFCHSL2RelativeCorrector
+TrigReport        100        100        100          0          0 ak4PFCHSL3AbsoluteCorrector
+TrigReport        100        100        100          0          0 ak4PFCHSResidualCorrector
+TrigReport        100        100        100          0          0 ak4PFJets
+TrigReport        100        100        100          0          0 ak4PFJetsCHS
+TrigReport        100        100        100          0          0 ak4PFJetsCHSConstituents
+TrigReport        100        100        100          0          0 ak4PFJetsConstituents
+TrigReport        100        100        100          0          0 ak4PFJetsPuppi
+TrigReport        100        100        100          0          0 ak4PFJetsPuppiConstituents
+TrigReport          0          0          0          0          0 ak4PFL1FastL2L3Corrector
+TrigReport          0          0          0          0          0 ak4PFL1FastL2L3L6Corrector
+TrigReport          0          0          0          0          0 ak4PFL1FastL2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4PFL1FastjetCorrector
+TrigReport          0          0          0          0          0 ak4PFL1L2L3Corrector
+TrigReport          0          0          0          0          0 ak4PFL1L2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4PFL1OffsetCorrector
+TrigReport          0          0          0          0          0 ak4PFL2L3Corrector
+TrigReport          0          0          0          0          0 ak4PFL2L3L6Corrector
+TrigReport          0          0          0          0          0 ak4PFL2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4PFL2RelativeCorrector
+TrigReport          0          0          0          0          0 ak4PFL3AbsoluteCorrector
+TrigReport          0          0          0          0          0 ak4PFL6SLBCorrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL1FastL2L3Corrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL1FastL2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL1FastjetCorrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL1L2L3Corrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL1L2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL1OffsetCorrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL2L3Corrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL2L3ResidualCorrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL2RelativeCorrector
+TrigReport          0          0          0          0          0 ak4PFPuppiL3AbsoluteCorrector
+TrigReport          0          0          0          0          0 ak4PFPuppiResidualCorrector
+TrigReport          0          0          0          0          0 ak4PFResidualCorrector
+TrigReport          0          0          0          0          0 ak4TrackL2L3Corrector
+TrigReport          0          0          0          0          0 ak4TrackL2RelativeCorrector
+TrigReport          0          0          0          0          0 ak4TrackL3AbsoluteCorrector
+TrigReport        300        100        100          0          0 ak8GenJetsNoNu
+TrigReport        100        100        100          0          0 ak8PFJets
+TrigReport        100        100        100          0          0 ak8PFJetsCHS
+TrigReport        100        100        100          0          0 ak8PFJetsCHSConstituents
+TrigReport        100        100        100          0          0 ak8PFJetsConstituents
+TrigReport        100        100        100          0          0 ak8PFJetsPuppi
+TrigReport        100        100        100          0          0 ak8PFJetsPuppiConstituents
+TrigReport        100        100        100          0          0 basicJetsForMet
+TrigReport          0          0          0          0          0 candidateVertexArbitrator
+TrigReport        100        100        100          0          0 candidateVertexArbitratorCvsL
+TrigReport          0          0          0          0          0 candidateVertexArbitratorDefault
+TrigReport          0          0          0          0          0 candidateVertexMerger
+TrigReport        100        100        100          0          0 candidateVertexMergerCvsL
+TrigReport        200        100        100          0          0 chs
+TrigReport        100        100        100          0          0 cleanedPatJets
+TrigReport        100        100        100          0          0 endpath
+TrigReport        100        100        100          0          0 genMetExtractor
+TrigReport        100        100        100          0          0 goodOfflinePrimaryVertices
+TrigReport          0          0          0          0          0 inclusiveCandidateSecondaryVertices
+TrigReport          0          0          0          0          0 inclusiveCandidateSecondaryVerticesCvsL
+TrigReport          0          0          0          0          0 inclusiveCandidateVertexFinder
+TrigReport        100        100        100          0          0 inclusiveCandidateVertexFinderCvsL
+TrigReport          0          0          0          0          0 inclusiveCandidateVertexFinderDefault
+TrigReport          0          0          0          0          0 inclusiveSecondaryVertices
+TrigReport          0          0          0          0          0 inclusiveVertexFinder
+TrigReport          0          0          0          0          0 inclusiveVertexFinderDefault
+TrigReport        100        100        100          0          0 jetSelectorForMet
+TrigReport        100        100        100          0          0 kappaTuple
+TrigReport        100        100        100          0          0 metrawCalo
+TrigReport        100        100        100          0          0 nEventsFiltered
+TrigReport        100        100        100          0          0 nEventsTotal
+TrigReport        100        100        100          0          0 nNegEventsFiltered
+TrigReport        100        100        100          0          0 nNegEventsTotal
+TrigReport        600        100        100          0          0 packedGenParticlesForJetsNoNu
+TrigReport        100        100        100          0          0 packedPFCandidatesCHS
+TrigReport        100        100        100          0          0 packedPFCandidatesCHSNotFromPV
+TrigReport          0          0          0          0          0 particleFlowDisplacedVertex
+TrigReport        100        100        100          0          0 patCHSMet
+TrigReport        100        100        100          0          0 patCaloMet
+TrigReport        100        100        100          0          0 patJetCorrFactorsAK4PF
+TrigReport        100        100        100          0          0 patJetCorrFactorsAK4PFCHS
+TrigReport        100        100        100          0          0 patJetCorrFactorsAK4PFPuppi
+TrigReport        100        100        100          0          0 patJetCorrFactorsAK8PF
+TrigReport        100        100        100          0          0 patJetCorrFactorsAK8PFCHS
+TrigReport        100        100        100          0          0 patJetCorrFactorsAK8PFPuppi
+TrigReport        100        100        100          0          0 patJetCorrFactorsReapplyJEC
+TrigReport        100        100        100          0          0 patJetFlavourAssociationAK4PF
+TrigReport        100        100        100          0          0 patJetFlavourAssociationAK4PFCHS
+TrigReport        100        100        100          0          0 patJetFlavourAssociationAK4PFPuppi
+TrigReport        100        100        100          0          0 patJetFlavourAssociationAK8PF
+TrigReport        100        100        100          0          0 patJetFlavourAssociationAK8PFCHS
+TrigReport        100        100        100          0          0 patJetFlavourAssociationAK8PFPuppi
+TrigReport          0          0          0          0          0 patJetFlavourAssociationLegacyAK4PF
+TrigReport          0          0          0          0          0 patJetFlavourAssociationLegacyAK4PFCHS
+TrigReport          0          0          0          0          0 patJetFlavourAssociationLegacyAK4PFPuppi
+TrigReport          0          0          0          0          0 patJetFlavourAssociationLegacyAK8PF
+TrigReport          0          0          0          0          0 patJetFlavourAssociationLegacyAK8PFCHS
+TrigReport          0          0          0          0          0 patJetFlavourAssociationLegacyAK8PFPuppi
+TrigReport        100        100        100          0          0 patJetGenJetMatchAK4PF
+TrigReport        100        100        100          0          0 patJetGenJetMatchAK4PFCHS
+TrigReport        100        100        100          0          0 patJetGenJetMatchAK4PFPuppi
+TrigReport        100        100        100          0          0 patJetGenJetMatchAK8PF
+TrigReport        100        100        100          0          0 patJetGenJetMatchAK8PFCHS
+TrigReport        100        100        100          0          0 patJetGenJetMatchAK8PFPuppi
+TrigReport          0          0          0          0          0 patJetPartonAssociationLegacyAK4PF
+TrigReport          0          0          0          0          0 patJetPartonAssociationLegacyAK4PFCHS
+TrigReport          0          0          0          0          0 patJetPartonAssociationLegacyAK4PFPuppi
+TrigReport          0          0          0          0          0 patJetPartonAssociationLegacyAK8PF
+TrigReport          0          0          0          0          0 patJetPartonAssociationLegacyAK8PFCHS
+TrigReport          0          0          0          0          0 patJetPartonAssociationLegacyAK8PFPuppi
+TrigReport        100        100        100          0          0 patJetPartonMatchAK4PF
+TrigReport        100        100        100          0          0 patJetPartonMatchAK4PFCHS
+TrigReport        100        100        100          0          0 patJetPartonMatchAK4PFPuppi
+TrigReport        100        100        100          0          0 patJetPartonMatchAK8PF
+TrigReport        100        100        100          0          0 patJetPartonMatchAK8PFCHS
+TrigReport        100        100        100          0          0 patJetPartonMatchAK8PFPuppi
+TrigReport        400        100        100          0          0 patJetPartons
+TrigReport          0          0          0          0          0 patJetPartonsLegacy
+TrigReport        100        100        100          0          0 patJetsAK4PF
+TrigReport        100        100        100          0          0 patJetsAK4PFCHS
+TrigReport        100        100        100          0          0 patJetsAK4PFCHSPATJetswithUserData
+TrigReport        100        100        100          0          0 patJetsAK4PFCHSlooseJetId
+TrigReport        100        100        100          0          0 patJetsAK4PFCHStightJetId
+TrigReport        100        100        100          0          0 patJetsAK4PFCHStightJetIdLepVeto
+TrigReport        100        100        100          0          0 patJetsAK4PFPATJetswithUserData
+TrigReport        100        100        100          0          0 patJetsAK4PFPuppi
+TrigReport        100        100        100          0          0 patJetsAK4PFPuppiPATJetswithUserData
+TrigReport        100        100        100          0          0 patJetsAK4PFPuppilooseJetId
+TrigReport        100        100        100          0          0 patJetsAK4PFPuppitightJetId
+TrigReport        100        100        100          0          0 patJetsAK4PFPuppitightJetIdLepVeto
+TrigReport        100        100        100          0          0 patJetsAK4PFlooseJetId
+TrigReport        100        100        100          0          0 patJetsAK4PFtightJetId
+TrigReport        100        100        100          0          0 patJetsAK4PFtightJetIdLepVeto
+TrigReport        100        100        100          0          0 patJetsAK8PF
+TrigReport        100        100        100          0          0 patJetsAK8PFCHS
+TrigReport        100        100        100          0          0 patJetsAK8PFCHSPATJetswithUserData
+TrigReport        100        100        100          0          0 patJetsAK8PFCHSlooseJetId
+TrigReport        100        100        100          0          0 patJetsAK8PFCHStightJetId
+TrigReport        100        100        100          0          0 patJetsAK8PFCHStightJetIdLepVeto
+TrigReport        100        100        100          0          0 patJetsAK8PFPATJetswithUserData
+TrigReport        100        100        100          0          0 patJetsAK8PFPuppi
+TrigReport        100        100        100          0          0 patJetsAK8PFPuppiPATJetswithUserData
+TrigReport        100        100        100          0          0 patJetsAK8PFPuppilooseJetId
+TrigReport        100        100        100          0          0 patJetsAK8PFPuppitightJetId
+TrigReport        100        100        100          0          0 patJetsAK8PFPuppitightJetIdLepVeto
+TrigReport        100        100        100          0          0 patJetsAK8PFlooseJetId
+TrigReport        100        100        100          0          0 patJetsAK8PFtightJetId
+TrigReport        100        100        100          0          0 patJetsAK8PFtightJetIdLepVeto
+TrigReport        100        100        100          0          0 patJetsReapplyJEC
+TrigReport        100        100        100          0          0 patPFMet
+TrigReport          0          0          0          0          0 patPFMetT0Corr
+TrigReport          0          0          0          0          0 patPFMetT0pcT1
+TrigReport          0          0          0          0          0 patPFMetT0pcT1T2
+TrigReport        100        100        100          0          0 patPFMetT1
+TrigReport        100        100        100          0          0 patPFMetT1ElectronEnDown
+TrigReport        100        100        100          0          0 patPFMetT1ElectronEnUp
+TrigReport        100        100        100          0          0 patPFMetT1JetEnDown
+TrigReport        100        100        100          0          0 patPFMetT1JetEnUp
+TrigReport        100        100        100          0          0 patPFMetT1JetResDown
+TrigReport        100        100        100          0          0 patPFMetT1JetResUp
+TrigReport        100        100        100          0          0 patPFMetT1MuonEnDown
+TrigReport        100        100        100          0          0 patPFMetT1MuonEnUp
+TrigReport        100        100        100          0          0 patPFMetT1PhotonEnDown
+TrigReport        100        100        100          0          0 patPFMetT1PhotonEnUp
+TrigReport        100        100        100          0          0 patPFMetT1Smear
+TrigReport          0          0          0          0          0 patPFMetT1SmearElectronEnDown
+TrigReport          0          0          0          0          0 patPFMetT1SmearElectronEnUp
+TrigReport          0          0          0          0          0 patPFMetT1SmearJetEnDown
+TrigReport          0          0          0          0          0 patPFMetT1SmearJetEnUp
+TrigReport        100        100        100          0          0 patPFMetT1SmearJetResDown
+TrigReport        100        100        100          0          0 patPFMetT1SmearJetResUp
+TrigReport          0          0          0          0          0 patPFMetT1SmearMuonEnDown
+TrigReport          0          0          0          0          0 patPFMetT1SmearMuonEnUp
+TrigReport          0          0          0          0          0 patPFMetT1SmearPhotonEnDown
+TrigReport          0          0          0          0          0 patPFMetT1SmearPhotonEnUp
+TrigReport          0          0          0          0          0 patPFMetT1SmearTauEnDown
+TrigReport          0          0          0          0          0 patPFMetT1SmearTauEnUp
+TrigReport          0          0          0          0          0 patPFMetT1SmearUnclusteredEnDown
+TrigReport          0          0          0          0          0 patPFMetT1SmearUnclusteredEnUp
+TrigReport          0          0          0          0          0 patPFMetT1T2
+TrigReport        100        100        100          0          0 patPFMetT1T2Corr
+TrigReport        100        100        100          0          0 patPFMetT1T2SmearCorr
+TrigReport        100        100        100          0          0 patPFMetT1TauEnDown
+TrigReport        100        100        100          0          0 patPFMetT1TauEnUp
+TrigReport        100        100        100          0          0 patPFMetT1Txy
+TrigReport        100        100        100          0          0 patPFMetT1UnclusteredEnDown
+TrigReport        100        100        100          0          0 patPFMetT1UnclusteredEnUp
+TrigReport          0          0          0          0          0 patPFMetT2Corr
+TrigReport          0          0          0          0          0 patPFMetT2SmearCorr
+TrigReport          0          0          0          0          0 patPFMetTxy
+TrigReport        100        100        100          0          0 patPFMetTxyCorr
+TrigReport        100        100        100          0          0 patSmearedJets
+TrigReport        100        100        100          0          0 patTrkMet
+TrigReport        100        100        100          0          0 path
+TrigReport        100        100        100          0          0 pfAllChargedHadrons
+TrigReport        100        100        100          0          0 pfAllChargedParticles
+TrigReport        100        100        100          0          0 pfAllNeutralHadrons
+TrigReport        100        100        100          0          0 pfAllNeutralHadronsAndPhotons
+TrigReport        100        100        100          0          0 pfAllPhotons
+TrigReport        100        100        100          0          0 pfBoostedDoubleSVAK8TagInfosAK8PF
+TrigReport        100        100        100          0          0 pfBoostedDoubleSVAK8TagInfosAK8PFCHS
+TrigReport        100        100        100          0          0 pfBoostedDoubleSVAK8TagInfosAK8PFPuppi
+TrigReport        100        100        100          0          0 pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PF
+TrigReport        100        100        100          0          0 pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PFCHS
+TrigReport        100        100        100          0          0 pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PFPuppi
+TrigReport        100        100        100          0          0 pfCHS
+TrigReport          0          0          0          0          0 pfCandMETcorr
+TrigReport          0          0          0          0          0 pfCandidateToVertexAssociation
+TrigReport        100        100        100          0          0 pfCandsForUnclusteredUnc
+TrigReport        100        100        100          0          0 pfCandsNoJets
+TrigReport        100        100        100          0          0 pfCandsNoJetsNoEle
+TrigReport        100        100        100          0          0 pfCandsNoJetsNoEleNoMu
+TrigReport        100        100        100          0          0 pfCandsNoJetsNoEleNoMuNoTau
+TrigReport          0          0          0          0          0 pfCandsNotInJetsForMetCorr
+TrigReport        100        100        100          0          0 pfCombinedCvsBJetTagsAK4PF
+TrigReport        100        100        100          0          0 pfCombinedCvsBJetTagsAK4PFCHS
+TrigReport        100        100        100          0          0 pfCombinedCvsBJetTagsAK4PFPuppi
+TrigReport        100        100        100          0          0 pfCombinedCvsLJetTagsAK4PF
+TrigReport        100        100        100          0          0 pfCombinedCvsLJetTagsAK4PFCHS
+TrigReport        100        100        100          0          0 pfCombinedCvsLJetTagsAK4PFPuppi
+TrigReport        100        100        100          0          0 pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PF
+TrigReport        100        100        100          0          0 pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFCHS
+TrigReport        100        100        100          0          0 pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFPuppi
+TrigReport        100        100        100          0          0 pfDeepDoubleXTagInfosAK8PF
+TrigReport        100        100        100          0          0 pfDeepDoubleXTagInfosAK8PFCHS
+TrigReport        100        100        100          0          0 pfDeepDoubleXTagInfosAK8PFPuppi
+TrigReport        100        100        100          0          0 pfElectrons
+TrigReport        100        100        100          0          0 pfImpactParameterAK8TagInfosAK8PF
+TrigReport        100        100        100          0          0 pfImpactParameterAK8TagInfosAK8PFCHS
+TrigReport        100        100        100          0          0 pfImpactParameterAK8TagInfosAK8PFPuppi
+TrigReport        100        100        100          0          0 pfImpactParameterTagInfosAK4PF
+TrigReport        100        100        100          0          0 pfImpactParameterTagInfosAK4PFCHS
+TrigReport        100        100        100          0          0 pfImpactParameterTagInfosAK4PFPuppi
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PF
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PFCHS
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PFPuppi
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PF
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PFCHS
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PFPuppi
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderTagInfosAK4PF
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderTagInfosAK4PFCHS
+TrigReport        100        100        100          0          0 pfInclusiveSecondaryVertexFinderTagInfosAK4PFPuppi
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleBvLJetTagsAK8PF
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleBvLJetTagsAK8PFCHS
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleBvLJetTagsAK8PFPuppi
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleCvBJetTagsAK8PF
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleCvBJetTagsAK8PFCHS
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleCvBJetTagsAK8PFPuppi
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleCvLJetTagsAK8PF
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleCvLJetTagsAK8PFCHS
+TrigReport        200        100        100          0          0 pfMassIndependentDeepDoubleCvLJetTagsAK8PFPuppi
+TrigReport        100        100        100          0          0 pfMet
+TrigReport        100        100        100          0          0 pfMetCHS
+TrigReport        100        100        100          0          0 pfMetTrk
+TrigReport        100        100        100          0          0 pfMuons
+TrigReport        100        100        100          0          0 pfNoPileUp
+TrigReport        100        100        100          0          0 pfNoPileUpIso
+TrigReport        100        100        100          0          0 pfPhotons
+TrigReport        100        100        100          0          0 pfPileUp
+TrigReport        100        100        100          0          0 pfPileUpAllChargedParticles
+TrigReport        100        100        100          0          0 pfPileUpIso
+TrigReport        100        100        100          0          0 pfTaus
+TrigReport        100        100        100          0          0 pfTrk
+TrigReport        200        100        100          0          0 puppi
+TrigReport        100        100        100          0          0 selectedPatJetsAK4PF
+TrigReport        100        100        100          0          0 selectedPatJetsAK4PFCHS
+TrigReport        100        100        100          0          0 selectedPatJetsAK4PFPuppi
+TrigReport        100        100        100          0          0 selectedPatJetsAK8PF
+TrigReport        100        100        100          0          0 selectedPatJetsAK8PFCHS
+TrigReport        100        100        100          0          0 selectedPatJetsAK8PFPuppi
+TrigReport          0          0          0          0          0 selectedPatJetsForMetT1T2Corr
+TrigReport        100        100        100          0          0 selectedPatJetsForMetT1T2SmearCorr
+TrigReport          0          0          0          0          0 selectedPatJetsForMetT2Corr
+TrigReport          0          0          0          0          0 selectedPatJetsForMetT2SmearCorr
+TrigReport          0          0          0          0          0 selectedPrimaryVertexHighestPtTrackSumForPFMEtCorrType0
+TrigReport          0          0          0          0          0 selectedVerticesForPFMEtCorrType0
+TrigReport        100        100        100          0          0 shiftedPatElectronEnDown
+TrigReport        100        100        100          0          0 shiftedPatElectronEnUp
+TrigReport        100        100        100          0          0 shiftedPatJetEnDown
+TrigReport        100        100        100          0          0 shiftedPatJetEnUp
+TrigReport        100        100        100          0          0 shiftedPatJetResDown
+TrigReport        100        100        100          0          0 shiftedPatJetResUp
+TrigReport        100        100        100          0          0 shiftedPatMETCorrElectronEnDown
+TrigReport        100        100        100          0          0 shiftedPatMETCorrElectronEnUp
+TrigReport        100        100        100          0          0 shiftedPatMETCorrJetEnDown
+TrigReport        100        100        100          0          0 shiftedPatMETCorrJetEnUp
+TrigReport        100        100        100          0          0 shiftedPatMETCorrJetResDown
+TrigReport        100        100        100          0          0 shiftedPatMETCorrJetResUp
+TrigReport        100        100        100          0          0 shiftedPatMETCorrMuonEnDown
+TrigReport        100        100        100          0          0 shiftedPatMETCorrMuonEnUp
+TrigReport        100        100        100          0          0 shiftedPatMETCorrPhotonEnDown
+TrigReport        100        100        100          0          0 shiftedPatMETCorrPhotonEnUp
+TrigReport        100        100        100          0          0 shiftedPatMETCorrSmearedJetResDown
+TrigReport        100        100        100          0          0 shiftedPatMETCorrSmearedJetResUp
+TrigReport        100        100        100          0          0 shiftedPatMETCorrTauEnDown
+TrigReport        100        100        100          0          0 shiftedPatMETCorrTauEnUp
+TrigReport        100        100        100          0          0 shiftedPatMETCorrUnclusteredEnDown
+TrigReport        100        100        100          0          0 shiftedPatMETCorrUnclusteredEnUp
+TrigReport        100        100        100          0          0 shiftedPatMuonEnDown
+TrigReport        100        100        100          0          0 shiftedPatMuonEnUp
+TrigReport        100        100        100          0          0 shiftedPatPhotonEnDown
+TrigReport        100        100        100          0          0 shiftedPatPhotonEnUp
+TrigReport        100        100        100          0          0 shiftedPatSmearedJetResDown
+TrigReport        100        100        100          0          0 shiftedPatSmearedJetResUp
+TrigReport        100        100        100          0          0 shiftedPatTauEnDown
+TrigReport        100        100        100          0          0 shiftedPatTauEnUp
+TrigReport        100        100        100          0          0 shiftedPatUnclusteredEnDown
+TrigReport        100        100        100          0          0 shiftedPatUnclusteredEnUp
+TrigReport        100        100        100          0          0 slimmedMETs
+TrigReport        100        100        100          0          0 slimmedSecondaryVerticesCvsL
+TrigReport        100        100        100          0          0 softPFElectronsTagInfosAK4PF
+TrigReport        100        100        100          0          0 softPFElectronsTagInfosAK4PFCHS
+TrigReport        100        100        100          0          0 softPFElectronsTagInfosAK4PFPuppi
+TrigReport        100        100        100          0          0 softPFMuonsTagInfosAK4PF
+TrigReport        100        100        100          0          0 softPFMuonsTagInfosAK4PFCHS
+TrigReport        100        100        100          0          0 softPFMuonsTagInfosAK4PFPuppi
+TrigReport          0          0          0          0          0 trackVertexArbitrator
+TrigReport          0          0          0          0          0 trackVertexArbitratorDefault
+TrigReport          0          0          0          0          0 vertexMerger
+
+TimeReport ---------- Event  Summary ---[sec]----
+TimeReport       event loop CPU/event = 0.469316
+TimeReport      event loop Real/event = 0.921712
+TimeReport     sum Streams Real/event = 0.873960
+TimeReport efficiency CPU/Real/thread = 0.509179
+
+TimeReport ---------- Path   Summary ---[Real sec]----
+TimeReport  per event     per exec  Name
+TimeReport   0.848523     0.848523  path
+TimeReport  per event     per exec  Name
+
+TimeReport -------End-Path   Summary ---[Real sec]----
+TimeReport  per event     per exec  Name
+TimeReport   0.846093     0.846093  endpath
+TimeReport  per event     per exec  Name
+
+TimeReport ---------- Modules in Path: path ---[Real sec]----
+TimeReport  per event    per visit  Name
+TimeReport   0.000001     0.000001  nEventsTotal
+TimeReport   0.000002     0.000002  nNegEventsTotal
+TimeReport   0.000018     0.000018  goodOfflinePrimaryVertices
+TimeReport   0.001189     0.001189  pfNoPileUpIso
+TimeReport   0.001167     0.001167  pfPileUpIso
+TimeReport   0.001162     0.001162  pfPileUp
+TimeReport   0.001174     0.001174  pfNoPileUp
+TimeReport   0.001473     0.001473  pfAllNeutralHadrons
+TimeReport   0.001453     0.001453  pfAllChargedHadrons
+TimeReport   0.000454     0.000454  pfAllPhotons
+TimeReport   0.002112     0.002112  pfAllChargedParticles
+TimeReport   0.000451     0.000451  pfPileUpAllChargedParticles
+TimeReport   0.001830     0.001830  pfAllNeutralHadronsAndPhotons
+TimeReport   0.000438     0.000438  packedGenParticlesForJetsNoNu
+TimeReport   0.000791     0.000791  ak4GenJetsNoNu
+TimeReport   0.020716     0.020716  ak4PFJets
+TimeReport   0.000393     0.000393  ak4PFJetsConstituents
+TimeReport   0.000308     0.000308  patJetsAK4PFPATJetswithUserData
+TimeReport   0.000000     0.000000  packedGenParticlesForJetsNoNu
+TimeReport   0.000000     0.000000  ak4GenJetsNoNu
+TimeReport   0.001231     0.001231  chs
+TimeReport   0.018040     0.018040  ak4PFJetsCHS
+TimeReport   0.000230     0.000230  ak4PFJetsCHSConstituents
+TimeReport   0.000298     0.000298  patJetsAK4PFCHSPATJetswithUserData
+TimeReport   0.000000     0.000000  packedGenParticlesForJetsNoNu
+TimeReport   0.000000     0.000000  ak4GenJetsNoNu
+TimeReport   0.025254     0.025254  puppi
+TimeReport   0.012548     0.012548  ak4PFJetsPuppi
+TimeReport   0.000026     0.000026  ak4PFJetsPuppiConstituents
+TimeReport   0.000032     0.000032  patJetsAK4PFPuppiPATJetswithUserData
+TimeReport   0.000000     0.000000  packedGenParticlesForJetsNoNu
+TimeReport   0.000675     0.000675  ak8GenJetsNoNu
+TimeReport   0.023763     0.023763  ak8PFJets
+TimeReport   0.000434     0.000434  ak8PFJetsConstituents
+TimeReport   0.000143     0.000143  patJetsAK8PFPATJetswithUserData
+TimeReport   0.000000     0.000000  packedGenParticlesForJetsNoNu
+TimeReport   0.000000     0.000000  ak8GenJetsNoNu
+TimeReport   0.000000     0.000000  chs
+TimeReport   0.021472     0.021472  ak8PFJetsCHS
+TimeReport   0.000281     0.000281  ak8PFJetsCHSConstituents
+TimeReport   0.000124     0.000124  patJetsAK8PFCHSPATJetswithUserData
+TimeReport   0.000000     0.000000  packedGenParticlesForJetsNoNu
+TimeReport   0.000000     0.000000  ak8GenJetsNoNu
+TimeReport   0.000000     0.000000  puppi
+TimeReport   0.015891     0.015891  ak8PFJetsPuppi
+TimeReport   0.000051     0.000051  ak8PFJetsPuppiConstituents
+TimeReport   0.000055     0.000055  patJetsAK8PFPuppiPATJetswithUserData
+TimeReport   0.001239     0.001239  packedPFCandidatesCHSNotFromPV
+TimeReport   0.000001     0.000001  nEventsFiltered
+TimeReport   0.000002     0.000002  nNegEventsFiltered
+TimeReport   0.001259     0.001259  packedPFCandidatesCHS
+TimeReport  per event    per visit  Name
+
+TimeReport ------ Modules in End-Path: endpath ---[Real sec]----
+TimeReport  per event    per visit  Name
+TimeReport   0.014666     0.014666  kappaTuple
+TimeReport  per event    per visit  Name
+
+TimeReport ---------- Module Summary ---[Real sec]----
+TimeReport  per event     per exec    per visit  Name
+TimeReport   0.001723     0.001723     0.001723  AK4PFCHSpileupJetIdCalculator
+TimeReport   0.000981     0.000981     0.000981  AK4PFCHSpileupJetIdEvaluator
+TimeReport   0.000003     0.000003     0.000003  TriggerResults
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL1FastL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL1FastL2L3L6Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL1FastL2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL1FastjetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL1L2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL1L2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL1OffsetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL2L3L6Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL2RelativeCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL3AbsoluteCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloL6SLBCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4CaloResidualCorrector
+TimeReport   0.000791     0.000791     0.000264  ak4GenJetsNoNu
+TimeReport   0.000000     0.000000     0.000000  ak4JPTL1FastL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4JPTL1FastL2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4JPTL1L2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4JPTL1L2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4JPTL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4JPTL2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4JPTL2RelativeCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4JPTL3AbsoluteCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4JPTResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4L1JPTFastjetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4L1JPTOffsetCorrector
+TimeReport   0.000006     0.000006     0.000006  ak4PFCHSL1FastL2L3Corrector
+TimeReport   0.000002     0.000002     0.000002  ak4PFCHSL1FastL2L3ResidualCorrector
+TimeReport   0.000015     0.000015     0.000015  ak4PFCHSL1FastjetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFCHSL1L2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFCHSL1L2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFCHSL1OffsetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFCHSL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFCHSL2L3ResidualCorrector
+TimeReport   0.000011     0.000011     0.000011  ak4PFCHSL2RelativeCorrector
+TimeReport   0.000002     0.000002     0.000002  ak4PFCHSL3AbsoluteCorrector
+TimeReport   0.000117     0.000117     0.000117  ak4PFCHSResidualCorrector
+TimeReport   0.020716     0.020716     0.020716  ak4PFJets
+TimeReport   0.018040     0.018040     0.018040  ak4PFJetsCHS
+TimeReport   0.000230     0.000230     0.000230  ak4PFJetsCHSConstituents
+TimeReport   0.000393     0.000393     0.000393  ak4PFJetsConstituents
+TimeReport   0.012548     0.012548     0.012548  ak4PFJetsPuppi
+TimeReport   0.000026     0.000026     0.000026  ak4PFJetsPuppiConstituents
+TimeReport   0.000000     0.000000     0.000000  ak4PFL1FastL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL1FastL2L3L6Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL1FastL2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL1FastjetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL1L2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL1L2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL1OffsetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL2L3L6Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL2RelativeCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL3AbsoluteCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFL6SLBCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL1FastL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL1FastL2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL1FastjetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL1L2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL1L2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL1OffsetCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL2L3ResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL2RelativeCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiL3AbsoluteCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFPuppiResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4PFResidualCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4TrackL2L3Corrector
+TimeReport   0.000000     0.000000     0.000000  ak4TrackL2RelativeCorrector
+TimeReport   0.000000     0.000000     0.000000  ak4TrackL3AbsoluteCorrector
+TimeReport   0.000675     0.000675     0.000225  ak8GenJetsNoNu
+TimeReport   0.023763     0.023763     0.023763  ak8PFJets
+TimeReport   0.021472     0.021472     0.021472  ak8PFJetsCHS
+TimeReport   0.000281     0.000281     0.000281  ak8PFJetsCHSConstituents
+TimeReport   0.000434     0.000434     0.000434  ak8PFJetsConstituents
+TimeReport   0.015891     0.015891     0.015891  ak8PFJetsPuppi
+TimeReport   0.000051     0.000051     0.000051  ak8PFJetsPuppiConstituents
+TimeReport   0.000391     0.000391     0.000391  basicJetsForMet
+TimeReport   0.000000     0.000000     0.000000  candidateVertexArbitrator
+TimeReport   0.009520     0.009520     0.009520  candidateVertexArbitratorCvsL
+TimeReport   0.000000     0.000000     0.000000  candidateVertexArbitratorDefault
+TimeReport   0.000000     0.000000     0.000000  candidateVertexMerger
+TimeReport   0.000098     0.000098     0.000098  candidateVertexMergerCvsL
+TimeReport   0.001231     0.001231     0.000615  chs
+TimeReport   0.000065     0.000065     0.000065  cleanedPatJets
+TimeReport   0.000010     0.000010     0.000010  endpath
+TimeReport   0.000008     0.000008     0.000008  genMetExtractor
+TimeReport   0.000018     0.000018     0.000018  goodOfflinePrimaryVertices
+TimeReport   0.000000     0.000000     0.000000  inclusiveCandidateSecondaryVertices
+TimeReport   0.000000     0.000000     0.000000  inclusiveCandidateSecondaryVerticesCvsL
+TimeReport   0.000000     0.000000     0.000000  inclusiveCandidateVertexFinder
+TimeReport   0.073124     0.073124     0.073124  inclusiveCandidateVertexFinderCvsL
+TimeReport   0.000000     0.000000     0.000000  inclusiveCandidateVertexFinderDefault
+TimeReport   0.000000     0.000000     0.000000  inclusiveSecondaryVertices
+TimeReport   0.000000     0.000000     0.000000  inclusiveVertexFinder
+TimeReport   0.000000     0.000000     0.000000  inclusiveVertexFinderDefault
+TimeReport   0.000072     0.000072     0.000072  jetSelectorForMet
+TimeReport   0.014666     0.014666     0.014666  kappaTuple
+TimeReport   0.000004     0.000004     0.000004  metrawCalo
+TimeReport   0.000001     0.000001     0.000001  nEventsFiltered
+TimeReport   0.000001     0.000001     0.000001  nEventsTotal
+TimeReport   0.000002     0.000002     0.000002  nNegEventsFiltered
+TimeReport   0.000002     0.000002     0.000002  nNegEventsTotal
+TimeReport   0.000438     0.000438     0.000073  packedGenParticlesForJetsNoNu
+TimeReport   0.001259     0.001259     0.001259  packedPFCandidatesCHS
+TimeReport   0.001239     0.001239     0.001239  packedPFCandidatesCHSNotFromPV
+TimeReport   0.000000     0.000000     0.000000  particleFlowDisplacedVertex
+TimeReport   0.000027     0.000027     0.000027  patCHSMet
+TimeReport   0.000038     0.000038     0.000038  patCaloMet
+TimeReport   0.000275     0.000275     0.000275  patJetCorrFactorsAK4PF
+TimeReport   0.000132     0.000132     0.000132  patJetCorrFactorsAK4PFCHS
+TimeReport   0.000129     0.000129     0.000129  patJetCorrFactorsAK4PFPuppi
+TimeReport   0.000141     0.000141     0.000141  patJetCorrFactorsAK8PF
+TimeReport   0.000160     0.000160     0.000160  patJetCorrFactorsAK8PFCHS
+TimeReport   0.000097     0.000097     0.000097  patJetCorrFactorsAK8PFPuppi
+TimeReport   0.000597     0.000597     0.000597  patJetCorrFactorsReapplyJEC
+TimeReport   0.003796     0.003796     0.003796  patJetFlavourAssociationAK4PF
+TimeReport   0.002355     0.002355     0.002355  patJetFlavourAssociationAK4PFCHS
+TimeReport   0.000198     0.000198     0.000198  patJetFlavourAssociationAK4PFPuppi
+TimeReport   0.003625     0.003625     0.003625  patJetFlavourAssociationAK8PF
+TimeReport   0.002591     0.002591     0.002591  patJetFlavourAssociationAK8PFCHS
+TimeReport   0.000265     0.000265     0.000265  patJetFlavourAssociationAK8PFPuppi
+TimeReport   0.000000     0.000000     0.000000  patJetFlavourAssociationLegacyAK4PF
+TimeReport   0.000000     0.000000     0.000000  patJetFlavourAssociationLegacyAK4PFCHS
+TimeReport   0.000000     0.000000     0.000000  patJetFlavourAssociationLegacyAK4PFPuppi
+TimeReport   0.000000     0.000000     0.000000  patJetFlavourAssociationLegacyAK8PF
+TimeReport   0.000000     0.000000     0.000000  patJetFlavourAssociationLegacyAK8PFCHS
+TimeReport   0.000000     0.000000     0.000000  patJetFlavourAssociationLegacyAK8PFPuppi
+TimeReport   0.000055     0.000055     0.000055  patJetGenJetMatchAK4PF
+TimeReport   0.000045     0.000045     0.000045  patJetGenJetMatchAK4PFCHS
+TimeReport   0.000015     0.000015     0.000015  patJetGenJetMatchAK4PFPuppi
+TimeReport   0.000031     0.000031     0.000031  patJetGenJetMatchAK8PF
+TimeReport   0.000031     0.000031     0.000031  patJetGenJetMatchAK8PFCHS
+TimeReport   0.000017     0.000017     0.000017  patJetGenJetMatchAK8PFPuppi
+TimeReport   0.000000     0.000000     0.000000  patJetPartonAssociationLegacyAK4PF
+TimeReport   0.000000     0.000000     0.000000  patJetPartonAssociationLegacyAK4PFCHS
+TimeReport   0.000000     0.000000     0.000000  patJetPartonAssociationLegacyAK4PFPuppi
+TimeReport   0.000000     0.000000     0.000000  patJetPartonAssociationLegacyAK8PF
+TimeReport   0.000000     0.000000     0.000000  patJetPartonAssociationLegacyAK8PFCHS
+TimeReport   0.000000     0.000000     0.000000  patJetPartonAssociationLegacyAK8PFPuppi
+TimeReport   0.000163     0.000163     0.000163  patJetPartonMatchAK4PF
+TimeReport   0.000113     0.000113     0.000113  patJetPartonMatchAK4PFCHS
+TimeReport   0.000044     0.000044     0.000044  patJetPartonMatchAK4PFPuppi
+TimeReport   0.000082     0.000082     0.000082  patJetPartonMatchAK8PF
+TimeReport   0.000079     0.000079     0.000079  patJetPartonMatchAK8PFCHS
+TimeReport   0.000045     0.000045     0.000045  patJetPartonMatchAK8PFPuppi
+TimeReport   0.000043     0.000043     0.000043  patJetPartons
+TimeReport   0.000000     0.000000     0.000000  patJetPartonsLegacy
+TimeReport   0.002027     0.002027     0.002027  patJetsAK4PF
+TimeReport   0.001700     0.001700     0.001700  patJetsAK4PFCHS
+TimeReport   0.000298     0.000298     0.000298  patJetsAK4PFCHSPATJetswithUserData
+TimeReport   0.000120     0.000120     0.000120  patJetsAK4PFCHSlooseJetId
+TimeReport   0.000122     0.000122     0.000122  patJetsAK4PFCHStightJetId
+TimeReport   0.000154     0.000154     0.000154  patJetsAK4PFCHStightJetIdLepVeto
+TimeReport   0.000308     0.000308     0.000308  patJetsAK4PFPATJetswithUserData
+TimeReport   0.000196     0.000196     0.000196  patJetsAK4PFPuppi
+TimeReport   0.000032     0.000032     0.000032  patJetsAK4PFPuppiPATJetswithUserData
+TimeReport   0.000013     0.000013     0.000013  patJetsAK4PFPuppilooseJetId
+TimeReport   0.000013     0.000013     0.000013  patJetsAK4PFPuppitightJetId
+TimeReport   0.000028     0.000028     0.000028  patJetsAK4PFPuppitightJetIdLepVeto
+TimeReport   0.000152     0.000152     0.000152  patJetsAK4PFlooseJetId
+TimeReport   0.000150     0.000150     0.000150  patJetsAK4PFtightJetId
+TimeReport   0.000192     0.000192     0.000192  patJetsAK4PFtightJetIdLepVeto
+TimeReport   0.001019     0.001019     0.001019  patJetsAK8PF
+TimeReport   0.000920     0.000920     0.000920  patJetsAK8PFCHS
+TimeReport   0.000124     0.000124     0.000124  patJetsAK8PFCHSPATJetswithUserData
+TimeReport   0.000057     0.000057     0.000057  patJetsAK8PFCHSlooseJetId
+TimeReport   0.000059     0.000059     0.000059  patJetsAK8PFCHStightJetId
+TimeReport   0.000082     0.000082     0.000082  patJetsAK8PFCHStightJetIdLepVeto
+TimeReport   0.000143     0.000143     0.000143  patJetsAK8PFPATJetswithUserData
+TimeReport   0.000227     0.000227     0.000227  patJetsAK8PFPuppi
+TimeReport   0.000055     0.000055     0.000055  patJetsAK8PFPuppiPATJetswithUserData
+TimeReport   0.000016     0.000016     0.000016  patJetsAK8PFPuppilooseJetId
+TimeReport   0.000016     0.000016     0.000016  patJetsAK8PFPuppitightJetId
+TimeReport   0.000037     0.000037     0.000037  patJetsAK8PFPuppitightJetIdLepVeto
+TimeReport   0.000063     0.000063     0.000063  patJetsAK8PFlooseJetId
+TimeReport   0.000065     0.000065     0.000065  patJetsAK8PFtightJetId
+TimeReport   0.000089     0.000089     0.000089  patJetsAK8PFtightJetIdLepVeto
+TimeReport   0.000322     0.000322     0.000322  patJetsReapplyJEC
+TimeReport   0.002156     0.002156     0.002156  patPFMet
+TimeReport   0.000000     0.000000     0.000000  patPFMetT0Corr
+TimeReport   0.000000     0.000000     0.000000  patPFMetT0pcT1
+TimeReport   0.000000     0.000000     0.000000  patPFMetT0pcT1T2
+TimeReport   0.000021     0.000021     0.000021  patPFMetT1
+TimeReport   0.000009     0.000009     0.000009  patPFMetT1ElectronEnDown
+TimeReport   0.000011     0.000011     0.000011  patPFMetT1ElectronEnUp
+TimeReport   0.000011     0.000011     0.000011  patPFMetT1JetEnDown
+TimeReport   0.000012     0.000012     0.000012  patPFMetT1JetEnUp
+TimeReport   0.000012     0.000012     0.000012  patPFMetT1JetResDown
+TimeReport   0.000013     0.000013     0.000013  patPFMetT1JetResUp
+TimeReport   0.000011     0.000011     0.000011  patPFMetT1MuonEnDown
+TimeReport   0.000015     0.000015     0.000015  patPFMetT1MuonEnUp
+TimeReport   0.000012     0.000012     0.000012  patPFMetT1PhotonEnDown
+TimeReport   0.000025     0.000025     0.000025  patPFMetT1PhotonEnUp
+TimeReport   0.000014     0.000014     0.000014  patPFMetT1Smear
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearElectronEnDown
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearElectronEnUp
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearJetEnDown
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearJetEnUp
+TimeReport   0.000012     0.000012     0.000012  patPFMetT1SmearJetResDown
+TimeReport   0.000013     0.000013     0.000013  patPFMetT1SmearJetResUp
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearMuonEnDown
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearMuonEnUp
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearPhotonEnDown
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearPhotonEnUp
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearTauEnDown
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearTauEnUp
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearUnclusteredEnDown
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1SmearUnclusteredEnUp
+TimeReport   0.000000     0.000000     0.000000  patPFMetT1T2
+TimeReport   0.000165     0.000165     0.000165  patPFMetT1T2Corr
+TimeReport   0.000150     0.000150     0.000150  patPFMetT1T2SmearCorr
+TimeReport   0.000009     0.000009     0.000009  patPFMetT1TauEnDown
+TimeReport   0.000010     0.000010     0.000010  patPFMetT1TauEnUp
+TimeReport   0.000035     0.000035     0.000035  patPFMetT1Txy
+TimeReport   0.000015     0.000015     0.000015  patPFMetT1UnclusteredEnDown
+TimeReport   0.000019     0.000019     0.000019  patPFMetT1UnclusteredEnUp
+TimeReport   0.000000     0.000000     0.000000  patPFMetT2Corr
+TimeReport   0.000000     0.000000     0.000000  patPFMetT2SmearCorr
+TimeReport   0.000000     0.000000     0.000000  patPFMetTxy
+TimeReport   0.000365     0.000365     0.000365  patPFMetTxyCorr
+TimeReport   0.000205     0.000205     0.000205  patSmearedJets
+TimeReport   0.000019     0.000019     0.000019  patTrkMet
+TimeReport   0.000002     0.000002     0.000002  path
+TimeReport   0.001453     0.001453     0.001453  pfAllChargedHadrons
+TimeReport   0.002112     0.002112     0.002112  pfAllChargedParticles
+TimeReport   0.001473     0.001473     0.001473  pfAllNeutralHadrons
+TimeReport   0.001830     0.001830     0.001830  pfAllNeutralHadronsAndPhotons
+TimeReport   0.000454     0.000454     0.000454  pfAllPhotons
+TimeReport   0.022440     0.022440     0.022440  pfBoostedDoubleSVAK8TagInfosAK8PF
+TimeReport   0.016975     0.016975     0.016975  pfBoostedDoubleSVAK8TagInfosAK8PFCHS
+TimeReport   0.001948     0.001948     0.001948  pfBoostedDoubleSVAK8TagInfosAK8PFPuppi
+TimeReport   0.001431     0.001431     0.001431  pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PF
+TimeReport   0.000564     0.000564     0.000564  pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PFCHS
+TimeReport   0.000164     0.000164     0.000164  pfBoostedDoubleSecondaryVertexAK8BJetTagsAK8PFPuppi
+TimeReport   0.001587     0.001587     0.001587  pfCHS
+TimeReport   0.000000     0.000000     0.000000  pfCandMETcorr
+TimeReport   0.000000     0.000000     0.000000  pfCandidateToVertexAssociation
+TimeReport   0.000156     0.000156     0.000156  pfCandsForUnclusteredUnc
+TimeReport   0.000220     0.000220     0.000220  pfCandsNoJets
+TimeReport   0.000171     0.000171     0.000171  pfCandsNoJetsNoEle
+TimeReport   0.000164     0.000164     0.000164  pfCandsNoJetsNoEleNoMu
+TimeReport   0.000169     0.000169     0.000169  pfCandsNoJetsNoEleNoMuNoTau
+TimeReport   0.000000     0.000000     0.000000  pfCandsNotInJetsForMetCorr
+TimeReport   0.011217     0.011217     0.011217  pfCombinedCvsBJetTagsAK4PF
+TimeReport   0.003824     0.003824     0.003824  pfCombinedCvsBJetTagsAK4PFCHS
+TimeReport   0.000437     0.000437     0.000437  pfCombinedCvsBJetTagsAK4PFPuppi
+TimeReport   0.024734     0.024734     0.024734  pfCombinedCvsLJetTagsAK4PF
+TimeReport   0.005797     0.005797     0.005797  pfCombinedCvsLJetTagsAK4PFCHS
+TimeReport   0.000683     0.000683     0.000683  pfCombinedCvsLJetTagsAK4PFPuppi
+TimeReport   0.002419     0.002419     0.002419  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PF
+TimeReport   0.000622     0.000622     0.000622  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFCHS
+TimeReport   0.000178     0.000178     0.000178  pfCombinedInclusiveSecondaryVertexV2BJetTagsAK4PFPuppi
+TimeReport   0.000088     0.000088     0.000088  pfDeepDoubleXTagInfosAK8PF
+TimeReport   0.000059     0.000059     0.000059  pfDeepDoubleXTagInfosAK8PFCHS
+TimeReport   0.000026     0.000026     0.000026  pfDeepDoubleXTagInfosAK8PFPuppi
+TimeReport   0.002949     0.002949     0.002949  pfElectrons
+TimeReport   0.003506     0.003506     0.003506  pfImpactParameterAK8TagInfosAK8PF
+TimeReport   0.003373     0.003373     0.003373  pfImpactParameterAK8TagInfosAK8PFCHS
+TimeReport   0.001082     0.001082     0.001082  pfImpactParameterAK8TagInfosAK8PFPuppi
+TimeReport   0.013927     0.013927     0.013927  pfImpactParameterTagInfosAK4PF
+TimeReport   0.009467     0.009467     0.009467  pfImpactParameterTagInfosAK4PFCHS
+TimeReport   0.001742     0.001742     0.001742  pfImpactParameterTagInfosAK4PFPuppi
+TimeReport   0.000343     0.000343     0.000343  pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PF
+TimeReport   0.000338     0.000338     0.000338  pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PFCHS
+TimeReport   0.000201     0.000201     0.000201  pfInclusiveSecondaryVertexFinderAK8TagInfosAK8PFPuppi
+TimeReport   0.000414     0.000414     0.000414  pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PF
+TimeReport   0.000306     0.000306     0.000306  pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PFCHS
+TimeReport   0.000160     0.000160     0.000160  pfInclusiveSecondaryVertexFinderCvsLTagInfosAK4PFPuppi
+TimeReport   0.000251     0.000251     0.000251  pfInclusiveSecondaryVertexFinderTagInfosAK4PF
+TimeReport   0.000183     0.000183     0.000183  pfInclusiveSecondaryVertexFinderTagInfosAK4PFCHS
+TimeReport   0.000076     0.000076     0.000076  pfInclusiveSecondaryVertexFinderTagInfosAK4PFPuppi
+TimeReport   0.001562     0.001562     0.001562  pfMassIndependentDeepDoubleBvLJetTagsAK8PF
+TimeReport   0.001441     0.001441     0.001441  pfMassIndependentDeepDoubleBvLJetTagsAK8PFCHS
+TimeReport   0.000013     0.000013     0.000013  pfMassIndependentDeepDoubleBvLJetTagsAK8PFPuppi
+TimeReport   0.001575     0.001575     0.001575  pfMassIndependentDeepDoubleCvBJetTagsAK8PF
+TimeReport   0.001449     0.001449     0.001449  pfMassIndependentDeepDoubleCvBJetTagsAK8PFCHS
+TimeReport   0.000013     0.000013     0.000013  pfMassIndependentDeepDoubleCvBJetTagsAK8PFPuppi
+TimeReport   0.002030     0.002030     0.002030  pfMassIndependentDeepDoubleCvLJetTagsAK8PF
+TimeReport   0.001499     0.001499     0.001499  pfMassIndependentDeepDoubleCvLJetTagsAK8PFCHS
+TimeReport   0.000034     0.000034     0.000034  pfMassIndependentDeepDoubleCvLJetTagsAK8PFPuppi
+TimeReport   0.000037     0.000037     0.000037  pfMet
+TimeReport   0.000309     0.000309     0.000309  pfMetCHS
+TimeReport   0.000103     0.000103     0.000103  pfMetTrk
+TimeReport   0.000055     0.000055     0.000055  pfMuons
+TimeReport   0.001174     0.001174     0.001174  pfNoPileUp
+TimeReport   0.001189     0.001189     0.001189  pfNoPileUpIso
+TimeReport   0.000497     0.000497     0.000497  pfPhotons
+TimeReport   0.001162     0.001162     0.001162  pfPileUp
+TimeReport   0.000451     0.000451     0.000451  pfPileUpAllChargedParticles
+TimeReport   0.001167     0.001167     0.001167  pfPileUpIso
+TimeReport   0.000018     0.000018     0.000018  pfTaus
+TimeReport   0.001704     0.001704     0.001704  pfTrk
+TimeReport   0.025254     0.025254     0.012627  puppi
+TimeReport   0.000776     0.000776     0.000776  selectedPatJetsAK4PF
+TimeReport   0.000633     0.000633     0.000633  selectedPatJetsAK4PFCHS
+TimeReport   0.000071     0.000071     0.000071  selectedPatJetsAK4PFPuppi
+TimeReport   0.000391     0.000391     0.000391  selectedPatJetsAK8PF
+TimeReport   0.000353     0.000353     0.000353  selectedPatJetsAK8PFCHS
+TimeReport   0.000088     0.000088     0.000088  selectedPatJetsAK8PFPuppi
+TimeReport   0.000000     0.000000     0.000000  selectedPatJetsForMetT1T2Corr
+TimeReport   0.000065     0.000065     0.000065  selectedPatJetsForMetT1T2SmearCorr
+TimeReport   0.000000     0.000000     0.000000  selectedPatJetsForMetT2Corr
+TimeReport   0.000000     0.000000     0.000000  selectedPatJetsForMetT2SmearCorr
+TimeReport   0.000000     0.000000     0.000000  selectedPrimaryVertexHighestPtTrackSumForPFMEtCorrType0
+TimeReport   0.000000     0.000000     0.000000  selectedVerticesForPFMEtCorrType0
+TimeReport   0.000002     0.000002     0.000002  shiftedPatElectronEnDown
+TimeReport   0.000005     0.000005     0.000005  shiftedPatElectronEnUp
+TimeReport   0.000076     0.000076     0.000076  shiftedPatJetEnDown
+TimeReport   0.000097     0.000097     0.000097  shiftedPatJetEnUp
+TimeReport   0.000135     0.000135     0.000135  shiftedPatJetResDown
+TimeReport   0.000176     0.000176     0.000176  shiftedPatJetResUp
+TimeReport   0.000002     0.000002     0.000002  shiftedPatMETCorrElectronEnDown
+TimeReport   0.000003     0.000003     0.000003  shiftedPatMETCorrElectronEnUp
+TimeReport   0.000004     0.000004     0.000004  shiftedPatMETCorrJetEnDown
+TimeReport   0.000004     0.000004     0.000004  shiftedPatMETCorrJetEnUp
+TimeReport   0.000005     0.000005     0.000005  shiftedPatMETCorrJetResDown
+TimeReport   0.000007     0.000007     0.000007  shiftedPatMETCorrJetResUp
+TimeReport   0.000003     0.000003     0.000003  shiftedPatMETCorrMuonEnDown
+TimeReport   0.000005     0.000005     0.000005  shiftedPatMETCorrMuonEnUp
+TimeReport   0.000027     0.000027     0.000027  shiftedPatMETCorrPhotonEnDown
+TimeReport   0.000032     0.000032     0.000032  shiftedPatMETCorrPhotonEnUp
+TimeReport   0.000005     0.000005     0.000005  shiftedPatMETCorrSmearedJetResDown
+TimeReport   0.000006     0.000006     0.000006  shiftedPatMETCorrSmearedJetResUp
+TimeReport   0.000002     0.000002     0.000002  shiftedPatMETCorrTauEnDown
+TimeReport   0.000008     0.000008     0.000008  shiftedPatMETCorrTauEnUp
+TimeReport   0.000223     0.000223     0.000223  shiftedPatMETCorrUnclusteredEnDown
+TimeReport   0.000234     0.000234     0.000234  shiftedPatMETCorrUnclusteredEnUp
+TimeReport   0.000003     0.000003     0.000003  shiftedPatMuonEnDown
+TimeReport   0.000007     0.000007     0.000007  shiftedPatMuonEnUp
+TimeReport   0.000096     0.000096     0.000096  shiftedPatPhotonEnDown
+TimeReport   0.000143     0.000143     0.000143  shiftedPatPhotonEnUp
+TimeReport   0.000132     0.000132     0.000132  shiftedPatSmearedJetResDown
+TimeReport   0.000145     0.000145     0.000145  shiftedPatSmearedJetResUp
+TimeReport   0.000002     0.000002     0.000002  shiftedPatTauEnDown
+TimeReport   0.000018     0.000018     0.000018  shiftedPatTauEnUp
+TimeReport   0.001527     0.001527     0.001527  shiftedPatUnclusteredEnDown
+TimeReport   0.002100     0.002100     0.002100  shiftedPatUnclusteredEnUp
+TimeReport   0.000027     0.000027     0.000027  slimmedMETs
+TimeReport   0.000009     0.000009     0.000009  slimmedSecondaryVerticesCvsL
+TimeReport   0.000114     0.000114     0.000114  softPFElectronsTagInfosAK4PF
+TimeReport   0.000067     0.000067     0.000067  softPFElectronsTagInfosAK4PFCHS
+TimeReport   0.000024     0.000024     0.000024  softPFElectronsTagInfosAK4PFPuppi
+TimeReport   0.000170     0.000170     0.000170  softPFMuonsTagInfosAK4PF
+TimeReport   0.000111     0.000111     0.000111  softPFMuonsTagInfosAK4PFCHS
+TimeReport   0.000020     0.000020     0.000020  softPFMuonsTagInfosAK4PFPuppi
+TimeReport   0.000000     0.000000     0.000000  trackVertexArbitrator
+TimeReport   0.000000     0.000000     0.000000  trackVertexArbitratorDefault
+TimeReport   0.000000     0.000000     0.000000  vertexMerger
+TimeReport  per event     per exec    per visit  Name
+
+T---Report end!
+
+
+=============================================
+
+MessageLogger Summary
+
+ type     category        sev    module        subroutine        count    total
+ ---- -------------------- -- ---------------- ----------------  -----    -----
+    1 L3Absolute not found -w PATJetProducer:p                       1        1
+    2 L3Absolute not found -w PATJetProducer:p                       1        1
+    3 L3Absolute not found -w PATJetProducer:p                       1        1
+    4 L3Absolute not found -w PATJetProducer:p                       1        1
+    5 L3Absolute not found -w PATJetProducer:p                       1        1
+    6 L3Absolute not found -w PATJetProducer:p                       1        1
+    7 XrdAdaptor           -w file_open                              1        1
+    8 fileAction           -s file_close                             1        1
+    9 fileAction           -s file_open                              2        2
+
+ type    category    Examples: run/evt        run/evt          run/evt
+ ---- -------------------- ---------------- ---------------- ----------------
+    1 L3Absolute not found 1/241288635                       
+    2 L3Absolute not found 1/241288635                       
+    3 L3Absolute not found 1/241288635                       
+    4 L3Absolute not found 1/241288635                       
+    5 L3Absolute not found 1/241288635                       
+    6 L3Absolute not found 1/241288635                       
+    7 XrdAdaptor           pre-events                        
+    8 fileAction           PostGlobalEndRun                  
+    9 fileAction           pre-events       pre-events       
+
+Severity    # Occurrences   Total Occurrences
+--------    -------------   -----------------
+Warning                 7                   7
+System                  3                   3
+
+dropped waiting message count 0
