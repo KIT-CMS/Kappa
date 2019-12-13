@@ -454,7 +454,7 @@ class SkimManagerBase:
 			"\n   <dcap:gridka> => dcap://dccmsdcap.gridka.de:22125//pnfs/gridka.de/cms/disk-only/" + \
 			"\n   <srm:desy> => srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/" + \
 			"\n   <srm:aachen> => srm://grid-srm.physik.rwth-aachen.de:8443/srm/managerv2?SFN=/pnfs/physik.rwth-aachen.de/cms/" + \
-			"\n   <srm:nrg> => srm://dgridsrm-fzk.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/dcms/disk-only/" + \
+			"\n   <srm:nrg> => srm://cmssrm-kit.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/cms/disk-only/" + \
 			"\n   <local:desy> => file:///pnfs/desy.de/cms/tier2/" + \
 			"\n"
 
@@ -704,9 +704,9 @@ class SkimManagerBase:
 		if os.environ.get('SKIM_WORK_BASE') is not None:
 			return(os.environ['SKIM_WORK_BASE'])
 		else:
-			if 'ekpbms1' in os.environ["HOSTNAME"]:
+			if 'bms1' in os.environ["HOSTNAME"]:
 				return("/portal/ekpbms1/home/%s/kappa_skim_workdir/" % os.environ["USER"])
-			elif 'ekpbms2' in os.environ["HOSTNAME"]:
+			elif 'bms2' in os.environ["HOSTNAME"]:
 				return("/portal/ekpbms2/home/%s/kappa_skim_workdir/" % os.environ["USER"])
 			elif 'naf' in os.environ["HOSTNAME"]:
 				return("/nfs/dust/cms/user/%s/kappa_skim_workdir/" % os.environ["USER"])
