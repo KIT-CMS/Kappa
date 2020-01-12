@@ -267,7 +267,7 @@ class DataSetManagerBase:
         self.set_n_events_files(new_entry)
         self.dataset[nick_name] = new_entry
 
-    def query_datasets(self, pattern, inputDBS=None, xsec=None, nick_name=None, globaltag=None, year=None):
+    def query_datasets(self, pattern, inputDBS=None, xsec=None, nick_name=None, globaltag=None, year=None, datasetstatus=["VALID","PRODUCTION"]):
         from Kappa.Skimming.getNumberGeneratedEventsFromDB import RestClient
         cert = os.environ['X509_USER_PROXY']
         if not cert.strip():
@@ -277,7 +277,9 @@ class DataSetManagerBase:
         url = 'https://cmsweb.cern.ch/dbs/prod/' + inputDBS + '/DBSReader'
         import ast
         print pattern
-        dataset_list = [d["dataset"] for d in ast.literal_eval(rest_client.get(url, api='datasets', params={'dataset': pattern, "dataset_access_type": "*"}))]
+        dataset_list = []
+        for status in datasetstatus:
+            dataset_list += [d["dataset"] for d in ast.literal_eval(rest_client.get(url, api='datasets', params={'dataset': pattern, "dataset_access_type": status}))]
         print "Adding missing datasets queried from the pattern: "
         print pattern
         print "---------------------------------------------"
@@ -413,6 +415,7 @@ if __name__ == "__main__":
     parser.add_argument("--rmtagvalues", dest="rmtagvalues", help="The tag values, must be a comma separated string (e.g. --TagValues \"Skim_Base',Skim_Extend\" ")
 
     parser.add_argument("--addDatasets", dest="addDatasets", help="Add one or more datasets which match a given DAS pattern with the structure /*/*/*.")
+    parser.add_argument("--datasetstatus", dest="datasetstatus", default=["VALID","PRODUCTION"],nargs="+", help="Status list for datasets to be included. Defaule: %(default)s")
     parser.add_argument("--inputDBS", dest="inputDBS", default="global", help="Change the dbs instance, default will be global (for official samples), for private production choose phys03")
     parser.add_argument("--xsec", dest="xsec", help="Add a cross section to this Dataset ")
 
@@ -445,7 +448,7 @@ if __name__ == "__main__":
         print "Adding Datasets and adding/removing entries or tags in same instance not supported. Please do separately."
         exit()
     if args.addDatasets:
-        DSM.query_datasets(args.addDatasets, inputDBS=args.inputDBS, xsec=args.xsec, globaltag=args.globaltag, year=args.year)
+        DSM.query_datasets(args.addDatasets, inputDBS=args.inputDBS, xsec=args.xsec, globaltag=args.globaltag, year=args.year, datasetstatus=args.datasetstatus)
     else:
         if args.addattribute:
             DSM.add_attribute(attribute=args.addattribute, attribute_value=args.addattributevalue)
