@@ -415,8 +415,8 @@ for _jet_algo_radius in ('ak4', 'ak8'):
 # Configure PAT Jets #
 ######################
 
-from Kappa.Skimming.KPatJets_miniAOD_cff import setup_PatJets
-patJets = setup_PatJets(process, options.isData)
+#from Kappa.Skimming.KPatJets_miniAOD_cff import setup_PatJets
+#patJets = setup_PatJets(process, options.isData)
 
 # -- set up PAT jets
 
@@ -435,7 +435,7 @@ for _jet_radius in (4, 8):
         )
 
         # add to process
-        process.path *= patJets[_patJet_collection_name]
+        #process.path *= patJets[_patJet_collection_name]
 
     # GenJets
     if not options.isData:
