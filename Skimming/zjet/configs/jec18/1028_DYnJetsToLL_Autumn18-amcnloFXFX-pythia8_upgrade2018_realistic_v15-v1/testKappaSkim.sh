@@ -10,7 +10,7 @@ _FILE="/store/mc/RunIIFall17MiniAOD/DY1JetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-p
 
 _dir="test_DY2/${_GT}"
 mkdir -p $_dir
-cmsRun ../kappaSkim_1208_mc_default_cfg.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
+cmsRun ../kappaSkim_1028_mc_default_cfg.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
                         globalTag=${_GT} \
                         isData=0 \
                         outputFile=testKappaSkim_out_${_GT}.root \
