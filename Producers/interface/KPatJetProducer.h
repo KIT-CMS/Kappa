@@ -124,7 +124,11 @@ public:
 			{
 				out.tags.push_back(in.userFloat(id));
 			}
-			else
+			else if(in.hasUserInt(id))
+            {
+                out.tags.push_back(in.userInt(id));
+            }
+            else
 			{
 				out.tags.push_back(in.bDiscriminator(id));
 			}
