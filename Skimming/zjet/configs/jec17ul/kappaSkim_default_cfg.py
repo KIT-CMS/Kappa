@@ -46,7 +46,7 @@ register_option('edmOut',
                 type_=str,
                 description=('(for testing only) write edm file (e.g miniAOD) to '
                              'this path (if empty/unset, no edm file is written).'))
-register_option('dumpPythonAndExit',
+register_option('dumpPython',
                 default=False,
                 type_=bool,
                 description=('(for testing only) dump the full cmsRun Python config '
@@ -354,8 +354,8 @@ from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
 
 
 # -- set basic skimming parameters
-process.kappaTuple.Jets.minPt = 5.0
-process.kappaTuple.Jets.taggers = cms.vstring()  # TODO: do we need this?
+# process.kappaTuple.Jets.minPt = 5.0
+# process.kappaTuple.Jets.taggers = cms.vstring()  # TODO: do we need this?
 
 # -- set up jet toolbox jets
 
@@ -369,9 +369,19 @@ for _jet_algo_radius in ('ak4', 'ak8'):
 
         # calculate and evaluate PUJetID only for ak4CHS jets (TODO: do we need this?)
         _do_PUJetID = False
+        _do_CTagger = False
         if _jet_algo_radius == 'ak4' and _PU_method == "CHS":
             _do_PUJetID = True
-
+            _do_CTagger = True
+            process.kappaTuple.PatJets.ids = cms.vstring(
+                "AK4PFCHSpileupJetIdEvaluator:fullDiscriminant",  # Tell KAPPA to get PuJetID from JetToolBox instead of slimmedJets
+                "AK4PFCHSpileupJetIdEvaluator:cutbasedId",
+                "AK4PFCHSpileupJetIdEvaluator:fullId",
+                "QGTaggerAK4PFCHS:qgLikelihood",  # Tell KAPPA to extract qg-tags
+                "pfCombinedInclusiveSecondaryVertexV2BJetTags",  # Tell KAPPA to extract b-tags
+                "pfCombinedCvsLJetTags",  # Tell KAPPA to extract c-tags 
+                "pfCombinedCvsBJetTags",
+            )
         # create jet sequence with jet toolbox
         jetToolbox(process,
                    _jet_algo_radius,
@@ -390,16 +400,12 @@ for _jet_algo_radius in ('ak4', 'ak8'):
                    addTrimming=False,
                    addFiltering=False,
                    addNsubSubjets=False,
-                   addPUJetID=_do_PUJetID)
+                   addPUJetID=_do_PUJetID,
+                   addQGTagger=_do_CTagger,
+                   verbosity=3)
 
         # add jet sequence to process
         process.path *= getattr(process, _seq_name)
-
-        # add PUJetID calculator and evaluator to process
-        # if _do_PUJetID:
-        #     process.path *= getattr(process, "{}PF{}pileupJetIdCalculator".format(_jet_algo_radius.upper(), _PU_method))
-        #     process.path *= getattr(process, "{}PF{}pileupJetIdEvaluator".format(_jet_algo_radius.upper(), _PU_method))
-
 
 ######################
 # Configure PAT Jets #
@@ -596,10 +602,10 @@ if options.edmOut:  # only for testing
 
 
 # for debugging: dump entire cmsRun python configuration
-if options.dumpPythonAndExit:
+if options.dumpPython:
     with open('.'.join(options.outputFile.split('.')[:-1]) + '_dump.py', 'w') as f:
             f.write(process.dumpPython())
-    sys.exit(1)
+    # sys.exit(1)
 
 
 # final information:
