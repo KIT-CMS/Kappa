@@ -1,4 +1,4 @@
-# Kappa test: CMSSW 9.4.2
+# Kappa test: CMSSW 10.6.X
 
 import math
 import os
@@ -29,7 +29,7 @@ register_option('isData',
                 type_=bool,
                 description="True if sample is data, False if Monte Carlo (default: True)")
 register_option('globalTag',
-                default='94X_dataRun2_ReReco_EOY17_v2',
+                default='fixmeifUcan',
                 type_=str,
                 description='Global tag')
 register_option('reportEvery',
@@ -67,7 +67,7 @@ if os.getenv("GC_VERSION"):
     options.globalTag = "__GLOBALTAG__"
     options.isData = __IS_DATA__
     options.edmOut = ""
-    options.dumpPythonAndExit = False
+    options.dumpPython = False
     options.kappaVerbosity = 0
     options.reportEvery = int(max(1, 10**(round(math.log(__MAX_EVENTS__)/math.log(10))-1)))
 
@@ -330,6 +330,7 @@ process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJet
 process.kappaTuple.Electrons.srcIds = cms.string("standalone");
 process.kappaTuple.Electrons.ids = cms.VInputTag(
     # cut-based VIDs
+# TODO: update electron IDs
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose",
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium",
@@ -491,6 +492,7 @@ runMetCorAndUncFromMiniAOD(process,
                            # recoMetFromPFCs=True
                            )
 
+# TODO: check if the JetToolBox does this already
 ## If you would like to re-cluster both jets and met and get the proper uncertainties
 #runMetCorAndUncFromMiniAOD(process,
 #                           isData=options.isData,
