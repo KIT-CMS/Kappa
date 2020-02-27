@@ -289,16 +289,19 @@ process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJet
 process.kappaTuple.Electrons.srcIds = cms.string("standalone");
 process.kappaTuple.Electrons.ids = cms.VInputTag(
     # cut-based VIDs
-    # TODO: update electron IDs
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose",
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium",
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-tight",
+    #
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-loose",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-medium",
+    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-tight",
 )
 
 
 # -- call the default KAPPA electron setup routine
-setupElectrons(process, "slimmedElectrons", id_modules=['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff'])
+setupElectrons(process, "slimmedElectrons", id_modules=['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff', 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V2_cff'])
 
 # -- add electron ID task to KAPPA Task
 process.kappaTask.add(process.egmGsfElectronIDTask)
