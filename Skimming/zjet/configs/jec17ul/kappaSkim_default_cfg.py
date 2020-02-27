@@ -83,8 +83,11 @@ from Configuration.StandardSequences.Eras import eras
 
 process = cms.Process("KAPPA", eras.Run2_2017)
 
-# most CMSSW analysis modules will be added to the path
+# some CMSSW analysis modules will be added to the path
 process.path = cms.Path()
+
+# most CMSSW analysis modules will be added to a task (for unscheduled execution)
+process.kappaTask = cms.Task()
 
 # CMSSW output modules will be added to the endpath
 process.endpath = cms.EndPath()
@@ -180,10 +183,9 @@ process.kappaTuple.TriggerObjectStandalone.triggerObjects = cms.PSet(
 process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "HLT")
 
 # set flag to prevent KAPPA error if process name is something other than 'HLT'
-# TODO: flag pending deletion
 process.kappaTuple.Info.overrideHLTCheck = cms.untracked.bool(True)
 
-## read in MET filter bits from RECO/PAT trigger object (use RECO for PromptReco)
+# read in MET filter bits from RECO/PAT trigger results (use RECO for PromptReco)
 process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
 
 
@@ -208,18 +210,15 @@ process.kappaTuple.Info.hltWhitelist = cms.vstring(
 if options.isData:
     process.pfFilter = cms.EDFilter('CandViewCountFilter',
         src = cms.InputTag('packedPFCandidates'),
-        minNumber = cms.uint32(1)#,
-        #filter = cms.bool(False)  # add Filter option
+        minNumber = cms.uint32(1),
     )
+    # need path to effectively veto affected events (even in unscheduled mode)
     process.path *= (process.pfFilter)
 
 
-###########################
-# Configure PF Candidates #
-###########################
-
-# -- load default Kappa config for skimming PF candidates
-process.load("Kappa.Skimming.KPFCandidates_miniAOD_cff")
+####################
+# Primary Vertices #
+####################
 
 # -- filter PV collection to obtain "good" offline primary vertices
 from PhysicsTools.SelectorUtils.pvSelector_cfi import pvSelector
@@ -229,43 +228,8 @@ process.goodOfflinePrimaryVertices = cms.EDFilter(
     src=cms.InputTag('offlineSlimmedPrimaryVertices'),
 )
 
-
-# for an explanation of 'fromPV', refer to:
-# https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD2016#PV_Assignment
-
-# -- apply filters to obtain some special PF candidate collections
-
-# PF candidates likely not from pileup
-process.pfNoPileUpIso = cms.EDFilter("CandPtrSelector",
-    src = cms.InputTag("packedPFCandidates"),
-    cut = cms.string("fromPV > 1")  # high 'fromPV' score
-)
-
-# PF candidates possibly from pileup
-process.pfPileUpIso = cms.EDFilter("CandPtrSelector",
-    src = cms.InputTag("packedPFCandidates"),
-    cut = cms.string("fromPV <= 1")  # low 'fromPV' score
-)
-
-# PF candidates marked as neutral hadrons or photons
-process.pfAllNeutralHadronsAndPhotons = cms.EDFilter("CandPtrSelector",
-    src = cms.InputTag("pfNoPileUp"),
-    cut = cms.string(
-        "abs(pdgId) = 111  | "  # neutral pion
-        "abs(pdgId) = 130  | "  # neutral kaon (long)
-        "abs(pdgId) = 310  | "  # neutral kaon (short)
-        "abs(pdgId) = 2112 | "  # neutron
-        "abs(pdgId) = 22"       # photon
-    )
-)
-
-process.path *= (
-    process.goodOfflinePrimaryVertices*  # pending review for deletion
-    process.pfNoPileUpIso*
-    process.pfPileUpIso*
-    process.makeKappaPFCandidates*
-    process.pfAllNeutralHadronsAndPhotons
-)
+# add good PV producer to KAPPA task
+process.kappaTask.add(process.goodOfflinePrimaryVertices)
 
 
 ###################
@@ -279,8 +243,6 @@ process.kappaTuple.active += cms.vstring('Muons')
 # -- set basic skimming parameters
 process.kappaTuple.Muons.minPt = 8.0
 process.kappaTuple.Muons.muons.src = cms.InputTag("slimmedMuons")
-# TODO: check which one of these is actually used
-#process.kappaTuple.Muons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
 process.kappaTuple.Muons.muons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
 
 # -- muon isolation
@@ -301,9 +263,6 @@ for iso_label in ["muPFIsoDepositCharged",
 
 # -- other flags
 process.kappaTuple.Muons.noPropagation = cms.bool(True)  # TODO: document this
-
-# -- add to process
-process.path *= (process.makeKappaMuons)
 
 
 #######################
@@ -330,7 +289,7 @@ process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJet
 process.kappaTuple.Electrons.srcIds = cms.string("standalone");
 process.kappaTuple.Electrons.ids = cms.VInputTag(
     # cut-based VIDs
-# TODO: update electron IDs
+    # TODO: update electron IDs
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose",
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium",
@@ -341,8 +300,8 @@ process.kappaTuple.Electrons.ids = cms.VInputTag(
 # -- call the default KAPPA electron setup routine
 setupElectrons(process, "slimmedElectrons", id_modules=['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff'])
 
-# -- add to process
-process.path *= (process.makeKappaElectrons)
+# -- add electron ID task to KAPPA Task
+process.kappaTask.add(process.egmGsfElectronIDTask)
 
 
 ######################
@@ -352,11 +311,6 @@ process.path *= (process.makeKappaElectrons)
 # jet collections obtained with 'JetToolbox' CMSSW module:
 # https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetToolbox
 from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
-
-
-# -- set basic skimming parameters
-# process.kappaTuple.Jets.minPt = 5.0
-# process.kappaTuple.Jets.taggers = cms.vstring()  # TODO: do we need this?
 
 # -- set up jet toolbox jets
 
@@ -405,18 +359,10 @@ for _jet_algo_radius in ('ak4', 'ak8'):
                    addQGTagger=_do_CTagger,
                    verbosity=3)
 
-        # add jet sequence to process
-        process.path *= getattr(process, _seq_name)
-
 ######################
 # Configure PAT Jets #
 ######################
 
-#from Kappa.Skimming.KPatJets_miniAOD_cff import setup_PatJets
-#patJets = setup_PatJets(process, options.isData)
-#
-## -- set up PAT jets
-#
 # go through all combinations of jet radius and PU subtraction algorithms
 for _jet_radius in (4, 8):
     for _PU_method in ("", "CHS", "Puppi"):
@@ -430,11 +376,8 @@ for _jet_radius in (4, 8):
                 src = cms.InputTag('selectedPatJets'+_patJet_collection_name)
             )
         )
-#
-#        # add to process
-#        process.path *= patJets[_patJet_collection_name]
-#
-#    # GenJets
+
+    # GenJets
     if not options.isData:
         _jet_collection_name = "ak%sGenJetsNoNu" % (_jet_radius)
         # GenJets are just KLVs: add collection to whitelist
@@ -454,11 +397,13 @@ if not options.isData:
     process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
     process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
 
-# PileupDensity producer
+#######################
+# PileupDensity (rho) #
+#######################
+
 process.kappaTuple.active += cms.vstring('PileupDensity')
 process.kappaTuple.PileupDensity.whitelist = cms.vstring("fixedGridRhoFastjetAll")
 process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll => pileupDensity")
-
 
 #################
 # Configure MET #
@@ -469,17 +414,17 @@ process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll =>
 
 from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
 
-# create collection of PF candidates likely coming from the primary vertex
-process.packedPFCandidatesCHSNotFromPV = cms.EDFilter('CandPtrSelector',
-    src = cms.InputTag('packedPFCandidates'),
-    cut = cms.string('fromPV==0')  # only loose selection (0)
-)
-process.path *= (process.packedPFCandidatesCHSNotFromPV)
-process.packedPFCandidatesCHS = cms.EDFilter('CandPtrSelector',
-    src = cms.InputTag('packedPFCandidates'),
-    cut = cms.string('fromPV() > 0')  # only loose selection (0)
-)
-process.path *= (process.packedPFCandidatesCHS)
+## create collection of PF candidates likely coming from the primary vertex
+#process.packedPFCandidatesCHSNotFromPV = cms.EDFilter('CandPtrSelector',
+#    src = cms.InputTag('packedPFCandidates'),
+#    cut = cms.string('fromPV==0')  # only loose selection (0)
+#)
+#process.path *= (process.packedPFCandidatesCHSNotFromPV)
+#process.packedPFCandidatesCHS = cms.EDFilter('CandPtrSelector',
+#    src = cms.InputTag('packedPFCandidates'),
+#    cut = cms.string('fromPV() > 0')  # only loose selection (0)
+#)
+#process.path *= (process.packedPFCandidatesCHS)
 
 # -- start of MET recipe
 
@@ -502,8 +447,8 @@ runMetCorAndUncFromMiniAOD(process,
 #                           reclusterJets = True
 #                           )
 
-process.kappaTuple.active += cms.vstring('packedPFCandidates')
-process.kappaTuple.packedPFCandidates.pfCandidates = cms.PSet(src=cms.InputTag("packedPFCandidates"))
+#process.kappaTuple.active += cms.vstring('packedPFCandidates')
+#process.kappaTuple.packedPFCandidates.pfCandidates = cms.PSet(src=cms.InputTag("packedPFCandidates"))
 
 # wire CHS MET to new collection from the "KAPPA" process
 process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETs"),
@@ -559,19 +504,6 @@ process.kappaTuple.PileupDensity.pileupDensity = cms.PSet(
     src=cms.InputTag("fixedGridRhoFastjetAll")
 )
 
-# -- calculate quantities related to the event weights/count
-process.load("Kappa.Producers.EventWeightCountProducer_cff")
-if not options.isData:
-    # if MC, set some flags
-    process.nEventsTotal.isMC = cms.bool(True)
-    process.nNegEventsTotal.isMC = cms.bool(True)
-    process.nEventsFiltered.isMC = cms.bool(True)
-    process.nNegEventsFiltered.isMC = cms.bool(True)
-process.path.insert(0, process.nEventsTotal + process.nNegEventsTotal)
-process.path.insert(-1, process.nEventsFiltered + process.nNegEventsFiltered)
-
-# make Kappa branch 'FilterSummary' active
-process.kappaTuple.active += cms.vstring('FilterSummary')
 
 #########################
 # Testing and Debugging #
@@ -603,24 +535,42 @@ if options.edmOut:  # only for testing
     process.endpath *= process.writeOutMiniAOD
 
 
+# associate all modules in kappaTask to the end path
+process.endpath.associate(process.kappaTask)
+
 # for debugging: dump entire cmsRun python configuration
 if options.dumpPython:
     with open('.'.join(options.outputFile.split('.')[:-1]) + '_dump.py', 'w') as f:
             f.write(process.dumpPython())
     # sys.exit(1)
 
+def _print_path_info(path):
+    assert isinstance(path, cms.Path) or isinstance(path, cms.EndPath)
+
+    for _module in str(path._seq).split(','):
+        print "  - {}".format(_module)
+    print ""
+    if path._tasks:
+        print "  Associated tasks"
+        print "  ----------------"
+        for _task in path._tasks:
+            print "    - {}:".format(_task.label())
+            for _module in str(_task).split(', '):
+                print "      - {}".format(_module)
+        print ""
 
 # final information:
+print ""
 print "-------- CONFIGURATION ----------"
 print ""
-print "CMSSW producers:"
-for p in str(process.path).split('+'):
-    print "  %s" % p
-print ""
-print "CMSSW endpath producers:"
-for p in str(process.endpath).split('+'):
-    print "  %s" % p
-print ""
+print "CMSSW path"
+print "=========="
+_print_path_info(process.path)
+
+print "CMSSW endpath"
+print "============="
+_print_path_info(process.endpath)
+
 print "Kappa producers:"
 for p in sorted(process.kappaTuple.active):
     print "  %s" % p
