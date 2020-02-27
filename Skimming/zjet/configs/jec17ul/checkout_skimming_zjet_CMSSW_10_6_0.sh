@@ -49,7 +49,7 @@ git cms-init
 # -- get some modules directly from github
 
 # Kappa
-git clone https://github.com/KIT-CMS/Kappa.git $CMSSW_BASE/src/Kappa
+git clone git@github.com:KIT-CMS/Kappa.git $CMSSW_BASE/src/Kappa
 
 # Electron-Gamma Smearing according to recipe from https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammaPostRecoRecipes
 #git cms-merge-topic cms-egamma:EgammaPostRecoTools #just adds in an extra file to have a setup function to make things easier 
