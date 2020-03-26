@@ -507,19 +507,6 @@ process.kappaTuple.PileupDensity.pileupDensity = cms.PSet(
     src=cms.InputTag("fixedGridRhoFastjetAll")
 )
 
-# -- calculate quantities related to the event weights/count
-process.load("Kappa.Producers.EventWeightCountProducer_cff")
-if not options.isData:
-    # if MC, set some flags
-    process.nEventsTotal.isMC = cms.bool(True)
-    process.nNegEventsTotal.isMC = cms.bool(True)
-    process.nEventsFiltered.isMC = cms.bool(True)
-    process.nNegEventsFiltered.isMC = cms.bool(True)
-process.path.insert(0, process.nEventsTotal + process.nNegEventsTotal)
-process.path.insert(-1, process.nEventsFiltered + process.nNegEventsFiltered)
-
-# make Kappa branch 'FilterSummary' active
-process.kappaTuple.active += cms.vstring('FilterSummary')
 
 #########################
 # Testing and Debugging #
