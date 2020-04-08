@@ -87,8 +87,8 @@ class SkimManagerBase:
 		if self.UsernameFromSiteDB:
 			return self.UsernameFromSiteDB
 		else:
-			from CRABClient.UserUtilities import getUsernameFromSiteDB
-			self.UsernameFromSiteDB = getUsernameFromSiteDB()
+			from CRABClient.UserUtilities import getUsernameFromCRIC
+			self.UsernameFromSiteDB = getUsernameFromCRIC()
 			return self.UsernameFromSiteDB
 
 	def files_per_job(self, akt_nick):
