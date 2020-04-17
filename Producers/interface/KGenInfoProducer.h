@@ -46,7 +46,8 @@ public:
 		puInfoSource(cfg.getParameter<edm::InputTag>("pileUpInfoSource")),
 		lheSource(cfg.getParameter<edm::InputTag>("lheSource")),
 		runInfo(cfg.getParameter<edm::InputTag>("lheSource")),
-		lheWeightRegexes(cfg.getParameter<std::vector<std::string>>("lheWeightNames"))
+		lheWeightRegexes(cfg.getParameter<std::vector<std::string>>("lheWeightNames")),
+		genWeightRegexes(cfg.getParameter<std::vector<std::string>>("genWeightNames")),
 		{
 			this->tokenGenRunInfo = consumescollector.consumes<GenRunInfoProduct, edm::InRun>(tagSource);
 			this->tokenSource = consumescollector.consumes<GenEventInfoProduct>(tagSource);
@@ -87,6 +88,20 @@ public:
 					if(KBaseProducer::regexMatch(lheEventProduct->weights()[i].id, validIds))
 					{
 						genEventInfoMetadata->lheWeightNames.push_back(lheEventProduct->weights()[i].id);
+					}
+				}
+			}
+		}
+		edm::Handle<GenEventInfoProduct> genEventProduct;
+		if(genWeightRegexes.size() > 0 && event.getByToken(tokenSource, genEventProduct))
+		{
+			for(size_t i = 0; i < genEventProduct->weights_.size(); i++)
+			{
+				for(auto validIds : genWeightRegexes)
+				{
+					if(KBaseProducer::regexMatch(genEventProduct->weights_[i].id, validIds))
+					{
+						genEventInfoMetadata->genWeightNames.push_back(genEventProduct->weights_[i].id);
 					}
 				}
 			}
@@ -143,6 +158,31 @@ public:
 				}
 			}
 			assert( this->metaEvent->lheWeight.size() == this->genEventInfoMetadata->lheWeightNames.size() ); // crosscheck, should never trigger
+		}
+
+		// Get GEN ISR and FSR weights and append to lheWeight
+		edm::Handle<GenEventInfoProduct> genEventProduct;
+		if((genWeightRegexes.size() > 0) && event.getByToken(tokenSource, genEventProduct) && genEventProduct.isValid())
+		{
+			// this->metaEvent->lheWeight.clear();
+			for(size_t j = 0; j < genEventInfoMetadata->genWeightNames.size(); j++)
+			{
+				for(size_t i = 0; i < genEventProduct->weights_.size(); ++i)
+				{
+					if(genEventProduct->weights_[i].id.compare(genEventInfoMetadata->genWeightNames[j]) == 0)
+					{
+						this->metaEvent->lheWeight.push_back(genEventProduct->weights_[i]);
+						break;
+					}
+				}
+				if (this->metaEvent->lheWeight.size() != j+1) // check that exactly one weight has been added
+				{
+					if(this->verbosity > 0)
+						std::cout << "Warning: Weight with id " << genEventInfoMetadata->genWeightNames[j] << std::endl;
+					this->metaEvent->lheWeight.push_back(-999.0);
+				}
+			}
+			assert( this->metaEvent->lheWeight.size() == this->genEventInfoMetadata->lheWeightNames.size() + this->genEventInfoMetadata->genWeightNames.size()); // crosscheck, should never trigger
 		}
 
 		// Get generator event info:

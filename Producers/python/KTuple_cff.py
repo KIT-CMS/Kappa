@@ -46,6 +46,7 @@ kappaTupleDefaultsBlock = cms.PSet(
 		pileUpInfoSource = cms.InputTag("addPileupInfo"),
 		lheSource = cms.InputTag("externalLHEProducer"),
 		lheWeightNames = cms.vstring(),
+		genWeightNames = cms.vstring(),
 		isEmbedded = cms.bool(False),
 		binningMode = cms.string("ht"),
 
