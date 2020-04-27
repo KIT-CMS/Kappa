@@ -128,7 +128,6 @@ typedef int bx_id;
 struct KGenEventInfoMetadata
 {
 	std::vector<std::string> lheWeightNames;
-	std::vector<std::string> genWeightNames;
 
 	// function that returns the indices of the lheWeights of interest for efficient access
 	std::map<std::string, size_t> getLheWeightNamesMap(const std::vector<std::string> &requestedNames) const
@@ -143,26 +142,6 @@ struct KGenEventInfoMetadata
 				if (lheWeightNames.at(lheWeightNameIndex).compare(requestedNames[index]) == 0)
 				{
 					resultMap[requestedNames[index]] = lheWeightNameIndex;
-					assert( !found ); // misconfiguration: the requested name matches more than once
-					found = true;
-				}
-			}
-		}
-		return resultMap;
-	}
-	// function that returns the indices of the genWeights of interest for efficient access
-	std::map<std::string, size_t> getGenWeightNamesMap(const std::vector<std::string> &requestedNames) const
-	{
-		std::map<std::string, size_t> resultMap;
-		bool found = false;
-		for(size_t index = 0; index < requestedNames.size(); index++)
-		{
-			found = false;
-			for(size_t genWeightNameIndex = 0; genWeightNameIndex < genWeightNames.size(); genWeightNameIndex++)
-			{
-				if (genWeightNames.at(genWeightNameIndex).compare(requestedNames[index]) == 0)
-				{
-					resultMap[requestedNames[index]] = genWeightNameIndex;
 					assert( !found ); // misconfiguration: the requested name matches more than once
 					found = true;
 				}
