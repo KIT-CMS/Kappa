@@ -87,8 +87,9 @@ public:
 				{
 					if(KBaseProducer::regexMatch(lheEventProduct->weights()[i].id, validIds))
 					{
-						std::string str = "lhe:";
-						genEventInfoMetadata->lheWeightNames.push_back(str.append(lheEventProduct->weights()[i].id));
+						std::string weightname = "lhe:";
+						weightname.append(lheEventProduct->weights()[i].id);
+						genEventInfoMetadata->lheWeightNames.push_back(weightname);
 					}
 				}
 			}
@@ -102,8 +103,9 @@ public:
 				{
 					if(KBaseProducer::regexMatch(genEventProduct->weights_[i].id, validIds))
 					{
-						std::string str = "gen:";
-						genEventInfoMetadata->lheWeightNames.push_back(str.append(genEventProduct->weights_[i].id));
+						std::string weightname = "gen:";
+						weightname.append(genEventProduct->weights_[i].id);
+						genEventInfoMetadata->lheWeightNames.push_back(weightname);
 					}
 				}
 			}
