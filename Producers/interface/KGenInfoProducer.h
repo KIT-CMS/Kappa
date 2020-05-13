@@ -86,7 +86,7 @@ public:
 	}
 
 	virtual bool onFirstEvent(const edm::Event &event, const edm::EventSetup &setup)
-	{		
+	{
 		edm::Handle<LHEEventProduct> lheEventProduct;
 		if(lheWeightRegexes.size() > 0 && event.getByToken(tokenLhe, lheEventProduct))
 		{
