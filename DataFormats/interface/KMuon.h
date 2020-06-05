@@ -78,7 +78,7 @@ struct KMuon : public KLepton
 	float hcalIso;          //< hcal detector based isolation as given by muon.isolationR03().hadEt
 	float ecalIso;          //< ecal detector basedisolation as given by muon.isolationR03().emEt
 	float pfIso03;          //< PF isolation R = 0.3
-	float pfIso04;          //< PF isolation R = 0.3
+	float pfIso04;          //< PF isolation R = 0.4
 	// deleted: hcalIso03, ecalIso03 and all 05
 
 	/// additional isolation variables for PF isolation which are not stored in a KLepton
