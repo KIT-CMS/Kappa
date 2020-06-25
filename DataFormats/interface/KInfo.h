@@ -171,10 +171,10 @@ struct KGenEventInfo : public KEventInfo
 	double qScale;        ///< q scale of the process (used for PDF reweighting)
 	std::vector<float> lheWeight;
 
-	inline float getLheWeight(size_t index, bool failOnError = true) const
+	inline float getLheWeight(size_t index, bool failOnError = false) const
 	{
 		if(failOnError)
-			assert(lheWeight[index] < float(-998.9) && lheWeight[index] > float(999.1) ); // the user tried to access something that has not been properly filled during the skim
+			assert(!(lheWeight[index] < float(-998.9) || lheWeight[index] > float(999.1)) ); // the user tried to access something that has not been properly filled during the skim
 		return lheWeight[index];
 	}
 };

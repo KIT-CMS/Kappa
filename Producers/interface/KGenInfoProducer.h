@@ -15,7 +15,10 @@
 #include <SimDataFormats/GeneratorProducts/interface/GenFilterInfo.h>
 #include "SimDataFormats/GeneratorProducts/interface/LHEEventProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/LHERunInfoProduct.h"
+
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include <FWCore/Framework/interface/EDProducer.h>
+
 #include "../../Producers/interface/Consumes.h"
 
 #include "KInfoProducer.h"
@@ -48,6 +51,13 @@ public:
 		runInfo(cfg.getParameter<edm::InputTag>("lheSource")),
 		lheWeightRegexes(cfg.getParameter<std::vector<std::string>>("lheWeightNames"))
 		{
+			const auto& genWeightSpecs = cfg.getParameterSet("genWeightNames");
+			genWeightNames = genWeightSpecs.getParameterNames();
+			for(const auto& genWeightName: genWeightNames)
+			{
+				genWeightIndices.push_back(genWeightSpecs.getParameter<int>(genWeightName));
+			}
+
 			this->tokenGenRunInfo = consumescollector.consumes<GenRunInfoProduct, edm::InRun>(tagSource);
 			this->tokenSource = consumescollector.consumes<GenEventInfoProduct>(tagSource);
 			this->tokenLhe = consumescollector.consumes<LHEEventProduct>(lheSource);
@@ -91,6 +101,22 @@ public:
 				}
 			}
 		}
+		
+		edm::Handle<GenEventInfoProduct> genEventProduct;
+		if(event.getByToken(tokenSource, genEventProduct) && genEventProduct.isValid())
+		{
+			for(auto& genWeightIndex: genWeightIndices)
+			{
+				if((genWeightIndex < 0) || (std::abs(genWeightIndex) >= genEventProduct->weights().size()))
+				{
+					return KBaseProducer::fail(
+						std::cout << "Generator weight index " << genWeightIndex << " out of range (<" << genEventProduct->weights().size() << ")" << std::endl
+					);
+				}
+			}
+			genEventInfoMetadata->lheWeightNames.insert(genEventInfoMetadata->lheWeightNames.end(), genWeightNames.begin(), genWeightNames.end());
+		}
+
 		return KBaseProducerWP::onFirstEvent(event, setup);
 	}
 
@@ -122,10 +148,10 @@ public:
 		this->metaEvent->lheHt = lheHt;
 		this->metaEvent->lheNOutPartons = lheNOutPartons;
 		// Get LHE renormalization and factorization weights
+		this->metaEvent->lheWeight.clear();
 		if((lheWeightRegexes.size() > 0) && event.getByToken(tokenLhe, lheEventProduct) && lheEventProduct.isValid())
 		{
-			this->metaEvent->lheWeight.clear();
-			for(size_t j = 0; j < genEventInfoMetadata->lheWeightNames.size(); j++)
+			for(size_t j = 0; j < genEventInfoMetadata->lheWeightNames.size() - genWeightNames.size(); j++)
 			{
 				for(size_t i = 0; i < lheEventProduct->weights().size(); ++i)
 				{
@@ -142,8 +168,22 @@ public:
 					this->metaEvent->lheWeight.push_back(-999.0);
 				}
 			}
-			assert( this->metaEvent->lheWeight.size() == this->genEventInfoMetadata->lheWeightNames.size() ); // crosscheck, should never trigger
+			assert( this->metaEvent->lheWeight.size() == genEventInfoMetadata->lheWeightNames.size() - genWeightNames.size() ); // crosscheck, should never trigger
 		}
+
+		// Get GEN ISR and FSR weights and append to lheWeight
+		edm::Handle<GenEventInfoProduct> genEventProduct;
+		if(event.getByToken(tokenSource, genEventProduct) && genEventProduct.isValid())
+		{
+			// this->metaEvent->lheWeight.clear();
+			for(size_t j = 0; j < genWeightNames.size(); j++)
+			{
+				this->metaEvent->lheWeight.push_back(genEventProduct->weights()[genWeightIndices[j]]);
+			}
+		}
+		// std::cout << this->metaEvent << std::endl;
+		// std::cout << genEventInfoMetadata << std::endl;
+		assert( this->metaEvent->lheWeight.size() == genEventInfoMetadata->lheWeightNames.size()); // crosscheck, should never trigger
 
 		// Get generator event info:
 		edm::Handle<GenEventInfoProduct> hEventInfo;
@@ -250,6 +290,9 @@ protected:
 	edm::InputTag tagSource, puInfoSource, lheSource, runInfo;
 	KGenEventInfoMetadata *genEventInfoMetadata;
 	std::vector<std::string> lheWeightRegexes;
+	// edm:ParameterSet genWeightSpecs;
+	std::vector<std::string> genWeightNames;
+	std::vector<int> genWeightIndices;
 
 	edm::EDGetTokenT<GenRunInfoProduct> tokenGenRunInfo;
 	edm::EDGetTokenT<GenEventInfoProduct> tokenSource;
