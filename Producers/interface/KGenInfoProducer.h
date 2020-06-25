@@ -178,7 +178,7 @@ public:
 			// this->metaEvent->lheWeight.clear();
 			for(size_t j = 0; j < genWeightNames.size(); j++)
 			{
-				this->metaEvent->lheWeight.push_back(genEventProduct->weights()[genWeightIndices[j]]);
+				this->metaEvent->lheWeight.push_back(genEventProduct->weights()[genWeightIndices[j]] / genEventProduct->weight());
 			}
 		}
 		// std::cout << this->metaEvent << std::endl;
