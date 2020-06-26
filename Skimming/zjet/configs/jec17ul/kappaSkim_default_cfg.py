@@ -446,7 +446,7 @@ runMetCorAndUncFromMiniAOD(process,
                           # pfCandColl=cms.InputTag("packedPFCandidates"),
                           pfCandColl=cms.InputTag("chs"),
                           recoMetFromPFCs=True,
-                          CHS = True, # this is an important step and determines what type of jets to be reclustered
+                          # CHS = True, # this is an important step and determines what type of jets to be reclustered
                           # reclusterJets = True
                           )
 
