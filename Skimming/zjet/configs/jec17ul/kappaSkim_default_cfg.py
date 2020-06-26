@@ -417,10 +417,12 @@ process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll =>
 
 from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
 
+
 # re-correct MET for JEC and get the proper uncertainties
 # Note: this only affects the default (i.e. Type1-corrected) MET.
 # Since we only write out the raw MET, this line likely has no effect.
 runMetCorAndUncFromMiniAOD(process, isData=options.isData)
+
 
 # -- end of MET recipe
 
