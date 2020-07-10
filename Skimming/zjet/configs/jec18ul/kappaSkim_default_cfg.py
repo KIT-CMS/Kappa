@@ -417,65 +417,20 @@ process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll =>
 
 from PhysicsTools.PatUtils.tools.runMETCorrectionsAndUncertainties import runMetCorAndUncFromMiniAOD
 
-## create collection of PF candidates likely coming from the primary vertex
-#process.packedPFCandidatesCHSNotFromPV = cms.EDFilter('CandPtrSelector',
-#    src = cms.InputTag('packedPFCandidates'),
-#    cut = cms.string('fromPV==0')  # only loose selection (0)
-#)
-#process.path *= (process.packedPFCandidatesCHSNotFromPV)
-#process.packedPFCandidatesCHS = cms.EDFilter('CandPtrSelector',
-#    src = cms.InputTag('packedPFCandidates'),
-#    cut = cms.string('fromPV() > 0')  # only loose selection (0)
-#)
-#process.path *= (process.packedPFCandidatesCHS)
-
-# -- start of MET recipe
-
-# the following lines are for default MET for Type1 corrections
-
-# If you only want to re-correct for JEC and get the proper uncertainties for the default MET
-runMetCorAndUncFromMiniAOD(process,
-                           isData=options.isData,
-                           # pfCandColl='packedPFCandidatesCHS',
-                           # recoMetFromPFCs=True
-                           )
-
-# TODO: check if the JetToolBox does this already
-## If you would like to re-cluster both jets and met and get the proper uncertainties
-#runMetCorAndUncFromMiniAOD(process,
-#                           isData=options.isData,
-#                           pfCandColl=cms.InputTag("packedPFCandidates"),
-#                           recoMetFromPFCs=True,
-#                           CHS = True, # this is an important step and determines what type of jets to be reclustered
-#                           reclusterJets = True
-#                           )
-
-#process.kappaTuple.active += cms.vstring('packedPFCandidates')
-#process.kappaTuple.packedPFCandidates.pfCandidates = cms.PSet(src=cms.InputTag("packedPFCandidates"))
-
-# wire CHS MET to new collection from the "KAPPA" process
-process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETs"),
-                                            uncorrected=cms.bool(True))
-if not options.isData:
-    # MC: wire PF MET to older collection from the PAT process
-    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "PAT"),
-                                               uncorrected=cms.bool(True))
-else:
-    # no PAT process in data -> use RECO
-    # process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs", "", "RECO"),
-    #                                            uncorrected=cms.bool(True))
-    process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs"),
-                                               uncorrected=cms.bool(True))
 
 
-# this should be OK: 'slimmedMETsPuppi' is in miniAOD
-process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"),
-                                              uncorrected=cms.bool(True))
+# re-correct MET for JEC and get the proper uncertainties
+# Note: this only affects the default (i.e. Type1-corrected) MET.
+# Since we only write out the raw MET, this line likely has no effect.
+runMetCorAndUncFromMiniAOD(process, isData=options.isData)
 
-# uncorrect MET: correcting step done in Excalibur for calibration purposes
-process.kappaTuple.PatMET.uncorrected = cms.bool(True)
 
 # -- end of MET recipe
+
+# wire miniAOD METs to collection from the "KAPPA" process
+process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs"), correctionLevel=cms.string('Raw'))
+process.kappaTuple.PatMET.metCHS = cms.PSet(src=cms.InputTag("slimmedMETs"), correctionLevel=cms.string('RawChs'))
+process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi"), correctionLevel=cms.string('Raw'))
 
 # -- activate KAPPA producers
 process.kappaTuple.active += cms.vstring('PatMET')
