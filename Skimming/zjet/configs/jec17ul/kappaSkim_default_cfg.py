@@ -286,7 +286,7 @@ process.kappaTuple.Electrons.vertexcollection = cms.InputTag("offlineSlimmedPrim
 process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJets", "rho")
 
 # -- electron IDs
-process.kappaTuple.Electrons.srcIds = cms.string("standalone");
+process.kappaTuple.Electrons.srcIds = cms.string("standalone")
 process.kappaTuple.Electrons.ids = cms.VInputTag(
     # cut-based VIDs
     "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
