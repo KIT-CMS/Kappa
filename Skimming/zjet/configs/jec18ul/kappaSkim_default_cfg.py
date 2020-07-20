@@ -186,7 +186,10 @@ process.kappaTuple.Info.hltSource = cms.InputTag("TriggerResults", "", "HLT")
 process.kappaTuple.Info.overrideHLTCheck = cms.untracked.bool(True)
 
 # read in MET filter bits from RECO/PAT trigger results (use RECO for PromptReco)
-process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
+if options.isData:
+    process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
+else:
+    process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 
 
 # write out HLT information for trigger names matching regex
