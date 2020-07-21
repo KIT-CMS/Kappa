@@ -272,6 +272,13 @@ process.kappaTuple.Muons.noPropagation = cms.bool(True)  # TODO: document this
 # Configure Electrons #
 #######################
 
+from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+setupEgammaPostRecoSeq(process,
+                       runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
+                       era='2018-UL')    
+
+process.path *= process.egammaPostRecoSeq
+
 from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
 
 # -- load default Kappa config for skimming electrons
@@ -289,25 +296,56 @@ process.kappaTuple.Electrons.vertexcollection = cms.InputTag("offlineSlimmedPrim
 process.kappaTuple.Electrons.electrons.rhoIsoInputTag = cms.InputTag("slimmedJets", "rho")
 
 # -- electron IDs
-process.kappaTuple.Electrons.srcIds = cms.string("standalone");
+process.kappaTuple.Electrons.srcIds = cms.string("pat")
 process.kappaTuple.Electrons.ids = cms.VInputTag(
     # cut-based VIDs
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-veto",
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-loose",
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-medium",
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V1-tight",
-    #
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-loose",
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-medium",
-    "egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-tight",
+    cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-veto"),
+    cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-loose"),
+    cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-medium"),
+    cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Fall17-94X-V2-tight"),
+    # MVA IDs
+    cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V2-wp90"),
+    cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V2-wp80"),
+    cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-noIso-V2-wpLoose"),
+    cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wp90"),
+    cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wp80"),
+    cms.InputTag("egmGsfElectronIDs:mvaEleID-Fall17-iso-V2-wpLoose"),
 )
+
+# -- electron corrections
+process.kappaTuple.Electrons.userFloats = cms.VInputTag(
+        # scale & smear corrected energy (applied on Data AND MC)
+        cms.InputTag("electronCorrection:ecalTrkEnergyPreCorr"),
+        cms.InputTag("electronCorrection:ecalTrkEnergyPostCorr"),
+        cms.InputTag("electronCorrection:ecalTrkEnergyErrPreCorr"),
+        cms.InputTag("electronCorrection:ecalTrkEnergyErrPostCorr"),
+
+        # systematic variations for scale & smear corrections (to be used on MC)
+        cms.InputTag("electronCorrection:energyScaleUp"),
+        cms.InputTag("electronCorrection:energyScaleDown"),
+        cms.InputTag("electronCorrection:energyScaleStatUp"),
+        cms.InputTag("electronCorrection:energyScaleStatDown"),
+        cms.InputTag("electronCorrection:energyScaleSystUp"),
+        cms.InputTag("electronCorrection:energyScaleSystDown"),
+        cms.InputTag("electronCorrection:energyScaleGainUp"),
+        cms.InputTag("electronCorrection:energyScaleGainDown"),
+        cms.InputTag("electronCorrection:energySigmaUp"),
+        cms.InputTag("electronCorrection:energySigmaDown"),
+        cms.InputTag("electronCorrection:energySigmaPhiUp"),
+        cms.InputTag("electronCorrection:energySigmaPhiDown"),
+        cms.InputTag("electronCorrection:energySigmaRhoUp"),
+        cms.InputTag("electronCorrection:energySigmaRhoDown"),
+
+        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV2Values"),
+        cms.InputTag("electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV2Values"),
+        )
 
 
 # -- call the default KAPPA electron setup routine
-setupElectrons(process, "slimmedElectrons", id_modules=['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff', 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V2_cff'])
+# setupElectrons(process, "slimmedElectrons", id_modules=['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff', 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V2_cff'])
 
 # -- add electron ID task to KAPPA Task
-process.kappaTask.add(process.egmGsfElectronIDTask)
+# process.kappaTask.add(process.egmGsfElectronIDTask)
 
 
 ######################
