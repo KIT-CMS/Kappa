@@ -3,7 +3,7 @@
 _GT="106X_dataRun2_v20"
 _NEVT=100
 _IS_DATA=true
-_GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
+_GRID_PATH_PREFIX="root://cmsxrootd-redirectors.gridka.de:1094/"
 _FILE="/store/data/Run2017B/DoubleMuon/MINIAOD/09Aug2019_UL2017-v1/260000/015A2805-A748-B147-8E81-9A3D7247F4D1.root"
 _DIR="test/${_GT}"
 
