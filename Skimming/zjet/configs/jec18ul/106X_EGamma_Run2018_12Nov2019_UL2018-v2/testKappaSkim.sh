@@ -3,7 +3,7 @@
 _GT="106X_dataRun2_v28"
 _NEVT=100
 _IS_DATA=true
-_GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
+_GRID_PATH_PREFIX="root://cmsxrootd-redirectors.gridka.de:1094/"
 _FILE="/store/data/Run2018C/EGamma/MINIAOD/12Nov2019_UL2018-v2/100000/B9C4A7F3-6993-D24F-B1A7-02F511634798.root"
 _DIR="test/${_GT}"
 

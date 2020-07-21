@@ -3,7 +3,7 @@
 _GT="106X_upgrade2018_realistic_v11_L1v1"
 _NEVT=100
 _IS_DATA=false
-_GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
+_GRID_PATH_PREFIX="root://cmsxrootd-redirectors.gridka.de:1094/"
 _FILE="/store/mc/RunIISummer19UL18MiniAOD/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v11_L1v1-v2/270000/FF8946AC-DD46-3040-A72F-1009A53AE787.root"
 _DIR="test/${_GT}"
 
