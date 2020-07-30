@@ -15,6 +15,27 @@ struct KElectronMetadata
 	virtual ~KElectronMetadata() {};
 
 	std::vector<std::string> idNames;  //< names of configurable electron IDs
+
+	// function that returns the indices of the electronID of interest for efficient access
+	std::map<std::string, size_t> getIdNamesMap(const std::vector<std::string> &requestedNames) const
+	{
+		std::map<std::string, size_t> resultMap;
+		bool found = false;
+		for(size_t index = 0; index < requestedNames.size(); index++)
+		{
+			found = false;
+			for(size_t idNameIndex = 0; idNameIndex < idNames.size(); idNameIndex++)
+			{
+				if (idNames.at(idNameIndex).compare(requestedNames[index]) == 0)
+				{
+					resultMap[requestedNames[index]] = idNameIndex;
+					assert( !found ); // misconfiguration: the requested name matches more than once
+					found = true;
+				}
+			}
+		}
+		return resultMap;
+	}
 };
 
 namespace KElectronType { enum Type
@@ -80,6 +101,11 @@ struct KElectron : public KLepton
 		}
 		std::cout << "Electron ID " << name << " not available!" << std::endl;
 		exit(1);
+	}
+
+	inline float getId(size_t index) const
+	{
+		return electronIds[index];
 	}
 
 	/** Accessor functions to gap values
