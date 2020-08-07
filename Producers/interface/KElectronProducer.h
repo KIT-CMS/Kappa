@@ -68,15 +68,20 @@ public:
 
 	virtual bool onLumi(const edm::LuminosityBlock &lumiBlock, const edm::EventSetup &setup)
 	{
-		for (size_t j = 0; j < tagOfIds.size(); ++j)
+		// NOTE: identical implementation for storing names of electron ID and other userFloats
+		for (const auto& tag : this->tagOfIds)
 		{
-			std::cout << this->tagOfIds[j].label() << ":" << this->tagOfIds[j].instance() << std::endl;
-			electronMetadata->idNames.push_back(this->tagOfIds[j].label()+":"+this->tagOfIds[j].instance());
+			std::string metadataKey = tag.label() + ":" + tag.instance();
+			if (std::find(electronMetadata->idNames.begin(), electronMetadata->idNames.end(), metadataKey) == electronMetadata->idNames.end()) {
+				electronMetadata->idNames.push_back(metadataKey);
+			}
 		}
-		for (size_t j = 0; j < tagOfUserFloats.size(); ++j)
+		for (const auto& tag : this->tagOfUserFloats)
 		{
-			std::cout << this->tagOfUserFloats[j].label() << ":" << this->tagOfUserFloats[j].instance() << std::endl;
-			electronMetadata->idNames.push_back(this->tagOfUserFloats[j].label()+":"+this->tagOfUserFloats[j].instance());
+			std::string metadataKey = tag.label() + ":" + tag.instance();
+			if (std::find(electronMetadata->idNames.begin(), electronMetadata->idNames.end(), metadataKey) == electronMetadata->idNames.end()) {
+				electronMetadata->idNames.push_back(metadataKey);
+			}
 		}
 		return KBaseMultiLVProducer<edm::View<pat::Electron>, KElectrons>::onLumi(lumiBlock, setup);
 	}
