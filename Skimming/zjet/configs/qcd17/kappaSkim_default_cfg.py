@@ -337,7 +337,7 @@ for _jet_algo_radius in ('ak4', 'ak8'):
                 "AK4PFCHSpileupJetIdEvaluator:fullId",
                 "QGTaggerAK4PFCHS:qgLikelihood",  # Tell KAPPA to extract qg-tags
                 "pfCombinedInclusiveSecondaryVertexV2BJetTags",  # Tell KAPPA to extract b-tags
-                "pfCombinedCvsLJetTags",  # Tell KAPPA to extract c-tags 
+                "pfCombinedCvsLJetTags",  # Tell KAPPA to extract c-tags
                 "pfCombinedCvsBJetTags",
             )
         # create jet sequence with jet toolbox
@@ -506,6 +506,20 @@ process.kappaTuple.VertexSummary.goodOfflinePrimaryVerticesSummary = cms.PSet(
 process.kappaTuple.PileupDensity.pileupDensity = cms.PSet(
     src=cms.InputTag("fixedGridRhoFastjetAll")
 )
+
+# -- calculate quantities related to the event weights/count
+process.load("Kappa.Producers.EventWeightCountProducer_cff")
+if not options.isData:
+    # if MC, set some flags
+    process.nEventsTotal.isMC = cms.bool(True)
+    process.nNegEventsTotal.isMC = cms.bool(True)
+    process.nEventsFiltered.isMC = cms.bool(True)
+    process.nNegEventsFiltered.isMC = cms.bool(True)
+process.path.insert(0, process.nEventsTotal + process.nNegEventsTotal)
+process.path.insert(-1, process.nEventsFiltered + process.nNegEventsFiltered)
+
+# make Kappa branch 'FilterSummary' active
+process.kappaTuple.active += cms.vstring('FilterSummary')
 
 
 #########################
