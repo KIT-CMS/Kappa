@@ -479,7 +479,10 @@ class SkimManagerBase:
 		cfg_dict['local']['proxy'] = 'VomsProxy'
 
 		cfg_dict['constants'] = {}
-		cfg_dict['constants']['GC_GLITE_LOCATION'] = '/cvmfs/grid.cern.ch/umd-sl6ui-latest/etc/profile.d/setup-ui-example.sh'
+                if backend=='naf':
+                    cfg_dict['constants']['GC_GLITE_LOCATION'] = '/cvmfs/grid.desy.de/etc/profile.d/grid-ui-env.sh'
+                else:
+                    cfg_dict['constants']['GC_GLITE_LOCATION'] = '/cvmfs/grid.cern.ch/umd-c7ui-latest/etc/profile.d/setup-c7-ui-example.sh'
 		#cfg_dict['constants']['X509_USER_PROXY'] = '$X509_USER_PROXY'
 
 		cfg_dict['parameters'] = {}
