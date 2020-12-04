@@ -5,17 +5,17 @@ from Configuration.StandardSequences.Eras import eras
 
 globalTag = {
     2016 : {
-        'MC' : '102X_mcRun2_asymptotic_v6',
+        'MC' : '102X_mcRun2_asymptotic_v7',
         'data' : '102X_dataRun2_nanoAOD_2016_v1',
         'embedding' : '102X_dataRun2_nanoAOD_2016_v1',
     },
     2017 : {
-        'MC' : '102X_mc2017_realistic_v6',
+        'MC' : '102X_mc2017_realistic_v7',
         'data' : '102X_dataRun2_v8',
         'embedding' : '102X_dataRun2_v8',
     },
     2018 : {
-        'MC' : '102X_upgrade2018_realistic_v18',
+        'MC' : '102X_upgrade2018_realistic_v20',
         'data' : '102X_dataRun2_Sep2018ABC_v2',
         'data-prompt' : '102X_dataRun2_Prompt_v13',
         'embedding' : '102X_dataRun2_Sep2018ABC_v2',
