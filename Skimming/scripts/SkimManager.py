@@ -496,7 +496,7 @@ class SkimManagerBase:
 		#se_path_base = 'srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/'
 		storageSite = self.skimdataset[akt_nick].get("storageSite", self.storage_for_output)
 		se_path_base = self.site_storage_access_dict[storageSite]["srm"]
-		gc_config['storage']['se path'] = se_path_base+"store/user/%s/higgs-kit/skimming/%s/GC_SKIM/%s/"%(self.getUsernameFromSiteDB_cache(), os.path.basename(self.workdir.rstrip("/")), datetime.datetime.today().strftime("%y%m%d_%H%M%S"))
+		gc_config['storage']['se path'] = se_path_base+"store/user/%s/higgs-kit/skimming/%s/GC_SKIM/%s/"%(os.environ.get('USER'), os.path.basename(self.workdir.rstrip("/")), datetime.datetime.today().strftime("%y%m%d_%H%M%S"))
 		#gc_config['storage']['se output pattern'] = "FULLEMBEDDING_CMSSW_8_0_21/@NICK@/@FOLDER@/@XBASE@_@GC_JOB_ID@.@XEXT@"
 		gc_config['CMSSW']['dataset'] = akt_nick+" : "+self.skimdataset[akt_nick]['dbs']
 		gc_config['CMSSW']['files per job'] = str(self.files_per_job(akt_nick))
