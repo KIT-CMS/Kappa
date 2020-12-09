@@ -782,14 +782,10 @@ def getBaseConfig(
 			process.tauGenJets +
 			process.tauGenJetsSelectorAllHadrons
 			)
-		if isSignal:
-			process.kappaTuple.GenJets.whitelist = cms.vstring("tauGenJets", "slimmedGenJets")
-		else:
-			process.kappaTuple.GenJets.whitelist = cms.vstring("tauGenJets")
+		process.kappaTuple.GenJets.whitelist = cms.vstring("tauGenJets", "slimmedGenJets")
 		process.kappaTuple.active += cms.vstring('GenJets')
 		if tools.is_above_cmssw_version([7,6]):
-			if isSignal:
-				process.kappaTuple.GenJets.genJets = cms.PSet(src=cms.InputTag("slimmedGenJets"))
+			process.kappaTuple.GenJets.genJets = cms.PSet(src=cms.InputTag("slimmedGenJets"))
 			process.kappaTuple.GenJets.tauGenJets = cms.PSet(src=cms.InputTag("tauGenJets"))
 			process.kappaTuple.GenJets.tauGenJetsSelectorAllHadrons = cms.PSet(src=cms.InputTag("tauGenJetsSelectorAllHadrons"))
 

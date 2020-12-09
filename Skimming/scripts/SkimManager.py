@@ -3,6 +3,7 @@
 import os, shutil
 from  Kappa.Skimming.datasetsHelperTwopz import datasetsHelperTwopz
 import argparse
+import sys
 import datetime
 from time import gmtime, strftime
 import subprocess
@@ -466,7 +467,7 @@ class SkimManagerBase:
 			cfg_dict['condor'] = {}
 			cfg_dict['condor']['proxy'] = "VomsProxy"
 			if backend=="freiburg":
-				cfg_dict['condor']['JDLData'] = 'Requirements=(Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs'
+				cfg_dict['condor']['JDLData'] = 'Requirements=(Target.ProvidesIO&&Target.ProvidesCPU) +REMOTEJOB=True accounting_group=cms.higgs universe=docker docker_image=mschnepf/slc7-condocker'
 	                if backend=="cern":
 	                        cfg_dict['condor']['JDLData'] = 'Requirements=((OpSysAndVer=?="SLCern6"))'
 		elif backend=='rwthtier2':
@@ -707,8 +708,8 @@ class SkimManagerBase:
 		if os.environ.get('SKIM_WORK_BASE') is not None:
 			return(os.environ['SKIM_WORK_BASE'])
 		else:
-			if 'bms1' in os.environ["HOSTNAME"]:
-				return("/portal/ekpbms1/home/%s/kappa_skim_workdir/" % os.environ["USER"])
+			if 'etp' in os.environ["HOSTNAME"]:
+				return("/work/%s/kappa_skim_workdir/" % os.environ["USER"])
 			elif 'bms2' in os.environ["HOSTNAME"]:
 				return("/portal/ekpbms2/home/%s/kappa_skim_workdir/" % os.environ["USER"])
 			elif 'naf' in os.environ["HOSTNAME"]:
@@ -716,7 +717,7 @@ class SkimManagerBase:
 			elif 'aachen' in os.environ["HOSTNAME"]:
 				return("/net/scratch_cms3b/%s/kappa_skim_workdir/" % os.environ["USER"])
 			else:
-				log.critical("Default workbase could not be found. Please specify working dir as absolute path.")
+				print("Default workbase could not be found. Please specify working dir as absolute path.")
 				sys.exit()
 
 	@classmethod
