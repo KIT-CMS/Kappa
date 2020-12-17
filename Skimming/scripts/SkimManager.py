@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 import os, shutil
 from  Kappa.Skimming.datasetsHelperTwopz import datasetsHelperTwopz
+from  Kappa.Skimming.read_filelist_from_das import read_filelist_from_das
 import argparse
 import sys
 import datetime
@@ -375,13 +376,13 @@ class SkimManagerBase:
 		print os.path.join(self.workdir, 'while.sh')
 		print ''
 
-	def create_gc_config(self, backend='freiburg',events_per_job=0):
+	def create_gc_config(self, backend='freiburg',events_per_job=0, read_from_das=False):
 		shutil.copyfile(src=os.path.join(os.environ.get("CMSSW_BASE"), "src/Kappa/Skimming/higgsTauTau/", self.configfile), dst=os.path.join(self.workdir, 'gc_cfg', self.configfile))
 		gc_config = self.gc_default_cfg(backend=backend,events_per_job=events_per_job)
 		for akt_nick in self.skimdataset.get_nicks_with_query(query={"GCSKIM_STATUS" : "INIT"}):
 			print "Create a new config for", akt_nick
 			gc_config = self.gc_default_cfg(backend=backend,events_per_job=events_per_job)
-			self.individualized_gc_cfg(akt_nick, gc_config)
+			self.individualized_gc_cfg(akt_nick, gc_config, read_from_das)
 			out_file_name = os.path.join(self.workdir, 'gc_cfg', akt_nick + '.conf')
 			out_file = open(out_file_name, 'w')
 			gc_workdir = os.path.join(self.workdir, akt_nick)
@@ -491,7 +492,7 @@ class SkimManagerBase:
 
 		return cfg_dict
 
-	def individualized_gc_cfg(self, akt_nick , gc_config):
+	def individualized_gc_cfg(self, akt_nick , gc_config, read_from_das):
 		#se_path_base == srm://dgridsrm-fzk.gridka.de:8443/srm/managerv2?SFN=/pnfs/gridka.de/dcms/disk-only/
 		#se_path_base = 'srm://grid-srm.physik.rwth-aachen.de:8443/srm/managerv2\?SFN=/pnfs/physik.rwth-aachen.de/cms/'
 		#se_path_base = 'srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/'
@@ -499,7 +500,16 @@ class SkimManagerBase:
 		se_path_base = self.site_storage_access_dict[storageSite]["srm"]
 		gc_config['storage']['se path'] = se_path_base+"store/user/%s/higgs-kit/skimming/%s/GC_SKIM/%s/"%(os.environ.get('USER'), os.path.basename(self.workdir.rstrip("/")), datetime.datetime.today().strftime("%y%m%d_%H%M%S"))
 		#gc_config['storage']['se output pattern'] = "FULLEMBEDDING_CMSSW_8_0_21/@NICK@/@FOLDER@/@XBASE@_@GC_JOB_ID@.@XEXT@"
-		gc_config['CMSSW']['dataset'] = akt_nick+" : "+self.skimdataset[akt_nick]['dbs']
+		# in this case, the list of files is get from DAS and grid control uses this filelist instead the internal dataset query
+		if read_from_das:
+			if not os.path.exists(os.path.join(self.workdir, 'gc_cfg', "filelists")):
+				os.mkdir(os.path.join(self.workdir, 'gc_cfg', "filelists"))
+			filelistpath = os.path.join(self.workdir, 'gc_cfg', "filelists", akt_nick + '_filelist.dbs')
+			read_filelist_from_das(akt_nick,
+            self.skimdataset[akt_nick]['dbs'], filelistpath, False, "root://cms-xrd-global.cern.ch/")
+			gc_config['CMSSW']['dataset'] = akt_nick+" : list: " + os.path.join("filelists", akt_nick + '_filelist.dbs')
+		else:
+			gc_config['CMSSW']['dataset'] = akt_nick+" : "+self.skimdataset[akt_nick]['dbs']
 		gc_config['CMSSW']['files per job'] = str(self.files_per_job(akt_nick))
 		gc_config['global']["workdir"] = os.path.join(self.workdir, akt_nick)
 
@@ -708,7 +718,7 @@ class SkimManagerBase:
 		if os.environ.get('SKIM_WORK_BASE') is not None:
 			return(os.environ['SKIM_WORK_BASE'])
 		else:
-			if 'etp' in os.environ["HOSTNAME"]:
+			if 'etp' in os.environ["HOSTNAME"] or 'bms1' in os.environ["HOSTNAME"] or 'bms3' in os.environ["HOSTNAME"]:
 				return("/work/%s/kappa_skim_workdir/" % os.environ["USER"])
 			elif 'bms2' in os.environ["HOSTNAME"]:
 				return("/portal/ekpbms2/home/%s/kappa_skim_workdir/" % os.environ["USER"])
@@ -770,6 +780,7 @@ if __name__ == "__main__":
 
 	parser.add_argument("--resubmit-with-options", default=None, dest="resubmit", help="Resubmit failed tasks. Options for crab resubmit can be specified via a python dict, e.g: --resubmit '{\"maxmemory\" : \"3000\", \"maxruntime\" : \"1440\"}'. To avoid options use '{}' Default: %(default)s")
 	parser.add_argument("--resubmit-with-gc", action='store_true', default=False, dest="resubmit_with_gc", help="Resubmits non-completed tasks with Grid Control.")
+	parser.add_argument("--read-from-das", action="store_true",  dest = "read_from_das", help="if set, filelist from DAS is used for the job (needed for RUCIO samples)")
 
 	parser.add_argument("--remake", action='store_true', default=False, dest="remake", help="Remakes tasks for which an exception occured. (Run after --crab-status). Default: %(default)s")
 	parser.add_argument("--kill-all", action='store_true', default=False, dest="kill_all", help="kills all tasks. Default: %(default)s")
@@ -807,7 +818,7 @@ if __name__ == "__main__":
 
 	if args.init:
 		SKM.add_new(nicks)
-		SKM.create_gc_config(backend=args.backend,events_per_job=args.events_per_job)
+		SKM.create_gc_config(backend=args.backend,events_per_job=args.events_per_job, read_from_das=args.read_from_das)
 
 	if args.kill_all:
 		SKM.kill_all()
