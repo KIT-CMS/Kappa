@@ -3,8 +3,8 @@
 _GT="106X_mcRun2_asymptotic_v13"
 _NEVT=100
 _IS_DATA=false
-_GRID_PATH_PREFIX="root://cmsxrootd-redirectors.gridka.de:1094/"
-_FILE="/store/mc/RunIISummer19UL16MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v13-v2/260000/B02E2443-BEEB-C74C-BE30-78591017E528.root"
+_GRID_PATH_PREFIX="root://cms-xrd-global.cern.ch:1094/"
+_FILE="/store/mc/RunIISummer20UL16MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/Pilot_106X_mcRun2_asymptotic_v13-v3/10000/177B0345-BDDA-9F45-A568-A8E241B1D36E.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR

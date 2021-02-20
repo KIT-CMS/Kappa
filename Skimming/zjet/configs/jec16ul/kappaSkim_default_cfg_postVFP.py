@@ -275,7 +275,7 @@ process.kappaTuple.Muons.noPropagation = cms.bool(True)  # TODO: document this
 from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 setupEgammaPostRecoSeq(process,
                        runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
-                       era='2017-UL')    
+                       era='2016-UL-postVFP')
 
 process.path *= process.egammaPostRecoSeq
 
@@ -378,7 +378,7 @@ for _jet_algo_radius in ('ak4', 'ak8'):
                 "AK4PFCHSpileupJetIdEvaluator:fullId",
                 "QGTaggerAK4PFCHS:qgLikelihood",  # Tell KAPPA to extract qg-tags
                 "pfCombinedInclusiveSecondaryVertexV2BJetTags",  # Tell KAPPA to extract b-tags
-                "pfCombinedCvsLJetTags",  # Tell KAPPA to extract c-tags 
+                "pfCombinedCvsLJetTags",  # Tell KAPPA to extract c-tags
                 "pfCombinedCvsBJetTags",
             )
         # create jet sequence with jet toolbox
