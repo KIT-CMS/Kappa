@@ -1,10 +1,10 @@
 #!/bin/sh
 
-_GT="106X_dataRun2_v28"
+_GT="106X_dataRun2_v32"
 _NEVT=100
 _IS_DATA=true
 _GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
-_FILE="/store/data/Run2016B/DoubleMuon/MINIAOD/21Feb2020_ver2_UL2016_HIPM-v1/70000/9009BD72-B2AB-2D40-9E49-F4E3A6CA87A9.root"
+_FILE="/store/data/Run2016G/DoubleMuon/MINIAOD/21Feb2020_UL2016-v1/230000/0088A811-11AC-F54A-84F0-F68127844470.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR

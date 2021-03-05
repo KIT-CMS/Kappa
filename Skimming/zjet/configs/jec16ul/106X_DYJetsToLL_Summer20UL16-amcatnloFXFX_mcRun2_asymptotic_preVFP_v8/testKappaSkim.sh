@@ -1,10 +1,10 @@
 #!/bin/sh
 
-_GT="106X_mcRun2_asymptotic_preVFP_v8"
+_GT="106X_mcRun2_asymptotic_preVFP_v9"
 _NEVT=100
 _IS_DATA=false
 _GRID_PATH_PREFIX="root://cms-xrd-global.cern.ch:1094/"
-_FILE="/store/mc/RunIISummer20UL16MiniAODAPV/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/Pilot_106X_mcRun2_asymptotic_preVFP_v8-v1/110000/0B726466-AB8E-8941-89AA-D722E19BFC59.root"
+_FILE="/store/mc/RunIISummer20UL16MiniAODAPV/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v8-v1/270000/005A0B41-E01E-AC40-99FD-BB2D643BC8B9.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR
