@@ -506,7 +506,10 @@ class SkimManagerBase:
 				os.mkdir(os.path.join(self.workdir, 'gc_cfg', "filelists"))
 			filelistpath = os.path.join(self.workdir, 'gc_cfg', "filelists", akt_nick + '_filelist.dbs')
 			read_filelist_from_das(akt_nick,
-            self.skimdataset[akt_nick]['dbs'], filelistpath, False, "root://cms-xrd-global.cern.ch/")
+                                               self.skimdataset[akt_nick]['dbs'],
+                                               filelistpath,
+                                               self.skimdataset[akt_nick]['inputDBS'] == 'phys03',
+                                               "root://cms-xrd-global.cern.ch/")
 			gc_config['CMSSW']['dataset'] = akt_nick+" : list: " + os.path.join("filelists", akt_nick + '_filelist.dbs')
 		else:
 			gc_config['CMSSW']['dataset'] = akt_nick+" : "+self.skimdataset[akt_nick]['dbs']
