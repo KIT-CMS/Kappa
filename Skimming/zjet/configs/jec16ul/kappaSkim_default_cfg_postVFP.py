@@ -275,7 +275,7 @@ process.kappaTuple.Muons.noPropagation = cms.bool(True)  # TODO: document this
 from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 setupEgammaPostRecoSeq(process,
                        runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
-                       era='2016-UL-postVFP')
+                       era='2016postVFP-UL')
 
 process.path *= process.egammaPostRecoSeq
 

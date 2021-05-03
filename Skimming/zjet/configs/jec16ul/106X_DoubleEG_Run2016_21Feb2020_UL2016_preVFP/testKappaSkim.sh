@@ -13,7 +13,7 @@ echo "##########################################################################
 echo "STARTING cmsRun !!!!"
 echo "##############################################################################"
 
-cmsRun ../kappaSkim_default_cfg.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
+cmsRun ../kappaSkim_default_cfg_preVFP.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
                         globalTag=${_GT} \
                         isData=${_IS_DATA} \
                         outputFile=testKappaSkim_out_${_GT}.root \
