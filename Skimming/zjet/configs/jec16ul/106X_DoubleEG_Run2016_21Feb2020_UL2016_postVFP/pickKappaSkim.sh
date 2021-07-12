@@ -4,7 +4,7 @@ _GT="106X_dataRun2_v32"
 _NEVT=5
 _IS_DATA=true
 _GRID_PATH_PREFIX="file:"
-_FILE="/work/jec/pickevents_MINI_Run2016B_DoubleEG.root"
+_FILE="/work/jec/pickEvents_DoubleEG_2016G_MiniAOD.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR
@@ -13,7 +13,7 @@ echo "##########################################################################
 echo "STARTING cmsRun !!!!"
 echo "##############################################################################"
 
-cmsRun ../kappaSkim_default_cfg_preVFP.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
+cmsRun ../kappaSkim_default_cfg_postVFP.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
                         globalTag=${_GT} \
                         isData=${_IS_DATA} \
                         outputFile=pickKappaSkim_out_${_GT}.root \
