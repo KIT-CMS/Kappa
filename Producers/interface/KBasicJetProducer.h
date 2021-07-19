@@ -36,6 +36,7 @@ public:
 		out.electronFraction = in.electronEnergyFraction();
 		out.hfHadronFraction = in.HFHadronEnergyFraction();
 		out.hfEMFraction = in.HFEMEnergyFraction();
+		out.chargedEMFraction = in.chargedEmEnergyFraction();
 	}
 };
 

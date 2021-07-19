@@ -37,7 +37,7 @@ struct KBasicJet : public KLV
 	std::vector<float> corrections;
 
 	float neutralHadronFraction, chargedHadronFraction;
-	float muonFraction, photonFraction, electronFraction;
+	float muonFraction, photonFraction, electronFraction, chargedEMFraction;
 	float hfHadronFraction, hfEMFraction;
 
 	int nConstituents, nCharged;
