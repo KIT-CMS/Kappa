@@ -21,8 +21,15 @@ git clone git@github.com:cms-data/EgammaAnalysis-ElectronTools.git EgammaAnalysi
 # EGamma-POG
 # https://twiki.cern.ch/twiki/bin/view/CMS/EgammaMiniAODV2, https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPostRecoRecipes
 # The 2018 MiniAOD includes the Fall17V2 IDs for electrons but not for photons.
-git cms-merge-topic cms-egamma:EgammaPostRecoTools # just adds in an extra file to have a setup function to make things easier
 git cms-merge-topic cms-egamma:slava77-btvDictFix_10210 # fixes the Run2018D dictionary issue, see https://github.com/cms-sw/cmssw/issues/26182, may not be necessary for later releases
+
+scram b -j $CORES
+git clone git@github.com:cms-egamma/EgammaPostRecoTools.git  EgammaUser/EgammaPostRecoTools
+cd  EgammaUser/EgammaPostRecoTools
+git checkout master
+cd -
+echo $CMSSW_BASE
+cd $CMSSW_BASE/src
 
 ### Analysis group related software (ntuplizer, skimming, private MiniAOD, etc.) ###
 

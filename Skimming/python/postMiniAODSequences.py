@@ -160,7 +160,7 @@ def create_postMiniAODSequences(year,dataset_type):
     process.p *= process.ecalBadCalibReducedMINIAODFilter
 
     # Electrons
-    from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
+    from EgammaUser.EgammaPostRecoTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
     setupEgammaPostRecoSeq(
         process,
         runVID=True,
