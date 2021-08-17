@@ -215,7 +215,8 @@ def create_postMiniAODSequences(year,dataset_type):
         isData = isData or isEmbedded,
         metType = "Puppi",
         jetFlavor = "AK4PFPuppi",
-        postfix = "Puppi"
+        postfix = "Puppi",
+        isEmbeddedSample = isEmbedded
         )
 
     process.puppiNoLep.useExistingWeights = True

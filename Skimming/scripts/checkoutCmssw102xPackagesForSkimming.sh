@@ -11,6 +11,8 @@ eval `scramv1 runtime -sh`
 
 git cms-init
 
+git cms-merge-topic KIT-CMS:embedded_metcov_fix
+
 ### Add-packages ###
 git cms-addpkg EgammaAnalysis/ElectronTools
 rm EgammaAnalysis/ElectronTools/data -rf
