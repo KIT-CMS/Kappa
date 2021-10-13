@@ -4,7 +4,7 @@ _GT="106X_mc2017_realistic_v6"
 _NEVT=100
 _IS_DATA=false
 _GRID_PATH_PREFIX="root://cmsxrootd-redirectors.gridka.de:1094/"
-_FILE="/store/mc/RunIISummer19UL17MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mc2017_realistic_v6-v2/70000/FBC4E43E-2C35-974A-84C9-29AD0430BD39.root"
+_FILE=""
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR
