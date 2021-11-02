@@ -1,10 +1,10 @@
 #!/bin/sh
 
-_GT="106X_mc2017_realistic_v6"
+_GT="106X_dataRun2_v33"
 _NEVT=100
-_IS_DATA=false
-_GRID_PATH_PREFIX="root://cmsxrootd-redirectors.gridka.de:1094/"
-_FILE="/store/mc/RunIISummer19UL17MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mc2017_realistic_v6-v2/70000/FBC4E43E-2C35-974A-84C9-29AD0430BD39.root"
+_IS_DATA=true
+_GRID_PATH_PREFIX="root://cms-xrd-global.cern.ch/"
+_FILE="/store/data/Run2017B/DoubleMuon/MINIAOD/UL2017_MiniAODv2-v1/260000/BCEAEFEC-D8AA-B34D-A87A-B911AA59BFA1.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR
@@ -39,4 +39,3 @@ fi
 if [ -f testKappaSkim_out_${_GT}_numEvent${_NEVT}.root ]; then
     mv testKappaSkim_out_${_GT}_numEvent${_NEVT}.root $_DIR/
 fi
-
