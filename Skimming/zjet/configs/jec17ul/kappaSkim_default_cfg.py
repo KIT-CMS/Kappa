@@ -477,7 +477,8 @@ process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi
 # -- activate KAPPA producers
 process.kappaTuple.active += cms.vstring('PatMET')
 
-
+# -- add Filter manually...
+process.load('RecoMET.METFilters.BadPFMuonDzFilter_cfi')
 
 ################
 # Kappa Output #
