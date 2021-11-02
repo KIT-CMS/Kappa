@@ -271,13 +271,14 @@ process.kappaTuple.Muons.noPropagation = cms.bool(True)  # TODO: document this
 #######################
 # Configure Electrons #
 #######################
-
+"""
 from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 setupEgammaPostRecoSeq(process,
                        runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
                        era='2016postVFP-UL')
 
 process.path *= process.egammaPostRecoSeq
+"""
 
 from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
 
@@ -475,8 +476,6 @@ process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi
 
 # -- activate KAPPA producers
 process.kappaTuple.active += cms.vstring('PatMET')
-
-
 
 ################
 # Kappa Output #
