@@ -1,6 +1,12 @@
 #!/bin/bash
 # get path of script directory
-SCRIPT_DIRECTORY=$(dirname ${BASH_SOURCE[0]})
+if [ ! -z "$ZSH_VERSION" ]; then
+    this_file="${(%):-%x}"
+else
+    this_file="${BASH_SOURCE[0]}"
+fi
+
+SCRIPT_DIRECTORY=$(dirname ${this_file})
 DIRECTORY_PATH=$(readlink -f ${SCRIPT_DIRECTORY})
 
 echo "Set up user specific Kappa settings!"
