@@ -1,10 +1,10 @@
 #!/bin/sh
 
-_GT="106X_dataRun2_v35"
-_NEVT=1000
-_IS_DATA=true
+_GT="106X_upgrade2018_realistic_v16_L1v1"
+_NEVT=100
+_IS_DATA=false
 _GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
-_FILE="/store/data/Run2018A/SingleMuon/MINIAOD/UL2018_MiniAODv2-v2/120000/0481F84F-6CC0-1846-93BC-B6065B9BDD7E.root"
+_FILE="/store/mc/RunIISummer20UL18MiniAODv2/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_upgrade2018_realistic_v16_L1v1-v2/2430000/034060A6-25E5-7E4B-A047-7E0794F45E9B.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR

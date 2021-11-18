@@ -474,8 +474,8 @@ process.kappaTuple.active += cms.vstring('PatJets')
 if not options.isData:
     process.kappaTuple.active += cms.vstring('LV')
     # write out 'ak*GenJetsNoNu' four-vectors
-    process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
-    process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
+    #process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
+    #process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
     process.kappaTuple.LV.ak4GenJets = cms.PSet(src=cms.InputTag("slimmedGenJets"))
     process.kappaTuple.LV.ak8GenJets = cms.PSet(src=cms.InputTag("slimmedGenJetsAK8"))
 
