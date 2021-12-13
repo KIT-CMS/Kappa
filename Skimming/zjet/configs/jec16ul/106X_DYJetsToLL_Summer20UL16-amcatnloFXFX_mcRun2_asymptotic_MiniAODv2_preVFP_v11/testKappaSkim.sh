@@ -1,6 +1,6 @@
 #!/bin/sh
 
-_GT="106X_mcRun2_asymptotic_v11"
+_GT="106X_mcRun2_asymptotic_preVFP_v11"
 _NEVT=100
 _IS_DATA=false
 _GRID_PATH_PREFIX="root://cms-xrd-global.cern.ch:1094/"
