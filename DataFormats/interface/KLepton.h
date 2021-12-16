@@ -43,11 +43,6 @@ struct KLepton : public KLV
 	float sumNeutralHadronEt;  //< sum Et of neutral hadrons for isolation
 	float sumPhotonEt;         //< sum Et of photons for isolation
 	float sumPUPt;             //< sum pt of pile-up for isolation
-	float sumChargedHadronPtR04;  //< sum pt of charged hadrons for isolation
-	float sumNeutralHadronEtR04;  //< sum Et of neutral hadrons for isolation
-	float sumPhotonEtR04;         //< sum Et of photons for isolation
-	float sumPUPtR04;             //< sum pt of pile-up for isolation
-//	float sumChargedAllPt;     //< sum pt of charged hadrons for isolation // TODO: not filled. Remove for next dictchange
 	float dz;                  //< impact parameter in z direction
 	float dxy;                 //< impact parameter in transverse plane
 	KTrack track;              //< (main) track of the lepton (e: GSF, mu: inner, tau: lead. PF candidate)
@@ -82,14 +77,6 @@ struct KLepton : public KLV
 			sumNeutralHadronEt + sumPhotonEt - puFraction * sumPUPt);
 	}
 
-    // PF Isolateion for Run 2 with cone size 0.4
-	inline float pfIsoR04(const float puFraction=0.5) const
-	{
-		return sumChargedHadronPtR04 + std::max(0.0f,
-			sumNeutralHadronEtR04 + sumPhotonEtR04 - puFraction * sumPUPtR04);
-	}
-
-	
 	// (signed) PDG ID
 	int pdgId() const
 	{

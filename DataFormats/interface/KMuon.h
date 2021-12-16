@@ -123,6 +123,13 @@ struct KMuon : public KLepton
 			sumNeutralHadronEtHighThreshold + sumPhotonEtHighThreshold - puFraction * sumPUPt);
 	}
 
+	// PF Isolation for Run 2 with cone size 0.4
+	inline float pfIsoR04(const float puFraction=0.5) const
+	{
+		return sumChargedHadronPtR04 + std::max(0.0f,
+		    sumNeutralHadronEtR04 + sumPhotonEtR04 - puFraction * sumPUPtR04);
+	}
+
 	/// returns whether a given HLT fired
 	/** the information is read from the metadata
 		@param hltName Name of the HLT
