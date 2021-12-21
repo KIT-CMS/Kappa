@@ -191,6 +191,18 @@ if options.isData:
 else:
     process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 
+# add BadPFMuonDzFilter as BadPFMuonFilterUpdateDz (see: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Recipe_for_BadPFMuonDz_filter_in)
+from RecoMET.METFilters.BadPFMuonDzFilter_cfi import BadPFMuonDzFilter
+process.BadPFMuonFilterUpdateDz=BadPFMuonDzFilter.clone(
+        muons = cms.InputTag("slimmedMuons"),
+        vtx   = cms.InputTag("offlineSlimmedPrimaryVertices"),
+        PFCandidates = cms.InputTag("packedPFCandidates"),
+        minDzBestTrack = cms.double(0.5),
+        taggingMode    = cms.bool(True)
+        )
+process.kappaTuple.TriggerObjectStandalone.metfilterbitslist = cms.vstring("BadPFMuonFilterUpdateDz")
+process.path *= process.BadPFMuonFilterUpdateDz
+
 
 # write out HLT information for trigger names matching regex
 process.kappaTuple.Info.hltWhitelist = cms.vstring(
@@ -476,9 +488,6 @@ process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi
 
 # -- activate KAPPA producers
 process.kappaTuple.active += cms.vstring('PatMET')
-
-# -- add Filter manually...
-process.load('RecoMET.METFilters.BadPFMuonDzFilter_cfi')
 
 ################
 # Kappa Output #
