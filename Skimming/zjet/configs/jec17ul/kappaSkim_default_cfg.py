@@ -191,6 +191,18 @@ if options.isData:
 else:
     process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 
+# add BadPFMuonDzFilter as BadPFMuonFilterUpdateDz (see: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Recipe_for_BadPFMuonDz_filter_in)
+from RecoMET.METFilters.BadPFMuonDzFilter_cfi import BadPFMuonDzFilter
+process.BadPFMuonFilterUpdateDz=BadPFMuonDzFilter.clone(
+        muons = cms.InputTag("slimmedMuons"),
+        vtx   = cms.InputTag("offlineSlimmedPrimaryVertices"),
+        PFCandidates = cms.InputTag("packedPFCandidates"),
+        minDzBestTrack = cms.double(0.5),
+        taggingMode    = cms.bool(True)
+        )
+process.kappaTuple.TriggerObjectStandalone.metfilterbitslist = cms.vstring("BadPFMuonFilterUpdateDz")
+process.path *= process.BadPFMuonFilterUpdateDz
+
 
 # write out HLT information for trigger names matching regex
 process.kappaTuple.Info.hltWhitelist = cms.vstring(
@@ -271,14 +283,14 @@ process.kappaTuple.Muons.noPropagation = cms.bool(True)  # TODO: document this
 #######################
 # Configure Electrons #
 #######################
-"""
+
 from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 setupEgammaPostRecoSeq(process,
-                       runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
+                       runVID=True, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
                        era='2017-UL')    
 
 process.path *= process.egammaPostRecoSeq
-"""
+
 
 from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
 
@@ -478,7 +490,7 @@ process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi
 process.kappaTuple.active += cms.vstring('PatMET')
 
 # -- add Filter manually...
-process.load('RecoMET.METFilters.BadPFMuonDzFilter_cfi')
+process.load('RecoMET.METFilters.BadPFMuonDzFilter_cfi')  # Thats not enough
 
 ################
 # Kappa Output #
