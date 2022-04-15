@@ -29,7 +29,7 @@ register_option('isData',
                 type_=bool,
                 description="True if sample is data, False if Monte Carlo (default: True)")
 register_option('globalTag',
-                default='fixmeifUcan',
+                default='106X_dataRun2_v35',
                 type_=str,
                 description='Global tag')
 register_option('reportEvery',
@@ -174,7 +174,6 @@ process.kappaOut = cms.Sequence(process.kappaTuple)
 # -- configure KAPPA trigger object
 process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
 
-# CMSSW 94X -> trigger object is 'slimmedPatTrigger'
 process.kappaTuple.TriggerObjectStandalone.triggerObjects = cms.PSet(
     src=cms.InputTag("slimmedPatTrigger")
 )
@@ -230,6 +229,15 @@ if options.isData:
     # need path to effectively veto affected events (even in unscheduled mode)
     process.path *= (process.pfFilter)
 
+
+#################
+# PF Candidates #
+#################
+
+process.kappaTuple.active += cms.vstring('packedPFCandidates')
+process.kappaTuple.packedPFCandidates.pfCandidates = cms.PSet(
+    src=cms.InputTag("packedPFCandidates")
+)
 
 ####################
 # Primary Vertices #
@@ -361,6 +369,7 @@ process.kappaTuple.Electrons.userFloats = cms.VInputTag(
 # process.kappaTask.add(process.egmGsfElectronIDTask)
 
 
+'''
 ######################
 # Configure JTB Jets #
 ######################
@@ -439,7 +448,18 @@ for _jet_radius in (4, 8):
         _jet_collection_name = "ak%sGenJetsNoNu" % (_jet_radius)
         # GenJets are just KLVs: add collection to whitelist
         process.kappaTuple.LV.whitelist += cms.vstring(_jet_collection_name)
+'''
 
+
+from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection 
+
+# skim 'out-of-the-box' MiniAOD AK4 jets (uncorrect JECs)
+updateJetCollection(process, 
+        jetSource = cms.InputTag('slimmedJets'),
+        labelName = 'NoJEC',
+        jetCorrections = ('AK4PFchs', cms.vstring([]), 'None')
+        )
+process.kappaTuple.PatJets.ak4PFJetsCHS = cms.PSet(src=cms.InputTag("updatedPatJetsNoJEC"))
 
 # -- activate KAPPA producers
 
@@ -451,9 +471,10 @@ process.kappaTuple.active += cms.vstring('PatJets')
 if not options.isData:
     process.kappaTuple.active += cms.vstring('LV')
     # write out 'ak*GenJetsNoNu' four-vectors
-    process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
-    process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
-
+    #process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
+    #process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
+    process.kappaTuple.LV.ak4GenJets = cms.PSet(src=cms.InputTag("slimmedGenJets"))
+    #process.kappaTuple.LV.ak8GenJets = cms.PSet(src=cms.InputTag("slimmedGenJetsAK8"))
 #######################
 # PileupDensity (rho) #
 #######################
@@ -462,6 +483,7 @@ process.kappaTuple.active += cms.vstring('PileupDensity')
 process.kappaTuple.PileupDensity.whitelist = cms.vstring("fixedGridRhoFastjetAll")
 process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll => pileupDensity")
 
+"""
 #################
 # Configure MET #
 #################
@@ -480,6 +502,7 @@ runMetCorAndUncFromMiniAOD(process, isData=options.isData)
 
 
 # -- end of MET recipe
+"""
 
 # wire miniAOD METs to collection from the "KAPPA" process
 process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs"), correctionLevel=cms.string('Raw'))
@@ -560,12 +583,12 @@ if options.edmOut:  # only for testing
 
 # associate all modules in kappaTask to the end path
 process.endpath.associate(process.kappaTask)
+process.endpath.associate(process.patAlgosToolsTask)
 
 # for debugging: dump entire cmsRun python configuration
 if options.dumpPython:
     with open('.'.join(options.outputFile.split('.')[:-1]) + '_dump.py', 'w') as f:
             f.write(process.dumpPython())
-    # sys.exit(1)
 
 def _print_path_info(path):
     assert isinstance(path, cms.Path) or isinstance(path, cms.EndPath)
