@@ -250,7 +250,7 @@ process.load("Kappa.Skimming.KMuons_miniAOD_cff")
 process.kappaTuple.active += cms.vstring('Muons')
 
 # -- set basic skimming parameters
-process.kappaTuple.Muons.minPt = 8.0
+process.kappaTuple.Muons.minPt = 5.0
 process.kappaTuple.Muons.muons.src = cms.InputTag("slimmedMuons")
 process.kappaTuple.Muons.muons.vertexcollection = cms.InputTag("offlineSlimmedPrimaryVertices")
 
