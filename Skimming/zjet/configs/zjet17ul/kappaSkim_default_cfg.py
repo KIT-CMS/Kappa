@@ -81,7 +81,7 @@ if os.getenv("GC_VERSION"):
 
 from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process("KAPPA", eras.Run2_2018)
+process = cms.Process("KAPPA", eras.Run2_2017)
 
 # some CMSSW analysis modules will be added to the path
 process.path = cms.Path()
@@ -282,7 +282,7 @@ process.kappaTuple.Muons.noPropagation = cms.bool(True)  # TODO: document this
 # from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 # setupEgammaPostRecoSeq(process,
 #                        runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
-#                        era='2018-UL')    
+#                        era='2017-UL')    
 # 
 # process.path *= process.egammaPostRecoSeq
 
