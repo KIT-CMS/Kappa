@@ -191,6 +191,17 @@ if options.isData:
 else:
     process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
 
+# add BadPFMuonDzFilter as BadPFMuonFilterUpdateDz (see: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Recipe_for_BadPFMuonDz_filter_in)
+from RecoMET.METFilters.BadPFMuonDzFilter_cfi import BadPFMuonDzFilter
+process.BadPFMuonFilterUpdateDz=BadPFMuonDzFilter.clone(
+        muons = cms.InputTag("slimmedMuons"),
+        vtx   = cms.InputTag("offlineSlimmedPrimaryVertices"),
+        PFCandidates = cms.InputTag("packedPFCandidates"),
+        minDzBestTrack = cms.double(0.5),
+        taggingMode    = cms.bool(True)
+        )
+process.kappaTuple.TriggerObjectStandalone.metfilterbitslist = cms.vstring("BadPFMuonFilterUpdateDz")
+process.path *= process.BadPFMuonFilterUpdateDz
 
 # write out HLT information for trigger names matching regex
 process.kappaTuple.Info.hltWhitelist = cms.vstring(
@@ -218,6 +229,14 @@ if options.isData:
     # need path to effectively veto affected events (even in unscheduled mode)
     process.path *= (process.pfFilter)
 
+#################
+# PF Candidates #
+#################
+
+process.kappaTuple.active += cms.vstring('packedPFCandidates')
+process.kappaTuple.packedPFCandidates.pfCandidates = cms.PSet(
+    src=cms.InputTag("packedPFCandidates")
+)
 
 ####################
 # Primary Vertices #
@@ -348,6 +367,7 @@ process.kappaTuple.Electrons.userFloats = cms.VInputTag(
 # process.kappaTask.add(process.egmGsfElectronIDTask)
 
 
+'''
 ######################
 # Configure JTB Jets #
 ######################
@@ -426,7 +446,17 @@ for _jet_radius in (4, 8):
         _jet_collection_name = "ak%sGenJetsNoNu" % (_jet_radius)
         # GenJets are just KLVs: add collection to whitelist
         process.kappaTuple.LV.whitelist += cms.vstring(_jet_collection_name)
+'''
 
+from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection 
+
+# skim 'out-of-the-box' MiniAOD AK4 jets (uncorrect JECs)
+updateJetCollection(process, 
+        jetSource = cms.InputTag('slimmedJets'),
+        labelName = 'NoJEC',
+        jetCorrections = ('AK4PFchs', cms.vstring([]), 'None')
+        )
+process.kappaTuple.PatJets.ak4PFJetsCHS = cms.PSet(src=cms.InputTag("updatedPatJetsNoJEC"))
 
 # -- activate KAPPA producers
 
@@ -438,8 +468,9 @@ process.kappaTuple.active += cms.vstring('PatJets')
 if not options.isData:
     process.kappaTuple.active += cms.vstring('LV')
     # write out 'ak*GenJetsNoNu' four-vectors
-    process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
-    process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
+    # process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
+    # process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
+    process.kappaTuple.LV.ak4GenJets = cms.PSet(src=cms.InputTag("slimmedGenJets"))
 
 #######################
 # PileupDensity (rho) #
@@ -549,6 +580,7 @@ if options.edmOut:  # only for testing
 
 # associate all modules in kappaTask to the end path
 process.endpath.associate(process.kappaTask)
+process.endpath.associate(process.patAlgosToolsTask)
 
 # for debugging: dump entire cmsRun python configuration
 if options.dumpPython:

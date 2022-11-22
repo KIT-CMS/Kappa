@@ -1,10 +1,10 @@
 #!/bin/sh
 
-_GT="106X_mcRun2_asymptotic_v15"
+_GT="106X_mcRun2_asymptotic_preVFP_v11"
 _NEVT=100
 _IS_DATA=false
-_GRID_PATH_PREFIX="root://cms-xrd-global.cern.ch:1094/"
-_FILE="/store/mc/RunIISummer20UL16MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v13-v2/260000/003F1A76-9CDA-7644-A34E-923C4B1C0E5E.root"
+_GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
+_FILE="/store/mc/RunIISummer20UL16MiniAODAPVv2/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/120000/008E4139-6019-CE4C-B83C-A849F56F57B3.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR
@@ -13,7 +13,7 @@ echo "##########################################################################
 echo "STARTING cmsRun !!!!"
 echo "##############################################################################"
 
-cmsRun ../kappaSkim_default_cfg.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
+cmsRun ../kappaSkim_default_cfg_preVFP.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
                         globalTag=${_GT} \
                         isData=${_IS_DATA} \
                         outputFile=testKappaSkim_out_${_GT}.root \
@@ -39,4 +39,3 @@ fi
 if [ -f testKappaSkim_out_${_GT}_numEvent${_NEVT}.root ]; then
     mv testKappaSkim_out_${_GT}_numEvent${_NEVT}.root $_DIR/
 fi
-

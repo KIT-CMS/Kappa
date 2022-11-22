@@ -1,10 +1,10 @@
 #!/bin/sh
 
-_GT="106X_dataRun2_v32"
+_GT="106X_dataRun2_v35"
 _NEVT=100
 _IS_DATA=true
-_GRID_PATH_PREFIX="root://cmsxrootd-redirectors.gridka.de:1094/"
-_FILE="/store/data/Run2016G/DoubleEG/MINIAOD/21Feb2020_UL2016-v1/10000/06B49F24-7B97-A148-B0C7-1CE8362D2E12.root"
+_GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
+_FILE="/store/data/Run2016H/DoubleMuon/MINIAOD/UL2016_MiniAODv2-v2/100000/018ED927-C4F0-0640-A88C-019CDAD804C1.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR
