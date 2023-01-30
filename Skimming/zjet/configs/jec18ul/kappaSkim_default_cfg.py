@@ -174,7 +174,6 @@ process.kappaOut = cms.Sequence(process.kappaTuple)
 # -- configure KAPPA trigger object
 process.kappaTuple.active += cms.vstring('TriggerObjectStandalone')
 
-# CMSSW 94X -> trigger object is 'slimmedPatTrigger'
 process.kappaTuple.TriggerObjectStandalone.triggerObjects = cms.PSet(
     src=cms.InputTag("slimmedPatTrigger")
 )
@@ -190,6 +189,18 @@ if options.isData:
     process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "RECO")
 else:
     process.kappaTuple.TriggerObjectStandalone.metfilterbits = cms.InputTag("TriggerResults", "", "PAT")
+
+# add BadPFMuonDzFilter as BadPFMuonFilterUpdateDz (see: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Recipe_for_BadPFMuonDz_filter_in)
+from RecoMET.METFilters.BadPFMuonDzFilter_cfi import BadPFMuonDzFilter
+process.BadPFMuonFilterUpdateDz=BadPFMuonDzFilter.clone(
+        muons = cms.InputTag("slimmedMuons"),
+        vtx   = cms.InputTag("offlineSlimmedPrimaryVertices"),
+        PFCandidates = cms.InputTag("packedPFCandidates"),
+        minDzBestTrack = cms.double(0.5),
+        taggingMode    = cms.bool(True)
+        )
+process.kappaTuple.TriggerObjectStandalone.metfilterbitslist = cms.vstring("BadPFMuonFilterUpdateDz")
+process.path *= process.BadPFMuonFilterUpdateDz
 
 
 # write out HLT information for trigger names matching regex
@@ -218,6 +229,15 @@ if options.isData:
     # need path to effectively veto affected events (even in unscheduled mode)
     process.path *= (process.pfFilter)
 
+
+#################
+# PF Candidates #
+#################
+
+process.kappaTuple.active += cms.vstring('packedPFCandidates')
+process.kappaTuple.packedPFCandidates.pfCandidates = cms.PSet(
+    src=cms.InputTag("packedPFCandidates")
+)
 
 ####################
 # Primary Vertices #
@@ -271,13 +291,14 @@ process.kappaTuple.Muons.noPropagation = cms.bool(True)  # TODO: document this
 #######################
 # Configure Electrons #
 #######################
-
+"""
 from RecoEgamma.EgammaTools.EgammaPostRecoTools import setupEgammaPostRecoSeq
 setupEgammaPostRecoSeq(process,
                        runVID=False, #saves CPU time by not needlessly re-running VID, if you want the Fall17V2 IDs, set this to True or remove (default is True)
                        era='2018-UL')    
 
 process.path *= process.egammaPostRecoSeq
+"""
 
 from Kappa.Skimming.KElectrons_miniAOD_cff import setupElectrons
 
@@ -348,6 +369,7 @@ process.kappaTuple.Electrons.userFloats = cms.VInputTag(
 # process.kappaTask.add(process.egmGsfElectronIDTask)
 
 
+'''
 ######################
 # Configure JTB Jets #
 ######################
@@ -426,7 +448,18 @@ for _jet_radius in (4, 8):
         _jet_collection_name = "ak%sGenJetsNoNu" % (_jet_radius)
         # GenJets are just KLVs: add collection to whitelist
         process.kappaTuple.LV.whitelist += cms.vstring(_jet_collection_name)
+'''
 
+
+from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection
+
+# skim 'out-of-the-box' MiniAOD AK4 jets (uncorrect JECs)
+updateJetCollection(process,
+        jetSource = cms.InputTag('slimmedJets'),
+        labelName = 'NoJEC',
+        jetCorrections = ('AK4PFchs', cms.vstring([]), 'None')
+        )
+process.kappaTuple.PatJets.ak4PFJetsCHS = cms.PSet(src=cms.InputTag("updatedPatJetsNoJEC"))
 
 # -- activate KAPPA producers
 
@@ -438,9 +471,9 @@ process.kappaTuple.active += cms.vstring('PatJets')
 if not options.isData:
     process.kappaTuple.active += cms.vstring('LV')
     # write out 'ak*GenJetsNoNu' four-vectors
-    process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
-    process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
-
+    # process.kappaTuple.LV.ak4GenJetsNoNu = cms.PSet(src=cms.InputTag("ak4GenJetsNoNu"))
+    # process.kappaTuple.LV.ak8GenJetsNoNu = cms.PSet(src=cms.InputTag("ak8GenJetsNoNu"))
+    process.kappaTuple.LV.ak4GenJets = cms.PSet(src=cms.InputTag("slimmedGenJets"))
 #######################
 # PileupDensity (rho) #
 #######################
@@ -449,6 +482,7 @@ process.kappaTuple.active += cms.vstring('PileupDensity')
 process.kappaTuple.PileupDensity.whitelist = cms.vstring("fixedGridRhoFastjetAll")
 process.kappaTuple.PileupDensity.rename = cms.vstring("fixedGridRhoFastjetAll => pileupDensity")
 
+'''
 #################
 # Configure MET #
 #################
@@ -467,6 +501,7 @@ runMetCorAndUncFromMiniAOD(process, isData=options.isData)
 
 
 # -- end of MET recipe
+'''
 
 # wire miniAOD METs to collection from the "KAPPA" process
 process.kappaTuple.PatMET.metPF = cms.PSet(src=cms.InputTag("slimmedMETs"), correctionLevel=cms.string('Raw'))
@@ -475,8 +510,6 @@ process.kappaTuple.PatMET.metPuppi = cms.PSet(src=cms.InputTag("slimmedMETsPuppi
 
 # -- activate KAPPA producers
 process.kappaTuple.active += cms.vstring('PatMET')
-
-
 
 ################
 # Kappa Output #
@@ -549,12 +582,12 @@ if options.edmOut:  # only for testing
 
 # associate all modules in kappaTask to the end path
 process.endpath.associate(process.kappaTask)
+process.endpath.associate(process.patAlgosToolsTask)
 
 # for debugging: dump entire cmsRun python configuration
 if options.dumpPython:
     with open('.'.join(options.outputFile.split('.')[:-1]) + '_dump.py', 'w') as f:
             f.write(process.dumpPython())
-    # sys.exit(1)
 
 def _print_path_info(path):
     assert isinstance(path, cms.Path) or isinstance(path, cms.EndPath)
