@@ -29,7 +29,7 @@ register_option('isData',
                 type_=bool,
                 description="True if sample is data, False if Monte Carlo (default: True)")
 register_option('globalTag',
-                default='106X_dataRun2_v35',
+                default='106X_dataRun2_v37',
                 type_=str,
                 description='Global tag')
 register_option('reportEvery',
@@ -81,7 +81,7 @@ if os.getenv("GC_VERSION"):
 
 from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process("KAPPA", eras.Run2_2016)
+process = cms.Process("KAPPA", eras.Run2_2016_HIPM)
 
 # some CMSSW analysis modules will be added to the path
 process.path = cms.Path()
@@ -355,7 +355,6 @@ process.kappaTuple.Electrons.userFloats = cms.VInputTag(
 # process.kappaTask.add(process.egmGsfElectronIDTask)
 '''
 
-'''
 ######################
 # Configure JTB Jets #
 ######################
@@ -366,54 +365,59 @@ from JMEAnalysis.JetToolbox.jetToolbox_cff import jetToolbox
 
 # -- set basic skimming parameters
 process.kappaTuple.Jets.minPt = 5.0
-# process.kappaTuple.Jets.taggers = cms.vstring()  # TODO: do we need this?
 
 # -- set up jet toolbox jets
-
 jtb_sequence_name = 'sequence'
 
 # go through all combinations of jet radius and PU subtraction algorithms
 for _jet_algo_radius in ('ak4', 'ak8'):
-    for _PU_method in ("", "CHS", "Puppi"):
+    for _PU_method in ("CHS", "Puppi"):
         _seq_name = "{}{}{}".format(jtb_sequence_name, _jet_algo_radius, _PU_method)
-
-        # calculate and evaluate PUJetID only for ak4CHS jets (TODO: do we need this?)
-        _do_PUJetID = False
-        _do_CTagger = False
-        if _jet_algo_radius == 'ak4' and _PU_method == "CHS":
-            _do_PUJetID = True
-            _do_CTagger = True
-            process.kappaTuple.PatJets.ids = cms.vstring(
-                "AK4PFCHSpileupJetIdEvaluator:fullDiscriminant",  # Tell KAPPA to get PuJetID from JetToolBox instead of slimmedJets
-                "AK4PFCHSpileupJetIdEvaluator:cutbasedId",
-                "AK4PFCHSpileupJetIdEvaluator:fullId",
-                "QGTaggerAK4PFCHS:qgLikelihood",  # Tell KAPPA to extract qg-tags
-                "pfCombinedInclusiveSecondaryVertexV2BJetTags",  # Tell KAPPA to extract b-tags
-                "pfCombinedCvsLJetTags",  # Tell KAPPA to extract c-tags 
-                "pfCombinedCvsBJetTags",
-            )
+        JETCorrPayload = (_jet_algo_radius+"PF"+_PU_method).upper()
         # create jet sequence with jet toolbox
         jetToolbox(process,
                    _jet_algo_radius,
                    _seq_name,
-                   'out',
-                   dataTier='miniAOD',
+                   'noOutput',
                    runOnMC=not options.isData,
+                   # JETCorrPayload=JETCorrPayload,
                    JETCorrPayload="None",  # do *not* correct jets with JEC
-                   #JETCorrLevels=['L1FastJet', 'L2Relative', 'L3Absolute', 'L2L3Residual'],
-                   PUMethod=_PU_method,    # PU subtraction method
-                   addPruning=False,
-                   addSoftDrop=False,
-                   addPrunedSubjets=False,
-                   addNsub=False,
-                   maxTau=6,
-                   addTrimming=False,
-                   addFiltering=False,
-                   addNsubSubjets=False,
-                   addPUJetID=_do_PUJetID,
-                   addQGTagger=_do_CTagger,
+                   PUMethod=_PU_method,
                    verbosity=3)
+        # Completetly re-derive PileUpJetID, broken otherwise
+        if _jet_algo_radius == 'ak4' and _PU_method == "CHS":
+            from RecoJets.JetProducers.PileupJetID_cfi import pileupJetId, _chsalgos_106X_UL16APV
+            updatedPileUpJetID = pileupJetId.clone(
+                jets=cms.InputTag("ak4PFJetsCHS"),
+                inputIsCorrected=False,
+                applyJec=True,
+                vertexes=cms.InputTag("offlineSlimmedPrimaryVertices"),
+                algos=cms.VPSet(_chsalgos_106X_UL16APV),
+            )
+            from PhysicsTools.PatAlgos.tools.helpers import getPatAlgosToolsTask, addToProcessAndTask
+            task = getPatAlgosToolsTask(process)
+            addToProcessAndTask("pileupJetIdUpdated", updatedPileUpJetID, process, task)
+            getattr(process, "patJetsAK4PFCHS").userData.userFloats.src += [
+                "pileupJetIdUpdated:fullDiscriminant",
+            ]
+            getattr(process, "patJetsAK4PFCHS").userData.userInts.src += [
+                "pileupJetIdUpdated:cutbasedId",
+                "pileupJetIdUpdated:fullId",
+            ]
 
+            # Add PuJetID to Kappa
+            process.kappaTuple.PatJets.ids = cms.vstring(
+                "pileupJetIdUpdated:fullDiscriminant",
+                "pileupJetIdUpdated:cutbasedId",
+                "pileupJetIdUpdated:fullId",
+            )
+
+process.kappaTuple.PatJets.ak4PFJetsCHS = cms.PSet(src=cms.InputTag("patJetsAK4PFCHS"))
+process.kappaTuple.PatJets.ak4PFJetsPuppi = cms.PSet(src=cms.InputTag("patJetsAK4PFPuppi"))
+process.kappaTuple.PatJets.ak8PFJetsCHS = cms.PSet(src=cms.InputTag("patJetsAK8PFCHS"))
+process.kappaTuple.PatJets.ak8PFJetsPuppi = cms.PSet(src=cms.InputTag("patJetsAK8PFPuppi"))
+
+"""
 ######################
 # Configure PAT Jets #
 ######################
@@ -437,33 +441,7 @@ for _jet_radius in (4, 8):
         _jet_collection_name = "ak%sGenJetsNoNu" % (_jet_radius)
         # GenJets are just KLVs: add collection to whitelist
         process.kappaTuple.LV.whitelist += cms.vstring(_jet_collection_name)
-'''
-from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection
-
-# skim 'out-of-the-box' MiniAOD AK4 jets (uncorrect JECs)
-updateJetCollection(process,
-   jetSource = cms.InputTag('slimmedJets'),
-   labelName = 'NoJEC',
-   jetCorrections = ('AK4PFchs', cms.vstring([]), 'None')
-)
-process.kappaTuple.PatJets.ak4PFJetsCHS = cms.PSet(src=cms.InputTag("updatedPatJetsNoJEC"))
-
-# NOTE: doesn't work, gives error 'This PAT jet was not made from a JPTJet nor from PFJet'
-## skim 'out-of-the-box' MiniAOD AK8 jets (uncorrect JECs)
-#updateJetCollection(process,
-#   jetSource = cms.InputTag('slimmedJetsAK8'),
-#   labelName = 'NoJECAK8',
-#   jetCorrections = ('AK8PFchs', cms.vstring([]), 'None')
-#)
-#process.kappaTuple.PatJets.ak8PFJetsCHS = cms.PSet(src=cms.InputTag("updatedPatJetsNoJECAK8"))
-
-# skim 'out-of-the-box' MiniAOD AK4 Puppi jets (uncorrect JECs)
-updateJetCollection(process,
-   jetSource = cms.InputTag('slimmedJetsPuppi'),
-   labelName = 'NoJECPuppi',
-   jetCorrections = ('AK4PFPuppi', cms.vstring([]), 'None')
-)
-process.kappaTuple.PatJets.ak4PFJetsPuppi = cms.PSet(src=cms.InputTag("updatedPatJetsNoJECPuppi"))
+"""
 
 # -- activate KAPPA producers
 
