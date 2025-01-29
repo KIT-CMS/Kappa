@@ -3,6 +3,7 @@
 <use name="rootmath" />
 <use name="boost" />
 <use name="boost_system" />
+<Flags CXXFLAGS="-g -O3 -funroll-loops -ftree-vectorize -fexpensive-optimizations -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -flto"/>
 
 <export>
 	<use name="rootrflx" />
