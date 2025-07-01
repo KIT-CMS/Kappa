@@ -54,9 +54,7 @@ struct KTrack : public KLV
 	/// functions for combinations
 	inline unsigned int nValidHits() const { return nValidPixelHits + nValidStripHits + nValidMuonHits; };
 	inline unsigned int nValidTrackerHits() const { return nValidPixelHits + nValidStripHits; };
-	/// TODO: nTrackerLayers() should be removed/replaced with nTrackerLayersNew
-	/// but this would require a reskim of old samples
-	inline unsigned int nTrackerLayers() const { return nPixelLayers + nStripLayers; };
+	inline unsigned int nTrackerLayers() const { return nTrackerLayersNew; };
 
 	/// quality bitset
 	unsigned char qualityBits; // for soft muID
