@@ -4,7 +4,7 @@ _GT="106X_mc2017_realistic_v9"
 _NEVT=100
 _IS_DATA=false
 _GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
-_FILE="/store/mc/RunIISummer20UL17MiniAODv2/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/40000/0066C701-8B8A-3F42-AB75-9CF2FB14038A.root"
+_FILE="/store/mc/RunIISummer20UL17MiniAODv2/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v2/100000/00827E5C-253F-F942-9751-3F3277340A21.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR

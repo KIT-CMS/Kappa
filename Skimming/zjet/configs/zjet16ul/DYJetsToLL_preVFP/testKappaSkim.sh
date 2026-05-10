@@ -3,8 +3,8 @@
 _GT="106X_mcRun2_asymptotic_preVFP_v11"
 _NEVT=100
 _IS_DATA=false
-_GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
-_FILE="/store/mc/RunIISummer20UL16MiniAODAPVv2/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/120000/008E4139-6019-CE4C-B83C-A849F56F57B3.root"
+_GRID_PATH_PREFIX="file://"
+_FILE="/ceph/cverstege/broken_files_from_tape/store/mc/RunIISummer20UL16MiniAODAPVv2/DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/270000/860A44A5-B525-CB43-B880-DDAACEFEDB84.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR

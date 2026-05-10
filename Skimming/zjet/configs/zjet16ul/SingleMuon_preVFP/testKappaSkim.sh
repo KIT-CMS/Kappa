@@ -1,10 +1,10 @@
 #!/bin/sh
 
-_GT="106X_mc2017_realistic_v9"
+_GT="106X_dataRun2_v37"
 _NEVT=1000
-_IS_DATA=false
+_IS_DATA=true
 _GRID_PATH_PREFIX="root://xrootd-cms.infn.it/"
-_FILE="/store/mc/RunIISummer20UL17MiniAODv2/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/00000/0004BE39-823E-4A4B-9727-C2544050C4C0.root"
+_FILE="/store/data/Run2016C/SingleMuon/MINIAOD/HIPM_UL2016_MiniAODv2_BParking-v1/30000/010F8257-1247-5349-8DAA-EB9D8F8315D5.root"
 _DIR="test/${_GT}"
 
 mkdir -p $_DIR
@@ -13,7 +13,7 @@ echo "##########################################################################
 echo "STARTING cmsRun !!!!"
 echo "##############################################################################"
 
-cmsRun ../kappaSkim_default_cfg.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
+cmsRun ../kappaSkim_default_cfg_preVFP.py inputFiles=${_GRID_PATH_PREFIX}${_FILE} \
                         globalTag=${_GT} \
                         isData=${_IS_DATA} \
                         outputFile=testKappaSkim_out_${_GT}.root \
